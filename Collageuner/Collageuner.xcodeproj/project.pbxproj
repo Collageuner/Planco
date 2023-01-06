@@ -19,6 +19,10 @@
 		58781478296818580074FA56 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 58781477296818580074FA56 /* SnapKit */; };
 		5878147B296818680074FA56 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 5878147A296818680074FA56 /* Then */; };
 		5878147E296818920074FA56 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 5878147D296818920074FA56 /* Lottie */; };
+		5894B2B5296838A700263584 /* ModelOneDeleteIt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5894B2B4296838A700263584 /* ModelOneDeleteIt.swift */; };
+		5894B2B7296838B500263584 /* LogicsOneDeleteIt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5894B2B6296838B500263584 /* LogicsOneDeleteIt.swift */; };
+		5894B2B9296838C100263584 /* ViewOneDeleteIt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5894B2B8296838C100263584 /* ViewOneDeleteIt.swift */; };
+		5894B2BB296838CF00263584 /* ViewModelOneDeleteIt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5894B2BA296838CF00263584 /* ViewModelOneDeleteIt.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +56,10 @@
 		5878146329680BEA0074FA56 /* CollageunerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CollageunerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5878146729680BEA0074FA56 /* CollageunerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageunerUITests.swift; sourceTree = "<group>"; };
 		5878146929680BEA0074FA56 /* CollageunerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageunerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		5894B2B4296838A700263584 /* ModelOneDeleteIt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ModelOneDeleteIt.swift; path = Collageuner/ModelOneDeleteIt.swift; sourceTree = SOURCE_ROOT; };
+		5894B2B6296838B500263584 /* LogicsOneDeleteIt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LogicsOneDeleteIt.swift; path = Collageuner/LogicsOneDeleteIt.swift; sourceTree = SOURCE_ROOT; };
+		5894B2B8296838C100263584 /* ViewOneDeleteIt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewOneDeleteIt.swift; path = Collageuner/ViewOneDeleteIt.swift; sourceTree = SOURCE_ROOT; };
+		5894B2BA296838CF00263584 /* ViewModelOneDeleteIt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewModelOneDeleteIt.swift; path = Collageuner/ViewModelOneDeleteIt.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,40 +100,12 @@
 			path = AppDelegate;
 			sourceTree = "<group>";
 		};
-		5868D82C29683008002E0919 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		5868D82D29683010002E0919 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		5868D82E29683018002E0919 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		5868D82F29683027002E0919 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				5878144729680BE90074FA56 /* ViewController.swift */,
 			);
 			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		5868D8302968305A002E0919 /* Logics */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Logics;
 			sourceTree = "<group>";
 		};
 		5868D831296830F9002E0919 /* Resources */ = {
@@ -170,12 +150,12 @@
 			children = (
 				5868D82B29682FFB002E0919 /* AppDelegate */,
 				5868D83229683128002E0919 /* CoreData */,
-				5868D8302968305A002E0919 /* Logics */,
-				5868D82E29683018002E0919 /* Models */,
+				5894B2B22968388800263584 /* Logics */,
+				5894B2B32968388E00263584 /* Models */,
 				5868D831296830F9002E0919 /* Resources */,
 				5868D82F29683027002E0919 /* ViewControllers */,
-				5868D82D29683010002E0919 /* ViewModels */,
-				5868D82C29683008002E0919 /* Views */,
+				5894B2B02968387600263584 /* ViewModels */,
+				5894B2B12968387D00263584 /* Views */,
 			);
 			path = Collageuner;
 			sourceTree = "<group>";
@@ -195,6 +175,38 @@
 				5878146929680BEA0074FA56 /* CollageunerUITestsLaunchTests.swift */,
 			);
 			path = CollageunerUITests;
+			sourceTree = "<group>";
+		};
+		5894B2B02968387600263584 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				5894B2BA296838CF00263584 /* ViewModelOneDeleteIt.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		5894B2B12968387D00263584 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5894B2B8296838C100263584 /* ViewOneDeleteIt.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5894B2B22968388800263584 /* Logics */ = {
+			isa = PBXGroup;
+			children = (
+				5894B2B6296838B500263584 /* LogicsOneDeleteIt.swift */,
+			);
+			path = Logics;
+			sourceTree = "<group>";
+		};
+		5894B2B32968388E00263584 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5894B2B4296838A700263584 /* ModelOneDeleteIt.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -337,10 +349,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5894B2B9296838C100263584 /* ViewOneDeleteIt.swift in Sources */,
 				5878144829680BE90074FA56 /* ViewController.swift in Sources */,
 				5878144E29680BE90074FA56 /* Collageuner.xcdatamodeld in Sources */,
+				5894B2BB296838CF00263584 /* ViewModelOneDeleteIt.swift in Sources */,
 				5878144429680BE90074FA56 /* AppDelegate.swift in Sources */,
 				5878144629680BE90074FA56 /* SceneDelegate.swift in Sources */,
+				5894B2B5296838A700263584 /* ModelOneDeleteIt.swift in Sources */,
+				5894B2B7296838B500263584 /* LogicsOneDeleteIt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
