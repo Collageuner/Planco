@@ -82,6 +82,69 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5868D82B29682FFB002E0919 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				5878144329680BE90074FA56 /* AppDelegate.swift */,
+				5878144529680BE90074FA56 /* SceneDelegate.swift */,
+				5878145429680BEA0074FA56 /* Info.plist */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		5868D82C29683008002E0919 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5868D82D29683010002E0919 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		5868D82E29683018002E0919 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5868D82F29683027002E0919 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				5878144729680BE90074FA56 /* ViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		5868D8302968305A002E0919 /* Logics */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Logics;
+			sourceTree = "<group>";
+		};
+		5868D831296830F9002E0919 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5878144F29680BEA0074FA56 /* Assets.xcassets */,
+				5878145129680BEA0074FA56 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		5868D83229683128002E0919 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				5878144C29680BE90074FA56 /* Collageuner.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		5878143729680BE90074FA56 = {
 			isa = PBXGroup;
 			children = (
@@ -105,13 +168,14 @@
 		5878144229680BE90074FA56 /* Collageuner */ = {
 			isa = PBXGroup;
 			children = (
-				5878144329680BE90074FA56 /* AppDelegate.swift */,
-				5878144529680BE90074FA56 /* SceneDelegate.swift */,
-				5878144729680BE90074FA56 /* ViewController.swift */,
-				5878144F29680BEA0074FA56 /* Assets.xcassets */,
-				5878145129680BEA0074FA56 /* LaunchScreen.storyboard */,
-				5878145429680BEA0074FA56 /* Info.plist */,
-				5878144C29680BE90074FA56 /* Collageuner.xcdatamodeld */,
+				5868D82B29682FFB002E0919 /* AppDelegate */,
+				5868D83229683128002E0919 /* CoreData */,
+				5868D8302968305A002E0919 /* Logics */,
+				5868D82E29683018002E0919 /* Models */,
+				5868D831296830F9002E0919 /* Resources */,
+				5868D82F29683027002E0919 /* ViewControllers */,
+				5868D82D29683010002E0919 /* ViewModels */,
+				5868D82C29683008002E0919 /* Views */,
 			);
 			path = Collageuner;
 			sourceTree = "<group>";
@@ -447,7 +511,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 98TYR8WM82;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Collageuner/Info.plist;
+				INFOPLIST_FILE = Collageuner/AppDelegate/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -480,7 +544,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 98TYR8WM82;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Collageuner/Info.plist;
+				INFOPLIST_FILE = Collageuner/AppDelegate/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
