@@ -56,10 +56,10 @@
 		5878146329680BEA0074FA56 /* CollageunerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CollageunerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5878146729680BEA0074FA56 /* CollageunerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageunerUITests.swift; sourceTree = "<group>"; };
 		5878146929680BEA0074FA56 /* CollageunerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageunerUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		5894B2B4296838A700263584 /* ModelOneDeleteIt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ModelOneDeleteIt.swift; path = Collageuner/ModelOneDeleteIt.swift; sourceTree = SOURCE_ROOT; };
-		5894B2B6296838B500263584 /* LogicsOneDeleteIt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LogicsOneDeleteIt.swift; path = Collageuner/LogicsOneDeleteIt.swift; sourceTree = SOURCE_ROOT; };
-		5894B2B8296838C100263584 /* ViewOneDeleteIt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewOneDeleteIt.swift; path = Collageuner/ViewOneDeleteIt.swift; sourceTree = SOURCE_ROOT; };
-		5894B2BA296838CF00263584 /* ViewModelOneDeleteIt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewModelOneDeleteIt.swift; path = Collageuner/ViewModelOneDeleteIt.swift; sourceTree = SOURCE_ROOT; };
+		5894B2B4296838A700263584 /* ModelOneDeleteIt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ModelOneDeleteIt.swift; path = Collageuner/Models/ModelOneDeleteIt.swift; sourceTree = SOURCE_ROOT; };
+		5894B2B6296838B500263584 /* LogicsOneDeleteIt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LogicsOneDeleteIt.swift; path = Collageuner/Logics/LogicsOneDeleteIt.swift; sourceTree = SOURCE_ROOT; };
+		5894B2B8296838C100263584 /* ViewOneDeleteIt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewOneDeleteIt.swift; path = Collageuner/Views/ViewOneDeleteIt.swift; sourceTree = SOURCE_ROOT; };
+		5894B2BA296838CF00263584 /* ViewModelOneDeleteIt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewModelOneDeleteIt.swift; path = Collageuner/ViewModels/ViewModelOneDeleteIt.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
