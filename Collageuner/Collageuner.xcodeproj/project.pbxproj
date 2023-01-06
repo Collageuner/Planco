@@ -1,0 +1,697 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5878144429680BE90074FA56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5878144329680BE90074FA56 /* AppDelegate.swift */; };
+		5878144629680BE90074FA56 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5878144529680BE90074FA56 /* SceneDelegate.swift */; };
+		5878144829680BE90074FA56 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5878144729680BE90074FA56 /* ViewController.swift */; };
+		5878144E29680BE90074FA56 /* Collageuner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5878144C29680BE90074FA56 /* Collageuner.xcdatamodeld */; };
+		5878145029680BEA0074FA56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5878144F29680BEA0074FA56 /* Assets.xcassets */; };
+		5878145329680BEA0074FA56 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5878145129680BEA0074FA56 /* LaunchScreen.storyboard */; };
+		5878145E29680BEA0074FA56 /* CollageunerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5878145D29680BEA0074FA56 /* CollageunerTests.swift */; };
+		5878146829680BEA0074FA56 /* CollageunerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5878146729680BEA0074FA56 /* CollageunerUITests.swift */; };
+		5878146A29680BEA0074FA56 /* CollageunerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5878146929680BEA0074FA56 /* CollageunerUITestsLaunchTests.swift */; };
+		58781478296818580074FA56 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 58781477296818580074FA56 /* SnapKit */; };
+		5878147B296818680074FA56 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 5878147A296818680074FA56 /* Then */; };
+		5878147E296818920074FA56 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 5878147D296818920074FA56 /* Lottie */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5878145A29680BEA0074FA56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5878143829680BE90074FA56 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5878143F29680BE90074FA56;
+			remoteInfo = Collageuner;
+		};
+		5878146429680BEA0074FA56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5878143829680BE90074FA56 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5878143F29680BE90074FA56;
+			remoteInfo = Collageuner;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		5878144029680BE90074FA56 /* Collageuner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Collageuner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5878144329680BE90074FA56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5878144529680BE90074FA56 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		5878144729680BE90074FA56 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5878144D29680BE90074FA56 /* Collageuner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Collageuner.xcdatamodel; sourceTree = "<group>"; };
+		5878144F29680BEA0074FA56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5878145229680BEA0074FA56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5878145429680BEA0074FA56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5878145929680BEA0074FA56 /* CollageunerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CollageunerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5878145D29680BEA0074FA56 /* CollageunerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageunerTests.swift; sourceTree = "<group>"; };
+		5878146329680BEA0074FA56 /* CollageunerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CollageunerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5878146729680BEA0074FA56 /* CollageunerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageunerUITests.swift; sourceTree = "<group>"; };
+		5878146929680BEA0074FA56 /* CollageunerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageunerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5878143D29680BE90074FA56 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				58781478296818580074FA56 /* SnapKit in Frameworks */,
+				5878147B296818680074FA56 /* Then in Frameworks */,
+				5878147E296818920074FA56 /* Lottie in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5878145629680BEA0074FA56 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5878146029680BEA0074FA56 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5878143729680BE90074FA56 = {
+			isa = PBXGroup;
+			children = (
+				5878144229680BE90074FA56 /* Collageuner */,
+				5878145C29680BEA0074FA56 /* CollageunerTests */,
+				5878146629680BEA0074FA56 /* CollageunerUITests */,
+				5878144129680BE90074FA56 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5878144129680BE90074FA56 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5878144029680BE90074FA56 /* Collageuner.app */,
+				5878145929680BEA0074FA56 /* CollageunerTests.xctest */,
+				5878146329680BEA0074FA56 /* CollageunerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5878144229680BE90074FA56 /* Collageuner */ = {
+			isa = PBXGroup;
+			children = (
+				5878144329680BE90074FA56 /* AppDelegate.swift */,
+				5878144529680BE90074FA56 /* SceneDelegate.swift */,
+				5878144729680BE90074FA56 /* ViewController.swift */,
+				5878144F29680BEA0074FA56 /* Assets.xcassets */,
+				5878145129680BEA0074FA56 /* LaunchScreen.storyboard */,
+				5878145429680BEA0074FA56 /* Info.plist */,
+				5878144C29680BE90074FA56 /* Collageuner.xcdatamodeld */,
+			);
+			path = Collageuner;
+			sourceTree = "<group>";
+		};
+		5878145C29680BEA0074FA56 /* CollageunerTests */ = {
+			isa = PBXGroup;
+			children = (
+				5878145D29680BEA0074FA56 /* CollageunerTests.swift */,
+			);
+			path = CollageunerTests;
+			sourceTree = "<group>";
+		};
+		5878146629680BEA0074FA56 /* CollageunerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				5878146729680BEA0074FA56 /* CollageunerUITests.swift */,
+				5878146929680BEA0074FA56 /* CollageunerUITestsLaunchTests.swift */,
+			);
+			path = CollageunerUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5878143F29680BE90074FA56 /* Collageuner */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5878146D29680BEA0074FA56 /* Build configuration list for PBXNativeTarget "Collageuner" */;
+			buildPhases = (
+				5878143C29680BE90074FA56 /* Sources */,
+				5878143D29680BE90074FA56 /* Frameworks */,
+				5878143E29680BE90074FA56 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Collageuner;
+			packageProductDependencies = (
+				58781477296818580074FA56 /* SnapKit */,
+				5878147A296818680074FA56 /* Then */,
+				5878147D296818920074FA56 /* Lottie */,
+			);
+			productName = Collageuner;
+			productReference = 5878144029680BE90074FA56 /* Collageuner.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5878145829680BEA0074FA56 /* CollageunerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5878147029680BEA0074FA56 /* Build configuration list for PBXNativeTarget "CollageunerTests" */;
+			buildPhases = (
+				5878145529680BEA0074FA56 /* Sources */,
+				5878145629680BEA0074FA56 /* Frameworks */,
+				5878145729680BEA0074FA56 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5878145B29680BEA0074FA56 /* PBXTargetDependency */,
+			);
+			name = CollageunerTests;
+			productName = CollageunerTests;
+			productReference = 5878145929680BEA0074FA56 /* CollageunerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5878146229680BEA0074FA56 /* CollageunerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5878147329680BEA0074FA56 /* Build configuration list for PBXNativeTarget "CollageunerUITests" */;
+			buildPhases = (
+				5878145F29680BEA0074FA56 /* Sources */,
+				5878146029680BEA0074FA56 /* Frameworks */,
+				5878146129680BEA0074FA56 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5878146529680BEA0074FA56 /* PBXTargetDependency */,
+			);
+			name = CollageunerUITests;
+			productName = CollageunerUITests;
+			productReference = 5878146329680BEA0074FA56 /* CollageunerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5878143829680BE90074FA56 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					5878143F29680BE90074FA56 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					5878145829680BEA0074FA56 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 5878143F29680BE90074FA56;
+					};
+					5878146229680BEA0074FA56 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 5878143F29680BE90074FA56;
+					};
+				};
+			};
+			buildConfigurationList = 5878143B29680BE90074FA56 /* Build configuration list for PBXProject "Collageuner" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5878143729680BE90074FA56;
+			packageReferences = (
+				58781476296818580074FA56 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				58781479296818680074FA56 /* XCRemoteSwiftPackageReference "Then" */,
+				5878147C296818920074FA56 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
+			productRefGroup = 5878144129680BE90074FA56 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5878143F29680BE90074FA56 /* Collageuner */,
+				5878145829680BEA0074FA56 /* CollageunerTests */,
+				5878146229680BEA0074FA56 /* CollageunerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5878143E29680BE90074FA56 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5878145329680BEA0074FA56 /* LaunchScreen.storyboard in Resources */,
+				5878145029680BEA0074FA56 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5878145729680BEA0074FA56 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5878146129680BEA0074FA56 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5878143C29680BE90074FA56 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5878144829680BE90074FA56 /* ViewController.swift in Sources */,
+				5878144E29680BE90074FA56 /* Collageuner.xcdatamodeld in Sources */,
+				5878144429680BE90074FA56 /* AppDelegate.swift in Sources */,
+				5878144629680BE90074FA56 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5878145529680BEA0074FA56 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5878145E29680BEA0074FA56 /* CollageunerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5878145F29680BEA0074FA56 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5878146A29680BEA0074FA56 /* CollageunerUITestsLaunchTests.swift in Sources */,
+				5878146829680BEA0074FA56 /* CollageunerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5878145B29680BEA0074FA56 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5878143F29680BE90074FA56 /* Collageuner */;
+			targetProxy = 5878145A29680BEA0074FA56 /* PBXContainerItemProxy */;
+		};
+		5878146529680BEA0074FA56 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5878143F29680BE90074FA56 /* Collageuner */;
+			targetProxy = 5878146429680BEA0074FA56 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		5878145129680BEA0074FA56 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5878145229680BEA0074FA56 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5878146B29680BEA0074FA56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5878146C29680BEA0074FA56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5878146E29680BEA0074FA56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 98TYR8WM82;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Collageuner/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.KyuboShim.Collageuner;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5878146F29680BEA0074FA56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 98TYR8WM82;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Collageuner/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.KyuboShim.Collageuner;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		5878147129680BEA0074FA56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 98TYR8WM82;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.KyuboShim.CollageunerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Collageuner.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Collageuner";
+			};
+			name = Debug;
+		};
+		5878147229680BEA0074FA56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 98TYR8WM82;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.KyuboShim.CollageunerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Collageuner.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Collageuner";
+			};
+			name = Release;
+		};
+		5878147429680BEA0074FA56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 98TYR8WM82;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.KyuboShim.CollageunerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Collageuner;
+			};
+			name = Debug;
+		};
+		5878147529680BEA0074FA56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 98TYR8WM82;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.KyuboShim.CollageunerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Collageuner;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5878143B29680BE90074FA56 /* Build configuration list for PBXProject "Collageuner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5878146B29680BEA0074FA56 /* Debug */,
+				5878146C29680BEA0074FA56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5878146D29680BEA0074FA56 /* Build configuration list for PBXNativeTarget "Collageuner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5878146E29680BEA0074FA56 /* Debug */,
+				5878146F29680BEA0074FA56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5878147029680BEA0074FA56 /* Build configuration list for PBXNativeTarget "CollageunerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5878147129680BEA0074FA56 /* Debug */,
+				5878147229680BEA0074FA56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5878147329680BEA0074FA56 /* Build configuration list for PBXNativeTarget "CollageunerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5878147429680BEA0074FA56 /* Debug */,
+				5878147529680BEA0074FA56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		58781476296818580074FA56 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		58781479296818680074FA56 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		5878147C296818920074FA56 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		58781477296818580074FA56 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 58781476296818580074FA56 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		5878147A296818680074FA56 /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 58781479296818680074FA56 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+		5878147D296818920074FA56 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5878147C296818920074FA56 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		5878144C29680BE90074FA56 /* Collageuner.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5878144D29680BE90074FA56 /* Collageuner.xcdatamodel */,
+			);
+			currentVersion = 5878144D29680BE90074FA56 /* Collageuner.xcdatamodel */;
+			path = Collageuner.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 5878143829680BE90074FA56 /* Project object */;
+}
