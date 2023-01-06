@@ -1,0 +1,36 @@
+name: Fix Template
+description: Fix 또는 Hotfix 사항이 있을 때 사용하는 템플릿
+title: "[Fix]: Fix 이슈 제목"
+labels: ["Fix"]
+
+body:
+  - type: input
+    id: related-bug
+    attributes:
+      label: 🤝 Related Bug(Optaional)
+      description: 관련된 버그 이슈
+      placeholder: "ex. #32, #23"
+    validations:
+      required: false
+  - type: textarea
+    id: before-fix
+    attributes:
+      label: 🙅 Current State
+      description: Fix 전(현재) 내용
+      placeholder: "닉네임 설정 시, 공백을 Submit하면 아무런 반응 없음"
+    validations:
+      required: true
+  - type: input
+    id: expected-period
+    attributes:
+      label: 💁 예상 작업 기간
+      placeholder: ~ MM/DD(E) ex. ~ 07/12(화)
+    validations:
+      required: true
+  - type: input
+    id: real-period
+    attributes:
+      label: 🙋 실제 작업 기간(PR 작성 직전에 수정)
+      placeholder: ~ MM/DD(E) ex. ~ 07/12(화)
+    validations:
+      required: false
