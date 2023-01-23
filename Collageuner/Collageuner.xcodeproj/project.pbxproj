@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		58396695297E367300B63E52 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58396694297E367300B63E52 /* String+Extensions.swift */; };
+		58396697297E386400B63E52 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58396696297E386400B63E52 /* UIFont+Extension.swift */; };
+		5839669B297E398A00B63E52 /* EBGaramond-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 58396699297E398A00B63E52 /* EBGaramond-Italic-VariableFont_wght.ttf */; };
+		5839669C297E398A00B63E52 /* EBGaramond-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 58396699297E398A00B63E52 /* EBGaramond-Italic-VariableFont_wght.ttf */; };
+		5839669D297E398A00B63E52 /* EBGaramond-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 58396699297E398A00B63E52 /* EBGaramond-Italic-VariableFont_wght.ttf */; };
+		5839669E297E398A00B63E52 /* EBGaramond-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5839669A297E398A00B63E52 /* EBGaramond-VariableFont_wght.ttf */; };
+		5839669F297E398A00B63E52 /* EBGaramond-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5839669A297E398A00B63E52 /* EBGaramond-VariableFont_wght.ttf */; };
+		583966A0297E398A00B63E52 /* EBGaramond-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5839669A297E398A00B63E52 /* EBGaramond-VariableFont_wght.ttf */; };
+		583966A2297E401800B63E52 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583966A1297E401800B63E52 /* UIView+Extensions.swift */; };
+		583966A3297E401800B63E52 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583966A1297E401800B63E52 /* UIView+Extensions.swift */; };
+		583966A4297E401800B63E52 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583966A1297E401800B63E52 /* UIView+Extensions.swift */; };
 		5878144429680BE90074FA56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5878144329680BE90074FA56 /* AppDelegate.swift */; };
 		5878144629680BE90074FA56 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5878144529680BE90074FA56 /* SceneDelegate.swift */; };
 		5878144829680BE90074FA56 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5878144729680BE90074FA56 /* ViewController.swift */; };
@@ -43,6 +54,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		58396694297E367300B63E52 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		58396696297E386400B63E52 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		58396699297E398A00B63E52 /* EBGaramond-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "EBGaramond-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		5839669A297E398A00B63E52 /* EBGaramond-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "EBGaramond-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		583966A1297E401800B63E52 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		5878144029680BE90074FA56 /* Collageuner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Collageuner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5878144329680BE90074FA56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5878144529680BE90074FA56 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +106,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		58396693297E364800B63E52 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				58396694297E367300B63E52 /* String+Extensions.swift */,
+				58396696297E386400B63E52 /* UIFont+Extension.swift */,
+				583966A1297E401800B63E52 /* UIView+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		58396698297E395000B63E52 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				58396699297E398A00B63E52 /* EBGaramond-Italic-VariableFont_wght.ttf */,
+				5839669A297E398A00B63E52 /* EBGaramond-VariableFont_wght.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		5868D82B29682FFB002E0919 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +146,7 @@
 		5868D831296830F9002E0919 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				58396698297E395000B63E52 /* Fonts */,
 				5878144F29680BEA0074FA56 /* Assets.xcassets */,
 				5878145129680BEA0074FA56 /* LaunchScreen.storyboard */,
 			);
@@ -150,6 +186,7 @@
 			children = (
 				5868D82B29682FFB002E0919 /* AppDelegate */,
 				5868D83229683128002E0919 /* CoreData */,
+				58396693297E364800B63E52 /* Extensions */,
 				5894B2B22968388800263584 /* Logics */,
 				5894B2B32968388E00263584 /* Models */,
 				5868D831296830F9002E0919 /* Resources */,
@@ -324,6 +361,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5878145329680BEA0074FA56 /* LaunchScreen.storyboard in Resources */,
+				5839669B297E398A00B63E52 /* EBGaramond-Italic-VariableFont_wght.ttf in Resources */,
+				5839669E297E398A00B63E52 /* EBGaramond-VariableFont_wght.ttf in Resources */,
 				5878145029680BEA0074FA56 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -332,6 +371,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5839669F297E398A00B63E52 /* EBGaramond-VariableFont_wght.ttf in Resources */,
+				5839669C297E398A00B63E52 /* EBGaramond-Italic-VariableFont_wght.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +380,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				583966A0297E398A00B63E52 /* EBGaramond-VariableFont_wght.ttf in Resources */,
+				5839669D297E398A00B63E52 /* EBGaramond-Italic-VariableFont_wght.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,10 +396,13 @@
 				5878144829680BE90074FA56 /* ViewController.swift in Sources */,
 				5878144E29680BE90074FA56 /* Collageuner.xcdatamodeld in Sources */,
 				5894B2BB296838CF00263584 /* ViewModelOneDeleteIt.swift in Sources */,
+				58396695297E367300B63E52 /* String+Extensions.swift in Sources */,
 				5878144429680BE90074FA56 /* AppDelegate.swift in Sources */,
 				5878144629680BE90074FA56 /* SceneDelegate.swift in Sources */,
 				5894B2B5296838A700263584 /* ModelOneDeleteIt.swift in Sources */,
+				58396697297E386400B63E52 /* UIFont+Extension.swift in Sources */,
 				5894B2B7296838B500263584 /* LogicsOneDeleteIt.swift in Sources */,
+				583966A2297E401800B63E52 /* UIView+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +410,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				583966A3297E401800B63E52 /* UIView+Extensions.swift in Sources */,
 				5878145E29680BEA0074FA56 /* CollageunerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -372,6 +419,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				583966A4297E401800B63E52 /* UIView+Extensions.swift in Sources */,
 				5878146A29680BEA0074FA56 /* CollageunerUITestsLaunchTests.swift in Sources */,
 				5878146829680BEA0074FA56 /* CollageunerUITests.swift in Sources */,
 			);
