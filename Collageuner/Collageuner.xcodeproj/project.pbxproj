@@ -21,9 +21,15 @@
 		583966A6297E4E9100B63E52 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583966A5297E4E9100B63E52 /* UIColor+Extensions.swift */; };
 		583966A7297E4E9100B63E52 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583966A5297E4E9100B63E52 /* UIColor+Extensions.swift */; };
 		583966A8297E4E9100B63E52 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583966A5297E4E9100B63E52 /* UIColor+Extensions.swift */; };
+		583966B4297E5BCA00B63E52 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 583966B3297E5BCA00B63E52 /* RxCocoa */; };
+		583966B6297E5BCA00B63E52 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 583966B5297E5BCA00B63E52 /* RxRelay */; };
+		583966B8297E5BCA00B63E52 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 583966B7297E5BCA00B63E52 /* RxSwift */; };
+		583966BB297E612B00B63E52 /* PlansStoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583966BA297E612B00B63E52 /* PlansStoryCollectionViewCell.swift */; };
+		583966BC297E612B00B63E52 /* PlansStoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583966BA297E612B00B63E52 /* PlansStoryCollectionViewCell.swift */; };
+		583966BD297E612B00B63E52 /* PlansStoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583966BA297E612B00B63E52 /* PlansStoryCollectionViewCell.swift */; };
 		5878144429680BE90074FA56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5878144329680BE90074FA56 /* AppDelegate.swift */; };
 		5878144629680BE90074FA56 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5878144529680BE90074FA56 /* SceneDelegate.swift */; };
-		5878144829680BE90074FA56 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5878144729680BE90074FA56 /* ViewController.swift */; };
+		5878144829680BE90074FA56 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5878144729680BE90074FA56 /* HomeViewController.swift */; };
 		5878144E29680BE90074FA56 /* Collageuner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5878144C29680BE90074FA56 /* Collageuner.xcdatamodeld */; };
 		5878145029680BEA0074FA56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5878144F29680BEA0074FA56 /* Assets.xcassets */; };
 		5878145329680BEA0074FA56 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5878145129680BEA0074FA56 /* LaunchScreen.storyboard */; };
@@ -63,10 +69,11 @@
 		5839669A297E398A00B63E52 /* EBGaramond-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "EBGaramond-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		583966A1297E401800B63E52 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		583966A5297E4E9100B63E52 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		583966BA297E612B00B63E52 /* PlansStoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansStoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		5878144029680BE90074FA56 /* Collageuner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Collageuner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5878144329680BE90074FA56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5878144529680BE90074FA56 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		5878144729680BE90074FA56 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5878144729680BE90074FA56 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5878144D29680BE90074FA56 /* Collageuner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Collageuner.xcdatamodel; sourceTree = "<group>"; };
 		5878144F29680BEA0074FA56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5878145229680BEA0074FA56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -87,8 +94,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				583966B8297E5BCA00B63E52 /* RxSwift in Frameworks */,
+				583966B6297E5BCA00B63E52 /* RxRelay in Frameworks */,
 				58781478296818580074FA56 /* SnapKit in Frameworks */,
 				5878147B296818680074FA56 /* Then in Frameworks */,
+				583966B4297E5BCA00B63E52 /* RxCocoa in Frameworks */,
 				5878147E296818920074FA56 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -130,6 +140,14 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		583966B9297E5FBF00B63E52 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				583966BA297E612B00B63E52 /* PlansStoryCollectionViewCell.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		5868D82B29682FFB002E0919 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -143,7 +161,7 @@
 		5868D82F29683027002E0919 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				5878144729680BE90074FA56 /* ViewController.swift */,
+				5878144729680BE90074FA56 /* HomeViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -230,6 +248,7 @@
 		5894B2B12968387D00263584 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				583966B9297E5FBF00B63E52 /* Home */,
 				5894B2B8296838C100263584 /* ViewOneDeleteIt.swift */,
 			);
 			path = Views;
@@ -271,6 +290,9 @@
 				58781477296818580074FA56 /* SnapKit */,
 				5878147A296818680074FA56 /* Then */,
 				5878147D296818920074FA56 /* Lottie */,
+				583966B3297E5BCA00B63E52 /* RxCocoa */,
+				583966B5297E5BCA00B63E52 /* RxRelay */,
+				583966B7297E5BCA00B63E52 /* RxSwift */,
 			);
 			productName = Collageuner;
 			productReference = 5878144029680BE90074FA56 /* Collageuner.app */;
@@ -348,6 +370,7 @@
 				58781476296818580074FA56 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				58781479296818680074FA56 /* XCRemoteSwiftPackageReference "Then" */,
 				5878147C296818920074FA56 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				583966B2297E5BCA00B63E52 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 5878144129680BE90074FA56 /* Products */;
 			projectDirPath = "";
@@ -398,7 +421,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5894B2B9296838C100263584 /* ViewOneDeleteIt.swift in Sources */,
-				5878144829680BE90074FA56 /* ViewController.swift in Sources */,
+				5878144829680BE90074FA56 /* HomeViewController.swift in Sources */,
 				5878144E29680BE90074FA56 /* Collageuner.xcdatamodeld in Sources */,
 				5894B2BB296838CF00263584 /* ViewModelOneDeleteIt.swift in Sources */,
 				58396695297E367300B63E52 /* String+Extensions.swift in Sources */,
@@ -409,6 +432,7 @@
 				58396697297E386400B63E52 /* UIFont+Extensions.swift in Sources */,
 				5894B2B7296838B500263584 /* LogicsOneDeleteIt.swift in Sources */,
 				583966A2297E401800B63E52 /* UIView+Extensions.swift in Sources */,
+				583966BB297E612B00B63E52 /* PlansStoryCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +443,7 @@
 				583966A3297E401800B63E52 /* UIView+Extensions.swift in Sources */,
 				583966A7297E4E9100B63E52 /* UIColor+Extensions.swift in Sources */,
 				5878145E29680BEA0074FA56 /* CollageunerTests.swift in Sources */,
+				583966BC297E612B00B63E52 /* PlansStoryCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,6 +453,7 @@
 			files = (
 				583966A4297E401800B63E52 /* UIView+Extensions.swift in Sources */,
 				5878146A29680BEA0074FA56 /* CollageunerUITestsLaunchTests.swift in Sources */,
+				583966BD297E612B00B63E52 /* PlansStoryCollectionViewCell.swift in Sources */,
 				5878146829680BEA0074FA56 /* CollageunerUITests.swift in Sources */,
 				583966A8297E4E9100B63E52 /* UIColor+Extensions.swift in Sources */,
 			);
@@ -772,6 +798,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		583966B2297E5BCA00B63E52 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 		58781476296818580074FA56 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -799,6 +833,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		583966B3297E5BCA00B63E52 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 583966B2297E5BCA00B63E52 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		583966B5297E5BCA00B63E52 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 583966B2297E5BCA00B63E52 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		583966B7297E5BCA00B63E52 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 583966B2297E5BCA00B63E52 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
 		58781477296818580074FA56 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 58781476296818580074FA56 /* XCRemoteSwiftPackageReference "SnapKit" */;
