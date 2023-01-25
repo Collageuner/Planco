@@ -11,6 +11,8 @@ import RxCocoa
 import SnapKit
 import Then
 
+/// 할것 -> enum 으로 내부 Constraints length 한번에 정리해두기!
+
 final class HomeViewController: UIViewController {
     
     private let disposeBag = DisposeBag()

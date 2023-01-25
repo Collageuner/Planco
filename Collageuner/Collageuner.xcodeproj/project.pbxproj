@@ -39,10 +39,12 @@
 		58781478296818580074FA56 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 58781477296818580074FA56 /* SnapKit */; };
 		5878147B296818680074FA56 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 5878147A296818680074FA56 /* Then */; };
 		5878147E296818920074FA56 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 5878147D296818920074FA56 /* Lottie */; };
-		5894B2B5296838A700263584 /* ModelOneDeleteIt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5894B2B4296838A700263584 /* ModelOneDeleteIt.swift */; };
 		5894B2B7296838B500263584 /* LogicsOneDeleteIt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5894B2B6296838B500263584 /* LogicsOneDeleteIt.swift */; };
-		5894B2B9296838C100263584 /* ViewOneDeleteIt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5894B2B8296838C100263584 /* ViewOneDeleteIt.swift */; };
-		5894B2BB296838CF00263584 /* ViewModelOneDeleteIt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5894B2BA296838CF00263584 /* ViewModelOneDeleteIt.swift */; };
+		58AF77092980FBAF00A46B3D /* GardenImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF77082980FBAF00A46B3D /* GardenImage.swift */; };
+		58AF770C298102C500A46B3D /* Tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF770B298102C500A46B3D /* Tasks.swift */; };
+		58AF770E2981054A00A46B3D /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF770D2981054A00A46B3D /* Profile.swift */; };
+		58AF771129810B4F00A46B3D /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF771029810B4F00A46B3D /* Time.swift */; };
+		58AF77132981115E00A46B3D /* TimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF77122981115E00A46B3D /* TimeViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,10 +85,12 @@
 		5878146329680BEA0074FA56 /* CollageunerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CollageunerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5878146729680BEA0074FA56 /* CollageunerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageunerUITests.swift; sourceTree = "<group>"; };
 		5878146929680BEA0074FA56 /* CollageunerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageunerUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		5894B2B4296838A700263584 /* ModelOneDeleteIt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ModelOneDeleteIt.swift; path = Collageuner/Models/ModelOneDeleteIt.swift; sourceTree = SOURCE_ROOT; };
 		5894B2B6296838B500263584 /* LogicsOneDeleteIt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LogicsOneDeleteIt.swift; path = Collageuner/Logics/LogicsOneDeleteIt.swift; sourceTree = SOURCE_ROOT; };
-		5894B2B8296838C100263584 /* ViewOneDeleteIt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewOneDeleteIt.swift; path = Collageuner/Views/ViewOneDeleteIt.swift; sourceTree = SOURCE_ROOT; };
-		5894B2BA296838CF00263584 /* ViewModelOneDeleteIt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewModelOneDeleteIt.swift; path = Collageuner/ViewModels/ViewModelOneDeleteIt.swift; sourceTree = SOURCE_ROOT; };
+		58AF77082980FBAF00A46B3D /* GardenImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardenImage.swift; sourceTree = "<group>"; };
+		58AF770B298102C500A46B3D /* Tasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tasks.swift; sourceTree = "<group>"; };
+		58AF770D2981054A00A46B3D /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		58AF771029810B4F00A46B3D /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
+		58AF77122981115E00A46B3D /* TimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,7 +165,7 @@
 		5868D82F29683027002E0919 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				5878144729680BE90074FA56 /* HomeViewController.swift */,
+				58AF770A2981023600A46B3D /* Home */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -209,10 +213,10 @@
 			children = (
 				5868D82B29682FFB002E0919 /* AppDelegate */,
 				5868D83229683128002E0919 /* CoreData */,
+				5868D831296830F9002E0919 /* Resources */,
 				58396693297E364800B63E52 /* Extensions */,
 				5894B2B22968388800263584 /* Logics */,
 				5894B2B32968388E00263584 /* Models */,
-				5868D831296830F9002E0919 /* Resources */,
 				5868D82F29683027002E0919 /* ViewControllers */,
 				5894B2B02968387600263584 /* ViewModels */,
 				5894B2B12968387D00263584 /* Views */,
@@ -240,7 +244,7 @@
 		5894B2B02968387600263584 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				5894B2BA296838CF00263584 /* ViewModelOneDeleteIt.swift */,
+				58AF77122981115E00A46B3D /* TimeViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -249,7 +253,6 @@
 			isa = PBXGroup;
 			children = (
 				583966B9297E5FBF00B63E52 /* Home */,
-				5894B2B8296838C100263584 /* ViewOneDeleteIt.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -265,9 +268,20 @@
 		5894B2B32968388E00263584 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				5894B2B4296838A700263584 /* ModelOneDeleteIt.swift */,
+				58AF77082980FBAF00A46B3D /* GardenImage.swift */,
+				58AF771029810B4F00A46B3D /* Time.swift */,
+				58AF770D2981054A00A46B3D /* Profile.swift */,
+				58AF770B298102C500A46B3D /* Tasks.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		58AF770A2981023600A46B3D /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				5878144729680BE90074FA56 /* HomeViewController.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -420,18 +434,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5894B2B9296838C100263584 /* ViewOneDeleteIt.swift in Sources */,
 				5878144829680BE90074FA56 /* HomeViewController.swift in Sources */,
 				5878144E29680BE90074FA56 /* Collageuner.xcdatamodeld in Sources */,
-				5894B2BB296838CF00263584 /* ViewModelOneDeleteIt.swift in Sources */,
+				58AF770E2981054A00A46B3D /* Profile.swift in Sources */,
 				58396695297E367300B63E52 /* String+Extensions.swift in Sources */,
 				5878144429680BE90074FA56 /* AppDelegate.swift in Sources */,
 				5878144629680BE90074FA56 /* SceneDelegate.swift in Sources */,
 				583966A6297E4E9100B63E52 /* UIColor+Extensions.swift in Sources */,
-				5894B2B5296838A700263584 /* ModelOneDeleteIt.swift in Sources */,
+				58AF771129810B4F00A46B3D /* Time.swift in Sources */,
+				58AF77132981115E00A46B3D /* TimeViewModel.swift in Sources */,
 				58396697297E386400B63E52 /* UIFont+Extensions.swift in Sources */,
 				5894B2B7296838B500263584 /* LogicsOneDeleteIt.swift in Sources */,
 				583966A2297E401800B63E52 /* UIView+Extensions.swift in Sources */,
+				58AF770C298102C500A46B3D /* Tasks.swift in Sources */,
+				58AF77092980FBAF00A46B3D /* GardenImage.swift in Sources */,
 				583966BB297E612B00B63E52 /* PlansStoryCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
