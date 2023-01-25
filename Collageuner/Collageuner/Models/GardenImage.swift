@@ -13,9 +13,9 @@ class GardenImage {
     var gardenThumbnailImage: UIImage?
     var month: Int
     var year: Int
-    var gardenBackgroundColor: UIColor? = UIColor.Background
+    var gardenBackgroundColor: UIColor = UIColor.Background
     
-    init(gardenUUID: String, currentGardenImage: UIImage? = nil, gardenThumbnailImage: UIImage? = nil, month: Int, year: Int, gardenBackgroundColor: UIColor? = nil) {
+    init(gardenUUID: String, currentGardenImage: UIImage? = nil, gardenThumbnailImage: UIImage? = nil, month: Int, year: Int, gardenBackgroundColor: UIColor = UIColor.white) {
         self.gardenUUID = gardenUUID
         self.currentGardenImage = currentGardenImage
         self.gardenThumbnailImage = gardenThumbnailImage
