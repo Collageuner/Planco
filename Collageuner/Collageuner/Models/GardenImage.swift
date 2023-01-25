@@ -7,9 +7,20 @@
 
 import UIKit
 
-struct GardenImage {
+class GardenImage {
     var gardenUUID: String
     var currentGardenImage: UIImage? // 현재의 빈 캔버스에서 시작.
+    var gardenThumbnailImage: UIImage?
     var month: Int
     var year: Int
+    var gardenBackgroundColor: UIColor? = UIColor.Background
+    
+    init(gardenUUID: String, currentGardenImage: UIImage? = nil, gardenThumbnailImage: UIImage? = nil, month: Int, year: Int, gardenBackgroundColor: UIColor? = nil) {
+        self.gardenUUID = gardenUUID
+        self.currentGardenImage = currentGardenImage
+        self.gardenThumbnailImage = gardenThumbnailImage
+        self.month = month
+        self.year = year
+        self.gardenBackgroundColor = gardenBackgroundColor
+    }
 }

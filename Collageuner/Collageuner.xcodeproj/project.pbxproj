@@ -43,7 +43,7 @@
 		58AF77092980FBAF00A46B3D /* GardenImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF77082980FBAF00A46B3D /* GardenImage.swift */; };
 		58AF770C298102C500A46B3D /* Tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF770B298102C500A46B3D /* Tasks.swift */; };
 		58AF770E2981054A00A46B3D /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF770D2981054A00A46B3D /* Profile.swift */; };
-		58AF771129810B4F00A46B3D /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF771029810B4F00A46B3D /* Time.swift */; };
+		58AF771129810B4F00A46B3D /* TimeString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF771029810B4F00A46B3D /* TimeString.swift */; };
 		58AF77132981115E00A46B3D /* TimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF77122981115E00A46B3D /* TimeViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -89,7 +89,7 @@
 		58AF77082980FBAF00A46B3D /* GardenImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardenImage.swift; sourceTree = "<group>"; };
 		58AF770B298102C500A46B3D /* Tasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tasks.swift; sourceTree = "<group>"; };
 		58AF770D2981054A00A46B3D /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
-		58AF771029810B4F00A46B3D /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
+		58AF771029810B4F00A46B3D /* TimeString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeString.swift; sourceTree = "<group>"; };
 		58AF77122981115E00A46B3D /* TimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -269,7 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				58AF77082980FBAF00A46B3D /* GardenImage.swift */,
-				58AF771029810B4F00A46B3D /* Time.swift */,
+				58AF771029810B4F00A46B3D /* TimeString.swift */,
 				58AF770D2981054A00A46B3D /* Profile.swift */,
 				58AF770B298102C500A46B3D /* Tasks.swift */,
 			);
@@ -441,7 +441,7 @@
 				5878144429680BE90074FA56 /* AppDelegate.swift in Sources */,
 				5878144629680BE90074FA56 /* SceneDelegate.swift in Sources */,
 				583966A6297E4E9100B63E52 /* UIColor+Extensions.swift in Sources */,
-				58AF771129810B4F00A46B3D /* Time.swift in Sources */,
+				58AF771129810B4F00A46B3D /* TimeString.swift in Sources */,
 				58AF77132981115E00A46B3D /* TimeViewModel.swift in Sources */,
 				58396697297E386400B63E52 /* UIFont+Extensions.swift in Sources */,
 				5894B2B7296838B500263584 /* LogicsOneDeleteIt.swift in Sources */,

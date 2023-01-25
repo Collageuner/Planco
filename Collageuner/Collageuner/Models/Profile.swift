@@ -7,8 +7,12 @@
 
 import UIKit
 
-struct Profile {
+class Profile {
     let userUUID: String
     var userProfileImage: UIImage
     /// Other variables are TBD.
+    init(userUUID: String, userProfileImage: UIImage) {
+        self.userUUID = userUUID
+        self.userProfileImage = userProfileImage
+    }
 }
