@@ -16,7 +16,7 @@ import Then
 
 final class HomeViewController: UIViewController {
     
-    private let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
     
     private let currentMonthLabel = UILabel().then {
         $0.textColor = .MainText
