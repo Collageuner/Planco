@@ -24,4 +24,7 @@ extension UIView {
         // self.drawHierarchy(in: self.bounds, afterScreenUpdates: true) 를 쓰다가 안됐는데 이걸 쓰니깐 잘 된다. drawHierarchy 를 검색해보자.
     }
     
+    /*
+     To change the sequence of subviews in a parent view in Swift, you can use the insertSubview(_:at:), exchangeSubview(at:withSubviewAt:), bringSubviewToFront(_:), and sendSubviewToBack(_:) methods provided by the UIView class.
+     */
 }

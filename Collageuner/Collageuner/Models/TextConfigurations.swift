@@ -7,6 +7,8 @@
 
 import UIKit
 
+import RealmSwift
+
 class TextConfiguration {
     var textsAdded: [String]?
     var currentFont: String

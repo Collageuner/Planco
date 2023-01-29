@@ -7,6 +7,7 @@
 
 import UIKit
 
+import RealmSwift
 import RxSwift
 import RxCocoa
 import SnapKit
@@ -17,6 +18,7 @@ import Then
 final class HomeViewController: UIViewController {
     
     var disposeBag = DisposeBag()
+    var kkk = ".Background"
     
     private let currentMonthLabel = UILabel().then {
         $0.textColor = .MainText

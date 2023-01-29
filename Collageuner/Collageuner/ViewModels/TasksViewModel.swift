@@ -7,5 +7,10 @@
 
 import UIKit
 
+import RealmSwift
 import RxCocoa
 import RxSwift
+
+class TasksViewModel {
+//    private var tasks:
+}

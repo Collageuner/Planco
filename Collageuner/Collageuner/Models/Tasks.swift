@@ -7,6 +7,8 @@
 
 import UIKit
 
+import RealmSwift
+
 class Tasks {
     var taskTimeZone: MyTimeZone
     var taskTime: TimeString

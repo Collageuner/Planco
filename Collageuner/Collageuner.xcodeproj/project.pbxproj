@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		580649DF29861FB600D0DF5F /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580649DE29861FB600D0DF5F /* Realm.swift */; };
 		5830522529837B4C00E299C8 /* GardenImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830522429837B4C00E299C8 /* GardenImageViewModel.swift */; };
 		58305227298386D700E299C8 /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58305226298386D700E299C8 /* TasksViewModel.swift */; };
 		58305229298386E500E299C8 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58305228298386E500E299C8 /* ProfileViewModel.swift */; };
@@ -33,10 +34,11 @@
 		583966BB297E612B00B63E52 /* PlansStoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583966BA297E612B00B63E52 /* PlansStoryCollectionViewCell.swift */; };
 		583966BC297E612B00B63E52 /* PlansStoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583966BA297E612B00B63E52 /* PlansStoryCollectionViewCell.swift */; };
 		583966BD297E612B00B63E52 /* PlansStoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583966BA297E612B00B63E52 /* PlansStoryCollectionViewCell.swift */; };
+		586950782984BE6300FDFEC8 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 586950772984BE6300FDFEC8 /* Realm */; };
+		5869507A2984BE6300FDFEC8 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 586950792984BE6300FDFEC8 /* RealmSwift */; };
 		5878144429680BE90074FA56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5878144329680BE90074FA56 /* AppDelegate.swift */; };
 		5878144629680BE90074FA56 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5878144529680BE90074FA56 /* SceneDelegate.swift */; };
 		5878144829680BE90074FA56 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5878144729680BE90074FA56 /* HomeViewController.swift */; };
-		5878144E29680BE90074FA56 /* Collageuner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5878144C29680BE90074FA56 /* Collageuner.xcdatamodeld */; };
 		5878145029680BEA0074FA56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5878144F29680BEA0074FA56 /* Assets.xcassets */; };
 		5878145329680BEA0074FA56 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5878145129680BEA0074FA56 /* LaunchScreen.storyboard */; };
 		5878145E29680BEA0074FA56 /* CollageunerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5878145D29680BEA0074FA56 /* CollageunerTests.swift */; };
@@ -74,6 +76,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		580649DE29861FB600D0DF5F /* Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Realm.swift; sourceTree = "<group>"; };
 		5830522429837B4C00E299C8 /* GardenImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardenImageViewModel.swift; sourceTree = "<group>"; };
 		58305226298386D700E299C8 /* TasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		58305228298386E500E299C8 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
@@ -91,7 +94,6 @@
 		5878144329680BE90074FA56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5878144529680BE90074FA56 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5878144729680BE90074FA56 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		5878144D29680BE90074FA56 /* Collageuner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Collageuner.xcdatamodel; sourceTree = "<group>"; };
 		5878144F29680BEA0074FA56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5878145229680BEA0074FA56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5878145429680BEA0074FA56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -116,6 +118,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5869507A2984BE6300FDFEC8 /* RealmSwift in Frameworks */,
+				586950782984BE6300FDFEC8 /* Realm in Frameworks */,
 				583966B8297E5BCA00B63E52 /* RxSwift in Frameworks */,
 				583966B6297E5BCA00B63E52 /* RxRelay in Frameworks */,
 				58781478296818580074FA56 /* SnapKit in Frameworks */,
@@ -142,6 +146,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		580649DD29861F9F00D0DF5F /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				580649DE29861FB600D0DF5F /* Realm.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
 		58396693297E364800B63E52 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -198,14 +210,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		5868D83229683128002E0919 /* CoreData */ = {
-			isa = PBXGroup;
-			children = (
-				5878144C29680BE90074FA56 /* Collageuner.xcdatamodeld */,
-			);
-			path = CoreData;
-			sourceTree = "<group>";
-		};
 		5878143729680BE90074FA56 = {
 			isa = PBXGroup;
 			children = (
@@ -229,8 +233,8 @@
 		5878144229680BE90074FA56 /* Collageuner */ = {
 			isa = PBXGroup;
 			children = (
+				580649DD29861F9F00D0DF5F /* Realm */,
 				5868D82B29682FFB002E0919 /* AppDelegate */,
-				5868D83229683128002E0919 /* CoreData */,
 				5868D831296830F9002E0919 /* Resources */,
 				58396693297E364800B63E52 /* Extensions */,
 				5894B2B22968388800263584 /* Logics */,
@@ -334,6 +338,8 @@
 				583966B3297E5BCA00B63E52 /* RxCocoa */,
 				583966B5297E5BCA00B63E52 /* RxRelay */,
 				583966B7297E5BCA00B63E52 /* RxSwift */,
+				586950772984BE6300FDFEC8 /* Realm */,
+				586950792984BE6300FDFEC8 /* RealmSwift */,
 			);
 			productName = Collageuner;
 			productReference = 5878144029680BE90074FA56 /* Collageuner.app */;
@@ -412,6 +418,7 @@
 				58781479296818680074FA56 /* XCRemoteSwiftPackageReference "Then" */,
 				5878147C296818920074FA56 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				583966B2297E5BCA00B63E52 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				586950762984BE6300FDFEC8 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 5878144129680BE90074FA56 /* Products */;
 			projectDirPath = "";
@@ -462,7 +469,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5878144829680BE90074FA56 /* HomeViewController.swift in Sources */,
-				5878144E29680BE90074FA56 /* Collageuner.xcdatamodeld in Sources */,
 				58AF770E2981054A00A46B3D /* Profile.swift in Sources */,
 				58396695297E367300B63E52 /* String+Extensions.swift in Sources */,
 				5878144429680BE90074FA56 /* AppDelegate.swift in Sources */,
@@ -485,6 +491,7 @@
 				58AF770C298102C500A46B3D /* Tasks.swift in Sources */,
 				58AF77092980FBAF00A46B3D /* GardenImage.swift in Sources */,
 				583966BB297E612B00B63E52 /* PlansStoryCollectionViewCell.swift in Sources */,
+				580649DF29861FB600D0DF5F /* Realm.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -858,6 +865,14 @@
 				minimumVersion = 6.0.0;
 			};
 		};
+		586950762984BE6300FDFEC8 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.34.1;
+			};
+		};
 		58781476296818580074FA56 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -900,6 +915,16 @@
 			package = 583966B2297E5BCA00B63E52 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
 		};
+		586950772984BE6300FDFEC8 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 586950762984BE6300FDFEC8 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		586950792984BE6300FDFEC8 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 586950762984BE6300FDFEC8 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
 		58781477296818580074FA56 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 58781476296818580074FA56 /* XCRemoteSwiftPackageReference "SnapKit" */;
@@ -916,19 +941,6 @@
 			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
-
-/* Begin XCVersionGroup section */
-		5878144C29680BE90074FA56 /* Collageuner.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				5878144D29680BE90074FA56 /* Collageuner.xcdatamodel */,
-			);
-			currentVersion = 5878144D29680BE90074FA56 /* Collageuner.xcdatamodel */;
-			path = Collageuner.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 5878143829680BE90074FA56 /* Project object */;
 }
