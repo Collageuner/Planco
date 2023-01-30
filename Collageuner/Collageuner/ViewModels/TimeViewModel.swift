@@ -32,9 +32,6 @@ class TimeViewModel {
 //    }
     
     // enum -> 1주일 치 date 나타내기..? (미정)
-    
-    /// Collageuner/Collageuner/Models/
-    
 }
 
 class MyTimeZoneViewModel {
@@ -52,24 +49,20 @@ class MyTimeZoneViewModel {
 //        if timeZoneRealmResult.count {
 //
 //        }
-        
-        // 일단은 실제 PublishSubject 가 잘 먹히는지 확인해야한다.
         let morningRealmResult = fetchMorningRealm()
         let earlyAfternoonRealmResult = fetchEarlyRealm()
         let lateAfternoonRealmResult = fetchLateRealm()
-
-        print(morningRealmResult, earlyAfternoonRealmResult, lateAfternoonRealmResult)
         
-        let mor: Observable<String> = Observable.just("\(morningRealmResult.hour):\(morningRealmResult.minute) ~ \(earlyAfternoonRealmResult.hour):\(earlyAfternoonRealmResult.minute)")
-        _ = mor
+        // morningRealmObservable
+        _ = Observable.just("\(morningRealmResult.hour):\(morningRealmResult.minute) ~ \(earlyAfternoonRealmResult.hour):\(earlyAfternoonRealmResult.minute)")
             .bind(to: morningTimeZone)
         
-        let rlPM: Observable<String> = Observable.just("\(earlyAfternoonRealmResult.hour):\(earlyAfternoonRealmResult.minute) ~ \(lateAfternoonRealmResult.hour):\(lateAfternoonRealmResult.minute)")
-        _ = rlPM
+        // earlyAfternoonRealmObservable
+        _ = Observable.just("\(earlyAfternoonRealmResult.hour):\(earlyAfternoonRealmResult.minute) ~ \(lateAfternoonRealmResult.hour):\(lateAfternoonRealmResult.minute)")
             .bind(to: earlyAfternoonTimeZone)
-
-        let ltPM: Observable<String> = Observable.just("\(lateAfternoonRealmResult.hour):\(lateAfternoonRealmResult.minute) ~ 12:00")
-        _ = ltPM
+        
+        // lateAfternoonRealmObservabke
+        _ = Observable.just("\(lateAfternoonRealmResult.hour):\(lateAfternoonRealmResult.minute) ~ 12:00")
             .bind(to: lateAfternoonTimeZone)
     }
     
@@ -155,10 +148,6 @@ class MyTimeZoneViewModel {
         default:
             print("Error Updating MyTimeZone")
         }
-    }
-    
-    func refreshSubjects() {
-        
     }
     
     private func fetchMorningRealm() -> MyTimeZoneString {
