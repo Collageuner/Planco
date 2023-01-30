@@ -7,9 +7,7 @@
 
 import UIKit
 
-import RealmSwift
-
-// UserDefaults
+    // UserDefaults
 struct OnboardingCheck {
     var onboardingSeen: Bool = false
 }

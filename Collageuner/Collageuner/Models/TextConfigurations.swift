@@ -7,15 +7,12 @@
 
 import UIKit
 
-import RealmSwift
-
 class TextConfiguration {
-    var textsAdded: [String]?
+//    @Persisted var textsAdded = List<String>() // VM 에서!
     var currentFont: String
 //    var fontsStored: [String] -> ViewModel 에서!
     
-    init(textsAdded: [String]? = nil, currentFont: String) {
-        self.textsAdded = textsAdded
+    init(currentFont: String) {
         self.currentFont = currentFont
     }
 }

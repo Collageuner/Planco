@@ -9,13 +9,17 @@ import UIKit
 
 import RealmSwift
 
-class TimeString {
-    var year: Int
-    var month: Int
-    var hour: Int
-    var minute: Int
+class TimeString: Object {
+    @Persisted(primaryKey: true) var id: ObjectId
     
-    init(year: Int, month: Int,  hour: Int, minute: Int) {
+    @Persisted var year: Int
+    @Persisted var month: Int
+    @Persisted var hour: Int
+    @Persisted var minute: Int
+    
+    convenience init(year: Int, month: Int, hour: Int, minute: Int) {
+        self.init()
+        
         self.year = year
         self.month = month
         self.hour = hour
@@ -23,7 +27,23 @@ class TimeString {
     }
 }
 
-enum MyTimeZone: CaseIterable {
+class MyTimeZoneString: Object {
+    @Persisted(primaryKey: true) var id: ObjectId
+    
+    @Persisted var hour: String
+    @Persisted var minute: String
+    @Persisted var timeZone: String
+    
+    convenience init(hour: String, minute: String, timeZone: String) {
+        self.init()
+        
+        self.hour = hour
+        self.minute = minute
+        self.timeZone = timeZone
+    }
+}
+
+enum MyTimeZone: String, CaseIterable {
     case morningTime
     case earlyAfternoonTime
     case lateAfternoonTime

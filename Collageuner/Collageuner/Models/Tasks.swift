@@ -9,22 +9,25 @@ import UIKit
 
 import RealmSwift
 
-class Tasks {
-    var taskTimeZone: MyTimeZone
-    var taskTime: TimeString
-    var taskImage: UIImage?
-    var taskThumbnailImage: UIImage?
-    var mainTask: String
-    var subTasks: [String]?
-    var tasksCount: Int = 2
-    var taskExpiredCheck: Bool = false
-    var taskCompleted: Bool = false
+class Tasks: Object {
+    @Persisted(primaryKey: true) var id: ObjectId
     
-    init(taskTimeZone: MyTimeZone, taskTime: TimeString, taskImage: UIImage? = nil, taskThumbnailImage: UIImage? = nil, mainTask: String, subTasks: [String]? = nil, tasksCount: Int, taskExpiredCheck: Bool = false, taskCompleted: Bool = false) {
+    @Persisted var taskTimeZone: String // VM 에서 처리
+    @Persisted var taskTime: TimeString?
+    @Persisted var taskImage: String?
+//    @Persisted var taskThumbnailImage: String? // 이것도 VM 에서 처리
+    @Persisted var mainTask: String
+    @Persisted var subTasks = List<String>()
+    @Persisted var tasksCount: Int = 2
+    @Persisted var taskExpiredCheck: Bool = false
+    @Persisted var taskCompleted: Bool = false
+    
+    convenience init(taskTimeZone: String, taskTime: TimeString? = nil, taskImage: String? = nil, mainTask: String, subTasks: List<String>, tasksCount: Int, taskExpiredCheck: Bool, taskCompleted: Bool) {
+        self.init()
+        
         self.taskTimeZone = taskTimeZone
         self.taskTime = taskTime
         self.taskImage = taskImage
-        self.taskThumbnailImage = taskThumbnailImage
         self.mainTask = mainTask
         self.subTasks = subTasks
         self.tasksCount = tasksCount
