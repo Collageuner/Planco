@@ -16,8 +16,9 @@ import Then
 /// 할것 -> enum 으로 내부 Constraints length 한번에 정리해두기!
 
 final class HomeViewController: UIViewController {
-    
+    var notificationTokent: NotificationToken?
     var disposeBag = DisposeBag()
+    var timeViewModel = MyTimeZoneViewModel()
     
     private let currentMonthLabel = UILabel().then {
         $0.textColor = .MainText
@@ -31,8 +32,11 @@ final class HomeViewController: UIViewController {
         $0.text = "24th"
     }
     
-    private let profileButton = UIButton(type: .system, primaryAction: UIAction(handler: { _ in
-        print("Adidas AddTarget!") // Navigation 으로 넘어가야 함
+    private lazy var profileButton = UIButton(type: .system, primaryAction: UIAction(handler: { _ in
+        self.timeViewModel.saveTimeZone(zoneTime: Date(timeIntervalSinceNow: -10000), timeZone: .morningTime)
+        self.timeViewModel.saveTimeZone(zoneTime: Date.now, timeZone: .earlyAfternoonTime)
+        self.timeViewModel.saveTimeZone(zoneTime: Date(timeIntervalSinceNow: 10000), timeZone: .lateAfternoonTime)
+        print("ProfileButton Tapped!") // Navigation 으로 넘어가야 함
     })
     ).then {
         $0.contentMode = .scaleAspectFill
@@ -59,7 +63,12 @@ final class HomeViewController: UIViewController {
         $0.clipsToBounds = true
     }
     
-    private let gardenListButton = UIButton(type: .system, primaryAction: UIAction(handler: { _ in
+    private lazy var gardenListButton = UIButton(type: .system, primaryAction: UIAction(handler: { _ in
+        self.timeViewModel.updateTimeZone(zoneTime: Date(timeIntervalSinceNow: -10000), timeZone: .morningTime)
+        self.timeViewModel.updateTimeZone(zoneTime: Date.now, timeZone: .earlyAfternoonTime)
+        self.timeViewModel.updateTimeZone(zoneTime: Date(timeIntervalSinceNow: 10000), timeZone: .lateAfternoonTime)
+        print(self.timeViewModel.mytimeRealm.objects(MyTimeZoneString.self))
+        print("------------------------------")
         print("🏡 Open Half Sheet of a Garden List")
     })
     ).then {
@@ -69,7 +78,9 @@ final class HomeViewController: UIViewController {
         $0.clipsToBounds = true
     }
     
-    private let plantsListButton = UIButton(type: .system, primaryAction: UIAction(handler: { _ in
+    private lazy var plantsListButton = UIButton(type: .system, primaryAction: UIAction(handler: { _ in
+        let nextVC = TestttViewController()
+        self.navigationController?.pushViewController(nextVC, animated: true)
         print("🌲 Open Half Sheet of a Plants List")
     })
     ).then {
@@ -79,7 +90,7 @@ final class HomeViewController: UIViewController {
         $0.clipsToBounds = true
     }
     
-    private let moveToGardenButton = UIButton(type: .system, primaryAction: UIAction(handler: { _ in
+    private lazy var moveToGardenButton = UIButton(type: .system, primaryAction: UIAction(handler: { _ in
         print("To Garden!")
     })
     ).then {
@@ -101,9 +112,21 @@ final class HomeViewController: UIViewController {
         actions()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        timeViewModel.mytimeRealm.refresh()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
+        notifyToken()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        notificationTokent?.invalidate()
     }
     
     override func viewDidLayoutSubviews() {
@@ -114,6 +137,19 @@ final class HomeViewController: UIViewController {
     }
     
     private func basicUI() {
+        print(timeViewModel.mytimeRealm.objects(MyTimeZoneString.self))
+        print("------------------------------")
+                
+        timeViewModel.morningTimeZone
+            .observe(on: MainScheduler.instance)
+            .bind(to: currentMonthLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        timeViewModel.earlyAfternoonTimeZone
+            .observe(on: MainScheduler.instance)
+            .bind(to: currentDayLabel.rx.text)
+            .disposed(by: disposeBag)
+        
         view.backgroundColor = .Background
     }
 
@@ -174,6 +210,31 @@ final class HomeViewController: UIViewController {
     private func actions() {
         
     }
+    
+    private func notifyToken() {
+        let tokenRealm = timeViewModel.mytimeRealm.objects(MyTimeZoneString.self)
 
+        notificationTokent = tokenRealm.observe { change in
+            switch change {
+            case .initial:
+                print("Token Initialized")
+            case .update(_, _, _, _):
+                let newTimeViewModel = MyTimeZoneViewModel()
+                newTimeViewModel.morningTimeZone
+                    .observe(on: MainScheduler.instance)
+                    .bind(to: self.currentMonthLabel.rx.text)
+                    .disposed(by: self.disposeBag)
+                newTimeViewModel.earlyAfternoonTimeZone
+                    .observe(on: MainScheduler.instance)
+                    .bind(to: self.currentDayLabel.rx.text)
+                    .disposed(by: self.disposeBag)
+                print("Modified Token")
+            case .error(let error):
+                print("Error in \(error)")
+            }
+        }
+        
+        print("Notifying Token Opened.")
+    }
 }
 
