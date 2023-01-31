@@ -14,16 +14,16 @@ class TimeString: Object {
     
     @Persisted var year: Int
     @Persisted var month: Int
-//    @Persisted var day: Int
+    @Persisted var day: Int
     @Persisted var hour: Int
     @Persisted var minute: Int
     
-    convenience init(year: Int, month: Int, hour: Int, minute: Int) {
+    convenience init(year: Int, month: Int, day: Int, hour: Int, minute: Int) {
         self.init()
         
         self.year = year
         self.month = month
-//        self.day = day
+        self.day = day
         self.hour = hour
         self.minute = minute
     }
