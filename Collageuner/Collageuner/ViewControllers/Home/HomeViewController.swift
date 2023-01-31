@@ -131,7 +131,7 @@ final class HomeViewController: UIViewController {
     }
     
     private func basicUI() {
-//        taskViewModel.saveTask(timeZone: MyTimeZone.morningTime.rawValue, taskTime: TimeString(year: 2023, month: 1, day: 31, hour: 16, minute: 4), image: "image1", mainTask: "떡국 먹고 한살 더 먹기", subTasks: ["test1"], tasksCount: 2, taskExpiredCheck: false, taskCompleted: false)
+//        taskViewModel.saveTask(timeZone: MyTimeZone.morningTime.rawValue, taskTime: TimeString(year: 2023, month: 1, day: 31, hour: 16, minute: 4), image: "image1", mainTask: "떡국 먹고 한살 더 먹기", subTasks: [], tasksCount: 2, taskExpiredCheck: false, taskCompleted: false)
         
         timeViewModel.morningTimeZone
             .observe(on: MainScheduler.instance)
