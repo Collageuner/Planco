@@ -16,6 +16,7 @@ class TasksViewModel {
     
     func saveTask(timeZone: String, taskTime: TimeString, image: String?, mainTask: String, subTasks: [String?], tasksCount: Int = 2, taskExpiredCheck: Bool, taskCompleted: Bool = false) {
         
+        // List 가 Empty 여도 상관 없다. nil 아니다!
         let subTaskArray = subTasks.compactMap { $0 }
         let subTaskList = List<String>()
         subTaskList.append(objectsIn: subTaskArray)
