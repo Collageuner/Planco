@@ -18,7 +18,8 @@ import Then
 final class HomeViewController: UIViewController {
     var notificationTokent: NotificationToken?
     var disposeBag = DisposeBag()
-    var timeViewModel = MyTimeZoneViewModel()
+    let timeViewModel = MyTimeZoneViewModel()
+    let taskViewModel = TasksViewModel()
     
     private let currentMonthLabel = UILabel().then {
         $0.textColor = .MainText
@@ -68,8 +69,6 @@ final class HomeViewController: UIViewController {
         self.timeViewModel.updateTimeZone(zoneTime: Date.now, timeZone: .earlyAfternoonTime)
         self.timeViewModel.updateTimeZone(zoneTime: Date(timeIntervalSinceNow: 10000), timeZone: .lateAfternoonTime)
         print(self.timeViewModel.mytimeRealm.objects(MyTimeZoneString.self))
-        print("------------------------------")
-        print("🏡 Open Half Sheet of a Garden List")
     })
     ).then {
         $0.contentMode = .scaleAspectFill
@@ -112,11 +111,6 @@ final class HomeViewController: UIViewController {
         actions()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        timeViewModel.mytimeRealm.refresh()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -137,9 +131,8 @@ final class HomeViewController: UIViewController {
     }
     
     private func basicUI() {
-        print(timeViewModel.mytimeRealm.objects(MyTimeZoneString.self))
-        print("------------------------------")
-                
+//        taskViewModel.saveTask(timeZone: MyTimeZone.morningTime.rawValue, taskTime: TimeString(year: 2023, month: 1, day: 31, hour: 16, minute: 4), image: "image1", mainTask: "떡국 먹고 한살 더 먹기", subTasks: ["test1"], tasksCount: 2, taskExpiredCheck: false, taskCompleted: false)
+        
         timeViewModel.morningTimeZone
             .observe(on: MainScheduler.instance)
             .bind(to: currentMonthLabel.rx.text)

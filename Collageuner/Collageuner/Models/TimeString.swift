@@ -14,6 +14,7 @@ class TimeString: Object {
     
     @Persisted var year: Int
     @Persisted var month: Int
+//    @Persisted var day: Int
     @Persisted var hour: Int
     @Persisted var minute: Int
     
@@ -22,6 +23,7 @@ class TimeString: Object {
         
         self.year = year
         self.month = month
+//        self.day = day
         self.hour = hour
         self.minute = minute
     }

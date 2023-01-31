@@ -12,7 +12,7 @@ import RealmSwift
 class Tasks: Object {
     @Persisted(primaryKey: true) var id: ObjectId
     
-    @Persisted var taskTimeZone: String // VM 에서 처리
+    @Persisted var taskTimeZone: String
     @Persisted var taskTime: TimeString?
     @Persisted var taskImage: String?
 //    @Persisted var taskThumbnailImage: String? // 이것도 VM 에서 처리
@@ -23,7 +23,7 @@ class Tasks: Object {
     @Persisted var taskCompleted: Bool = false
     
     convenience init(taskTimeZone: String, taskTime: TimeString? = nil, taskImage: String? = nil, mainTask: String, subTasks: List<String>, tasksCount: Int, taskExpiredCheck: Bool, taskCompleted: Bool) {
-        self.init()
+        self.init()   
         
         self.taskTimeZone = taskTimeZone
         self.taskTime = taskTime

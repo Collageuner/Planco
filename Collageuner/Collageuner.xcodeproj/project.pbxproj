@@ -36,6 +36,7 @@
 		583966BD297E612B00B63E52 /* PlansStoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583966BA297E612B00B63E52 /* PlansStoryCollectionViewCell.swift */; };
 		586950782984BE6300FDFEC8 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 586950772984BE6300FDFEC8 /* Realm */; };
 		5869507A2984BE6300FDFEC8 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 586950792984BE6300FDFEC8 /* RealmSwift */; };
+		586E19222988D521000D6C84 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586E19212988D521000D6C84 /* Protocols.swift */; };
 		5878144429680BE90074FA56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5878144329680BE90074FA56 /* AppDelegate.swift */; };
 		5878144629680BE90074FA56 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5878144529680BE90074FA56 /* SceneDelegate.swift */; };
 		5878144829680BE90074FA56 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5878144729680BE90074FA56 /* HomeViewController.swift */; };
@@ -91,6 +92,7 @@
 		583966A1297E401800B63E52 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		583966A5297E4E9100B63E52 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		583966BA297E612B00B63E52 /* PlansStoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansStoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		586E19212988D521000D6C84 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		5878144029680BE90074FA56 /* Collageuner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Collageuner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5878144329680BE90074FA56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5878144529680BE90074FA56 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -212,6 +214,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		586E19202988D50D000D6C84 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				586E19212988D521000D6C84 /* Protocols.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		5878143729680BE90074FA56 = {
 			isa = PBXGroup;
 			children = (
@@ -235,12 +245,13 @@
 		5878144229680BE90074FA56 /* Collageuner */ = {
 			isa = PBXGroup;
 			children = (
-				580649DD29861F9F00D0DF5F /* Realm */,
 				5868D82B29682FFB002E0919 /* AppDelegate */,
-				5868D831296830F9002E0919 /* Resources */,
 				58396693297E364800B63E52 /* Extensions */,
 				5894B2B22968388800263584 /* Logics */,
 				5894B2B32968388E00263584 /* Models */,
+				586E19202988D50D000D6C84 /* Protocols */,
+				580649DD29861F9F00D0DF5F /* Realm */,
+				5868D831296830F9002E0919 /* Resources */,
 				5868D82F29683027002E0919 /* ViewControllers */,
 				5894B2B02968387600263584 /* ViewModels */,
 				5894B2B12968387D00263584 /* Views */,
@@ -480,6 +491,7 @@
 				5830522B298386F400E299C8 /* TextConfigurationsViewModel.swift in Sources */,
 				58305229298386E500E299C8 /* ProfileViewModel.swift in Sources */,
 				583966A6297E4E9100B63E52 /* UIColor+Extensions.swift in Sources */,
+				586E19222988D521000D6C84 /* Protocols.swift in Sources */,
 				58AF771129810B4F00A46B3D /* TimeString.swift in Sources */,
 				5830522529837B4C00E299C8 /* GardenImageViewModel.swift in Sources */,
 				58305227298386D700E299C8 /* TasksViewModel.swift in Sources */,
