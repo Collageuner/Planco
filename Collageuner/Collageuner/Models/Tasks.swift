@@ -10,19 +10,19 @@ import UIKit
 import RealmSwift
 
 class Tasks: Object {
-    @Persisted(primaryKey: true) var id: ObjectId
+    @Persisted(primaryKey: true) var _id: ObjectId
     
     @Persisted var taskTimeZone: String
-    @Persisted var taskTime: TimeString?
+    @Persisted var taskTime: Date
     @Persisted var taskImage: String?
 //    @Persisted var taskThumbnailImage: String? // 이것도 VM 에서 처리
+    // taskCount 는 VM 에서 처리
     @Persisted var mainTask: String
     @Persisted var subTasks = List<String>()
-    @Persisted var tasksCount: Int = 2
-    @Persisted var taskExpiredCheck: Bool = false
-    @Persisted var taskCompleted: Bool = false
+    @Persisted var taskExpiredCheck: Bool = false // 0
+    @Persisted var taskCompleted: Bool = false // 0
     
-    convenience init(taskTimeZone: String, taskTime: TimeString? = nil, taskImage: String? = nil, mainTask: String, subTasks: List<String>, tasksCount: Int, taskExpiredCheck: Bool, taskCompleted: Bool) {
+    convenience init(taskTimeZone: String, taskTime: Date, taskImage: String? = nil, mainTask: String, subTasks: List<String>, taskExpiredCheck: Bool, taskCompleted: Bool) {
         self.init()   
         
         self.taskTimeZone = taskTimeZone
@@ -30,7 +30,6 @@ class Tasks: Object {
         self.taskImage = taskImage
         self.mainTask = mainTask
         self.subTasks = subTasks
-        self.tasksCount = tasksCount
         self.taskExpiredCheck = taskExpiredCheck
         self.taskCompleted = taskCompleted
     }

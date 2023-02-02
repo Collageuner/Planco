@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 
 class Profile: Object {
-    @Persisted(primaryKey: true) var id: ObjectId
+    @Persisted(primaryKey: true) var _id: ObjectId
     @Persisted var userName: String
     @Persisted var userProfileImage: String
     /// Other variables are TBD.

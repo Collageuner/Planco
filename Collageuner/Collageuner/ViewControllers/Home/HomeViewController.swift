@@ -34,7 +34,7 @@ final class HomeViewController: UIViewController {
     }
     
     private lazy var profileButton = UIButton(type: .system, primaryAction: UIAction(handler: { _ in
-        self.timeViewModel.saveTimeZone(zoneTime: Date(timeIntervalSinceNow: -10000), timeZone: .morningTime)
+        self.timeViewModel.saveTimeZone(zoneTime: Date(timeIntervalSinceNow: -20000), timeZone: .morningTime)
         self.timeViewModel.saveTimeZone(zoneTime: Date.now, timeZone: .earlyAfternoonTime)
         self.timeViewModel.saveTimeZone(zoneTime: Date(timeIntervalSinceNow: 10000), timeZone: .lateAfternoonTime)
         print("ProfileButton Tapped!") // Navigation 으로 넘어가야 함
@@ -65,7 +65,7 @@ final class HomeViewController: UIViewController {
     }
     
     private lazy var gardenListButton = UIButton(type: .system, primaryAction: UIAction(handler: { _ in
-        self.timeViewModel.updateTimeZone(zoneTime: Date(timeIntervalSinceNow: -10000), timeZone: .morningTime)
+        self.timeViewModel.updateTimeZone(zoneTime: Date(timeIntervalSinceNow: -20000), timeZone: .morningTime)
         self.timeViewModel.updateTimeZone(zoneTime: Date.now, timeZone: .earlyAfternoonTime)
         self.timeViewModel.updateTimeZone(zoneTime: Date(timeIntervalSinceNow: 10000), timeZone: .lateAfternoonTime)
         print(self.timeViewModel.mytimeRealm.objects(MyTimeZoneString.self))
@@ -131,7 +131,9 @@ final class HomeViewController: UIViewController {
     }
     
     private func basicUI() {
-//        taskViewModel.saveTask(timeZone: MyTimeZone.morningTime.rawValue, taskTime: TimeString(year: 2023, month: 1, day: 31, hour: 16, minute: 4), image: "image1", mainTask: "떡국 먹고 한살 더 먹기", subTasks: [], tasksCount: 2, taskExpiredCheck: false, taskCompleted: false)
+//        taskViewModel.createTask(timeZone: MyTimeZone.morningTime.rawValue, taskTime: Date(), taskImage: "", mainTask: "떡국 먹고 한살 더 먹기", subTasks: ["test3", "test22"], taskExpiredCheck: false, taskCompleted: false)
+        
+        print("Realm is located at:", taskViewModel.myTaskRealm.configuration.fileURL!)
         
         timeViewModel.morningTimeZone
             .observe(on: MainScheduler.instance)

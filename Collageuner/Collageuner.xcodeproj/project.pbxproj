@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		580649DF29861FB600D0DF5F /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580649DE29861FB600D0DF5F /* RealmManager.swift */; };
+		58101EE6298B8F65000C2671 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58101EE5298B8F65000C2671 /* Date+Extensions.swift */; };
 		5830522529837B4C00E299C8 /* GardenImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830522429837B4C00E299C8 /* GardenImageViewModel.swift */; };
 		58305227298386D700E299C8 /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58305226298386D700E299C8 /* TasksViewModel.swift */; };
 		58305229298386E500E299C8 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58305228298386E500E299C8 /* ProfileViewModel.swift */; };
@@ -79,6 +80,7 @@
 
 /* Begin PBXFileReference section */
 		580649DE29861FB600D0DF5F /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		58101EE5298B8F65000C2671 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		5830522429837B4C00E299C8 /* GardenImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardenImageViewModel.swift; sourceTree = "<group>"; };
 		58305226298386D700E299C8 /* TasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		58305228298386E500E299C8 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				58396696297E386400B63E52 /* UIFont+Extensions.swift */,
 				583966A1297E401800B63E52 /* UIView+Extensions.swift */,
 				583966A5297E4E9100B63E52 /* UIColor+Extensions.swift */,
+				58101EE5298B8F65000C2671 /* Date+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -493,6 +496,7 @@
 				583966A6297E4E9100B63E52 /* UIColor+Extensions.swift in Sources */,
 				586E19222988D521000D6C84 /* Protocols.swift in Sources */,
 				58AF771129810B4F00A46B3D /* TimeString.swift in Sources */,
+				58101EE6298B8F65000C2671 /* Date+Extensions.swift in Sources */,
 				5830522529837B4C00E299C8 /* GardenImageViewModel.swift in Sources */,
 				58305227298386D700E299C8 /* TasksViewModel.swift in Sources */,
 				58AF77152981228500A46B3D /* GuideInformationCheck.swift in Sources */,
