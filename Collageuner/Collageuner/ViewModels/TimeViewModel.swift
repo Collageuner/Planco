@@ -12,11 +12,7 @@ import RxSwift
 import RxCocoa
 
 class TimeViewModel {
-    // Date 활용해서 Time 모델에 대한 모든 로직 여기서!
-    // 1. todayDate
-    // 2. morningTime/earlyAfternoonTime/lateAfternoonTime 계산
     
-    // enum -> 1주일 치 date 나타내기..? (미정)
 }
 
 class MyTimeZoneViewModel {
@@ -38,52 +34,44 @@ class MyTimeZoneViewModel {
         let earlyAfternoonRealmResult = fetchEarlyRealm()
         let lateAfternoonRealmResult = fetchLateRealm()
         
+        let morningString: String = "\(morningRealmResult.hour):\(morningRealmResult.minute) \(morningRealmResult.noon)"
+        let earlyAfternoonString: String = "\(earlyAfternoonRealmResult.hour):\(earlyAfternoonRealmResult.minute) \(earlyAfternoonRealmResult.noon)"
+        let lateAfternoonString: String = "\(lateAfternoonRealmResult.hour):\(lateAfternoonRealmResult.minute) \(lateAfternoonRealmResult.noon)"
+        
         // morningRealmObservable
-        _ = Observable.just("\(morningRealmResult.hour):\(morningRealmResult.minute) ~ \(earlyAfternoonRealmResult.hour):\(earlyAfternoonRealmResult.minute)")
+        _ = Observable.just("\(morningString) - \(earlyAfternoonString)")
             .bind(to: morningTimeZone)
         
         // earlyAfternoonRealmObservable
-        _ = Observable.just("\(earlyAfternoonRealmResult.hour):\(earlyAfternoonRealmResult.minute) ~ \(lateAfternoonRealmResult.hour):\(lateAfternoonRealmResult.minute)")
+        _ = Observable.just("\(earlyAfternoonString) - \(lateAfternoonString)")
             .bind(to: earlyAfternoonTimeZone)
         
         // lateAfternoonRealmObservabke
-        _ = Observable.just("\(lateAfternoonRealmResult.hour):\(lateAfternoonRealmResult.minute) ~ 12:00")
+        _ = Observable.just("\(lateAfternoonString) - 12:00 am")
             .bind(to: lateAfternoonTimeZone)
     }
     
     func saveTimeZone(zoneTime: Date, timeZone: MyTimeZone) {
         let timeZoneString = timeZone.rawValue
-        let hour = hourToString(zoneDate: zoneTime)
-        let minute = minuteToString(zoneDate: zoneTime)
-        let isTimePM = isHourPM(zoneDate: zoneTime)
-        
-        var pmHour: String
-        
-        guard let hourCalculated = Int(hour) else { return }
-        
-        switch isTimePM {
-        case true:
-            pmHour = String(hourCalculated - 12)
-        default:
-            pmHour = String(hourCalculated)
-        }
+        guard let isTimePM = isHourPM(zoneDate: zoneTime) else { return }
+        let hour = isTimePM.hour
+        let minute = isTimePM.minute
+        let noon = isTimePM.noon
         
         switch timeZoneString {
         case "morningTime":
             try! mytimeRealm.write({
-                mytimeRealm.add(MyTimeZoneString(hour: pmHour, minute: minute, timeZone: "morningTime"))
+                mytimeRealm.add(MyTimeZoneString(hour: hour, minute: minute, timeZone: "morningTime", noon: noon))
             })
             print("morningTime Saved")
-            print("Realm is located at:", mytimeRealm.configuration.fileURL!)
         case "earlyAfternoonTime":
             try! mytimeRealm.write({
-                mytimeRealm.add(MyTimeZoneString(hour: pmHour, minute: minute, timeZone: "earlyAfternoonTime"))
+                mytimeRealm.add(MyTimeZoneString(hour: hour, minute: minute, timeZone: "earlyAfternoonTime", noon: noon))
             })
-            print("Realm is located at:", mytimeRealm.configuration.fileURL!)
             print("earlyAfternoonTime Saved")
         case "lateAfternoonTime":
             try! mytimeRealm.write({
-                mytimeRealm.add(MyTimeZoneString(hour: pmHour, minute: minute, timeZone: "lateAfternoonTime"))
+                mytimeRealm.add(MyTimeZoneString(hour: hour, minute: minute, timeZone: "lateAfternoonTime", noon: noon))
             })
             print("lateAfternoonTime Saved")
         default:
@@ -93,41 +81,34 @@ class MyTimeZoneViewModel {
     
     func updateTimeZone(zoneTime: Date, timeZone: MyTimeZone) {
         let timeZoneString = timeZone.rawValue
-        let hour = hourToString(zoneDate: zoneTime)
-        let minute = minuteToString(zoneDate: zoneTime)
-        let isTimePM = isHourPM(zoneDate: zoneTime)
-        
-        var pmHour: String
-        
-        guard let hourCalculated = Int(hour) else { return }
-        
-        switch isTimePM {
-        case true:
-            pmHour = String(hourCalculated - 12)
-        default:
-            pmHour = String(hourCalculated)
-        }
+        guard let isTimePM = isHourPM(zoneDate: zoneTime) else { return }
+        let hour = isTimePM.hour
+        let minute = isTimePM.minute
+        let noon = isTimePM.noon
         
         switch timeZoneString {
         case "morningTime":
             guard let morningUpdate = mytimeRealm.objects(MyTimeZoneString.self).filter(NSPredicate(format: "timeZone = %@", "morningTime")).first else { return }
             try! mytimeRealm.write({
-                morningUpdate.hour = pmHour
+                morningUpdate.hour = hour
                 morningUpdate.minute = minute
+                morningUpdate.noon = noon
             })
             print("morningTime Updated")
         case "earlyAfternoonTime":
             guard let earlyAfternoonUpdate = mytimeRealm.objects(MyTimeZoneString.self).filter(NSPredicate(format: "timeZone = %@", "earlyAfternoonTime")).first else { return }
             try! mytimeRealm.write({
-                earlyAfternoonUpdate.hour = pmHour
+                earlyAfternoonUpdate.hour = hour
                 earlyAfternoonUpdate.minute = minute
+                earlyAfternoonUpdate.noon = noon
             })
             print("earlyAfternoonTime Updated")
         case "lateAfternoonTime":
-            guard let earlyAfternoonUpdate = mytimeRealm.objects(MyTimeZoneString.self).filter(NSPredicate(format: "timeZone = %@", "lateAfternoonTime")).first else { return }
+            guard let lateAfternoonUpdate = mytimeRealm.objects(MyTimeZoneString.self).filter(NSPredicate(format: "timeZone = %@", "lateAfternoonTime")).first else { return }
             try! mytimeRealm.write({
-                earlyAfternoonUpdate.hour = pmHour
-                earlyAfternoonUpdate.minute = minute
+                lateAfternoonUpdate.hour = hour
+                lateAfternoonUpdate.minute = minute
+                lateAfternoonUpdate.noon = noon
             })
             print("lateAfternoonTime Updated")
         default:
@@ -137,50 +118,40 @@ class MyTimeZoneViewModel {
     
     private func fetchMorningRealm() -> MyTimeZoneString {
         guard let morningRealmResult = timeZoneRealmResult.filter(NSPredicate(format: "timeZone = %@", "morningTime")).first else {
-            return MyTimeZoneString(hour: "7", minute: "00", timeZone: "morningTime")}
+            return MyTimeZoneString(hour: "7", minute: "00", timeZone: "morningTime", noon: "am")}
         return morningRealmResult
     }
     
     private func fetchEarlyRealm() -> MyTimeZoneString {
         guard let earlyAfternoonRealmResult = timeZoneRealmResult.filter(NSPredicate(format: "timeZone = %@", "earlyAfternoonTime")).first else {
-            return MyTimeZoneString(hour: "12", minute: "00", timeZone: "earlyAfternoonTime")}
+            return MyTimeZoneString(hour: "12", minute: "00", timeZone: "earlyAfternoonTime", noon: "pm")}
         return earlyAfternoonRealmResult
     }
     
     private func fetchLateRealm() -> MyTimeZoneString {
         guard let lateAfternoonRealmResult = timeZoneRealmResult.filter(NSPredicate(format: "timeZone = %@", "lateAfternoonTime")).first else {
-            return MyTimeZoneString(hour: "6", minute: "00", timeZone: "lateAfternoonTime")}
+            return MyTimeZoneString(hour: "6", minute: "00", timeZone: "lateAfternoonTime", noon: "pm")}
         return lateAfternoonRealmResult
     }
-    
-    private func hourToString(zoneDate: Date) -> String {
+
+    private func isHourPM(zoneDate: Date) -> HourMinuteString? {
         let hourFormatter = DateFormatter()
-        hourFormatter.dateFormat = "HH"
-        let hour = hourFormatter.string(from: zoneDate)
-        
-        return hour
-    }
-    
-    private func minuteToString(zoneDate: Date) -> String {
-        let minuteFormatter = DateFormatter()
-        minuteFormatter.dateFormat = "mm"
-        let minute = minuteFormatter.string(from: zoneDate)
-        
-        return minute
-    }
-    
-    private func isHourPM(zoneDate: Date) -> Bool {
-        let hourFormatter = DateFormatter()
-        hourFormatter.dateFormat = "HH"
-        let hour = hourFormatter.string(from: zoneDate)
+        hourFormatter.dateFormat = "HH:mm"
+        let hour = String(hourFormatter.string(from: zoneDate).prefix(2))
+        let minute = String(hourFormatter.string(from: zoneDate).suffix(2))
         
         guard let hourToInt = Int(hour) else {
-            print("Modifying hour to Int Failed")
-            return false
+            print("Failed To Convert Date to HourMinuteString.")
+            return nil }
+        
+        switch hourToInt {
+        case 0...11:
+            return HourMinuteString(hour: hour, minute: minute, noon: "am")
+        case 12...23:
+            return HourMinuteString(hour: String(hourToInt - 12), minute: minute, noon: "pm")
+        default:
+            print("Failed To Convert Date to HourMinuteString.")
+            return nil
         }
-        
-        let checkHourPM = hourToInt > 12
-        
-        return checkHourPM
     }
 }

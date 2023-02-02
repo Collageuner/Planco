@@ -9,39 +9,33 @@ import UIKit
 
 import RealmSwift
 
-class TimeString: Object {
-    @Persisted(primaryKey: true) var id: ObjectId
+class HourMinuteString {
+    var hour: String
+    var minute: String
+    var noon: String
     
-    @Persisted var year: Int
-    @Persisted var month: Int
-    @Persisted var day: Int
-    @Persisted var hour: Int
-    @Persisted var minute: Int
-    
-    convenience init(year: Int, month: Int, day: Int, hour: Int, minute: Int) {
-        self.init()
-        
-        self.year = year
-        self.month = month
-        self.day = day
+    init(hour: String, minute: String, noon: String) {
         self.hour = hour
         self.minute = minute
+        self.noon = noon
     }
 }
 
 class MyTimeZoneString: Object {
-    @Persisted(primaryKey: true) var id: ObjectId
+    @Persisted(primaryKey: true) var _id: ObjectId
     
     @Persisted var hour: String
     @Persisted var minute: String
     @Persisted var timeZone: String
+    @Persisted var noon: String
     
-    convenience init(hour: String, minute: String, timeZone: String) {
+    convenience init(hour: String, minute: String, timeZone: String, noon: String) {
         self.init()
         
         self.hour = hour
         self.minute = minute
         self.timeZone = timeZone
+        self.noon = noon
     }
 }
 
