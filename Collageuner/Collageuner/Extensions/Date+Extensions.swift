@@ -8,11 +8,25 @@
 import UIKit
 
 extension Date {
-    func dateToJoinedString(date: Date) -> String {
+    static func dateToCheckDay(date: Date) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyMMddHHmm"
+        dateFormatter.dateFormat = "yyMMdd"
+                
+        return dateFormatter.string(from: date)
+    }
+    
+    static func dateToJoinedString(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyMMddHHmmss"
         
         return dateFormatter.string(from: date)
+    }
+    
+    static func hourMinuteJoinedString(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:ss"
+        
+        return dateFormatter.string(from: date )
     }
 }
 

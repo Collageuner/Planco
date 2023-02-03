@@ -13,7 +13,8 @@ class Tasks: Object {
     @Persisted(primaryKey: true) var _id: ObjectId
     
     @Persisted var taskTimeZone: String
-    @Persisted var taskTime: Date
+    @Persisted var taskTime: String
+    @Persisted var keyForDateCheck: String
     @Persisted var taskImage: String?
 //    @Persisted var taskThumbnailImage: String? // 이것도 VM 에서 처리
     // taskCount 는 VM 에서 처리
@@ -22,11 +23,12 @@ class Tasks: Object {
     @Persisted var taskExpiredCheck: Bool = false // 0
     @Persisted var taskCompleted: Bool = false // 0
     
-    convenience init(taskTimeZone: String, taskTime: Date, taskImage: String? = nil, mainTask: String, subTasks: List<String>, taskExpiredCheck: Bool, taskCompleted: Bool) {
+    convenience init(taskTimeZone: String, taskTime: String, keyForDateCheck: String, taskImage: String? = nil, mainTask: String, subTasks: List<String>, taskExpiredCheck: Bool, taskCompleted: Bool) {
         self.init()   
         
         self.taskTimeZone = taskTimeZone
         self.taskTime = taskTime
+        self.keyForDateCheck = keyForDateCheck
         self.taskImage = taskImage
         self.mainTask = mainTask
         self.subTasks = subTasks
