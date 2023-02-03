@@ -163,11 +163,11 @@
 		58396693297E364800B63E52 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				58101EE5298B8F65000C2671 /* Date+Extensions.swift */,
 				58396694297E367300B63E52 /* String+Extensions.swift */,
+				583966A5297E4E9100B63E52 /* UIColor+Extensions.swift */,
 				58396696297E386400B63E52 /* UIFont+Extensions.swift */,
 				583966A1297E401800B63E52 /* UIView+Extensions.swift */,
-				583966A5297E4E9100B63E52 /* UIColor+Extensions.swift */,
-				58101EE5298B8F65000C2671 /* Date+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
