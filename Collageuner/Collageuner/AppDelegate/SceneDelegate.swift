@@ -48,9 +48,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
 
         // Save changes in the application's managed object context when the application transitions to the background.
-        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+///        (UIApplication.shared.delegate as? AppDelegate)?.saveContext() -> Realm 도 이걸 써야하나? 백그라운드에서 다시 돌아왔을 때 따로 정의해야하는게 있어야할까?
     }
-
-
 }
 
