@@ -17,6 +17,7 @@ class TimeViewModel {
 
 class MyTimeZoneViewModel {
     let mytimeRealm = try! Realm()
+    
     lazy var timeZoneRealmResult = mytimeRealm.objects(MyTimeZoneString.self)
     
     let morningTimeZone: BehaviorRelay<String> = BehaviorRelay(value: "")
