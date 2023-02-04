@@ -15,7 +15,7 @@ class TasksViewModel {
     let myTaskRealm = try! Realm()
     
     let taskStoryImages: BehaviorRelay<[String]> = BehaviorRelay(value: [])
-//    let taskList: BehaviorRelay<[Tasks]> = BehaviorRelay(value: [])
+    let taskList: BehaviorRelay<[Tasks]> = BehaviorRelay(value: [])
     
     /// init for getting HomeView Story Images
     init(dateForStories: Date) {
@@ -36,10 +36,10 @@ class TasksViewModel {
             .bind(to: taskStoryImages)
     }
     
-//    init(dateForList: Date) {
-//        let dateKey = Date.dateToCheckDay(date: dateForList)
-//
-//    }
+    init(dateForList: Date) {
+        let dateKey = Date.dateToCheckDay(date: dateForList)
+
+    }
     
     func createTask(timeZone: String, taskTime: Date, taskImage: String?, mainTask: String, subTasks: [String?], taskExpiredCheck: Bool, taskCompleted: Bool = false) {
         let subTaskArray = subTasks.compactMap { $0 }
