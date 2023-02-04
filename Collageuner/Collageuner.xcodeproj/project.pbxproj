@@ -9,11 +9,12 @@
 /* Begin PBXBuildFile section */
 		580649DF29861FB600D0DF5F /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580649DE29861FB600D0DF5F /* RealmManager.swift */; };
 		58101EE6298B8F65000C2671 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58101EE5298B8F65000C2671 /* Date+Extensions.swift */; };
+		5814EAFB298E3BDC006CDBFA /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5814EAFA298E3BDC006CDBFA /* UIImage+Extensions.swift */; };
 		5830522529837B4C00E299C8 /* GardenImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830522429837B4C00E299C8 /* GardenImageViewModel.swift */; };
 		58305227298386D700E299C8 /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58305226298386D700E299C8 /* TasksViewModel.swift */; };
 		58305229298386E500E299C8 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58305228298386E500E299C8 /* ProfileViewModel.swift */; };
 		5830522B298386F400E299C8 /* TextConfigurationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830522A298386F400E299C8 /* TextConfigurationsViewModel.swift */; };
-		5830522D2983870400E299C8 /* GarageImagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830522C2983870400E299C8 /* GarageImagesViewModel.swift */; };
+		5830522D2983870400E299C8 /* imageAssetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830522C2983870400E299C8 /* imageAssetViewModel.swift */; };
 		5830522F29839C5600E299C8 /* StickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830522E29839C5600E299C8 /* StickerView.swift */; };
 		58396695297E367300B63E52 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58396694297E367300B63E52 /* String+Extensions.swift */; };
 		58396697297E386400B63E52 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58396696297E386400B63E52 /* UIFont+Extensions.swift */; };
@@ -81,11 +82,12 @@
 /* Begin PBXFileReference section */
 		580649DE29861FB600D0DF5F /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		58101EE5298B8F65000C2671 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		5814EAFA298E3BDC006CDBFA /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		5830522429837B4C00E299C8 /* GardenImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardenImageViewModel.swift; sourceTree = "<group>"; };
 		58305226298386D700E299C8 /* TasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		58305228298386E500E299C8 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		5830522A298386F400E299C8 /* TextConfigurationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextConfigurationsViewModel.swift; sourceTree = "<group>"; };
-		5830522C2983870400E299C8 /* GarageImagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageImagesViewModel.swift; sourceTree = "<group>"; };
+		5830522C2983870400E299C8 /* imageAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imageAssetViewModel.swift; sourceTree = "<group>"; };
 		5830522E29839C5600E299C8 /* StickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerView.swift; sourceTree = "<group>"; };
 		58396694297E367300B63E52 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		58396696297E386400B63E52 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				58396694297E367300B63E52 /* String+Extensions.swift */,
 				583966A5297E4E9100B63E52 /* UIColor+Extensions.swift */,
 				58396696297E386400B63E52 /* UIFont+Extensions.swift */,
+				5814EAFA298E3BDC006CDBFA /* UIImage+Extensions.swift */,
 				583966A1297E401800B63E52 /* UIView+Extensions.swift */,
 			);
 			path = Extensions;
@@ -282,7 +285,7 @@
 		5894B2B02968387600263584 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				5830522C2983870400E299C8 /* GarageImagesViewModel.swift */,
+				5830522C2983870400E299C8 /* imageAssetViewModel.swift */,
 				5830522429837B4C00E299C8 /* GardenImageViewModel.swift */,
 				58305228298386E500E299C8 /* ProfileViewModel.swift */,
 				58305226298386D700E299C8 /* TasksViewModel.swift */,
@@ -488,6 +491,7 @@
 				5878144829680BE90074FA56 /* HomeViewController.swift in Sources */,
 				58AF770E2981054A00A46B3D /* Profile.swift in Sources */,
 				58396695297E367300B63E52 /* String+Extensions.swift in Sources */,
+				5814EAFB298E3BDC006CDBFA /* UIImage+Extensions.swift in Sources */,
 				5878144429680BE90074FA56 /* AppDelegate.swift in Sources */,
 				58A1C47729877AA700C1CDC6 /* TestttViewController.swift in Sources */,
 				5878144629680BE90074FA56 /* SceneDelegate.swift in Sources */,
@@ -506,7 +510,7 @@
 				583966A2297E401800B63E52 /* UIView+Extensions.swift in Sources */,
 				58AF77172981245F00A46B3D /* TextConfigurations.swift in Sources */,
 				58AF77192981269400A46B3D /* GarageImages.swift in Sources */,
-				5830522D2983870400E299C8 /* GarageImagesViewModel.swift in Sources */,
+				5830522D2983870400E299C8 /* imageAssetViewModel.swift in Sources */,
 				5830522F29839C5600E299C8 /* StickerView.swift in Sources */,
 				58AF770C298102C500A46B3D /* Tasks.swift in Sources */,
 				58AF77092980FBAF00A46B3D /* GardenImage.swift in Sources */,
