@@ -14,7 +14,8 @@ import RxSwift
 class TasksViewModel {
     let myTaskRealm = try! Realm()
     
-    let taskStory: BehaviorRelay<[String]> = BehaviorRelay(value: [])
+    let taskStoryImages: BehaviorRelay<[String]> = BehaviorRelay(value: [])
+//    let taskList: BehaviorRelay<[Tasks]> = BehaviorRelay(value: [])
     
     /// init for getting HomeView Story Images
     init(dateForStories: Date) {
@@ -32,10 +33,13 @@ class TasksViewModel {
         let sortedArrayOfImage = imageStringArray.sorted()
         
         _ = Observable.just(sortedArrayOfImage)
-            .bind(to: taskStory)
+            .bind(to: taskStoryImages)
     }
     
-    init() { }
+//    init(dateForList: Date) {
+//        let dateKey = Date.dateToCheckDay(date: dateForList)
+//
+//    }
     
     func createTask(timeZone: String, taskTime: Date, taskImage: String?, mainTask: String, subTasks: [String?], taskExpiredCheck: Bool, taskCompleted: Bool = false) {
         let subTaskArray = subTasks.compactMap { $0 }
@@ -56,14 +60,58 @@ class TasksViewModel {
         print(myTaskRealm.objects(Tasks.self))
     }
     
-    func saveImageToDocumentDirectory(imageName: String) {
-        // 0. 이미지 만을 위한 class 가 있었으면 좋겠는데...
-        // 1. Thumbnail 저장 URL 을 따로 만들어야 하나? 그러자!
-        // 2. Application Support 안에 새로운 directory 를 만들 수 있나? => 그냥 안 보인다.
-        //   a. Application Support 는 안좋을 수 있다는 이야기가 있는 것 같고... 일단은 기본 documentDirectory 로 만들어보자! 실제 앱으로 다운을 받아보고, file 을 통해서 알 수 있는지 봐보자!
-        //   b. Info plist 에서 Supports opening documents in place: NO 로 바꾸면?
+    func saveImageToDocumentDirectory(imageName: String, image: UIImage) {
+        // 0. 이미지 만을 위한 class 가 있었으면 좋겠는데... ✅
+        // 1. Thumbnail 저장 URL 을 따로 만들어야 하나? 그러자! ✅
+        // 2. Application Support 안에 새로운 directory 를 만들 수 있나? => 그냥 안 보인다. ✅
+        //   a. Application Support 는 안좋을 수 있다는 이야기가 있는 것 같고... 일단은 기본 documentDirectory 로 만들어보자! 실제 앱으로 다운을 받아보고, file 을 통해서 알 수 있는지 봐보자! ✅
+        //   b. Info plist 에서 Supports opening documents in place: NO 로 바꾸면? -> ⚠️ 무슨 realm 쪽에서 "bid" 오류나서 미칠뻔
         // 3. png 로 저장하고, 앱 UI 에 나올 애들은 Thumbnail 을 2개로 나눠서 큰 Thumbnail & 작은 Thumbnail 을 나눠서 앱 UI 에 표시하게 만들고, png 파일은 canvas 에 추가된 게 확인이 되면 1주일이 지나면 지워지게 만들고,
-        // 4. Subscription 을 하면, 한달까지 png 파일이 유지되게 만들어야해!
+        //  -> 그냥 압축한 png 파일 하나로 thumbnail 만들고 끝내자.✅
+        // 4. Subscription 을 하면, 한달까지 png 파일이 유지되게 만들어야해! ⏲️ TODO 임
+        
+        createDocumentDirectory()
+        
+        guard let originalImageWriteDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: "originalImages") else {
+            print("Error locating Directory")
+            return
+        }
+        
+        guard let thumbnailImageWriteDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: "thumbnailImages") else {
+            print("Error locating Directory")
+            return
+        }
+        
+        let originalImageURL = originalImageWriteDirectory.appending(component: "\(imageName).png")
+        let thumbnailImageURL = thumbnailImageWriteDirectory.appending(path: "Thumbnail_\(imageName).png")
+        
+        let resizedImageForThumbnail = resizeImageForThumbnail(image: image, cgsize: 100)
+        
+        guard let originalImageData = image.pngData() else {
+            print("Failed to Compress Image into .png")
+            return
+        }
+        guard let thumbnailImageData = resizedImageForThumbnail.pngData() else {
+            print("Failed to Compress Image into thumbnail Image")
+            return
+        }
+        
+        do {
+            try originalImageData.write(to: originalImageURL)
+            print("Original Image Saved")
+        } catch let error {
+            print(error)
+        }
+        
+        do {
+            try thumbnailImageData.write(to: thumbnailImageURL)
+            print("Thumbnail Image Saved")
+        } catch let error {
+            print(error)
+        }
+    }
+    
+    private func createDocumentDirectory() {
         guard let imageWriteDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             print("Error locating Directory")
             return
@@ -115,8 +163,21 @@ class TasksViewModel {
             print("===============================")
             print("")
         }
-        
     }
+    
+    /// Recommended cgsize is around 80.
+    private func resizeImageForThumbnail(image: UIImage, cgsize: Int) -> UIImage {
+        let thumbnailSize = CGSize(width: cgsize, height: cgsize)
+        let scaledImage = image.scalePreservingAspectRatio(targetSize: thumbnailSize)
+        
+        return scaledImage
+    }
+    
+    
+    
+    
+    
+    
     
 //    func updateTask(timeZone: String, taskTime: Date, taskImage: String?, mainTask: String, subTasks: [String?], taskExpiredCheck: Bool, taskCompleted: Bool) {
 //        let subTaskArray = subTasks.compactMap { $0 }
