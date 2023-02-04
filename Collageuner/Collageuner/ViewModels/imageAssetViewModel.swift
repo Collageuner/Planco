@@ -11,6 +11,6 @@ import RealmSwift
 import RxCocoa
 import RxSwift
 
-class GarageImagesViewModel {
+class imageAssetViewModel {
     
 }
