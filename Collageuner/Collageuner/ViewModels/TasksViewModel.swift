@@ -36,9 +36,20 @@ class TasksViewModel {
             .bind(to: taskStoryImages)
     }
     
+    /// init for getting Array of Tasks
     init(dateForList: Date) {
         let dateKey = Date.dateToCheckDay(date: dateForList)
-
+        var tasksArray: [Tasks] = []
+        
+        // Adding Tasks
+        _ = myTaskRealm.objects(Tasks.self).where {
+            $0.keyForDateCheck == dateKey
+        }.map {
+            tasksArray.append($0)
+        }
+        
+        _ = Observable.just(tasksArray)
+            .bind(to:taskList)
     }
     
     func createTask(timeZone: String, taskTime: Date, taskImage: String?, mainTask: String, subTasks: [String?], taskExpiredCheck: Bool, taskCompleted: Bool = false) {
