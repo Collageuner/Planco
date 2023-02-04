@@ -17,9 +17,12 @@ import Then
 
 final class HomeViewController: UIViewController {
     var notificationTokent: NotificationToken?
+    
     var disposeBag = DisposeBag()
+    
     let timeViewModel = MyTimeZoneViewModel()
-    let taskViewModel = TasksViewModel()
+    let taskViewModel = TasksViewModel(dateForList: Date())
+    let taskViewModelStory = TasksViewModel(dateForStories: Date())
     
     private let currentMonthLabel = UILabel().then {
         $0.textColor = .MainText
@@ -133,8 +136,8 @@ final class HomeViewController: UIViewController {
     private func basicUI() {
 //        taskViewModel.createTask(timeZone: MyTimeZone.morningTime.rawValue, taskTime: Date(), taskImage: "", mainTask: "떡국 먹고 한살 더 먹기", subTasks: ["test3", "test22"], taskExpiredCheck: false, taskCompleted: false)
         
-        taskViewModel.saveImageToDocumentDirectory(imageName: "as")
-
+        taskViewModel.saveImageToDocumentDirectory(imageName: "testImage3", image: UIImage(named: "ExampleProfileImage.png") ?? UIImage(systemName: "xmark.seal")!)
+        
         print("Realm is located at:", taskViewModel.myTaskRealm.configuration.fileURL!)
         
         timeViewModel.morningTimeZone
