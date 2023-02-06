@@ -11,7 +11,7 @@ import SnapKit
 import Then
 
 final class TaskStoryCollectionViewCell: UICollectionViewCell {
-    let taskImage = UIView().then {
+    let taskImage = UIImageView().then {
         $0.clipsToBounds = true
         $0.contentMode = .scaleAspectFill
     }

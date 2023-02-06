@@ -26,7 +26,7 @@ class TasksViewModel {
         _ = myTaskRealm.objects(Tasks.self).where {
             $0.keyForDateCheck == dateKey
         }.map {
-            imageStringArray.append($0.taskImage ?? "TaskDefaultImage")
+            imageStringArray.append($0.taskImageName ?? "TaskDefaultImage")
         }
         
         // Sorting Images -> 생각해보면, 그냥 Image 의 String 을 저장할 때, 날짜 + 고유번호(task_id) 이렇게 쓰면 되겠네!
@@ -62,7 +62,7 @@ class TasksViewModel {
         
         do {
             try myTaskRealm.write({
-                myTaskRealm.add(Tasks(taskTimeZone: timeZone, taskTime: taskDateToTime, keyForDateCheck: taskKey, taskImage: taskImage, mainTask: mainTask, subTasks: subTaskList, taskExpiredCheck: false, taskCompleted: false))
+                myTaskRealm.add(Tasks(taskTimeZone: timeZone, taskTime: taskDateToTime, keyForDateCheck: taskKey, taskImageName: taskImage, mainTask: mainTask, subTasks: subTaskList, taskExpiredCheck: false, taskCompleted: false))
             })
         } catch let error {
             print(error)
