@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		580649DF29861FB600D0DF5F /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580649DE29861FB600D0DF5F /* RealmManager.swift */; };
+		580E63D32990C4A100A0762F /* TaskStoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580E63D22990C4A100A0762F /* TaskStoryCollectionViewCell.swift */; };
+		580E63D62990CD4F00A0762F /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = 580E63D52990CD4F00A0762F /* Differentiator */; };
+		580E63D82990CD4F00A0762F /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 580E63D72990CD4F00A0762F /* RxDataSources */; };
 		58101EE6298B8F65000C2671 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58101EE5298B8F65000C2671 /* Date+Extensions.swift */; };
 		5814EAFB298E3BDC006CDBFA /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5814EAFA298E3BDC006CDBFA /* UIImage+Extensions.swift */; };
 		5830522529837B4C00E299C8 /* GardenImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830522429837B4C00E299C8 /* GardenImageViewModel.swift */; };
@@ -33,9 +36,6 @@
 		583966B4297E5BCA00B63E52 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 583966B3297E5BCA00B63E52 /* RxCocoa */; };
 		583966B6297E5BCA00B63E52 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 583966B5297E5BCA00B63E52 /* RxRelay */; };
 		583966B8297E5BCA00B63E52 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 583966B7297E5BCA00B63E52 /* RxSwift */; };
-		583966BB297E612B00B63E52 /* PlansStoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583966BA297E612B00B63E52 /* PlansStoryCollectionViewCell.swift */; };
-		583966BC297E612B00B63E52 /* PlansStoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583966BA297E612B00B63E52 /* PlansStoryCollectionViewCell.swift */; };
-		583966BD297E612B00B63E52 /* PlansStoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583966BA297E612B00B63E52 /* PlansStoryCollectionViewCell.swift */; };
 		586950782984BE6300FDFEC8 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 586950772984BE6300FDFEC8 /* Realm */; };
 		5869507A2984BE6300FDFEC8 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 586950792984BE6300FDFEC8 /* RealmSwift */; };
 		586E19222988D521000D6C84 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586E19212988D521000D6C84 /* Protocols.swift */; };
@@ -81,6 +81,7 @@
 
 /* Begin PBXFileReference section */
 		580649DE29861FB600D0DF5F /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		580E63D22990C4A100A0762F /* TaskStoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		58101EE5298B8F65000C2671 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		5814EAFA298E3BDC006CDBFA /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		5830522429837B4C00E299C8 /* GardenImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardenImageViewModel.swift; sourceTree = "<group>"; };
@@ -95,7 +96,6 @@
 		5839669A297E398A00B63E52 /* EBGaramond-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "EBGaramond-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		583966A1297E401800B63E52 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		583966A5297E4E9100B63E52 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
-		583966BA297E612B00B63E52 /* PlansStoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansStoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		586E19212988D521000D6C84 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		5878144029680BE90074FA56 /* Collageuner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Collageuner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5878144329680BE90074FA56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -129,10 +129,12 @@
 				5869507A2984BE6300FDFEC8 /* RealmSwift in Frameworks */,
 				586950782984BE6300FDFEC8 /* Realm in Frameworks */,
 				583966B8297E5BCA00B63E52 /* RxSwift in Frameworks */,
+				580E63D82990CD4F00A0762F /* RxDataSources in Frameworks */,
 				583966B6297E5BCA00B63E52 /* RxRelay in Frameworks */,
 				58781478296818580074FA56 /* SnapKit in Frameworks */,
 				5878147B296818680074FA56 /* Then in Frameworks */,
 				583966B4297E5BCA00B63E52 /* RxCocoa in Frameworks */,
+				580E63D62990CD4F00A0762F /* Differentiator in Frameworks */,
 				5878147E296818920074FA56 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -187,7 +189,7 @@
 		583966B9297E5FBF00B63E52 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				583966BA297E612B00B63E52 /* PlansStoryCollectionViewCell.swift */,
+				580E63D22990C4A100A0762F /* TaskStoryCollectionViewCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -360,6 +362,8 @@
 				583966B7297E5BCA00B63E52 /* RxSwift */,
 				586950772984BE6300FDFEC8 /* Realm */,
 				586950792984BE6300FDFEC8 /* RealmSwift */,
+				580E63D52990CD4F00A0762F /* Differentiator */,
+				580E63D72990CD4F00A0762F /* RxDataSources */,
 			);
 			productName = Collageuner;
 			productReference = 5878144029680BE90074FA56 /* Collageuner.app */;
@@ -439,6 +443,7 @@
 				5878147C296818920074FA56 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				583966B2297E5BCA00B63E52 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				586950762984BE6300FDFEC8 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				580E63D42990CD4F00A0762F /* XCRemoteSwiftPackageReference "RxDataSources" */,
 			);
 			productRefGroup = 5878144129680BE90074FA56 /* Products */;
 			projectDirPath = "";
@@ -489,6 +494,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5878144829680BE90074FA56 /* HomeViewController.swift in Sources */,
+				580E63D32990C4A100A0762F /* TaskStoryCollectionViewCell.swift in Sources */,
 				58AF770E2981054A00A46B3D /* Profile.swift in Sources */,
 				58396695297E367300B63E52 /* String+Extensions.swift in Sources */,
 				5814EAFB298E3BDC006CDBFA /* UIImage+Extensions.swift in Sources */,
@@ -514,7 +520,6 @@
 				5830522F29839C5600E299C8 /* StickerView.swift in Sources */,
 				58AF770C298102C500A46B3D /* Tasks.swift in Sources */,
 				58AF77092980FBAF00A46B3D /* GardenImage.swift in Sources */,
-				583966BB297E612B00B63E52 /* PlansStoryCollectionViewCell.swift in Sources */,
 				580649DF29861FB600D0DF5F /* RealmManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -526,7 +531,6 @@
 				583966A3297E401800B63E52 /* UIView+Extensions.swift in Sources */,
 				583966A7297E4E9100B63E52 /* UIColor+Extensions.swift in Sources */,
 				5878145E29680BEA0074FA56 /* CollageunerTests.swift in Sources */,
-				583966BC297E612B00B63E52 /* PlansStoryCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -536,7 +540,6 @@
 			files = (
 				583966A4297E401800B63E52 /* UIView+Extensions.swift in Sources */,
 				5878146A29680BEA0074FA56 /* CollageunerUITestsLaunchTests.swift in Sources */,
-				583966BD297E612B00B63E52 /* PlansStoryCollectionViewCell.swift in Sources */,
 				5878146829680BEA0074FA56 /* CollageunerUITests.swift in Sources */,
 				583966A8297E4E9100B63E52 /* UIColor+Extensions.swift in Sources */,
 			);
@@ -886,6 +889,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		580E63D42990CD4F00A0762F /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		583966B2297E5BCA00B63E52 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift";
@@ -929,6 +940,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		580E63D52990CD4F00A0762F /* Differentiator */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 580E63D42990CD4F00A0762F /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = Differentiator;
+		};
+		580E63D72990CD4F00A0762F /* RxDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 580E63D42990CD4F00A0762F /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = RxDataSources;
+		};
 		583966B3297E5BCA00B63E52 /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 583966B2297E5BCA00B63E52 /* XCRemoteSwiftPackageReference "RxSwift" */;
