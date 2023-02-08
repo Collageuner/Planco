@@ -56,7 +56,10 @@ final class HomeViewController: UIViewController {
         $0.isHidden = false
     }
     
-//    private let plansStoryCollectionView = UICollectionView().then {}
+    /// CollectionView
+    private lazy var taskStoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: storyFlowLayout).then {
+        $0.register(TaskStoryCollectionViewCell.self, forCellWithReuseIdentifier: IdsForCollectionView.storyCollectionViewId.identifier)
+    }
     
     private let mainGardenImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFill
@@ -106,11 +109,19 @@ final class HomeViewController: UIViewController {
         $0.layer.shadowRadius = 3
     }
     
+    /// CollectionView
+    private lazy var storyFlowLayout = UICollectionViewFlowLayout().then {
+        let itemSizes = Double(self.view.frame.width - 30)/6
+        $0.itemSize = CGSize(width: itemSizes, height: itemSizes)
+        $0.minimumInteritemSpacing = 5
+        $0.scrollDirection = .horizontal
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         basicUI()
         layouts()
-        configurations()
+        bindings()
         actions()
     }
     
@@ -136,25 +147,16 @@ final class HomeViewController: UIViewController {
     private func basicUI() {
 //        taskViewModel.createTask(timeZone: MyTimeZone.morningTime.rawValue, taskTime: Date(), taskImage: "", mainTask: "떡국 먹고 한살 더 먹기", subTasks: ["test3", "test22"], taskExpiredCheck: false, taskCompleted: false)
         
-        taskViewModel.saveImageToDocumentDirectory(imageName: "testImage3", image: UIImage(named: "ExampleProfileImage.png") ?? UIImage(systemName: "xmark.seal")!)
-        
-        print("Realm is located at:", taskViewModel.myTaskRealm.configuration.fileURL!)
-        
-        timeViewModel.morningTimeZone
-            .observe(on: MainScheduler.instance)
-            .bind(to: currentMonthLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        timeViewModel.earlyAfternoonTimeZone
-            .observe(on: MainScheduler.instance)
-            .bind(to: currentDayLabel.rx.text)
-            .disposed(by: disposeBag)
+//        taskViewModel.saveImageToDocumentDirectory(imageName: "testImage3", image: UIImage(named: "ExampleProfileImage.png") ?? UIImage(systemName: "xmark.seal")!)
+//        for _ in 0...1 {
+//            taskViewModelStory.createTask(timeZone: MyTimeZone.morningTime.rawValue, taskTime: Date(), taskImage: <#T##String?#>, mainTask: <#T##String#>, subTasks: <#T##[String?]#>, taskExpiredCheck: <#T##Bool#>)
+//        }
         
         view.backgroundColor = .Background
     }
 
     private func layouts() {
-        view.addSubviews(currentMonthLabel, currentDayLabel, profileButton, notifyingDot, mainGardenImageView, gardenListButton, plantsListButton, moveToGardenButton)
+        view.addSubviews(currentMonthLabel, currentDayLabel, profileButton, notifyingDot, taskStoryCollectionView, mainGardenImageView, gardenListButton, plantsListButton, moveToGardenButton)
         
         currentMonthLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(25)
@@ -176,6 +178,13 @@ final class HomeViewController: UIViewController {
             $0.centerX.equalTo(self.profileButton.snp.trailing)
             $0.centerY.equalTo(self.profileButton.snp.top)
             $0.width.height.equalTo(view.frame.width/65.5)
+        }
+        
+        /// CollectionView
+        taskStoryCollectionView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(12)
+            $0.leading.equalToSuperview().inset(20)
+            $0.height.equalTo(self.view.snp.height).dividedBy(15.8)
         }
         
         mainGardenImageView.snp.makeConstraints {
@@ -203,12 +212,57 @@ final class HomeViewController: UIViewController {
         }
     }
     
-    private func configurations() {
+    private func bindings() {
+        timeViewModel.morningTimeZone
+            .observe(on: MainScheduler.instance)
+            .bind(to: currentMonthLabel.rx.text)
+            .disposed(by: disposeBag)
         
+        timeViewModel.earlyAfternoonTimeZone
+            .observe(on: MainScheduler.instance)
+            .bind(to: currentDayLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        /// CollectionView
+        taskViewModelStory.taskList
+            .observe(on: MainScheduler.instance)
+            .bind(to: taskStoryCollectionView.rx.items(cellIdentifier: IdsForCollectionView.storyCollectionViewId.identifier, cellType: TaskStoryCollectionViewCell.self)) { index, task, cell in
+                let thumbnailName: String = task._id.stringValue + task.keyForDateCheck
+                let thumbnailFetched = self.loadThumbnailImageFromDirectory(imageName: thumbnailName)
+                cell.taskImage.image = thumbnailFetched
+            }
+            .disposed(by: disposeBag)
+        
+        taskStoryCollectionView.rx.itemSelected
+            .subscribe { index in
+                print(index)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func actions() {
         
+    }
+    
+    private func loadThumbnailImageFromDirectory(imageName: String) -> UIImage? {
+        let fileManager = FileManager.default
+        guard let thumbnailDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: DirectoryForWritingData.ThumbnailImages.dataDirectory) else {
+            print("Failed fetching directory for Thumbnail Images for Home-Stories")
+            return UIImage(named: "TaskDefaultImage")
+        }
+        let imageURL = thumbnailDirectoryURL.appending(component: imageName)
+        
+        do {
+            let imageData = try Data(contentsOf: imageURL)
+            print("Succeeded fetching Thumbnail Images")
+            return UIImage(data: imageData)
+        } catch let error {
+            print("Failed fetching Thumbnail Images for Home-Stories")
+            print(error)
+        }
+        
+        print("RRRRTTTT FAILED!")
+        return UIImage(named: "TaskDefaultImage")
     }
     
     private func notifyToken() {
@@ -238,3 +292,6 @@ final class HomeViewController: UIViewController {
     }
 }
 
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    
+}

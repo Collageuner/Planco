@@ -50,7 +50,7 @@
 		58781478296818580074FA56 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 58781477296818580074FA56 /* SnapKit */; };
 		5878147B296818680074FA56 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 5878147A296818680074FA56 /* Then */; };
 		5878147E296818920074FA56 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 5878147D296818920074FA56 /* Lottie */; };
-		5894B2B7296838B500263584 /* LogicsOneDeleteIt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5894B2B6296838B500263584 /* LogicsOneDeleteIt.swift */; };
+		5894B2B7296838B500263584 /* Identifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5894B2B6296838B500263584 /* Identifiers.swift */; };
 		58A1C47729877AA700C1CDC6 /* TestttViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A1C47629877AA700C1CDC6 /* TestttViewController.swift */; };
 		58AF77092980FBAF00A46B3D /* GardenImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF77082980FBAF00A46B3D /* GardenImage.swift */; };
 		58AF770C298102C500A46B3D /* Tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF770B298102C500A46B3D /* Tasks.swift */; };
@@ -109,7 +109,7 @@
 		5878146329680BEA0074FA56 /* CollageunerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CollageunerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5878146729680BEA0074FA56 /* CollageunerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageunerUITests.swift; sourceTree = "<group>"; };
 		5878146929680BEA0074FA56 /* CollageunerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageunerUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		5894B2B6296838B500263584 /* LogicsOneDeleteIt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LogicsOneDeleteIt.swift; path = Collageuner/Logics/LogicsOneDeleteIt.swift; sourceTree = SOURCE_ROOT; };
+		5894B2B6296838B500263584 /* Identifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Identifiers.swift; path = Collageuner/Logics/Identifiers.swift; sourceTree = SOURCE_ROOT; };
 		58A1C47629877AA700C1CDC6 /* TestttViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestttViewController.swift; sourceTree = "<group>"; };
 		58AF77082980FBAF00A46B3D /* GardenImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardenImage.swift; sourceTree = "<group>"; };
 		58AF770B298102C500A46B3D /* Tasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tasks.swift; sourceTree = "<group>"; };
@@ -309,7 +309,7 @@
 		5894B2B22968388800263584 /* Logics */ = {
 			isa = PBXGroup;
 			children = (
-				5894B2B6296838B500263584 /* LogicsOneDeleteIt.swift */,
+				5894B2B6296838B500263584 /* Identifiers.swift */,
 			);
 			path = Logics;
 			sourceTree = "<group>";
@@ -512,7 +512,7 @@
 				58AF77152981228500A46B3D /* GuideInformationCheck.swift in Sources */,
 				58AF77132981115E00A46B3D /* TimeViewModel.swift in Sources */,
 				58396697297E386400B63E52 /* UIFont+Extensions.swift in Sources */,
-				5894B2B7296838B500263584 /* LogicsOneDeleteIt.swift in Sources */,
+				5894B2B7296838B500263584 /* Identifiers.swift in Sources */,
 				583966A2297E401800B63E52 /* UIView+Extensions.swift in Sources */,
 				58AF77172981245F00A46B3D /* TextConfigurations.swift in Sources */,
 				58AF77192981269400A46B3D /* GarageImages.swift in Sources */,
