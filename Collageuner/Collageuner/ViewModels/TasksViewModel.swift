@@ -22,16 +22,14 @@ class TasksViewModel {
         let dateKey = Date.dateToCheckDay(date: dateForStories)
         var imageStringArray: [String] = []
         
-        // Adding Images
-        _ = myTaskRealm.objects(Tasks.self).where {
-            $0.keyForDateCheck == dateKey
-        }.map {
-            imageStringArray.append($0.taskImageName ?? "TaskDefaultImage")
+        let realmResult = myTaskRealm.objects(Tasks.self).filter(NSPredicate(format: "keyForDateCheck = %@", dateKey))
+        
+        realmResult.forEach{
+            let imageName: String = "Thumbnail_\($0.taskTime)\($0._id.stringValue).png"
+            imageStringArray.append(imageName)
         }
-        
-        // Sorting Images -> 생각해보면, 그냥 Image 의 String 을 저장할 때, 날짜 + 고유번호(task_id) 이렇게 쓰면 되겠네!
+
         let sortedArrayOfImage = imageStringArray.sorted()
-        
         _ = Observable.just(sortedArrayOfImage)
             .bind(to: taskStoryImages)
     }
@@ -41,10 +39,9 @@ class TasksViewModel {
         let dateKey = Date.dateToCheckDay(date: dateForList)
         var tasksArray: [Tasks] = []
         
-        // Adding Tasks
-        _ = myTaskRealm.objects(Tasks.self).where {
-            $0.keyForDateCheck == dateKey
-        }.map {
+        let realmResult = myTaskRealm.objects(Tasks.self).filter(NSPredicate(format: "keyForDateCheck = %@", dateKey))
+            
+        realmResult.forEach {
             tasksArray.append($0)
         }
         
@@ -52,7 +49,7 @@ class TasksViewModel {
             .bind(to:taskList)
     }
     
-    func createTask(timeZone: String, taskTime: Date, taskImage: String?, mainTask: String, subTasks: [String?], taskExpiredCheck: Bool, taskCompleted: Bool = false) {
+    func createTask(timeZone: String, taskTime: Date, taskImage: UIImage?, mainTask: String, subTasks: [String?] = [], taskExpiredCheck: Bool = false, taskCompleted: Bool = false) {
         let subTaskArray = subTasks.compactMap { $0 }
         let subTaskList = List<String>()
         subTaskList.append(objectsIn: subTaskArray)
@@ -60,26 +57,23 @@ class TasksViewModel {
         let taskDateToTime = Date.dateToJoinedString(date: taskTime)
         let taskKey = Date.dateToCheckDay(date: taskTime)
         
+        let taskToCreate: Tasks = Tasks(taskTimeZone: timeZone, taskTime: taskDateToTime, keyForDateCheck: taskKey, mainTask: mainTask, subTasks: subTaskList, taskExpiredCheck: false, taskCompleted: false)
+        
+        let imageName: String = taskToCreate.taskTime + taskToCreate._id.stringValue
+        
         do {
             try myTaskRealm.write({
-                myTaskRealm.add(Tasks(taskTimeZone: timeZone, taskTime: taskDateToTime, keyForDateCheck: taskKey, taskImageName: taskImage, mainTask: mainTask, subTasks: subTaskList, taskExpiredCheck: false, taskCompleted: false))
+                myTaskRealm.add(taskToCreate)
+                saveImageToDocumentDirectory(imageName: imageName, image: taskImage ?? UIImage())
             })
         } catch let error {
             print(error)
         }
         print("🪜 Task Created")
-        print(myTaskRealm.objects(Tasks.self))
     }
     
-    func saveImageToDocumentDirectory(imageName: String, image: UIImage) {
-        // 0. 이미지 만을 위한 class 가 있었으면 좋겠는데... ✅
-        // 1. Thumbnail 저장 URL 을 따로 만들어야 하나? 그러자! ✅
-        // 2. Application Support 안에 새로운 directory 를 만들 수 있나? => 그냥 안 보인다. ✅
-        //   a. Application Support 는 안좋을 수 있다는 이야기가 있는 것 같고... 일단은 기본 documentDirectory 로 만들어보자! 실제 앱으로 다운을 받아보고, file 을 통해서 알 수 있는지 봐보자! ✅
-        //   b. Info plist 에서 Supports opening documents in place: NO 로 바꾸면? -> ⚠️ 무슨 realm 쪽에서 "bid" 오류나서 미칠뻔
-        // 3. png 로 저장하고, 앱 UI 에 나올 애들은 Thumbnail 을 2개로 나눠서 큰 Thumbnail & 작은 Thumbnail 을 나눠서 앱 UI 에 표시하게 만들고, png 파일은 canvas 에 추가된 게 확인이 되면 1주일이 지나면 지워지게 만들고,
-        //  -> 그냥 압축한 png 파일 하나로 thumbnail 만들고 끝내자.✅
-        // 4. Subscription 을 하면, 한달까지 png 파일이 유지되게 만들어야해! ⏲️ TODO 임
+    private func saveImageToDocumentDirectory(imageName: String, image: UIImage) {
+        // 1. Subscription 을 하면, 한달까지 png 파일이 유지되게 만들어야해! ⏲️ TODO 임
         
         createDocumentDirectory()
         
@@ -94,8 +88,8 @@ class TasksViewModel {
         }
         
         let originalImageURL = originalImageWriteDirectory.appending(component: "\(imageName).png")
-        let thumbnailImageURL = thumbnailImageWriteDirectory.appending(path: "Thumbnail_\(imageName).png")
         
+        let thumbnailImageURL = thumbnailImageWriteDirectory.appending(path: "Thumbnail_\(imageName).png")
         let resizedImageForThumbnail = resizeImageForThumbnail(image: image, cgsize: 100)
         
         guard let originalImageData = image.pngData() else {
@@ -109,14 +103,14 @@ class TasksViewModel {
         
         do {
             try originalImageData.write(to: originalImageURL)
-            print("Original Image Saved")
+            print("🌕 Original Image Saved")
         } catch let error {
             print(error)
         }
         
         do {
             try thumbnailImageData.write(to: thumbnailImageURL)
-            print("Thumbnail Image Saved")
+            print("🌙 Thumbnail Image Saved")
         } catch let error {
             print(error)
         }
@@ -132,12 +126,9 @@ class TasksViewModel {
         let thumbnailImageURL = imageWriteDirectory.appending(component: DirectoryForWritingData.ThumbnailImages.dataDirectory)
         
         if !FileManager.default.fileExists(atPath: originalImageURL.path()) {
-            print("")
             print("===============================")
             print("[ViewController >> testMain() :: 저장 된 경로 없음 >> 폴더 생성 실시]")
-            print("fileSavePath :: \(originalImageURL.description)")
             print("===============================")
-            print("")
             
             do {
                 try FileManager.default.createDirectory(atPath: originalImageURL.path(), withIntermediateDirectories: true)
@@ -145,21 +136,15 @@ class TasksViewModel {
                 print(error)
             }
         } else {
-            print("")
             print("===============================")
             print("[ViewController >> testMain() :: 이미 저장 된 경로 있음 >> 폴더 생성 안함]")
-            print("fileSavePath :: \(originalImageURL.description)")
             print("===============================")
-            print("")
         }
         
         if !FileManager.default.fileExists(atPath: thumbnailImageURL.path()) {
-            print("")
             print("===============================")
             print("[ViewController >> testMain() :: 저장 된 경로 없음 >> 폴더 생성 실시]")
-            print("fileSavePath :: \(thumbnailImageURL.description)")
             print("===============================")
-            print("")
             
             do {
                 try FileManager.default.createDirectory(atPath: thumbnailImageURL.path(), withIntermediateDirectories: true)
@@ -167,12 +152,9 @@ class TasksViewModel {
                 print(error)
             }
         } else {
-            print("")
             print("===============================")
             print("[ViewController >> testMain() :: 이미 저장 된 경로 있음 >> 폴더 생성 안함]")
-            print("fileSavePath :: \(thumbnailImageURL.description)")
             print("===============================")
-            print("")
         }
     }
     
@@ -183,12 +165,6 @@ class TasksViewModel {
         
         return scaledImage
     }
-    
-    
-    
-    
-    
-    
     
 //    func updateTask(timeZone: String, taskTime: Date, taskImage: String?, mainTask: String, subTasks: [String?], taskExpiredCheck: Bool, taskCompleted: Bool) {
 //        let subTaskArray = subTasks.compactMap { $0 }
