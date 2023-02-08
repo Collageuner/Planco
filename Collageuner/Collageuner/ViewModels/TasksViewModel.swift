@@ -83,12 +83,12 @@ class TasksViewModel {
         
         createDocumentDirectory()
         
-        guard let originalImageWriteDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: "originalImages") else {
+        guard let originalImageWriteDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: DirectoryForWritingData.OriginalImages.dataDirectory) else {
             print("Error locating Directory")
             return
         }
         
-        guard let thumbnailImageWriteDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: "thumbnailImages") else {
+        guard let thumbnailImageWriteDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: DirectoryForWritingData.ThumbnailImages.dataDirectory) else {
             print("Error locating Directory")
             return
         }
@@ -128,8 +128,8 @@ class TasksViewModel {
             return
         }
         
-        let originalImageURL = imageWriteDirectory.appending(component: "originalImages")
-        let thumbnailImageURL = imageWriteDirectory.appending(component: "thumbnailImages")
+        let originalImageURL = imageWriteDirectory.appending(component: DirectoryForWritingData.OriginalImages.dataDirectory)
+        let thumbnailImageURL = imageWriteDirectory.appending(component: DirectoryForWritingData.ThumbnailImages.dataDirectory)
         
         if !FileManager.default.fileExists(atPath: originalImageURL.path()) {
             print("")
@@ -176,7 +176,7 @@ class TasksViewModel {
         }
     }
     
-    /// Recommended cgsize is around 80.
+    /// Recommended cgsize is around 90.
     private func resizeImageForThumbnail(image: UIImage, cgsize: Int) -> UIImage {
         let thumbnailSize = CGSize(width: cgsize, height: cgsize)
         let scaledImage = image.scalePreservingAspectRatio(targetSize: thumbnailSize)

@@ -43,4 +43,15 @@ enum MyTimeZone: String, CaseIterable {
     case morningTime
     case earlyAfternoonTime
     case lateAfternoonTime
+    
+    var time: String {
+        switch self {
+        case .morningTime:
+            return "morningTime"
+        case .earlyAfternoonTime:
+            return "earlyAfternoonTime"
+        case .lateAfternoonTime:
+            return "lateAfternoonTime"
+        }
+    }
 }

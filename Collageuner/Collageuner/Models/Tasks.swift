@@ -16,8 +16,6 @@ class Tasks: Object {
     @Persisted var taskTime: String
     @Persisted var keyForDateCheck: String
     @Persisted var taskImageName: String?
-//    @Persisted var taskThumbnailImage: String? // 이것도 VM 에서 처리
-    // taskCount 는 VM 에서 처리
     @Persisted var mainTask: String
     @Persisted var subTasks = List<String>()
     @Persisted var taskExpiredCheck: Bool = false // 0

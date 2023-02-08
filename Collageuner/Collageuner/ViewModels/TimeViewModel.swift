@@ -53,7 +53,7 @@ class MyTimeZoneViewModel {
     }
     
     func saveTimeZone(zoneTime: Date, timeZone: MyTimeZone) {
-        let timeZoneString = timeZone.rawValue
+        let timeZoneString = timeZone.time
         guard let isTimePM = isHourPM(zoneDate: zoneTime) else { return }
         let hour = isTimePM.hour
         let minute = isTimePM.minute
@@ -81,7 +81,7 @@ class MyTimeZoneViewModel {
     }
     
     func updateTimeZone(zoneTime: Date, timeZone: MyTimeZone) {
-        let timeZoneString = timeZone.rawValue
+        let timeZoneString = timeZone.time
         guard let isTimePM = isHourPM(zoneDate: zoneTime) else { return }
         let hour = isTimePM.hour
         let minute = isTimePM.minute
