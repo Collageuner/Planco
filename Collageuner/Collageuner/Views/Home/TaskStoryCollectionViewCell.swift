@@ -12,12 +12,13 @@ import Then
 
 final class TaskStoryCollectionViewCell: UICollectionViewCell {
     let taskImage = UIImageView().then {
-        $0.clipsToBounds = true
+        $0.layer.masksToBounds = false
         $0.contentMode = .scaleAspectFill
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundColor = .clear
         updateConstraints()
     }
     
@@ -28,8 +29,9 @@ final class TaskStoryCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        self.clipsToBounds = true
         self.layer.cornerRadius = self.frame.height/2
-        self.layer.borderColor = UIColor.red.cgColor
+        self.layer.borderColor = UIColor.MainGray.cgColor
         self.layer.borderWidth = 3
     }
     
@@ -38,6 +40,7 @@ final class TaskStoryCollectionViewCell: UICollectionViewCell {
         
         taskImage.snp.makeConstraints {
             $0.center.equalToSuperview()
+            $0.width.height.equalToSuperview()
         }
     }
     
