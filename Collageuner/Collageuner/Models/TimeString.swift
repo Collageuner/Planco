@@ -7,36 +7,51 @@
 
 import UIKit
 
-class TimeString {
-    var year: Int
-    var month: Int
-    var hour: Int
-    var minute: Int
+import RealmSwift
+
+class HourMinuteString {
+    var hour: String
+    var minute: String
+    var noon: String
     
-    init(year: Int, month: Int, hour: Int, minute: Int) {
-        self.year = year
-        self.month = month
+    init(hour: String, minute: String, noon: String) {
         self.hour = hour
         self.minute = minute
+        self.noon = noon
     }
 }
 
-enum MyTimeZone: CaseIterable {
+class MyTimeZoneString: Object {
+    @Persisted(primaryKey: true) var _id: ObjectId
+    
+    @Persisted var hour: String
+    @Persisted var minute: String
+    @Persisted var timeZone: String
+    @Persisted var noon: String
+    
+    convenience init(hour: String, minute: String, timeZone: String, noon: String) {
+        self.init()
+        
+        self.hour = hour
+        self.minute = minute
+        self.timeZone = timeZone
+        self.noon = noon
+    }
+}
+
+enum MyTimeZone: String, CaseIterable {
     case morningTime
     case earlyAfternoonTime
     case lateAfternoonTime
     
-    // return UserDefaults
-    var timeZoneString: String {
+    var time: String {
         switch self {
         case .morningTime:
-            return "🕖 07:00-12:00"
+            return "morningTime"
         case .earlyAfternoonTime:
-            return "🕐 12:00-18:00"
+            return "earlyAfternoonTime"
         case .lateAfternoonTime:
-            return "🕕 18:00-24:00"
+            return "lateAfternoonTime"
         }
     }
-    
-    // enum -> 1주일 치 date 나타내기..? (미정)
 }

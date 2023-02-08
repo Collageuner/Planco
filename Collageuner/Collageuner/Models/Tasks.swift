@@ -7,22 +7,28 @@
 
 import UIKit
 
-class Tasks {
-    var taskTimeZone: MyTimeZone
-    var taskTime: TimeString
-    var taskImage: UIImage?
-    var taskThumbnailImage: UIImage?
-    var mainTask: String
-    var subTasks: [String]?
-    var tasksCount: Int = 2
+import RealmSwift
+
+class Tasks: Object {
+    @Persisted(primaryKey: true) var _id: ObjectId
     
-    init(taskTimeZone: MyTimeZone, taskTime: TimeString, taskImage: UIImage? = nil, taskThumbnailImage: UIImage? = nil, mainTask: String, subTasks: [String]? = nil, tasksCount: Int) {
+    @Persisted var taskTimeZone: String
+    @Persisted var taskTime: String
+    @Persisted var keyForDateCheck: String
+    @Persisted var mainTask: String
+    @Persisted var subTasks = List<String>()
+    @Persisted var taskExpiredCheck: Bool = false // 0
+    @Persisted var taskCompleted: Bool = false // 0
+    
+    convenience init(taskTimeZone: String, taskTime: String, keyForDateCheck: String, mainTask: String, subTasks: List<String>, taskExpiredCheck: Bool, taskCompleted: Bool) {
+        self.init()   
+        
         self.taskTimeZone = taskTimeZone
         self.taskTime = taskTime
-        self.taskImage = taskImage
-        self.taskThumbnailImage = taskThumbnailImage
+        self.keyForDateCheck = keyForDateCheck
         self.mainTask = mainTask
         self.subTasks = subTasks
-        self.tasksCount = tasksCount
+        self.taskExpiredCheck = taskExpiredCheck
+        self.taskCompleted = taskCompleted
     }
 }

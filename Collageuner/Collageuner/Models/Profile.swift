@@ -7,12 +7,18 @@
 
 import UIKit
 
-class Profile {
-    let userUUID: String
-    var userProfileImage: UIImage
+import RealmSwift
+
+class Profile: Object {
+    @Persisted(primaryKey: true) var _id: ObjectId
+    @Persisted var userName: String
+    @Persisted var userProfileImage: String
     /// Other variables are TBD.
-    init(userUUID: String, userProfileImage: UIImage) {
-        self.userUUID = userUUID
+    
+    convenience init(userName: String, userProfileImage: String) {
+        self.init()
+        
+        self.userName = userName
         self.userProfileImage = userProfileImage
     }
 }
