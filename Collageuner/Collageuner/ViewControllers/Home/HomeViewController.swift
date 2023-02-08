@@ -17,17 +17,19 @@ import Then
 /// 할것 -> enum 으로 내부 Constraints length 한번에 정리해두기!
 
 final class HomeViewController: UIViewController {
-    var notificationTokent: NotificationToken?
-    
+    // MARK: - Prerequisite Components
+    // Rx-DisposBag
     var disposeBag = DisposeBag()
     
+    // Realm-NotificationToken
+    var notificationTokent: NotificationToken?
+    
+    // ViewModel Used in VC
     let timeViewModel = MyTimeZoneViewModel()
     let taskViewModel = TasksViewModel(dateForList: Date())
     let taskViewModelStory = TasksViewModel(dateForStories: Date())
-//    var emptyTaskStory: Observable<[UIImage?]> {
-//        return Observable.just([UIImage(named: "TaskDefaultImage")])
-//    }
     
+    // MARK: - UI Components
     private let currentMonthLabel = UILabel().then {
         $0.textColor = .MainText
         $0.font = .customEnglishFont(.semibold, forTextStyle: .largeTitle)
@@ -60,7 +62,6 @@ final class HomeViewController: UIViewController {
         $0.isHidden = false
     }
     
-    /// CollectionView
     private lazy var taskStoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: storyFlowLayout).then {
         $0.backgroundColor = .clear
         $0.register(TaskStoryCollectionViewCell.self, forCellWithReuseIdentifier: IdsForCollectionView.storyCollectionViewId.identifier)
@@ -122,6 +123,7 @@ final class HomeViewController: UIViewController {
         $0.layer.shadowRadius = 3
     }
     
+    // MARK: - UI Layout Object
     private lazy var storyFlowLayout = UICollectionViewFlowLayout().then {
         let itemSizes = Double(self.view.frame.width - 65)/6
         $0.itemSize = CGSize(width: itemSizes, height: itemSizes)
@@ -129,6 +131,7 @@ final class HomeViewController: UIViewController {
         $0.scrollDirection = .horizontal
     }
     
+    // MARK: - Lottie Components
     private let defaultStoryImage: LottieAnimationView = .init(name: "EmptyHome").then {
         $0.layer.cornerRadius = 5
         $0.contentMode = .scaleAspectFill
@@ -138,6 +141,7 @@ final class HomeViewController: UIViewController {
         $0.loopMode = .loop
     }
     
+    // MARK: - View Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         basicUI()
@@ -167,10 +171,12 @@ final class HomeViewController: UIViewController {
         notifyingDot.layer.cornerRadius = self.notifyingDot.frame.width/2
     }
     
+    // MARK: - Basic View Configuration
     private func basicUI() {
         view.backgroundColor = .Background
     }
 
+    // MARK: - UI Constraint Layouts
     private func layouts() {
         view.addSubviews(currentMonthLabel, currentDayLabel, profileButton, notifyingDot, defaultStoryImage, taskStoryCollectionView, mainGardenImageView, emptyGardenLabel, gardenListButton, plantsListButton, moveToGardenButton)
         
@@ -196,7 +202,6 @@ final class HomeViewController: UIViewController {
             $0.width.height.equalTo(view.frame.width/65.5)
         }
         
-        /// CollectionView
         if taskViewModelStory.taskStoryImages.value.isEmpty {
             defaultStoryImage.layer.opacity = 0.75
             defaultStoryImage.snp.makeConstraints {
@@ -249,6 +254,7 @@ final class HomeViewController: UIViewController {
         }
     }
     
+    // MARK: - Rx UI-Data Binding
     private func bindings() {
         timeViewModel.morningTimeZone
             .observe(on: MainScheduler.instance)
@@ -260,7 +266,6 @@ final class HomeViewController: UIViewController {
             .bind(to: currentDayLabel.rx.text)
             .disposed(by: disposeBag)
         
-        /// CollectionView
         if !taskViewModelStory.taskStoryImages.value.isEmpty {
             taskViewModelStory.taskStoryImages
                 .debug()
@@ -281,6 +286,7 @@ final class HomeViewController: UIViewController {
         }
     }
     
+    // MARK: - Other actions to run VC
     private func actions() {
 //        taskViewModelStory.createTask(timeZone: MyTimeZone.morningTime.time, taskTime: Date(timeIntervalSinceNow: -1000), taskImage: nil, mainTask: "Test1", subTasks: ["test1"])
 //        taskViewModelStory.createTask(timeZone: MyTimeZone.morningTime.time, taskTime: Date(), taskImage: UIImage(named: "PlantsListLogo"), mainTask: "Test2", subTasks: ["test2"])
@@ -290,7 +296,7 @@ final class HomeViewController: UIViewController {
 //        taskViewModelStory.createTask(timeZone: MyTimeZone.lateAfternoonTime.time, taskTime: Date(timeIntervalSinceNow: 7000), taskImage: UIImage(named: "ExampleGardenImage"), mainTask: "Test5", subTasks: ["test5", "test5-1"])
     }
     
-    /// CollectionView
+    // Function: Load Thumbnail Image from app disk.
     private func loadThumbnailImageFromDirectory(imageName: String) -> UIImage? {
         let fileManager = FileManager.default
         guard let thumbnailDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: DirectoryForWritingData.ThumbnailImages.dataDirectory) else {
@@ -312,6 +318,7 @@ final class HomeViewController: UIViewController {
         return UIImage(named: "TaskDefaultImage")
     }
     
+    // Function: Notify Rx Binding that Realm DB has changed.
     private func notifyToken() {
         let tokenRealm = timeViewModel.mytimeRealm.objects(MyTimeZoneString.self)
 
@@ -337,8 +344,4 @@ final class HomeViewController: UIViewController {
         
         print("Notifying Token Opened.")
     }
-}
-
-extension HomeViewController: UICollectionViewDelegateFlowLayout {
-    
 }
