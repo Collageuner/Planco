@@ -15,19 +15,17 @@ class Tasks: Object {
     @Persisted var taskTimeZone: String
     @Persisted var taskTime: String
     @Persisted var keyForDateCheck: String
-    @Persisted var taskImageName: String?
     @Persisted var mainTask: String
     @Persisted var subTasks = List<String>()
     @Persisted var taskExpiredCheck: Bool = false // 0
     @Persisted var taskCompleted: Bool = false // 0
     
-    convenience init(taskTimeZone: String, taskTime: String, keyForDateCheck: String, taskImageName: String? = nil, mainTask: String, subTasks: List<String>, taskExpiredCheck: Bool, taskCompleted: Bool) {
+    convenience init(taskTimeZone: String, taskTime: String, keyForDateCheck: String, mainTask: String, subTasks: List<String>, taskExpiredCheck: Bool, taskCompleted: Bool) {
         self.init()   
         
         self.taskTimeZone = taskTimeZone
         self.taskTime = taskTime
         self.keyForDateCheck = keyForDateCheck
-        self.taskImageName = taskImageName
         self.mainTask = mainTask
         self.subTasks = subTasks
         self.taskExpiredCheck = taskExpiredCheck
