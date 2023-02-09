@@ -73,6 +73,35 @@ extension Realm {
         }
     }
     
+    func deleteImageFromDirectory(fromOriginalDirectory originalImageDirectory: DirectoryForWritingData, fromThumbnailDirectory thumbnailImageDirectory: DirectoryForWritingData, imageName: String) {
+        let isDirectoryFound: Bool = checkDirectoryValid(of: originalImageDirectory.dataDirectory) && checkDirectoryValid(of: thumbnailImageDirectory.dataDirectory)
+        
+        guard let originalImageDeleteDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: originalImageDirectory.dataDirectory) else {
+            print("Error locating Directory: Original Image")
+            return
+        }
+        guard let thumbnailImageDeleteDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: thumbnailImageDirectory.dataDirectory) else {
+            print("Error locating Directory: Thumbnail Image")
+            return
+        }
+        
+        let originalImageURL = originalImageDeleteDirectory.appending(component: "\(imageName).png")
+        let thumbnailImageURL = thumbnailImageDeleteDirectory.appending(path: "Thumbnail_\(imageName).png")
+        
+        switch isDirectoryFound {
+        case true:
+            do {
+                try FileManager.default.removeItem(at: originalImageURL)
+                try FileManager.default.removeItem(at: thumbnailImageURL)
+                print("🌕 Garage Image Deleted")
+            } catch let error {
+                print(error)
+            }
+        case false:
+            print("Error Locating Directories while Deleting Images.")
+        }
+    }
+    
     private func createDocumentDirectory(at newDirectory: String) {
         guard let imageWriteDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             print("Error locating Directory")
@@ -82,15 +111,27 @@ extension Realm {
         let newDirectoryURL = imageWriteDirectory.appending(component: newDirectory)
         
         if !FileManager.default.fileExists(atPath: newDirectoryURL.path()) {
-            print("저장 된 경로 없음 >> 폴더 생성 실시")
             do {
                 try FileManager.default.createDirectory(atPath: newDirectoryURL.path(), withIntermediateDirectories: true)
+                print("저장 된 경로 없음 >> 폴더 생성 실시")
             } catch let error {
                 print(error)
             }
         } else {
             print("이미 저장 된 경로 있음 >> 폴더 생성 안함")
         }
+    }
+    
+    private func checkDirectoryValid(of directoryToCheck: String) -> Bool {
+        guard let findDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            print("Error locating Directory")
+            return false
+        }
+        let targetDirectoryURL = findDirectory.appending(component: directoryToCheck)
+        
+        let isDirectoryFound: Bool = FileManager.default.fileExists(atPath: targetDirectoryURL.path())
+        
+        return isDirectoryFound
     }
     
     private func resizeImageForThumbnail(image: UIImage, cgsize: Int) -> UIImage {
