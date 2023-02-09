@@ -50,9 +50,7 @@ class TasksViewModel {
     }
     
     func createTask(timeZone: String, taskTime: Date, taskImage: UIImage?, mainTask: String, subTasks: [String?] = [], taskExpiredCheck: Bool = false, taskCompleted: Bool = false) {
-        let subTaskArray = subTasks.compactMap { $0 }
-        let subTaskList = List<String>()
-        subTaskList.append(objectsIn: subTaskArray)
+        let subTaskList = arrayToListRealm(swiftArray: subTasks)
         
         let taskDateToTime = Date.dateToJoinedString(date: taskTime)
         let taskKey = Date.dateToCheckDay(date: taskTime)
@@ -72,12 +70,17 @@ class TasksViewModel {
         print("🪜 Task Created")
     }
     
-    func updateTask() {
-        
-        
-        
-    }
+//    func updateTask(timeZone: String, taskTime: Date, taskImage: UIImage?, mainTask: String, subTasks: [String?] = []) {
+//        let subTaskList = arrayToListRealm(swiftArray: subTasks)
+//
+//        let taskDateToTime = Date.dateToJoinedString(date: taskTime)
+//        let taskKey = Date.dateToCheckDay(date: taskTime)
+//
+//
+//
+//    }
     
+    // TODO: Realm Extension 에서 만드는건 어때?
     private func saveImageToDocumentDirectory(imageName: String, image: UIImage) {
         // 1. Subscription 을 하면, 한달까지 png 파일이 유지되게 만들어야해! ⏲️ TODO 임
         
@@ -122,6 +125,7 @@ class TasksViewModel {
         }
     }
     
+    // TODO: Realm Extension 에서 만드는건 어때?
     private func createDocumentDirectory() {
         guard let imageWriteDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             print("Error locating Directory")
@@ -164,6 +168,7 @@ class TasksViewModel {
         }
     }
     
+    // TODO: Realm Extension 에서 만드는건 어때?
     /// Recommended cgsize is around 90.
     private func resizeImageForThumbnail(image: UIImage, cgsize: Int) -> UIImage {
         let thumbnailSize = CGSize(width: cgsize, height: cgsize)
@@ -171,6 +176,16 @@ class TasksViewModel {
         
         return scaledImage
     }
+    
+    // TODO: Realm Extension 에서 만드는건 어때?
+    private func arrayToListRealm(swiftArray: [String?]) -> List<String> {
+        let subTaskArray = swiftArray.compactMap { $0 }
+        let subTaskList = List<String>()
+        subTaskList.append(objectsIn: subTaskArray)
+        
+        return subTaskList
+    }
+    
     
 //    func updateTask(timeZone: String, taskTime: Date, taskImage: String?, mainTask: String, subTasks: [String?], taskExpiredCheck: Bool, taskCompleted: Bool) {
 //        let subTaskArray = subTasks.compactMap { $0 }

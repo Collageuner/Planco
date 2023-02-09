@@ -17,7 +17,7 @@
 		58305227298386D700E299C8 /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58305226298386D700E299C8 /* TasksViewModel.swift */; };
 		58305229298386E500E299C8 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58305228298386E500E299C8 /* ProfileViewModel.swift */; };
 		5830522B298386F400E299C8 /* TextConfigurationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830522A298386F400E299C8 /* TextConfigurationsViewModel.swift */; };
-		5830522D2983870400E299C8 /* imageAssetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830522C2983870400E299C8 /* imageAssetViewModel.swift */; };
+		5830522D2983870400E299C8 /* ImageAssetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830522C2983870400E299C8 /* ImageAssetViewModel.swift */; };
 		5830522F29839C5600E299C8 /* StickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830522E29839C5600E299C8 /* StickerView.swift */; };
 		58396695297E367300B63E52 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58396694297E367300B63E52 /* String+Extensions.swift */; };
 		58396697297E386400B63E52 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58396696297E386400B63E52 /* UIFont+Extensions.swift */; };
@@ -91,7 +91,7 @@
 		58305226298386D700E299C8 /* TasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		58305228298386E500E299C8 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		5830522A298386F400E299C8 /* TextConfigurationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextConfigurationsViewModel.swift; sourceTree = "<group>"; };
-		5830522C2983870400E299C8 /* imageAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imageAssetViewModel.swift; sourceTree = "<group>"; };
+		5830522C2983870400E299C8 /* ImageAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAssetViewModel.swift; sourceTree = "<group>"; };
 		5830522E29839C5600E299C8 /* StickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerView.swift; sourceTree = "<group>"; };
 		58396694297E367300B63E52 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		58396696297E386400B63E52 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
@@ -295,7 +295,7 @@
 		5894B2B02968387600263584 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				5830522C2983870400E299C8 /* imageAssetViewModel.swift */,
+				5830522C2983870400E299C8 /* ImageAssetViewModel.swift */,
 				5830522429837B4C00E299C8 /* GardenImageViewModel.swift */,
 				58305228298386E500E299C8 /* ProfileViewModel.swift */,
 				58305226298386D700E299C8 /* TasksViewModel.swift */,
@@ -536,7 +536,7 @@
 				583966A2297E401800B63E52 /* UIView+Extensions.swift in Sources */,
 				58AF77172981245F00A46B3D /* TextConfigurations.swift in Sources */,
 				58AF77192981269400A46B3D /* GarageImages.swift in Sources */,
-				5830522D2983870400E299C8 /* imageAssetViewModel.swift in Sources */,
+				5830522D2983870400E299C8 /* ImageAssetViewModel.swift in Sources */,
 				5830522F29839C5600E299C8 /* StickerView.swift in Sources */,
 				58AF770C298102C500A46B3D /* Tasks.swift in Sources */,
 				58AF77092980FBAF00A46B3D /* GardenImage.swift in Sources */,
