@@ -30,7 +30,17 @@ class GarageImagesViewModel {
     
     let garageImages: BehaviorRelay<[GarageImage]> = BehaviorRelay(value: [])
     
-    init() {}
+    init() {
+        var garageImagesArray: [GarageImage] = []
+        let realmResult = myGarageRealm.objects(GarageImage.self)
+        
+        realmResult.forEach {
+            garageImagesArray.append($0)
+        }
+        
+        _ = Observable.just(garageImagesArray)
+            .bind(to: garageImages)
+    }
     
     func addGarageImage(garageImage: UIImage) {
         let garageImageToAdd = GarageImage(usedNumber: 0)
