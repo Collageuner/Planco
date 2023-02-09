@@ -72,6 +72,12 @@ class TasksViewModel {
         print("🪜 Task Created")
     }
     
+    func updateTask() {
+        
+        
+        
+    }
+    
     private func saveImageToDocumentDirectory(imageName: String, image: UIImage) {
         // 1. Subscription 을 하면, 한달까지 png 파일이 유지되게 만들어야해! ⏲️ TODO 임
         
