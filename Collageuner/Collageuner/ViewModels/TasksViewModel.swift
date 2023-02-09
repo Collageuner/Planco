@@ -64,10 +64,10 @@ class TasksViewModel {
                 myTaskRealm.add(taskToCreate)
                 myTaskRealm.saveImagesToDocumentDirectory(imageName: imageName, image: taskImage ?? UIImage(), originalImageAt: .TaskOriginalImages, thumbnailImageAt: .TaskThumbnailImages)
             })
+            print("🪜 Task Created")
         } catch let error {
             print(error)
         }
-        print("🪜 Task Created")
     }
     
 //    func updateTask(timeZone: String, taskTime: Date, taskImage: UIImage?, mainTask: String, subTasks: [String?] = []) {

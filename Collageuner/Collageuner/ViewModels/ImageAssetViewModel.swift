@@ -40,12 +40,12 @@ class GarageImagesViewModel {
         do {
             try myGarageRealm.write({
                 myGarageRealm.add(garageImageToAdd)
-                myGarageRealm.saveImagesToDocumentDirectory(imageName: imageName, image: garageImage, originalImageAt: .GarageOriginalImages, thumbnailImageAt: .GardenThumbnailImages)
+                myGarageRealm.saveImagesToDocumentDirectory(imageName: imageName, image: garageImage, originalImageAt: .GarageOriginalImages, thumbnailImageAt: .GarageThumbnailImages)
             })
+            print("🌅 Garage Image Added")
         } catch let error {
             print(error)
         }
-        print("🌅 Garage Image Added")
     }
     
     /// Use parameter as GarageImage's _id
@@ -58,14 +58,11 @@ class GarageImagesViewModel {
         do {
             try myGarageRealm.write({
                 myGarageRealm.delete(realmResult)
+                myGarageRealm.deleteImageFromDirectory(fromOriginalDirectory: .GarageOriginalImages, fromThumbnailDirectory: .GarageThumbnailImages, imageName: garageImageId)
             })
+            print("🗑️ Garage Image Deleted")
         } catch let error {
             print(error)
         }
-        print("🗑️ Garage Image Deleted")
-    }
-    
-    private func saveImageToDocumentDirectory(imageName: String, image: UIImage) {
-        
     }
 }
