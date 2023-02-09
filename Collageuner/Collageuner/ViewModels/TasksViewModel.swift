@@ -62,7 +62,7 @@ class TasksViewModel {
         do {
             try myTaskRealm.write({
                 myTaskRealm.add(taskToCreate)
-                saveImageToDocumentDirectory(imageName: imageName, image: taskImage ?? UIImage())
+                myTaskRealm.saveImagesToDocumentDirectory(imageName: imageName, image: taskImage ?? UIImage(), originalImageAt: .TaskOriginalImages, thumbnailImageAt: .TaskThumbnailImages)
             })
         } catch let error {
             print(error)
@@ -80,104 +80,6 @@ class TasksViewModel {
 //
 //    }
     
-    // TODO: Realm Extension 에서 만드는건 어때?
-    private func saveImageToDocumentDirectory(imageName: String, image: UIImage) {
-        // 1. Subscription 을 하면, 한달까지 png 파일이 유지되게 만들어야해! ⏲️ TODO 임
-        
-        createDocumentDirectory()
-        
-        guard let originalImageWriteDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: DirectoryForWritingData.OriginalImages.dataDirectory) else {
-            print("Error locating Directory")
-            return
-        }
-        
-        guard let thumbnailImageWriteDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: DirectoryForWritingData.ThumbnailImages.dataDirectory) else {
-            print("Error locating Directory")
-            return
-        }
-        
-        let originalImageURL = originalImageWriteDirectory.appending(component: "\(imageName).png")
-        
-        let thumbnailImageURL = thumbnailImageWriteDirectory.appending(path: "Thumbnail_\(imageName).png")
-        let resizedImageForThumbnail = resizeImageForThumbnail(image: image, cgsize: 100)
-        
-        guard let originalImageData = image.pngData() else {
-            print("Failed to Compress Image into .png")
-            return
-        }
-        guard let thumbnailImageData = resizedImageForThumbnail.pngData() else {
-            print("Failed to Compress Image into thumbnail Image")
-            return
-        }
-        
-        do {
-            try originalImageData.write(to: originalImageURL)
-            print("🌕 Original Image Saved")
-        } catch let error {
-            print(error)
-        }
-        
-        do {
-            try thumbnailImageData.write(to: thumbnailImageURL)
-            print("🌙 Thumbnail Image Saved")
-        } catch let error {
-            print(error)
-        }
-    }
-    
-    // TODO: Realm Extension 에서 만드는건 어때?
-    private func createDocumentDirectory() {
-        guard let imageWriteDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
-            print("Error locating Directory")
-            return
-        }
-        
-        let originalImageURL = imageWriteDirectory.appending(component: DirectoryForWritingData.OriginalImages.dataDirectory)
-        let thumbnailImageURL = imageWriteDirectory.appending(component: DirectoryForWritingData.ThumbnailImages.dataDirectory)
-        
-        if !FileManager.default.fileExists(atPath: originalImageURL.path()) {
-            print("===============================")
-            print("[ViewController >> testMain() :: 저장 된 경로 없음 >> 폴더 생성 실시]")
-            print("===============================")
-            
-            do {
-                try FileManager.default.createDirectory(atPath: originalImageURL.path(), withIntermediateDirectories: true)
-            } catch let error {
-                print(error)
-            }
-        } else {
-            print("===============================")
-            print("[ViewController >> testMain() :: 이미 저장 된 경로 있음 >> 폴더 생성 안함]")
-            print("===============================")
-        }
-        
-        if !FileManager.default.fileExists(atPath: thumbnailImageURL.path()) {
-            print("===============================")
-            print("[ViewController >> testMain() :: 저장 된 경로 없음 >> 폴더 생성 실시]")
-            print("===============================")
-            
-            do {
-                try FileManager.default.createDirectory(atPath: thumbnailImageURL.path(), withIntermediateDirectories: true)
-            } catch let error {
-                print(error)
-            }
-        } else {
-            print("===============================")
-            print("[ViewController >> testMain() :: 이미 저장 된 경로 있음 >> 폴더 생성 안함]")
-            print("===============================")
-        }
-    }
-    
-    // TODO: Realm Extension 에서 만드는건 어때?
-    /// Recommended cgsize is around 90.
-    private func resizeImageForThumbnail(image: UIImage, cgsize: Int) -> UIImage {
-        let thumbnailSize = CGSize(width: cgsize, height: cgsize)
-        let scaledImage = image.scalePreservingAspectRatio(targetSize: thumbnailSize)
-        
-        return scaledImage
-    }
-    
-    // TODO: Realm Extension 에서 만드는건 어때?
     private func arrayToListRealm(swiftArray: [String?]) -> List<String> {
         let subTaskArray = swiftArray.compactMap { $0 }
         let subTaskList = List<String>()
@@ -185,29 +87,7 @@ class TasksViewModel {
         
         return subTaskList
     }
-    
-    
-//    func updateTask(timeZone: String, taskTime: Date, taskImage: String?, mainTask: String, subTasks: [String?], taskExpiredCheck: Bool, taskCompleted: Bool) {
-//        let subTaskArray = subTasks.compactMap { $0 }
-//        let subTaskList = List<String>()
-//        subTaskList.append(objectsIn: subTaskArray)
-//
-//        let dateKey = Date.dateToJoinedString(date: taskTime)
-//
-//        do {
-//            try myTaskRealm.write({
-//                guard let taskToUpdate = myTaskRealm.objects(Tasks.self).where { $0.taskTime == dateKey }.first else {
-//                    print("Failed to find object with dateKey")
-//                    return }
-//                taskToUpdate.taskTime = dateKey
-//            })
-//        } catch let error {
-//            print(error)
-//        }
-//        print("✨ Task Updated")
-//        print(myTaskRealm.objects(Tasks.self))
-//    }
- 
+
     /// 결국에 tableView 에서 어떻게 데이터 전달이 돼서 새로운 변수만 있으면 되는건지 아니면 조회를 해야하는건지...
 //    func deleteTask
     
