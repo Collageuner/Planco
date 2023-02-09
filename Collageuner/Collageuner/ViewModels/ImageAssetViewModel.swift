@@ -32,17 +32,40 @@ class GarageImagesViewModel {
     
     init() {}
     
-    func AddGarageImage(garageImage: UIImage) {
+    func addGarageImage(garageImage: UIImage) {
+        let garageImageToAdd = GarageImage(usedNumber: 0)
         
+        let imageName: String = garageImageToAdd._id.stringValue
+        
+        do {
+            try myGarageRealm.write({
+                myGarageRealm.add(garageImageToAdd)
+                myGarageRealm.saveImagesToDocumentDirectory(imageName: imageName, image: garageImage, originalImageAt: .GarageOriginalImages, thumbnailImageAt: .GardenThumbnailImages)
+            })
+        } catch let error {
+            print(error)
+        }
+        print("🌅 Garage Image Added")
     }
     
-    func deleteGarageImage() {
+    /// Use parameter as GarageImage's _id
+    func deleteGarageImage(garageImageId: String) {
+        guard let realmResult = myGarageRealm.objects(GarageImage.self).filter(NSPredicate(format: "_id = %@", garageImageId)).first else {
+            print("The Selected Image doesn't exist. _Id: \(garageImageId)")
+            return
+        }
         
+        do {
+            try myGarageRealm.write({
+                myGarageRealm.delete(realmResult)
+            })
+        } catch let error {
+            print(error)
+        }
+        print("🗑️ Garage Image Deleted")
     }
     
     private func saveImageToDocumentDirectory(imageName: String, image: UIImage) {
         
     }
-    
-    
 }
