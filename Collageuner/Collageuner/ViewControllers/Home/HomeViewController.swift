@@ -88,7 +88,6 @@ final class HomeViewController: UIViewController {
         self.timeViewModel.updateTimeZone(zoneTime: Date(timeIntervalSinceNow: -20000), timeZone: .morningTime)
         self.timeViewModel.updateTimeZone(zoneTime: Date.now, timeZone: .earlyAfternoonTime)
         self.timeViewModel.updateTimeZone(zoneTime: Date(timeIntervalSinceNow: 10000), timeZone: .lateAfternoonTime)
-        print(self.timeViewModel.mytimeRealm.objects(MyTimeZoneString.self))
     })
     ).then {
         $0.contentMode = .scaleAspectFill
@@ -293,13 +292,12 @@ final class HomeViewController: UIViewController {
 //        taskViewModelStory.createTask(timeZone: MyTimeZone.earlyAfternoonTime.time, taskTime: Date(timeIntervalSinceNow: 3000), taskImage: UIImage(named: "ExampleProfileImage"), mainTask: "Test3", subTasks: ["test3"])
 //        taskViewModelStory.createTask(timeZone: MyTimeZone.lateAfternoonTime.time, taskTime: Date(timeIntervalSinceNow: 4000), taskImage: UIImage(named: "ppp"), mainTask: "Test4", subTasks: [])
 //        taskViewModelStory.createTask(timeZone: MyTimeZone.lateAfternoonTime.time, taskTime: Date(timeIntervalSinceNow: 7000), taskImage: UIImage(named: "ExampleGardenImage"), mainTask: "Test5", subTasks: ["test5", "test5-1"])
-//        taskViewModelStory.createTask(timeZone: MyTimeZone.lateAfternoonTime.time, taskTime: Date(timeIntervalSinceNow: 7000), taskImage: UIImage(named: "ExampleGardenImage"), mainTask: "Test5", subTasks: ["test5", "test5-1"])
     }
     
     // Function: Load Thumbnail Image from app disk.
     private func loadThumbnailImageFromDirectory(imageName: String) -> UIImage? {
         let fileManager = FileManager.default
-        guard let thumbnailDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: DirectoryForWritingData.ThumbnailImages.dataDirectory) else {
+        guard let thumbnailDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: DirectoryForWritingData.TaskThumbnailImages.dataDirectory) else {
             print("Failed fetching directory for Thumbnail Images for Home-Stories")
             return UIImage(named: "TaskDefaultImage")
         }
