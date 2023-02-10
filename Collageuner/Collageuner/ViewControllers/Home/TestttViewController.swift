@@ -13,7 +13,7 @@ import RxCocoa
 import SnapKit
 import Then
 
-class TestttViewController: UIViewController {
+final class TestttViewController: UIViewController {
 
     let viewModel = MyTimeZoneViewModel()
     var disposeBag = DisposeBag()

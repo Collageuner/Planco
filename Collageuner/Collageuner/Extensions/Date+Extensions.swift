@@ -8,6 +8,15 @@
 import UIKit
 
 extension Date {
+    /// Retruns -> "yyMM"
+    static func dateToYearAndMonth(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyMM"
+                
+        return dateFormatter.string(from: date)
+    }
+    
+    /// Returns -> "yyMMdd"
     static func dateToCheckDay(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyMMdd"
@@ -15,18 +24,20 @@ extension Date {
         return dateFormatter.string(from: date)
     }
     
-    static func dateToJoinedString(date: Date) -> String {
+    /// Returns -> "yyMMddHHmmss"
+    static func fullDateToString(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyMMddHHmmss"
         
         return dateFormatter.string(from: date)
     }
     
+    /// Returns -> "h:ss"
     static func hourMinuteJoinedString(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h:ss"
         
-        return dateFormatter.string(from: date )
+        return dateFormatter.string(from: date)
     }
 }
 

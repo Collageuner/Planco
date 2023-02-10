@@ -11,11 +11,8 @@ import RealmSwift
 import RxSwift
 import RxCocoa
 
-class TimeViewModel {
-    
-}
 
-class MyTimeZoneViewModel {
+final class MyTimeZoneViewModel {
     let mytimeRealm = try! Realm()
     
     lazy var timeZoneRealmResult = mytimeRealm.objects(MyTimeZoneString.self)

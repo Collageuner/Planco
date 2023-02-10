@@ -67,7 +67,7 @@ final class HomeViewController: UIViewController {
         $0.register(TaskStoryCollectionViewCell.self, forCellWithReuseIdentifier: IdsForCollectionView.storyCollectionViewId.identifier)
     }
     
-    private let mainGardenImageView = UIImageView().then {
+    private let mainGardenCanvasView = UIImageView().then {
         $0.backgroundColor = .white
         $0.contentMode = .scaleAspectFill
         $0.layer.cornerRadius = 4
@@ -177,7 +177,7 @@ final class HomeViewController: UIViewController {
 
     // MARK: - UI Constraint Layouts
     private func layouts() {
-        view.addSubviews(currentMonthLabel, currentDayLabel, profileButton, notifyingDot, defaultStoryImage, taskStoryCollectionView, mainGardenImageView, emptyGardenLabel, gardenListButton, plantsListButton, moveToGardenButton)
+        view.addSubviews(currentMonthLabel, currentDayLabel, profileButton, notifyingDot, defaultStoryImage, taskStoryCollectionView, mainGardenCanvasView, emptyGardenLabel, gardenListButton, plantsListButton, moveToGardenButton)
         
         currentMonthLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(25)
@@ -223,32 +223,32 @@ final class HomeViewController: UIViewController {
             }
         }
         
-        mainGardenImageView.snp.makeConstraints {
+        mainGardenCanvasView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.top.equalTo(self.currentDayLabel.snp.bottom).offset(view.frame.height/10.65)
-            $0.height.equalTo(self.mainGardenImageView.snp.width).multipliedBy(1.414)
+            $0.height.equalTo(self.mainGardenCanvasView.snp.width).multipliedBy(1.414)
         }
         
         // 분기처리 해야함. 어떤 자료를 기준으로?
         emptyGardenLabel.snp.makeConstraints {
-            $0.center.equalTo(self.mainGardenImageView.snp.center)
+            $0.center.equalTo(self.mainGardenCanvasView.snp.center)
         }
         
         gardenListButton.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(25)
-            $0.top.equalTo(self.mainGardenImageView.snp.bottom).offset(20)
+            $0.top.equalTo(self.mainGardenCanvasView.snp.bottom).offset(20)
             $0.width.height.equalTo(view.snp.width).dividedBy(6.1)
         }
         
         plantsListButton.snp.makeConstraints {
             $0.leading.equalTo(self.gardenListButton.snp.trailing).offset(15)
-            $0.top.equalTo(self.mainGardenImageView.snp.bottom).offset(20)
+            $0.top.equalTo(self.mainGardenCanvasView.snp.bottom).offset(20)
             $0.width.height.equalTo(self.gardenListButton.snp.width)
         }
         
         moveToGardenButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(25)
-            $0.top.equalTo(self.mainGardenImageView.snp.bottom).offset(20)
+            $0.top.equalTo(self.mainGardenCanvasView.snp.bottom).offset(20)
             $0.width.height.equalTo(self.gardenListButton.snp.width)
         }
     }

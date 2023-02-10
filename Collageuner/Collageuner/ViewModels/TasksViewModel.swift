@@ -11,7 +11,7 @@ import RealmSwift
 import RxCocoa
 import RxSwift
 
-class TasksViewModel {
+final class TasksViewModel {
     let myTaskRealm = try! Realm()
     
     let taskStoryImages: BehaviorRelay<[String]> = BehaviorRelay(value: [])
@@ -52,7 +52,7 @@ class TasksViewModel {
     func createTask(timeZone: String, taskTime: Date, taskImage: UIImage?, mainTask: String, subTasks: [String?] = [], taskExpiredCheck: Bool = false, taskCompleted: Bool = false) {
         let subTaskList = arrayToListRealm(swiftArray: subTasks)
         
-        let taskDateToTime = Date.dateToJoinedString(date: taskTime)
+        let taskDateToTime = Date.fullDateToString(date: taskTime)
         let taskKey = Date.dateToCheckDay(date: taskTime)
         
         let taskToCreate: Tasks = Tasks(taskTimeZone: timeZone, taskTime: taskDateToTime, keyForDateCheck: taskKey, mainTask: mainTask, subTasks: subTaskList, taskExpiredCheck: false, taskCompleted: false)
