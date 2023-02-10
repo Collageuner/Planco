@@ -66,14 +66,6 @@ final class GardenCanvasViewModel {
         }
     }
     
-    // Need to be fixed
-    func loadAllAnnualCanvas(date: Date) -> [UIImage] {
-        var collectionOfImageName: [String] = []
-        var collectionOfThumbnailImage: [UIImage] = []
-        
-        return []
-    }
-    
     private func dateToYear(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yy"
