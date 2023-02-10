@@ -11,7 +11,6 @@ import RealmSwift
 import RxSwift
 import RxCocoa
 
-
 final class MyTimeZoneViewModel {
     let mytimeRealm = try! Realm()
     

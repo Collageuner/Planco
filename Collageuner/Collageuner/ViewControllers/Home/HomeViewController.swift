@@ -17,35 +17,42 @@ import Then
 /// 할것 -> enum 으로 내부 Constraints length 한번에 정리해두기!
 
 final class HomeViewController: UIViewController {
+    // MARK: - Observable Struct for Live Time Display
+    struct LiveTime {
+        static let liveMonth = Driver<Int>.interval(.seconds(1)).map { _ in
+            return 0
+        }
+        
+        static let liveDay = Driver<Int>.interval(.seconds(1)).map { _ in
+            return 0
+        }
+    }
+    
     // MARK: - Prerequisite Components
     // Rx-DisposBag
     var disposeBag = DisposeBag()
     
-    // Realm-NotificationToken
-    var notificationTokent: NotificationToken?
-    
     // ViewModel Used in VC
-    let timeViewModel = MyTimeZoneViewModel()
-    let taskViewModel = TasksViewModel(dateForList: Date())
     let taskViewModelStory = TasksViewModel(dateForStories: Date())
-    
+
     // MARK: - UI Components
-    private let currentMonthLabel = UILabel().then {
+    private lazy var currentMonthLabel = UILabel().then {
+        let month = self.dateToMonth(date: Date())
+        
         $0.textColor = .MainText
         $0.font = .customEnglishFont(.semibold, forTextStyle: .largeTitle)
-        $0.text = "Oct"
+        $0.text = month
     }
     
-    private let currentDayLabel = UILabel().then {
+    private lazy var currentDayLabel = UILabel().then {
+        let day = self.dateToDay(date: Date())
+        
         $0.textColor = .MainText
         $0.font = .customEnglishFont(.medium, forTextStyle: .title2)
-        $0.text = "24th"
+        $0.text = "\(day)"
     }
     
     private lazy var profileButton = UIButton(type: .system, primaryAction: UIAction(handler: { _ in
-        self.timeViewModel.saveTimeZone(zoneTime: Date(timeIntervalSinceNow: -20000), timeZone: .morningTime)
-        self.timeViewModel.saveTimeZone(zoneTime: Date.now, timeZone: .earlyAfternoonTime)
-        self.timeViewModel.saveTimeZone(zoneTime: Date(timeIntervalSinceNow: 10000), timeZone: .lateAfternoonTime)
         print("ProfileButton Tapped!") // Navigation 으로 넘어가야 함
     })
     ).then {
@@ -85,9 +92,6 @@ final class HomeViewController: UIViewController {
     }
     
     private lazy var gardenListButton = UIButton(type: .system, primaryAction: UIAction(handler: { _ in
-        self.timeViewModel.updateTimeZone(zoneTime: Date(timeIntervalSinceNow: -20000), timeZone: .morningTime)
-        self.timeViewModel.updateTimeZone(zoneTime: Date.now, timeZone: .earlyAfternoonTime)
-        self.timeViewModel.updateTimeZone(zoneTime: Date(timeIntervalSinceNow: 10000), timeZone: .lateAfternoonTime)
     })
     ).then {
         $0.contentMode = .scaleAspectFill
@@ -122,6 +126,12 @@ final class HomeViewController: UIViewController {
         $0.layer.shadowRadius = 3
     }
     
+    private let backgroundTrees = UIImageView().then {
+        $0.clipsToBounds = true
+        $0.contentMode = .scaleAspectFit
+        $0.image = UIImage(named: "BackgroundTree") ?? UIImage()
+    }
+    
     // MARK: - UI Layout Object
     private lazy var storyFlowLayout = UICollectionViewFlowLayout().then {
         let itemSizes = Double(self.view.frame.width - 65)/6
@@ -152,7 +162,6 @@ final class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
-        notifyToken()
         // 이곳에 이게 들어가는 것이 맞는 것인지, 따로 다른 표현으로 (더 높은 효율로) 구현할 방법은 없는가?
         self.taskStoryCollectionView.reloadData()
     }
@@ -160,7 +169,6 @@ final class HomeViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
-        notificationTokent?.invalidate()
     }
     
     override func viewDidLayoutSubviews() {
@@ -177,7 +185,13 @@ final class HomeViewController: UIViewController {
 
     // MARK: - UI Constraint Layouts
     private func layouts() {
-        view.addSubviews(currentMonthLabel, currentDayLabel, profileButton, notifyingDot, defaultStoryImage, taskStoryCollectionView, mainGardenCanvasView, emptyGardenLabel, gardenListButton, plantsListButton, moveToGardenButton)
+        view.addSubviews(backgroundTrees, currentMonthLabel, currentDayLabel, profileButton, notifyingDot, defaultStoryImage, taskStoryCollectionView, mainGardenCanvasView, emptyGardenLabel, gardenListButton, plantsListButton, moveToGardenButton)
+        
+        backgroundTrees.snp.makeConstraints {
+            $0.height.equalToSuperview().dividedBy(14)
+            $0.bottom.equalToSuperview()
+            $0.width.equalToSuperview()
+        }
         
         currentMonthLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(25)
@@ -255,13 +269,21 @@ final class HomeViewController: UIViewController {
     
     // MARK: - Rx UI-Data Binding
     private func bindings() {
-        timeViewModel.morningTimeZone
-            .observe(on: MainScheduler.instance)
+        LiveTime.liveMonth.asObservable()
+            .map{ _ in
+                let month = self.dateToMonth(date: Date())
+                
+                return month
+            }
             .bind(to: currentMonthLabel.rx.text)
             .disposed(by: disposeBag)
         
-        timeViewModel.earlyAfternoonTimeZone
-            .observe(on: MainScheduler.instance)
+        LiveTime.liveDay.asObservable()
+            .map{ _ in
+                let day = self.dateToDay(date: Date())
+                
+                return day
+            }
             .bind(to: currentDayLabel.rx.text)
             .disposed(by: disposeBag)
         
@@ -286,12 +308,33 @@ final class HomeViewController: UIViewController {
     }
     
     // MARK: - Other actions to run VC
-    private func actions() {
-//        taskViewModelStory.createTask(timeZone: MyTimeZone.morningTime.time, taskTime: Date(timeIntervalSinceNow: -1000), taskImage: nil, mainTask: "Test1", subTasks: ["test1"])
-//        taskViewModelStory.createTask(timeZone: MyTimeZone.morningTime.time, taskTime: Date(), taskImage: UIImage(named: "PlantsListLogo"), mainTask: "Test2", subTasks: ["test2"])
-//        taskViewModelStory.createTask(timeZone: MyTimeZone.earlyAfternoonTime.time, taskTime: Date(timeIntervalSinceNow: 3000), taskImage: UIImage(named: "ExampleProfileImage"), mainTask: "Test3", subTasks: ["test3"])
-//        taskViewModelStory.createTask(timeZone: MyTimeZone.lateAfternoonTime.time, taskTime: Date(timeIntervalSinceNow: 4000), taskImage: UIImage(named: "ppp"), mainTask: "Test4", subTasks: [])
-//        taskViewModelStory.createTask(timeZone: MyTimeZone.lateAfternoonTime.time, taskTime: Date(timeIntervalSinceNow: 7000), taskImage: UIImage(named: "ExampleGardenImage"), mainTask: "Test5", subTasks: ["test5", "test5-1"])
+    private func actions() { }
+    
+    /// Returns -> Month in short ex) JUL, MAR
+    private func dateToMonth(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        let monthString = dateFormatter.string(from: date)
+        
+        return monthString
+    }
+    
+    /// Returns -> Day with "st, nd, Th"
+    private func dateToDay(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd"
+        
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .ordinal
+        numberFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        let dayString = dateFormatter.string(from: date)
+        guard let dayInt = Int(dayString) else { return "1st" }
+        guard let dayResult = numberFormatter.string(from: NSNumber(value: dayInt)) else { return "2nd" }
+        
+        return dayResult
     }
     
     // Function: Load Thumbnail Image from app disk.
@@ -314,32 +357,5 @@ final class HomeViewController: UIViewController {
         
         print("Returning Default Image.")
         return UIImage(named: "TaskDefaultImage")
-    }
-    
-    // Function: Notify Rx Binding that Realm DB has changed.
-    private func notifyToken() {
-        let tokenRealm = timeViewModel.mytimeRealm.objects(MyTimeZoneString.self)
-
-        notificationTokent = tokenRealm.observe { change in
-            switch change {
-            case .initial:
-                print("Token Initialized")
-            case .update(_, _, _, _):
-                let newTimeViewModel = MyTimeZoneViewModel()
-                newTimeViewModel.morningTimeZone
-                    .observe(on: MainScheduler.instance)
-                    .bind(to: self.currentMonthLabel.rx.text)
-                    .disposed(by: self.disposeBag)
-                newTimeViewModel.earlyAfternoonTimeZone
-                    .observe(on: MainScheduler.instance)
-                    .bind(to: self.currentDayLabel.rx.text)
-                    .disposed(by: self.disposeBag)
-                print("Modified Token")
-            case .error(let error):
-                print("Error in \(error)")
-            }
-        }
-        
-        print("Notifying Token Opened.")
     }
 }
