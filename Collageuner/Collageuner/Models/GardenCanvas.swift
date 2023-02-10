@@ -1,5 +1,5 @@
 //
-//  GardenImage.swift
+//  GardenCanvas.swift
 //  Collageuner
 //
 //  Created by KYUBO A. SHIM on 2023/01/25.
@@ -10,17 +10,16 @@ import RealmSwift
 
 class GardenCanvas: Object {
     @Persisted(primaryKey: true) var _id: ObjectId
-    @Persisted var gardenImage: String // 기본 Assest 에 흰색 이미지를 넣고 그걸로 처리하기, 분기 처리는 VM 에서!
-//    @Persisted var gardenThumbnailImage: UIImage? // ViewModel 에서 String 을 받아와서 크기 처리 후 내보내는 걸로 만들기.
-    @Persisted var month: Int
-    @Persisted var year: Int
+
+    @Persisted var monthAndYear: String
+    @Persisted var year: String
+    // MARK: 유저가 직접 캡쳐해서 앨범에 저장되는 경우가 아니라면, 앱에서 보이는 화면에서는 항상 canvas 의 Background Color = clear 이어야 하며, 하위에 있는 UIView 의 색을 바꾸며 유저들에게 background 가 바뀐다고 인식시켜야 한다.
     @Persisted var gardenBackgroundColor: String
     
-    convenience init(gardenUUID: String, currentGardenImage: String, month: Int, year: Int, gardenBackgroundColor: String) {
+    convenience init(monthAndYear: String, year: String, gardenBackgroundColor: String) {
         self.init()
         
-        self.gardenImage = currentGardenImage
-        self.month = month
+        self.monthAndYear = monthAndYear
         self.year = year
         self.gardenBackgroundColor = gardenBackgroundColor
     }
