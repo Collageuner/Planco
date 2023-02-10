@@ -19,15 +19,27 @@ enum IdsForCollectionView: String, CaseIterable {
 }
 
 enum DirectoryForWritingData: String, CaseIterable {
-    case OriginalImages
-    case ThumbnailImages
+    case TaskOriginalImages
+    case TaskThumbnailImages
+    case GarageOriginalImages
+    case GarageThumbnailImages
+    case GardenOriginalImages
+    case GardenThumbnailImages
     
     var dataDirectory: String {
         switch self {
-        case .OriginalImages:
-            return "OriginalImages"
-        case .ThumbnailImages:
-            return "ThumbnailImages"
+        case .TaskOriginalImages:
+            return "TaskOriginalImages"
+        case .TaskThumbnailImages:
+            return "TaskThumbnailImages"
+        case .GarageOriginalImages:
+            return "GarageOriginalImages"
+        case .GarageThumbnailImages:
+            return "GarageThumbnailImages"
+        case .GardenOriginalImages:
+            return "GardenOriginalImages"
+        case .GardenThumbnailImages:
+            return "GardenThumbnailImages"
         }
     }
 }
