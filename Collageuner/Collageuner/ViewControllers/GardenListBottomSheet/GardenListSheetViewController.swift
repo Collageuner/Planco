@@ -46,7 +46,7 @@ final class GardenListSheetViewController: UIViewController {
         let symbolConfiguration = UIImage.SymbolConfiguration(textStyle: .caption1)
         $0.setImage(UIImage(systemName: "arrowtriangle.down.fill", withConfiguration: symbolConfiguration), for: .normal)
         $0.showsMenuAsPrimaryAction = true
-        $0.menu = UIMenu(title: "Select Year.", identifier: nil, options: .displayInline, children: menuActions)
+        $0.menu = UIMenu(title: "Select year to see all Gardens.", identifier: nil, options: .displayInline, children: menuActions)
         $0.tintColor = .MainGray
         $0.backgroundColor = .clear
     }
