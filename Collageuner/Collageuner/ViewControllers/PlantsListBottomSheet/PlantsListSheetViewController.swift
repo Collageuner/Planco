@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PlantsListSheetViewController: UIViewController {
+final class PlantsListSheetViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

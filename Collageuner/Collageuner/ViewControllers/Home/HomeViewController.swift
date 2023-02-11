@@ -72,7 +72,7 @@ final class HomeViewController: UIViewController {
     
     private lazy var taskStoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: storyFlowLayout).then {
         $0.backgroundColor = .clear
-        $0.register(TaskStoryCollectionViewCell.self, forCellWithReuseIdentifier: IdsForCollectionView.storyCollectionViewId.identifier)
+        $0.register(TaskStoryCollectionViewCell.self, forCellWithReuseIdentifier: IdsForCollectionView.StoryCollectionViewId.identifier)
     }
     
     private let mainGardenCanvasView = UIImageView().then {
@@ -93,6 +93,18 @@ final class HomeViewController: UIViewController {
     }
     
     private lazy var gardenListButton = UIButton(type: .system, primaryAction: UIAction(handler: { _ in
+        let gardenBottomSheet = GardenListSheetViewController()
+        gardenBottomSheet.modalPresentationStyle = .pageSheet
+        if let sheet = gardenBottomSheet.sheetPresentationController {
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 30
+            sheet.detents = [
+                .custom { context in
+                    return context.maximumDetentValue * 0.98
+                }
+            ]
+        }
+        self.present(gardenBottomSheet, animated: true, completion: nil)
     })
     ).then {
         $0.contentMode = .scaleAspectFill
@@ -154,6 +166,7 @@ final class HomeViewController: UIViewController {
     // MARK: - View Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(#function)
         basicUI()
         layouts()
         bindings()
@@ -162,14 +175,24 @@ final class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print(#function)
         navigationController?.setNavigationBarHidden(true, animated: false)
-        // 이곳에 이게 들어가는 것이 맞는 것인지, 따로 다른 표현으로 (더 높은 효율로) 구현할 방법은 없는가?
-        self.taskStoryCollectionView.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        print(#function)
         navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print(#function)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print(#function)
     }
     
     override func viewDidLayoutSubviews() {
@@ -288,14 +311,25 @@ final class HomeViewController: UIViewController {
             .bind(to: currentDayLabel.rx.text)
             .disposed(by: disposeBag)
         
+        gardenCanvasViewModel.currentGardenCanvas
+            .debug()
+            .map { [weak self] canvas in
+                let imageName: String = canvas.monthAndYear + "_Canvas"
+                let canvasFetched: UIImage? = self?.loadGardenCanvasFromDirectory(imageName: imageName)
+                return canvasFetched
+            }
+            .observe(on: MainScheduler.instance)
+            .bind(to: mainGardenCanvasView.rx.image)
+            .disposed(by: disposeBag)
+        
         if !taskViewModelStory.taskStoryImages.value.isEmpty {
             taskViewModelStory.taskStoryImages
                 .debug()
                 .observe(on: MainScheduler.instance)
-                .bind(to: taskStoryCollectionView.rx.items(cellIdentifier: IdsForCollectionView.storyCollectionViewId.identifier, cellType: TaskStoryCollectionViewCell.self)) { index, image, cell in
+                .bind(to: taskStoryCollectionView.rx.items(cellIdentifier: IdsForCollectionView.StoryCollectionViewId.identifier, cellType: TaskStoryCollectionViewCell.self)) { [weak self] index, image, cell in
                     // switch 를 통해서 timeZone 에 따라 borderColor 바꿀 수 있음!
                     // 다음 버전에 올리자.
-                    let thumbnailFetched = self.loadThumbnailImageFromDirectory(imageName: image)
+                    let thumbnailFetched = self?.loadThumbnailImageFromDirectory(imageName: image)
                     cell.taskImage.image = thumbnailFetched
                 }
                 .disposed(by: disposeBag)
@@ -309,7 +343,14 @@ final class HomeViewController: UIViewController {
     }
     
     // MARK: - Other actions to run VC
-    private func actions() { }
+    private func actions() {
+//        gardenCanvasViewModel.saveCurrentCanvas(modifiedCanvasImage: UIImage(named: "G1")!, backgroundColor: .white, date: Date())
+//        gardenCanvasViewModel.saveCurrentCanvas(modifiedCanvasImage: UIImage(named: "G2")!, backgroundColor: .white, date: Date(timeIntervalSinceNow: 2592000))
+//        gardenCanvasViewModel.saveCurrentCanvas(modifiedCanvasImage: UIImage(named: "G3")!, backgroundColor: .white, date: Date(timeIntervalSinceNow: 6092000))
+//        gardenCanvasViewModel.saveCurrentCanvas(modifiedCanvasImage: UIImage(named: "G3")!, backgroundColor: .white, date: Date(timeIntervalSinceNow: 31536000))
+//        taskViewModelStory.createTask(timeZone: MyTimeZone.morningTime.time, taskTime: Date(), taskImage: UIImage(named: "ExampleProfileImage"), mainTask: "test1212")
+//        taskViewModelStory.createTask(timeZone: MyTimeZone.lateAfternoonTime.time, taskTime: Date(), taskImage: UIImage(named: "G5"), mainTask: "test2323")
+    }
     
     /// Returns -> Month in short ex) JUL, MAR
     private func dateToMonth(date: Date) -> String {
@@ -345,6 +386,7 @@ final class HomeViewController: UIViewController {
             print("Failed fetching directory for Thumbnail Images for Home-Stories")
             return UIImage(named: "TaskDefaultImage")
         }
+        
         let imageURL = thumbnailDirectoryURL.appending(component: imageName)
         
         do {
@@ -358,5 +400,27 @@ final class HomeViewController: UIViewController {
         
         print("Returning Default Image.")
         return UIImage(named: "TaskDefaultImage")
+    }
+    
+    private func loadGardenCanvasFromDirectory(imageName: String) -> UIImage? {
+        let fileManager = FileManager.default
+        guard let thumbnailDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: DirectoryForWritingData.GardenOriginalImages.dataDirectory) else {
+            print("Failed fetching directory for Images for Garden Image")
+            return UIImage(named: "DefaultGardenCanvas")
+        }
+        
+        let imageURL = thumbnailDirectoryURL.appending(component: "\(imageName).png")
+        
+        do {
+            let imageData = try Data(contentsOf: imageURL)
+            print("Succeeded fetching Garden Canvas Images")
+            return UIImage(data: imageData)
+        } catch let error {
+            print("Failed fetching Images for Garden Image")
+            print(error)
+        }
+        
+        print("Returning Default Image.")
+        return UIImage(named: "DefaultGardenCanvas")
     }
 }
