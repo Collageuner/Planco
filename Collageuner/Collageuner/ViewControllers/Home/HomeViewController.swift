@@ -33,6 +33,7 @@ final class HomeViewController: UIViewController {
     var disposeBag = DisposeBag()
     
     // ViewModel Used in VC
+    let gardenCanvasViewModel = GardenCanvasViewModel(currentDate: Date())
     let taskViewModelStory = TasksViewModel(dateForStories: Date())
 
     // MARK: - UI Components
@@ -101,8 +102,8 @@ final class HomeViewController: UIViewController {
     }
     
     private lazy var plantsListButton = UIButton(type: .system, primaryAction: UIAction(handler: { _ in
-        let nextVC = TestttViewController()
-        self.navigationController?.pushViewController(nextVC, animated: true)
+//        let nextVC = TestttViewController()
+//        self.navigationController?.pushViewController(nextVC, animated: true)
         print("🌲 Open Half Sheet of a Plants List")
     })
     ).then {
@@ -200,70 +201,70 @@ final class HomeViewController: UIViewController {
         
         currentDayLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(25)
-            $0.top.equalTo(self.currentMonthLabel.snp.bottom)
+            $0.top.equalTo(currentMonthLabel.snp.bottom)
         }
         
         profileButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(25)
-            $0.bottom.equalTo(self.currentDayLabel.snp.bottom).inset(5)
+            $0.bottom.equalTo(currentDayLabel.snp.bottom).inset(5)
             $0.width.height.equalTo(view.snp.width).dividedBy(9)
         }
         
         notifyingDot.snp.makeConstraints {
-            $0.centerX.equalTo(self.profileButton.snp.trailing)
-            $0.centerY.equalTo(self.profileButton.snp.top)
+            $0.centerX.equalTo(profileButton.snp.trailing)
+            $0.centerY.equalTo(profileButton.snp.top)
             $0.width.height.equalTo(view.frame.width/65.5)
         }
         
         if taskViewModelStory.taskStoryImages.value.isEmpty {
             defaultStoryImage.layer.opacity = 0.75
             defaultStoryImage.snp.makeConstraints {
-                $0.top.equalTo(self.currentDayLabel.snp.bottom).offset(12)
+                $0.top.equalTo(currentDayLabel.snp.bottom).offset(12)
                 $0.leading.trailing.equalToSuperview().inset(20)
-                $0.height.equalTo(self.view.snp.height).dividedBy(14)
+                $0.height.equalTo(view.snp.height).dividedBy(14)
             }
         } else {
             taskStoryCollectionView.snp.makeConstraints {
-                $0.top.equalTo(self.currentDayLabel.snp.bottom).offset(12)
+                $0.top.equalTo(currentDayLabel.snp.bottom).offset(12)
                 $0.leading.trailing.equalToSuperview().inset(20)
-                $0.height.equalTo(self.view.snp.height).dividedBy(14)
+                $0.height.equalTo(view.snp.height).dividedBy(14)
             }
             
             defaultStoryImage.layer.opacity = 0.2
             defaultStoryImage.snp.makeConstraints {
-                $0.top.equalTo(self.currentDayLabel.snp.bottom).offset(12)
+                $0.top.equalTo(currentDayLabel.snp.bottom).offset(12)
                 $0.leading.trailing.equalToSuperview().inset(20)
-                $0.height.equalTo(self.view.snp.height).dividedBy(14)
+                $0.height.equalTo(view.snp.height).dividedBy(14)
             }
         }
         
         mainGardenCanvasView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(20)
-            $0.top.equalTo(self.currentDayLabel.snp.bottom).offset(view.frame.height/10.65)
-            $0.height.equalTo(self.mainGardenCanvasView.snp.width).multipliedBy(1.414)
+            $0.top.equalTo(currentDayLabel.snp.bottom).offset(view.frame.height/10.65)
+            $0.height.equalTo(mainGardenCanvasView.snp.width).multipliedBy(1.414)
         }
         
         // 분기처리 해야함. 어떤 자료를 기준으로?
         emptyGardenLabel.snp.makeConstraints {
-            $0.center.equalTo(self.mainGardenCanvasView.snp.center)
+            $0.center.equalTo(mainGardenCanvasView.snp.center)
         }
         
         gardenListButton.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(25)
-            $0.top.equalTo(self.mainGardenCanvasView.snp.bottom).offset(20)
+            $0.top.equalTo(mainGardenCanvasView.snp.bottom).offset(20)
             $0.width.height.equalTo(view.snp.width).dividedBy(6.1)
         }
         
         plantsListButton.snp.makeConstraints {
-            $0.leading.equalTo(self.gardenListButton.snp.trailing).offset(15)
-            $0.top.equalTo(self.mainGardenCanvasView.snp.bottom).offset(20)
-            $0.width.height.equalTo(self.gardenListButton.snp.width)
+            $0.leading.equalTo(gardenListButton.snp.trailing).offset(15)
+            $0.top.equalTo(mainGardenCanvasView.snp.bottom).offset(20)
+            $0.width.height.equalTo(gardenListButton.snp.width)
         }
         
         moveToGardenButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(25)
-            $0.top.equalTo(self.mainGardenCanvasView.snp.bottom).offset(20)
-            $0.width.height.equalTo(self.gardenListButton.snp.width)
+            $0.top.equalTo(mainGardenCanvasView.snp.bottom).offset(20)
+            $0.width.height.equalTo(gardenListButton.snp.width)
         }
     }
     
