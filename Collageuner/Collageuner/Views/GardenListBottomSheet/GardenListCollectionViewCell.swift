@@ -14,7 +14,7 @@ class GardenListCollectionViewCell: UICollectionViewCell {
     
     let gardenCanvasImage = UIImageView().then {
         $0.clipsToBounds = true
-        $0.contentMode = .scaleAspectFit
+        $0.contentMode = .scaleAspectFill
     }
     
     override init(frame: CGRect) {
