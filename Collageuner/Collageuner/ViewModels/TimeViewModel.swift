@@ -14,6 +14,8 @@ import RxCocoa
 final class MyTimeZoneViewModel {
     let mytimeRealm = try! Realm()
     
+    var disposeBag = DisposeBag()
+    
     lazy var timeZoneRealmResult = mytimeRealm.objects(MyTimeZoneString.self)
     
     let morningTimeZone: BehaviorRelay<String> = BehaviorRelay(value: "")
@@ -38,14 +40,17 @@ final class MyTimeZoneViewModel {
         // morningRealmObservable
         _ = Observable.just("\(morningString) - \(earlyAfternoonString)")
             .bind(to: morningTimeZone)
+            .disposed(by: disposeBag)
         
         // earlyAfternoonRealmObservable
         _ = Observable.just("\(earlyAfternoonString) - \(lateAfternoonString)")
             .bind(to: earlyAfternoonTimeZone)
+            .disposed(by: disposeBag)
         
         // lateAfternoonRealmObservabke
         _ = Observable.just("\(lateAfternoonString) - 12:00 am")
             .bind(to: lateAfternoonTimeZone)
+            .disposed(by: disposeBag)
     }
     
     func saveTimeZone(zoneTime: Date, timeZone: MyTimeZone) {

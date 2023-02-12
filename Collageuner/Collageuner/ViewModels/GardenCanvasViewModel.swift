@@ -15,6 +15,8 @@ import RxSwift
 final class GardenCanvasViewModel {
     let myGardenCanvasRealm = try! Realm()
     
+    var disposeBag = DisposeBag()
+    
     let currentGardenCanvas: BehaviorRelay<GardenCanvas> = BehaviorRelay(value: GardenCanvas())
     let collectionOfCanvas: BehaviorRelay<[GardenCanvas]> = BehaviorRelay(value: [])
     
@@ -29,6 +31,7 @@ final class GardenCanvasViewModel {
         
         _ = Observable.just(realmResult)
             .bind(to: currentGardenCanvas)
+            .disposed(by: disposeBag)
     }
     
     /// Get array of Canvas Thumbnail Images of the year.
@@ -44,6 +47,7 @@ final class GardenCanvasViewModel {
         
         _ = Observable.just(canvasOfYearArray)
             .bind(to: collectionOfCanvas)
+            .disposed(by: disposeBag)
     }
     
     func saveCurrentCanvas(modifiedCanvasImage: UIImage, backgroundColor: UIColor, date: Date) {
@@ -78,6 +82,7 @@ final class GardenCanvasViewModel {
         
         _ = Observable.just(canvasOfYearArray)
             .bind(to: collectionOfCanvas)
+            .disposed(by: disposeBag)
     }
     
     private func dateToYear(date: Date) -> String {
