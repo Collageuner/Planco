@@ -17,36 +17,44 @@ import Then
 /// 할것 -> enum 으로 내부 Constraints length 한번에 정리해두기!
 
 final class HomeViewController: UIViewController {
+    // MARK: - Observable Struct for Live Time Display
+    struct LiveTime {
+        static let liveMonth = Driver<Int>.interval(.seconds(1)).map { _ in
+            return 0
+        }
+        static let liveDay = Driver<Int>.interval(.seconds(1)).map { _ in
+            return 0
+        }
+    }
+    
     // MARK: - Prerequisite Components
     // Rx-DisposBag
     var disposeBag = DisposeBag()
     
-    // Realm-NotificationToken
-    var notificationTokent: NotificationToken?
-    
     // ViewModel Used in VC
-    let timeViewModel = MyTimeZoneViewModel()
-    let taskViewModel = TasksViewModel(dateForList: Date())
-    let taskViewModelStory = TasksViewModel(dateForStories: Date())
-    
+    private let gardenCanvasViewModel = GardenCanvasViewModel(currentDate: Date())
+    private let taskViewModelStory = TasksViewModel(dateForStories: Date())
+
     // MARK: - UI Components
-    private let currentMonthLabel = UILabel().then {
+    private lazy var currentMonthLabel = UILabel().then {
+        let month = self.dateToMonth(date: Date())
+        
         $0.textColor = .MainText
         $0.font = .customEnglishFont(.semibold, forTextStyle: .largeTitle)
-        $0.text = "Oct"
+        $0.text = month
     }
     
-    private let currentDayLabel = UILabel().then {
+    private lazy var currentDayLabel = UILabel().then {
+        let day = self.dateToDay(date: Date())
+        
         $0.textColor = .MainText
         $0.font = .customEnglishFont(.medium, forTextStyle: .title2)
-        $0.text = "24th"
+        $0.text = "\(day)"
     }
     
-    private lazy var profileButton = UIButton(type: .system, primaryAction: UIAction(handler: { _ in
-        self.timeViewModel.saveTimeZone(zoneTime: Date(timeIntervalSinceNow: -20000), timeZone: .morningTime)
-        self.timeViewModel.saveTimeZone(zoneTime: Date.now, timeZone: .earlyAfternoonTime)
-        self.timeViewModel.saveTimeZone(zoneTime: Date(timeIntervalSinceNow: 10000), timeZone: .lateAfternoonTime)
-        print("ProfileButton Tapped!") // Navigation 으로 넘어가야 함
+    private lazy var profileButton = UIButton(type: .system, primaryAction: UIAction(handler: { [weak self] _ in
+        let profileViewController = ProfileSettingViewController()
+        self?.navigationController?.pushViewController(profileViewController, animated: true)
     })
     ).then {
         $0.contentMode = .scaleAspectFill
@@ -64,30 +72,40 @@ final class HomeViewController: UIViewController {
     
     private lazy var taskStoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: storyFlowLayout).then {
         $0.backgroundColor = .clear
-        $0.register(TaskStoryCollectionViewCell.self, forCellWithReuseIdentifier: IdsForCollectionView.storyCollectionViewId.identifier)
+        $0.register(TaskStoryCollectionViewCell.self, forCellWithReuseIdentifier: IdsForCollectionView.StoryCollectionViewId.identifier)
     }
     
     private let mainGardenCanvasView = UIImageView().then {
         $0.backgroundColor = .white
         $0.contentMode = .scaleAspectFill
         $0.layer.cornerRadius = 4
-        $0.layer.borderColor = UIColor.white.cgColor
+        $0.layer.borderColor = UIColor.MainText.cgColor
         $0.layer.borderWidth = 4
         $0.image = UIImage()
         $0.clipsToBounds = true
     }
     
+    /// 이건 어떻게 분기처리를 해야할까?
     private let emptyGardenLabel = UILabel().then {
-        $0.isHidden = false
+        $0.isHidden = true
         $0.textColor = .MainGray
         $0.font = .customEnglishFont(.medium, forTextStyle: .title1)
         $0.text = "Fill Your Garden."
     }
     
-    private lazy var gardenListButton = UIButton(type: .system, primaryAction: UIAction(handler: { _ in
-        self.timeViewModel.updateTimeZone(zoneTime: Date(timeIntervalSinceNow: -20000), timeZone: .morningTime)
-        self.timeViewModel.updateTimeZone(zoneTime: Date.now, timeZone: .earlyAfternoonTime)
-        self.timeViewModel.updateTimeZone(zoneTime: Date(timeIntervalSinceNow: 10000), timeZone: .lateAfternoonTime)
+    private lazy var gardenListButton = UIButton(type: .system, primaryAction: UIAction(handler: { [weak self] _ in
+        let gardenBottomSheet = GardenListSheetViewController()
+        gardenBottomSheet.modalPresentationStyle = .pageSheet
+        if let sheet = gardenBottomSheet.sheetPresentationController {
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 30
+            sheet.detents = [
+                .custom { context in
+                    return context.maximumDetentValue * 0.98
+                }
+            ]
+        }
+        self?.present(gardenBottomSheet, animated: true, completion: nil)
     })
     ).then {
         $0.contentMode = .scaleAspectFill
@@ -96,9 +114,24 @@ final class HomeViewController: UIViewController {
         $0.clipsToBounds = true
     }
     
-    private lazy var plantsListButton = UIButton(type: .system, primaryAction: UIAction(handler: { _ in
-        let nextVC = TestttViewController()
-        self.navigationController?.pushViewController(nextVC, animated: true)
+    private lazy var plantsListButton = UIButton(type: .system, primaryAction: UIAction(handler: { [weak self] _ in
+        let plantsBottomSheet = PlantsListSheetViewController()
+        plantsBottomSheet.modalPresentationStyle = .pageSheet
+        if let sheet = plantsBottomSheet.sheetPresentationController {
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 30
+            sheet.detents = [
+                .custom { context in
+                    return context.maximumDetentValue * 0.6
+                },
+                .custom { context in
+                    return context.maximumDetentValue * 0.9
+                }
+            ]
+        }
+        self?.present(plantsBottomSheet, animated: true, completion: nil)
+
         print("🌲 Open Half Sheet of a Plants List")
     })
     ).then {
@@ -108,8 +141,9 @@ final class HomeViewController: UIViewController {
         $0.clipsToBounds = true
     }
     
-    private lazy var moveToGardenButton = UIButton(type: .system, primaryAction: UIAction(handler: { _ in
-        print("To Garden!")
+    private lazy var moveToGardenButton = UIButton(type: .system, primaryAction: UIAction(handler: { [weak self] _ in
+        let planViewController = PlanViewController()
+        self?.navigationController?.pushViewController(planViewController, animated: true)
     })
     ).then {
         let symbolConfiguration = UIImage.SymbolConfiguration(textStyle: .title1)
@@ -122,9 +156,15 @@ final class HomeViewController: UIViewController {
         $0.layer.shadowRadius = 3
     }
     
+    private let backgroundTrees = UIImageView().then {
+        $0.clipsToBounds = true
+        $0.contentMode = .scaleAspectFit
+        $0.image = UIImage(named: "BackgroundTree") ?? UIImage()
+    }
+    
     // MARK: - UI Layout Object
     private lazy var storyFlowLayout = UICollectionViewFlowLayout().then {
-        let itemSizes = Double(self.view.frame.width - 65)/6
+        let itemSizes = Double(view.frame.width - 65)/6
         $0.itemSize = CGSize(width: itemSizes, height: itemSizes)
         $0.minimumLineSpacing = 5
         $0.scrollDirection = .horizontal
@@ -143,6 +183,7 @@ final class HomeViewController: UIViewController {
     // MARK: - View Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(#function)
         basicUI()
         layouts()
         bindings()
@@ -151,16 +192,25 @@ final class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print(#function)
         navigationController?.setNavigationBarHidden(true, animated: false)
-        notifyToken()
-        // 이곳에 이게 들어가는 것이 맞는 것인지, 따로 다른 표현으로 (더 높은 효율로) 구현할 방법은 없는가?
-        self.taskStoryCollectionView.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        print(#function)
         navigationController?.setNavigationBarHidden(false, animated: false)
-        notificationTokent?.invalidate()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print(#function)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        disposeBag = DisposeBag()
+        print(#function)
     }
     
     override func viewDidLayoutSubviews() {
@@ -177,7 +227,13 @@ final class HomeViewController: UIViewController {
 
     // MARK: - UI Constraint Layouts
     private func layouts() {
-        view.addSubviews(currentMonthLabel, currentDayLabel, profileButton, notifyingDot, defaultStoryImage, taskStoryCollectionView, mainGardenCanvasView, emptyGardenLabel, gardenListButton, plantsListButton, moveToGardenButton)
+        view.addSubviews(backgroundTrees, currentMonthLabel, currentDayLabel, profileButton, notifyingDot, defaultStoryImage, taskStoryCollectionView, mainGardenCanvasView, emptyGardenLabel, gardenListButton, plantsListButton, moveToGardenButton)
+        
+        backgroundTrees.snp.makeConstraints {
+            $0.height.equalToSuperview().dividedBy(14)
+            $0.bottom.equalToSuperview()
+            $0.width.equalToSuperview()
+        }
         
         currentMonthLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(25)
@@ -186,93 +242,112 @@ final class HomeViewController: UIViewController {
         
         currentDayLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(25)
-            $0.top.equalTo(self.currentMonthLabel.snp.bottom)
+            $0.top.equalTo(currentMonthLabel.snp.bottom)
         }
         
         profileButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(25)
-            $0.bottom.equalTo(self.currentDayLabel.snp.bottom).inset(5)
+            $0.bottom.equalTo(currentDayLabel.snp.bottom).inset(5)
             $0.width.height.equalTo(view.snp.width).dividedBy(9)
         }
         
         notifyingDot.snp.makeConstraints {
-            $0.centerX.equalTo(self.profileButton.snp.trailing)
-            $0.centerY.equalTo(self.profileButton.snp.top)
+            $0.centerX.equalTo(profileButton.snp.trailing)
+            $0.centerY.equalTo(profileButton.snp.top)
             $0.width.height.equalTo(view.frame.width/65.5)
         }
         
         if taskViewModelStory.taskStoryImages.value.isEmpty {
             defaultStoryImage.layer.opacity = 0.75
             defaultStoryImage.snp.makeConstraints {
-                $0.top.equalTo(self.currentDayLabel.snp.bottom).offset(12)
+                $0.top.equalTo(currentDayLabel.snp.bottom).offset(12)
                 $0.leading.trailing.equalToSuperview().inset(20)
-                $0.height.equalTo(self.view.snp.height).dividedBy(14)
+                $0.height.equalTo(view.snp.height).dividedBy(14)
             }
         } else {
             taskStoryCollectionView.snp.makeConstraints {
-                $0.top.equalTo(self.currentDayLabel.snp.bottom).offset(12)
+                $0.top.equalTo(currentDayLabel.snp.bottom).offset(12)
                 $0.leading.trailing.equalToSuperview().inset(20)
-                $0.height.equalTo(self.view.snp.height).dividedBy(14)
+                $0.height.equalTo(view.snp.height).dividedBy(14)
             }
             
             defaultStoryImage.layer.opacity = 0.2
             defaultStoryImage.snp.makeConstraints {
-                $0.top.equalTo(self.currentDayLabel.snp.bottom).offset(12)
+                $0.top.equalTo(currentDayLabel.snp.bottom).offset(12)
                 $0.leading.trailing.equalToSuperview().inset(20)
-                $0.height.equalTo(self.view.snp.height).dividedBy(14)
+                $0.height.equalTo(view.snp.height).dividedBy(14)
             }
         }
         
         mainGardenCanvasView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(20)
-            $0.top.equalTo(self.currentDayLabel.snp.bottom).offset(view.frame.height/10.65)
-            $0.height.equalTo(self.mainGardenCanvasView.snp.width).multipliedBy(1.414)
+            $0.top.equalTo(currentDayLabel.snp.bottom).offset(view.frame.height/10.65)
+            $0.height.equalTo(mainGardenCanvasView.snp.width).multipliedBy(1.414)
         }
         
         // 분기처리 해야함. 어떤 자료를 기준으로?
         emptyGardenLabel.snp.makeConstraints {
-            $0.center.equalTo(self.mainGardenCanvasView.snp.center)
+            $0.center.equalTo(mainGardenCanvasView.snp.center)
         }
         
         gardenListButton.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(25)
-            $0.top.equalTo(self.mainGardenCanvasView.snp.bottom).offset(20)
+            $0.top.equalTo(mainGardenCanvasView.snp.bottom).offset(20)
             $0.width.height.equalTo(view.snp.width).dividedBy(6.1)
         }
         
         plantsListButton.snp.makeConstraints {
-            $0.leading.equalTo(self.gardenListButton.snp.trailing).offset(15)
-            $0.top.equalTo(self.mainGardenCanvasView.snp.bottom).offset(20)
-            $0.width.height.equalTo(self.gardenListButton.snp.width)
+            $0.leading.equalTo(gardenListButton.snp.trailing).offset(15)
+            $0.top.equalTo(mainGardenCanvasView.snp.bottom).offset(20)
+            $0.width.height.equalTo(gardenListButton.snp.width)
         }
         
         moveToGardenButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(25)
-            $0.top.equalTo(self.mainGardenCanvasView.snp.bottom).offset(20)
-            $0.width.height.equalTo(self.gardenListButton.snp.width)
+            $0.top.equalTo(mainGardenCanvasView.snp.bottom).offset(20)
+            $0.width.height.equalTo(gardenListButton.snp.width)
         }
     }
     
     // MARK: - Rx UI-Data Binding
     private func bindings() {
-        timeViewModel.morningTimeZone
-            .observe(on: MainScheduler.instance)
+        LiveTime.liveMonth.asObservable()
+            .map{ _ in
+                let month = self.dateToMonth(date: Date())
+                
+                return month
+            }
             .bind(to: currentMonthLabel.rx.text)
             .disposed(by: disposeBag)
         
-        timeViewModel.earlyAfternoonTimeZone
-            .observe(on: MainScheduler.instance)
+        LiveTime.liveDay.asObservable()
+            .map{ _ in
+                let day = self.dateToDay(date: Date())
+                
+                return day
+            }
             .bind(to: currentDayLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        gardenCanvasViewModel.currentGardenCanvas
+            .debug()
+            .map { [weak self] canvas in
+                let imageName: String = canvas.monthAndYear + "_Canvas"
+                let canvasFetched: UIImage? = self?.loadGardenCanvasFromDirectory(imageName: imageName)
+                return canvasFetched
+            }
+            .observe(on: MainScheduler.instance)
+            .bind(to: mainGardenCanvasView.rx.image)
             .disposed(by: disposeBag)
         
         if !taskViewModelStory.taskStoryImages.value.isEmpty {
             taskViewModelStory.taskStoryImages
                 .debug()
                 .observe(on: MainScheduler.instance)
-                .bind(to: taskStoryCollectionView.rx.items(cellIdentifier: IdsForCollectionView.storyCollectionViewId.identifier, cellType: TaskStoryCollectionViewCell.self)) { index, image, cell in
+                .bind(to: taskStoryCollectionView.rx.items(cellIdentifier: IdsForCollectionView.StoryCollectionViewId.identifier, cellType: TaskStoryCollectionViewCell.self)) { [weak self] index, image, cell in
                     // switch 를 통해서 timeZone 에 따라 borderColor 바꿀 수 있음!
                     // 다음 버전에 올리자.
-                    let thumbnailFetched = self.loadThumbnailImageFromDirectory(imageName: image)
+                    let thumbnailFetched = self?.loadThumbnailImageFromDirectory(imageName: image)
                     cell.taskImage.image = thumbnailFetched
                 }
                 .disposed(by: disposeBag)
@@ -287,11 +362,39 @@ final class HomeViewController: UIViewController {
     
     // MARK: - Other actions to run VC
     private func actions() {
-//        taskViewModelStory.createTask(timeZone: MyTimeZone.morningTime.time, taskTime: Date(timeIntervalSinceNow: -1000), taskImage: nil, mainTask: "Test1", subTasks: ["test1"])
-//        taskViewModelStory.createTask(timeZone: MyTimeZone.morningTime.time, taskTime: Date(), taskImage: UIImage(named: "PlantsListLogo"), mainTask: "Test2", subTasks: ["test2"])
-//        taskViewModelStory.createTask(timeZone: MyTimeZone.earlyAfternoonTime.time, taskTime: Date(timeIntervalSinceNow: 3000), taskImage: UIImage(named: "ExampleProfileImage"), mainTask: "Test3", subTasks: ["test3"])
-//        taskViewModelStory.createTask(timeZone: MyTimeZone.lateAfternoonTime.time, taskTime: Date(timeIntervalSinceNow: 4000), taskImage: UIImage(named: "ppp"), mainTask: "Test4", subTasks: [])
-//        taskViewModelStory.createTask(timeZone: MyTimeZone.lateAfternoonTime.time, taskTime: Date(timeIntervalSinceNow: 7000), taskImage: UIImage(named: "ExampleGardenImage"), mainTask: "Test5", subTasks: ["test5", "test5-1"])
+//        gardenCanvasViewModel.saveCurrentCanvas(modifiedCanvasImage: UIImage(named: "G1")!, backgroundColor: .white, date: Date())
+//        gardenCanvasViewModel.saveCurrentCanvas(modifiedCanvasImage: UIImage(named: "G2")!, backgroundColor: .white, date: Date(timeIntervalSinceNow: 2592000))
+//        gardenCanvasViewModel.saveCurrentCanvas(modifiedCanvasImage: UIImage(named: "G3")!, backgroundColor: .white, date: Date(timeIntervalSinceNow: 6092000))
+//        gardenCanvasViewModel.saveCurrentCanvas(modifiedCanvasImage: UIImage(named: "G3")!, backgroundColor: .white, date: Date(timeIntervalSinceNow: 31536000))
+//        taskViewModelStory.createTask(timeZone: MyTimeZone.morningTime.time, taskTime: Date(), taskImage: UIImage(named: "sdga"), mainTask: "test1212")
+//        taskViewModelStory.createTask(timeZone: MyTimeZone.lateAfternoonTime.time, taskTime: Date(), taskImage: UIImage(named: "G5"), mainTask: "test2323")
+    }
+    
+    /// Returns -> Month in short ex) JUL, MAR
+    private func dateToMonth(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        let monthString = dateFormatter.string(from: date)
+        
+        return monthString
+    }
+    
+    /// Returns -> Day with "st, nd, Th"
+    private func dateToDay(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd"
+        
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .ordinal
+        numberFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        let dayString = dateFormatter.string(from: date)
+        guard let dayInt = Int(dayString) else { return "1st" }
+        guard let dayResult = numberFormatter.string(from: NSNumber(value: dayInt)) else { return "2nd" }
+        
+        return dayResult
     }
     
     // Function: Load Thumbnail Image from app disk.
@@ -301,6 +404,7 @@ final class HomeViewController: UIViewController {
             print("Failed fetching directory for Thumbnail Images for Home-Stories")
             return UIImage(named: "TaskDefaultImage")
         }
+        
         let imageURL = thumbnailDirectoryURL.appending(component: imageName)
         
         do {
@@ -316,30 +420,25 @@ final class HomeViewController: UIViewController {
         return UIImage(named: "TaskDefaultImage")
     }
     
-    // Function: Notify Rx Binding that Realm DB has changed.
-    private func notifyToken() {
-        let tokenRealm = timeViewModel.mytimeRealm.objects(MyTimeZoneString.self)
-
-        notificationTokent = tokenRealm.observe { change in
-            switch change {
-            case .initial:
-                print("Token Initialized")
-            case .update(_, _, _, _):
-                let newTimeViewModel = MyTimeZoneViewModel()
-                newTimeViewModel.morningTimeZone
-                    .observe(on: MainScheduler.instance)
-                    .bind(to: self.currentMonthLabel.rx.text)
-                    .disposed(by: self.disposeBag)
-                newTimeViewModel.earlyAfternoonTimeZone
-                    .observe(on: MainScheduler.instance)
-                    .bind(to: self.currentDayLabel.rx.text)
-                    .disposed(by: self.disposeBag)
-                print("Modified Token")
-            case .error(let error):
-                print("Error in \(error)")
-            }
+    private func loadGardenCanvasFromDirectory(imageName: String) -> UIImage? {
+        let fileManager = FileManager.default
+        guard let thumbnailDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: DirectoryForWritingData.GardenOriginalImages.dataDirectory) else {
+            print("Failed fetching directory for Images for Garden Image")
+            return UIImage(named: "DefaultGardenCanvas")
         }
         
-        print("Notifying Token Opened.")
+        let imageURL = thumbnailDirectoryURL.appending(component: "\(imageName).png")
+        
+        do {
+            let imageData = try Data(contentsOf: imageURL)
+            print("Succeeded fetching Garden Canvas Images")
+            return UIImage(data: imageData)
+        } catch let error {
+            print("Failed fetching Images for Garden Image")
+            print(error)
+        }
+        
+        print("Returning Default Image.")
+        return UIImage(named: "DefaultGardenCanvas")
     }
 }

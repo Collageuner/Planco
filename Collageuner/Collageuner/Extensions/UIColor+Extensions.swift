@@ -44,6 +44,10 @@ extension UIColor {
     static var MainCalendar: UIColor {
         return UIColor(hex: "#EEC17D")
     }
+    
+    static var BottomSheetGreen: UIColor {
+        return UIColor(hex: "#7D837B")
+    }
 }
 
 extension UIColor {

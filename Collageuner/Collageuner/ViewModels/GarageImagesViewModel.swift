@@ -1,5 +1,5 @@
 //
-//  ImageAssetViewModel.swift
+//  GarageImagesViewModel.swift
 //  Collageuner
 //
 //  Created by KYUBO A. SHIM on 2023/01/27.
@@ -14,6 +14,8 @@ import RxSwift
 final class GarageImagesViewModel {
     let myGarageRealm = try! Realm()
     
+    var disposeBag = DisposeBag()
+    
     let garageImages: BehaviorRelay<[GarageImage]> = BehaviorRelay(value: [])
     
     init() {
@@ -26,6 +28,7 @@ final class GarageImagesViewModel {
         
         _ = Observable.just(garageImagesArray)
             .bind(to: garageImages)
+            .disposed(by: disposeBag)
     }
     
     func addGarageImage(garageImage: UIImage) {
