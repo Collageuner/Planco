@@ -14,15 +14,18 @@ import RxSwift
 final class TasksViewModel {
     let myTaskRealm = try! Realm()
     
+    var disposeBag = DisposeBag()
+    
     let taskStoryImages: BehaviorRelay<[String]> = BehaviorRelay(value: [])
-    let taskList: BehaviorRelay<[Tasks]> = BehaviorRelay(value: [])
+    let taskListForDay: BehaviorRelay<[Tasks]> = BehaviorRelay(value: [])
+    let taskListForMonth: BehaviorRelay<[Tasks]> = BehaviorRelay(value: [])
     
     /// init for getting HomeView Story Images
     init(dateForStories: Date) {
         let dateKey = Date.dateToCheckDay(date: dateForStories)
         var imageStringArray: [String] = []
         
-        let realmResult = myTaskRealm.objects(Tasks.self).filter(NSPredicate(format: "keyForDateCheck = %@", dateKey))
+        let realmResult = myTaskRealm.objects(Tasks.self).filter(NSPredicate(format: "keyForDayCheck = %@", dateKey))
         
         realmResult.forEach{
             let imageName: String = "Thumbnail_\($0.taskTime)\($0._id.stringValue).png"
@@ -32,6 +35,7 @@ final class TasksViewModel {
         let sortedArrayOfImage = imageStringArray.sorted()
         _ = Observable.just(sortedArrayOfImage)
             .bind(to: taskStoryImages)
+            .disposed(by: disposeBag)
     }
     
     /// init for getting Array of Tasks
@@ -39,23 +43,44 @@ final class TasksViewModel {
         let dateKey = Date.dateToCheckDay(date: dateForList)
         var tasksArray: [Tasks] = []
         
-        let realmResult = myTaskRealm.objects(Tasks.self).filter(NSPredicate(format: "keyForDateCheck = %@", dateKey))
+        let realmResult = myTaskRealm.objects(Tasks.self).filter(NSPredicate(format: "keyForDayCheck = %@", dateKey))
             
         realmResult.forEach {
             tasksArray.append($0)
         }
         
         _ = Observable.just(tasksArray)
-            .bind(to:taskList)
+            .bind(to:taskListForDay)
+            .disposed(by: disposeBag)
+    }
+    
+    init(dateForMonthList: Date) {
+        let dateKey = Date.dateToYearAndMonth(date: dateForMonthList)
+        var taskFetchedArray: [Tasks] = []
+
+        let realmResult = myTaskRealm.objects(Tasks.self).filter(NSPredicate(format: "keyForYearAndMonthCheck = %@", dateKey))
+
+        realmResult.forEach{
+            taskFetchedArray.append($0)
+        }
+
+        let sortedArrayOfImage = taskFetchedArray.sorted {
+            $0.keyForYearAndMonthCheck < $1.keyForYearAndMonthCheck
+        }
+        _ = Observable.just(sortedArrayOfImage)
+            .take(1)
+            .bind(to: taskListForMonth)
+            .disposed(by: disposeBag)
     }
     
     func createTask(timeZone: String, taskTime: Date, taskImage: UIImage?, mainTask: String, subTasks: [String?] = [], taskExpiredCheck: Bool = false, taskCompleted: Bool = false) {
         let subTaskList = arrayToListRealm(swiftArray: subTasks)
         
         let taskDateToTime = Date.fullDateToString(date: taskTime)
+        let taskYearAndMonth = Date.dateToYearAndMonth(date: taskTime)
         let taskKey = Date.dateToCheckDay(date: taskTime)
         
-        let taskToCreate: Tasks = Tasks(taskTimeZone: timeZone, taskTime: taskDateToTime, keyForDateCheck: taskKey, mainTask: mainTask, subTasks: subTaskList, taskExpiredCheck: false, taskCompleted: false)
+        let taskToCreate: Tasks = Tasks(taskTimeZone: timeZone, taskTime: taskDateToTime, keyForYearAndMonthCheck: taskYearAndMonth, keyForDayCheck: taskKey, mainTask: mainTask, subTasks: subTaskList, taskExpiredCheck: false, taskCompleted: false)
         
         let imageName: String = taskToCreate.taskTime + taskToCreate._id.stringValue
         
@@ -68,6 +93,25 @@ final class TasksViewModel {
         } catch let error {
             print(error)
         }
+    }
+    
+    func fetchThisMonthTaskList(date: Date) {
+        let dateKey = Date.dateToYearAndMonth(date: date)
+        var taskFetchedArray: [Tasks] = []
+
+        let realmResult = myTaskRealm.objects(Tasks.self).filter(NSPredicate(format: "keyForYearAndMonthCheck = %@", dateKey))
+
+        realmResult.forEach{
+            taskFetchedArray.append($0)
+        }
+
+        let sortedArrayOfImage = taskFetchedArray.sorted {
+            $0.keyForYearAndMonthCheck < $1.keyForYearAndMonthCheck
+        }
+        _ = Observable.just(sortedArrayOfImage)
+            .take(1)
+            .bind(to: taskListForMonth)
+            .disposed(by: disposeBag)
     }
     
 //    func updateTask(timeZone: String, taskTime: Date, taskImage: UIImage?, mainTask: String, subTasks: [String?] = []) {

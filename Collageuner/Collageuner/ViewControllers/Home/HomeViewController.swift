@@ -22,7 +22,6 @@ final class HomeViewController: UIViewController {
         static let liveMonth = Driver<Int>.interval(.seconds(1)).map { _ in
             return 0
         }
-        
         static let liveDay = Driver<Int>.interval(.seconds(1)).map { _ in
             return 0
         }
@@ -33,8 +32,8 @@ final class HomeViewController: UIViewController {
     var disposeBag = DisposeBag()
     
     // ViewModel Used in VC
-    let gardenCanvasViewModel = GardenCanvasViewModel(currentDate: Date())
-    let taskViewModelStory = TasksViewModel(dateForStories: Date())
+    private let gardenCanvasViewModel = GardenCanvasViewModel(currentDate: Date())
+    private let taskViewModelStory = TasksViewModel(dateForStories: Date())
 
     // MARK: - UI Components
     private lazy var currentMonthLabel = UILabel().then {
@@ -53,7 +52,7 @@ final class HomeViewController: UIViewController {
         $0.text = "\(day)"
     }
     
-    private lazy var profileButton = UIButton(type: .system, primaryAction: UIAction(handler: { _ in
+    private lazy var profileButton = UIButton(type: .system, primaryAction: UIAction(handler: { [weak self] _ in
         print("ProfileButton Tapped!") // Navigation 으로 넘어가야 함
     })
     ).then {
@@ -85,14 +84,15 @@ final class HomeViewController: UIViewController {
         $0.clipsToBounds = true
     }
     
+    /// 이건 어떻게 분기처리를 해야할까?
     private let emptyGardenLabel = UILabel().then {
-        $0.isHidden = false
+        $0.isHidden = true
         $0.textColor = .MainGray
         $0.font = .customEnglishFont(.medium, forTextStyle: .title1)
         $0.text = "Fill Your Garden."
     }
     
-    private lazy var gardenListButton = UIButton(type: .system, primaryAction: UIAction(handler: { _ in
+    private lazy var gardenListButton = UIButton(type: .system, primaryAction: UIAction(handler: { [weak self] _ in
         let gardenBottomSheet = GardenListSheetViewController()
         gardenBottomSheet.modalPresentationStyle = .pageSheet
         if let sheet = gardenBottomSheet.sheetPresentationController {
@@ -104,7 +104,7 @@ final class HomeViewController: UIViewController {
                 }
             ]
         }
-        self.present(gardenBottomSheet, animated: true, completion: nil)
+        self?.present(gardenBottomSheet, animated: true, completion: nil)
     })
     ).then {
         $0.contentMode = .scaleAspectFill
@@ -113,9 +113,24 @@ final class HomeViewController: UIViewController {
         $0.clipsToBounds = true
     }
     
-    private lazy var plantsListButton = UIButton(type: .system, primaryAction: UIAction(handler: { _ in
-//        let nextVC = TestttViewController()
-//        self.navigationController?.pushViewController(nextVC, animated: true)
+    private lazy var plantsListButton = UIButton(type: .system, primaryAction: UIAction(handler: { [weak self] _ in
+        let plantsBottomSheet = PlantsListSheetViewController()
+        plantsBottomSheet.modalPresentationStyle = .pageSheet
+        if let sheet = plantsBottomSheet.sheetPresentationController {
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 30
+            sheet.detents = [
+                .custom { context in
+                    return context.maximumDetentValue * 0.6
+                },
+                .custom { context in
+                    return context.maximumDetentValue * 0.9
+                }
+            ]
+        }
+        self?.present(plantsBottomSheet, animated: true, completion: nil)
+
         print("🌲 Open Half Sheet of a Plants List")
     })
     ).then {
@@ -125,7 +140,9 @@ final class HomeViewController: UIViewController {
         $0.clipsToBounds = true
     }
     
-    private lazy var moveToGardenButton = UIButton(type: .system, primaryAction: UIAction(handler: { _ in
+    private lazy var moveToGardenButton = UIButton(type: .system, primaryAction: UIAction(handler: { [weak self] _ in
+        let nextVC = PlantsListSheetViewController()
+        self?.navigationController?.pushViewController(nextVC, animated: true)
         print("To Garden!")
     })
     ).then {
@@ -147,7 +164,7 @@ final class HomeViewController: UIViewController {
     
     // MARK: - UI Layout Object
     private lazy var storyFlowLayout = UICollectionViewFlowLayout().then {
-        let itemSizes = Double(self.view.frame.width - 65)/6
+        let itemSizes = Double(view.frame.width - 65)/6
         $0.itemSize = CGSize(width: itemSizes, height: itemSizes)
         $0.minimumLineSpacing = 5
         $0.scrollDirection = .horizontal
@@ -348,7 +365,7 @@ final class HomeViewController: UIViewController {
 //        gardenCanvasViewModel.saveCurrentCanvas(modifiedCanvasImage: UIImage(named: "G2")!, backgroundColor: .white, date: Date(timeIntervalSinceNow: 2592000))
 //        gardenCanvasViewModel.saveCurrentCanvas(modifiedCanvasImage: UIImage(named: "G3")!, backgroundColor: .white, date: Date(timeIntervalSinceNow: 6092000))
 //        gardenCanvasViewModel.saveCurrentCanvas(modifiedCanvasImage: UIImage(named: "G3")!, backgroundColor: .white, date: Date(timeIntervalSinceNow: 31536000))
-//        taskViewModelStory.createTask(timeZone: MyTimeZone.morningTime.time, taskTime: Date(), taskImage: UIImage(named: "ExampleProfileImage"), mainTask: "test1212")
+//        taskViewModelStory.createTask(timeZone: MyTimeZone.morningTime.time, taskTime: Date(), taskImage: UIImage(named: "sdga"), mainTask: "test1212")
 //        taskViewModelStory.createTask(timeZone: MyTimeZone.lateAfternoonTime.time, taskTime: Date(), taskImage: UIImage(named: "G5"), mainTask: "test2323")
     }
     

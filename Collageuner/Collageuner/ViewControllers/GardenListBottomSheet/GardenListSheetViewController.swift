@@ -18,12 +18,12 @@ final class GardenListSheetViewController: UIViewController {
     var disposBag = DisposeBag()
     
     // 얘를 lazy var 로 둬도 되는가?
-    lazy var gardenCanvasViewModel = GardenCanvasViewModel(specificYear: dateToYear(date: Date()))
+    private lazy var gardenCanvasViewModel = GardenCanvasViewModel(specificYear: dateToYear(date: Date()))
     
-    lazy var currentYear: BehaviorRelay<String> = BehaviorRelay(value: dateToYear(date: Date()))
+    private lazy var currentYear: BehaviorRelay<String> = BehaviorRelay(value: dateToYear(date: Date()))
 
-    private lazy var exitButton = UIButton(type: .system, primaryAction: UIAction(handler: { _ in
-        self.dismiss(animated: true, completion: nil)
+    private lazy var exitButton = UIButton(type: .system, primaryAction: UIAction(handler: { [weak self] _ in
+        self?.dismiss(animated: true, completion: nil)
     })
     ).then {
         let symbolConfiguration = UIImage.SymbolConfiguration(textStyle: .title2)
@@ -33,7 +33,7 @@ final class GardenListSheetViewController: UIViewController {
     
     private let gardenSheetLabel = UILabel().then {
         $0.textColor = .black
-        $0.font = .customEnglishFont(.medium, forTextStyle: .title2)
+        $0.font = .customEnglishFont(.regualar, forTextStyle: .title2)
         $0.text = "Gardens of the year"
     }
     
@@ -46,7 +46,10 @@ final class GardenListSheetViewController: UIViewController {
         let symbolConfiguration = UIImage.SymbolConfiguration(textStyle: .caption1)
         $0.setImage(UIImage(systemName: "arrowtriangle.down.fill", withConfiguration: symbolConfiguration), for: .normal)
         $0.showsMenuAsPrimaryAction = true
-        $0.menu = UIMenu(title: "Select year to see all Gardens.", identifier: nil, options: .displayInline, children: menuActions)
+        $0.menu = UIMenu(identifier: nil, options: .displayInline, children: {
+            [weak self] in
+            return self?.menuActions ?? [UIAction]()
+        }())
         $0.tintColor = .MainGray
         $0.backgroundColor = .clear
     }
@@ -62,7 +65,7 @@ final class GardenListSheetViewController: UIViewController {
     }
     
     private lazy var gardenListFlowLayout = UICollectionViewFlowLayout().then {
-        let widthSize = Double(self.view.frame.width - 86)/3
+        let widthSize = Double(view.frame.width - 86)/3
         let heightSize = widthSize * 1.414
         $0.itemSize = CGSize(width: widthSize, height: heightSize)
         $0.minimumLineSpacing = 8
@@ -70,13 +73,12 @@ final class GardenListSheetViewController: UIViewController {
         $0.scrollDirection = .vertical
     }
     
-    // TODO: Memory Leak 확인하기
     private lazy var menuActions: [UIAction] = [
-        UIAction(title: "2023", handler: { _ in
+        UIAction(title: "2023", handler: { [unowned self] _ in
             _ = Observable.just("2023").take(1).bind(to: self.currentYear).disposed(by: self.disposBag)
             self.gardenCanvasViewModel.fetchSpecifirYearsCanvas(specificYear: "2023")
         }),
-        UIAction(title: "2024", handler: { _ in
+        UIAction(title: "2024", handler: { [unowned self] _ in
             _ = Observable.just("2024").take(1).bind(to: self.currentYear).disposed(by: self.disposBag)
             self.gardenCanvasViewModel.fetchSpecifirYearsCanvas(specificYear: "2024")
         })
@@ -88,6 +90,11 @@ final class GardenListSheetViewController: UIViewController {
         layouts()
         bindings()
         actions()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        disposBag = DisposeBag()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -198,5 +205,9 @@ final class GardenListSheetViewController: UIViewController {
         let yearString = dateFormatter.string(from: date)
         
         return yearString
+    }
+    
+    deinit {
+        print("deinited - ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️")
     }
 }
