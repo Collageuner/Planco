@@ -13,6 +13,10 @@
 		580E63D82990CD4F00A0762F /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 580E63D72990CD4F00A0762F /* RxDataSources */; };
 		58101EE6298B8F65000C2671 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58101EE5298B8F65000C2671 /* Date+Extensions.swift */; };
 		5814EAFB298E3BDC006CDBFA /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5814EAFA298E3BDC006CDBFA /* UIImage+Extensions.swift */; };
+		581CC5242999222D007178B9 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581CC5232999222D007178B9 /* PlanViewController.swift */; };
+		581CC5262999223E007178B9 /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581CC5252999223E007178B9 /* ProfileSettingViewController.swift */; };
+		581CC52829992296007178B9 /* PlanItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581CC52729992296007178B9 /* PlanItemCollectionViewCell.swift */; };
+		581CC52A299922B3007178B9 /* ProfileSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581CC529299922B3007178B9 /* ProfileSettingTableViewCell.swift */; };
 		5830522529837B4C00E299C8 /* GardenCanvasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830522429837B4C00E299C8 /* GardenCanvasViewModel.swift */; };
 		58305227298386D700E299C8 /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58305226298386D700E299C8 /* TasksViewModel.swift */; };
 		58305229298386E500E299C8 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58305228298386E500E299C8 /* ProfileViewModel.swift */; };
@@ -91,6 +95,10 @@
 		580E63D22990C4A100A0762F /* TaskStoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		58101EE5298B8F65000C2671 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		5814EAFA298E3BDC006CDBFA /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		581CC5232999222D007178B9 /* PlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
+		581CC5252999223E007178B9 /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
+		581CC52729992296007178B9 /* PlanItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		581CC529299922B3007178B9 /* ProfileSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingTableViewCell.swift; sourceTree = "<group>"; };
 		5830522429837B4C00E299C8 /* GardenCanvasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardenCanvasViewModel.swift; sourceTree = "<group>"; };
 		58305226298386D700E299C8 /* TasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		58305228298386E500E299C8 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
@@ -178,6 +186,56 @@
 			path = Realm;
 			sourceTree = "<group>";
 		};
+		581CC51D29992174007178B9 /* ListBottomSheet */ = {
+			isa = PBXGroup;
+			children = (
+				585098D32997417500BCC087 /* GardenListSheetViewController.swift */,
+				585098D12997416300BCC087 /* PlantsListSheetViewController.swift */,
+			);
+			path = ListBottomSheet;
+			sourceTree = "<group>";
+		};
+		581CC51E2999219E007178B9 /* ListBottomSheet */ = {
+			isa = PBXGroup;
+			children = (
+				585098D72997422E00BCC087 /* PlantsListCollectionViewCell.swift */,
+				585098D92997425800BCC087 /* GardenListCollectionViewCell.swift */,
+			);
+			path = ListBottomSheet;
+			sourceTree = "<group>";
+		};
+		581CC51F299921EE007178B9 /* Plan */ = {
+			isa = PBXGroup;
+			children = (
+				581CC5232999222D007178B9 /* PlanViewController.swift */,
+			);
+			path = Plan;
+			sourceTree = "<group>";
+		};
+		581CC520299921F8007178B9 /* Plan */ = {
+			isa = PBXGroup;
+			children = (
+				581CC52729992296007178B9 /* PlanItemCollectionViewCell.swift */,
+			);
+			path = Plan;
+			sourceTree = "<group>";
+		};
+		581CC521299921FE007178B9 /* ProfileSetting */ = {
+			isa = PBXGroup;
+			children = (
+				581CC5252999223E007178B9 /* ProfileSettingViewController.swift */,
+			);
+			path = ProfileSetting;
+			sourceTree = "<group>";
+		};
+		581CC52229992203007178B9 /* ProfileSetting */ = {
+			isa = PBXGroup;
+			children = (
+				581CC529299922B3007178B9 /* ProfileSettingTableViewCell.swift */,
+			);
+			path = ProfileSetting;
+			sourceTree = "<group>";
+		};
 		58396693297E364800B63E52 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -205,40 +263,9 @@
 			isa = PBXGroup;
 			children = (
 				580E63D22990C4A100A0762F /* TaskStoryCollectionViewCell.swift */,
+				581CC51E2999219E007178B9 /* ListBottomSheet */,
 			);
 			path = Home;
-			sourceTree = "<group>";
-		};
-		585098CF29973FF500BCC087 /* GardenListBottomSheet */ = {
-			isa = PBXGroup;
-			children = (
-				585098D32997417500BCC087 /* GardenListSheetViewController.swift */,
-			);
-			path = GardenListBottomSheet;
-			sourceTree = "<group>";
-		};
-		585098D02997401600BCC087 /* PlantsListBottomSheet */ = {
-			isa = PBXGroup;
-			children = (
-				585098D12997416300BCC087 /* PlantsListSheetViewController.swift */,
-			);
-			path = PlantsListBottomSheet;
-			sourceTree = "<group>";
-		};
-		585098D52997419800BCC087 /* GardenListBottomSheet */ = {
-			isa = PBXGroup;
-			children = (
-				585098D92997425800BCC087 /* GardenListCollectionViewCell.swift */,
-			);
-			path = GardenListBottomSheet;
-			sourceTree = "<group>";
-		};
-		585098D62997419B00BCC087 /* PlantsListBottomSheet */ = {
-			isa = PBXGroup;
-			children = (
-				585098D72997422E00BCC087 /* PlantsListCollectionViewCell.swift */,
-			);
-			path = PlantsListBottomSheet;
 			sourceTree = "<group>";
 		};
 		5868D82B29682FFB002E0919 /* AppDelegate */ = {
@@ -254,9 +281,9 @@
 		5868D82F29683027002E0919 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				585098CF29973FF500BCC087 /* GardenListBottomSheet */,
+				581CC521299921FE007178B9 /* ProfileSetting */,
+				581CC51F299921EE007178B9 /* Plan */,
 				58AF770A2981023600A46B3D /* Home */,
-				585098D02997401600BCC087 /* PlantsListBottomSheet */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -350,9 +377,9 @@
 		5894B2B12968387D00263584 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				585098D52997419800BCC087 /* GardenListBottomSheet */,
+				581CC52229992203007178B9 /* ProfileSetting */,
+				581CC520299921F8007178B9 /* Plan */,
 				583966B9297E5FBF00B63E52 /* Home */,
-				585098D62997419B00BCC087 /* PlantsListBottomSheet */,
 				5830522E29839C5600E299C8 /* StickerView.swift */,
 			);
 			path = Views;
@@ -385,6 +412,7 @@
 			isa = PBXGroup;
 			children = (
 				5878144729680BE90074FA56 /* HomeViewController.swift */,
+				581CC51D29992174007178B9 /* ListBottomSheet */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -580,15 +608,19 @@
 				58396697297E386400B63E52 /* UIFont+Extensions.swift in Sources */,
 				5894B2B7296838B500263584 /* Identifiers.swift in Sources */,
 				583966A2297E401800B63E52 /* UIView+Extensions.swift in Sources */,
+				581CC52829992296007178B9 /* PlanItemCollectionViewCell.swift in Sources */,
 				58F1C41629961F42000071BC /* CodesSaved.swift in Sources */,
 				58AF77172981245F00A46B3D /* TextConfigurations.swift in Sources */,
 				58AF77192981269400A46B3D /* GarageImages.swift in Sources */,
+				581CC5262999223E007178B9 /* ProfileSettingViewController.swift in Sources */,
 				585098D82997422E00BCC087 /* PlantsListCollectionViewCell.swift in Sources */,
 				5830522D2983870400E299C8 /* GarageImagesViewModel.swift in Sources */,
 				5830522F29839C5600E299C8 /* StickerView.swift in Sources */,
 				58AF770C298102C500A46B3D /* Tasks.swift in Sources */,
 				58AF77092980FBAF00A46B3D /* GardenCanvas.swift in Sources */,
+				581CC52A299922B3007178B9 /* ProfileSettingTableViewCell.swift in Sources */,
 				580649DF29861FB600D0DF5F /* RealmManager.swift in Sources */,
+				581CC5242999222D007178B9 /* PlanViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

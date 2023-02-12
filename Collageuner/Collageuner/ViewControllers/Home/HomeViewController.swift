@@ -53,7 +53,8 @@ final class HomeViewController: UIViewController {
     }
     
     private lazy var profileButton = UIButton(type: .system, primaryAction: UIAction(handler: { [weak self] _ in
-        print("ProfileButton Tapped!") // Navigation 으로 넘어가야 함
+        let profileViewController = ProfileSettingViewController()
+        self?.navigationController?.pushViewController(profileViewController, animated: true)
     })
     ).then {
         $0.contentMode = .scaleAspectFill
@@ -78,7 +79,7 @@ final class HomeViewController: UIViewController {
         $0.backgroundColor = .white
         $0.contentMode = .scaleAspectFill
         $0.layer.cornerRadius = 4
-        $0.layer.borderColor = UIColor.white.cgColor
+        $0.layer.borderColor = UIColor.MainText.cgColor
         $0.layer.borderWidth = 4
         $0.image = UIImage()
         $0.clipsToBounds = true
@@ -141,9 +142,8 @@ final class HomeViewController: UIViewController {
     }
     
     private lazy var moveToGardenButton = UIButton(type: .system, primaryAction: UIAction(handler: { [weak self] _ in
-        let nextVC = PlantsListSheetViewController()
-        self?.navigationController?.pushViewController(nextVC, animated: true)
-        print("To Garden!")
+        let planViewController = PlanViewController()
+        self?.navigationController?.pushViewController(planViewController, animated: true)
     })
     ).then {
         let symbolConfiguration = UIImage.SymbolConfiguration(textStyle: .title1)
@@ -209,6 +209,7 @@ final class HomeViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        disposeBag = DisposeBag()
         print(#function)
     }
     
