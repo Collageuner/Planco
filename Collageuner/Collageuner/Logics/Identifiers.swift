@@ -10,13 +10,16 @@ import UIKit
 enum IdsForCollectionView: String, CaseIterable {
     case StoryCollectionViewId
     case GardenListCollectionViewId
+    case PlantsListCollectionViewId
     
     var identifier: String {
         switch self {
         case .StoryCollectionViewId:
             return "homeStoryIdentifier"
         case .GardenListCollectionViewId:
-            return "gardenListForBottomSheet"
+            return "gardenListIdentifier"
+        case .PlantsListCollectionViewId:
+            return "plantsListIdentifier"
         }
     }
 }
