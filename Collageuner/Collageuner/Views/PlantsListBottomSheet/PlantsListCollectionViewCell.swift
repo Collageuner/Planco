@@ -14,7 +14,6 @@ final class PlantsListCollectionViewCell: UICollectionViewCell {
     
     let plantImage = UIImageView().then {
         $0.backgroundColor = .MainGray
-        $0.clipsToBounds = true
         $0.layer.masksToBounds = false
         $0.contentMode = .scaleAspectFill
     }
@@ -38,6 +37,7 @@ final class PlantsListCollectionViewCell: UICollectionViewCell {
     }
     
     private let cellStackView = UIStackView().then {
+        $0.spacing = 10
         $0.alignment = .center
         $0.distribution = .fillProportionally
         $0.axis = .horizontal
@@ -56,6 +56,7 @@ final class PlantsListCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        plantImage.clipsToBounds = true
         plantImage.layer.cornerRadius = 15
     }
     
@@ -70,6 +71,16 @@ final class PlantsListCollectionViewCell: UICollectionViewCell {
         cellStackView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+        
+        textStackView.snp.makeConstraints {
+            $0.trailing.equalToSuperview()
+        }
+        
+        plantImage.snp.makeConstraints {
+            $0.leading.top.bottom.equalToSuperview()
+            $0.width.equalTo(self.snp.height)
+        }
+        
     }
     
     required init?(coder: NSCoder) {
