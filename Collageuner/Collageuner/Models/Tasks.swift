@@ -13,19 +13,21 @@ class Tasks: Object {
     @Persisted(primaryKey: true) var _id: ObjectId
     
     @Persisted var taskTimeZone: String
-    @Persisted var taskTime: String
-    @Persisted var keyForDateCheck: String
+    @Persisted var taskTime: String // yyMMddHHmmss - 230212183102
+    @Persisted var keyForYearAndMonthCheck: String // yyMM - 2302
+    @Persisted var keyForDayCheck: String // yyMMdd - 230212
     @Persisted var mainTask: String
     @Persisted var subTasks = List<String>()
     @Persisted var taskExpiredCheck: Bool = false // 0
     @Persisted var taskCompleted: Bool = false // 0
     
-    convenience init(taskTimeZone: String, taskTime: String, keyForDateCheck: String, mainTask: String, subTasks: List<String>, taskExpiredCheck: Bool, taskCompleted: Bool) {
+    convenience init(taskTimeZone: String, taskTime: String, keyForYearAndMonthCheck: String, keyForDayCheck: String, mainTask: String, subTasks: List<String>, taskExpiredCheck: Bool, taskCompleted: Bool) {
         self.init()   
         
         self.taskTimeZone = taskTimeZone
         self.taskTime = taskTime
-        self.keyForDateCheck = keyForDateCheck
+        self.keyForYearAndMonthCheck = keyForYearAndMonthCheck
+        self.keyForDayCheck = keyForDayCheck
         self.mainTask = mainTask
         self.subTasks = subTasks
         self.taskExpiredCheck = taskExpiredCheck
