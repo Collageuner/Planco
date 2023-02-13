@@ -386,15 +386,20 @@ final class HomeViewController: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd"
         
+        let dayFormatter = DateFormatter()
+        dayFormatter.dateFormat = "EEE"
+        dayFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .ordinal
         numberFormatter.locale = Locale(identifier: "en_US_POSIX")
         
-        let dayString = dateFormatter.string(from: date)
-        guard let dayInt = Int(dayString) else { return "1st" }
+        let dateString = dateFormatter.string(from: date)
+        let dayString = dayFormatter.string(from: date)
+        guard let dayInt = Int(dateString) else { return "1st" }
         guard let dayResult = numberFormatter.string(from: NSNumber(value: dayInt)) else { return "2nd" }
         
-        return dayResult
+        return "\(dayResult), \(dayString)"
     }
     
     // Function: Load Thumbnail Image from app disk.
