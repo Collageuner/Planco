@@ -14,7 +14,7 @@ final class PlanTimeSectionCollectionViewCell: UICollectionViewCell {
     
     let planTimeZoneLabel = UILabel().then {
         $0.textColor = .white
-        $0.font = UIFont(name: "Apple SD Gothic Neo", size: 15)
+        $0.font = .customVersatileFont(.semibold, forTextStyle: .subheadline)
     }
     
     let addTappedButton = UIImageView().then {
