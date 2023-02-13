@@ -15,7 +15,7 @@
 		5814EAFB298E3BDC006CDBFA /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5814EAFA298E3BDC006CDBFA /* UIImage+Extensions.swift */; };
 		581CC5242999222D007178B9 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581CC5232999222D007178B9 /* PlanViewController.swift */; };
 		581CC5262999223E007178B9 /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581CC5252999223E007178B9 /* ProfileSettingViewController.swift */; };
-		581CC52829992296007178B9 /* PlanItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581CC52729992296007178B9 /* PlanItemCollectionViewCell.swift */; };
+		581CC52829992296007178B9 /* PlanTimeSectionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581CC52729992296007178B9 /* PlanTimeSectionCollectionViewCell.swift */; };
 		581CC52A299922B3007178B9 /* ProfileSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581CC529299922B3007178B9 /* ProfileSettingTableViewCell.swift */; };
 		5830522529837B4C00E299C8 /* GardenCanvasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830522429837B4C00E299C8 /* GardenCanvasViewModel.swift */; };
 		58305227298386D700E299C8 /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58305226298386D700E299C8 /* TasksViewModel.swift */; };
@@ -97,7 +97,7 @@
 		5814EAFA298E3BDC006CDBFA /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		581CC5232999222D007178B9 /* PlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
 		581CC5252999223E007178B9 /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
-		581CC52729992296007178B9 /* PlanItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		581CC52729992296007178B9 /* PlanTimeSectionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanTimeSectionCollectionViewCell.swift; sourceTree = "<group>"; };
 		581CC529299922B3007178B9 /* ProfileSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingTableViewCell.swift; sourceTree = "<group>"; };
 		5830522429837B4C00E299C8 /* GardenCanvasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardenCanvasViewModel.swift; sourceTree = "<group>"; };
 		58305226298386D700E299C8 /* TasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
@@ -215,7 +215,7 @@
 		581CC520299921F8007178B9 /* Plan */ = {
 			isa = PBXGroup;
 			children = (
-				581CC52729992296007178B9 /* PlanItemCollectionViewCell.swift */,
+				581CC52729992296007178B9 /* PlanTimeSectionCollectionViewCell.swift */,
 			);
 			path = Plan;
 			sourceTree = "<group>";
@@ -608,7 +608,7 @@
 				58396697297E386400B63E52 /* UIFont+Extensions.swift in Sources */,
 				5894B2B7296838B500263584 /* Identifiers.swift in Sources */,
 				583966A2297E401800B63E52 /* UIView+Extensions.swift in Sources */,
-				581CC52829992296007178B9 /* PlanItemCollectionViewCell.swift in Sources */,
+				581CC52829992296007178B9 /* PlanTimeSectionCollectionViewCell.swift in Sources */,
 				58F1C41629961F42000071BC /* CodesSaved.swift in Sources */,
 				58AF77172981245F00A46B3D /* TextConfigurations.swift in Sources */,
 				58AF77192981269400A46B3D /* GarageImages.swift in Sources */,

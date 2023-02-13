@@ -131,8 +131,6 @@ final class HomeViewController: UIViewController {
             ]
         }
         self?.present(plantsBottomSheet, animated: true, completion: nil)
-
-        print("🌲 Open Half Sheet of a Plants List")
     })
     ).then {
         $0.contentMode = .scaleAspectFill
@@ -200,6 +198,7 @@ final class HomeViewController: UIViewController {
         super.viewWillDisappear(animated)
         print(#function)
         navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {

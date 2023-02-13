@@ -1,5 +1,5 @@
 //
-//  PlanItemCollectionViewCell.swift
+//  PlanTimeSectionCollectionViewCell.swift
 //  Collageuner
 //
 //  Created by KYUBO A. SHIM on 2023/02/12.
@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class PlanItemCollectionViewCell: UICollectionViewCell {
+final class PlanTimeSectionCollectionViewCell: UICollectionViewCell {
     
     let planTimeZoneLabel = UILabel().then {
         $0.textColor = .white
@@ -18,9 +18,10 @@ final class PlanItemCollectionViewCell: UICollectionViewCell {
     }
     
     let addTappedButton = UIImageView().then {
-        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold)
+        $0.contentMode = .scaleAspectFit
+        $0.clipsToBounds = true
         $0.tintColor = .white
-        $0.image = UIImage(systemName: "plus.circle.fill", withConfiguration: symbolConfiguration)
+        $0.image = UIImage(systemName: "plus.circle.fill")
     }
     
     override init(frame: CGRect) {
@@ -47,6 +48,7 @@ final class PlanItemCollectionViewCell: UICollectionViewCell {
         }
         
         addTappedButton.snp.makeConstraints {
+            $0.height.equalToSuperview().dividedBy(1.6)
             $0.trailing.equalToSuperview().inset(10)
             $0.centerY.equalToSuperview()
         }
