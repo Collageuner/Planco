@@ -64,7 +64,7 @@ final class PlantsListSheetViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        basicUI()
+        basicSetup()
         layouts()
         bindings()
         actions()
@@ -88,7 +88,7 @@ final class PlantsListSheetViewController: UIViewController {
         super.viewWillDisappear(animated)
     }
     
-    private func basicUI() {
+    private func basicSetup() {
         view.backgroundColor = .Background
     }
     

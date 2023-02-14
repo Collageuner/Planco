@@ -182,7 +182,7 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(#function)
-        basicUI()
+        basicSetup()
         layouts()
         bindings()
         actions()
@@ -220,7 +220,7 @@ final class HomeViewController: UIViewController {
     }
     
     // MARK: - Basic View Configuration
-    private func basicUI() {
+    private func basicSetup() {
         view.backgroundColor = .Background
     }
 

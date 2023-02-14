@@ -86,7 +86,7 @@ final class GardenListSheetViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        basicUI()
+        basicSetup()
         layouts()
         bindings()
         actions()
@@ -107,7 +107,7 @@ final class GardenListSheetViewController: UIViewController {
         navigationController?.isNavigationBarHidden = false
     }
 
-    private func basicUI() {
+    private func basicSetup() {
         view.backgroundColor = .BottomSheetGreen
     }
     
