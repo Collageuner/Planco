@@ -24,7 +24,11 @@ extension UIFont {
     }
     
     static func customVersatileFont(_ font: AppleSDNeo, forTextStyle style: UIFont.TextStyle, overrideFontSize: UIContentSizeCategory? = nil) -> UIFont? {
-        return nil
+        guard let customFont = UIFont(name: font.fontName(), size: font.fontSize(style: style)) else { return nil }
+        let scaledFont: UIFont
+        let metrics = UIFontMetrics(forTextStyle: style)
+        scaledFont = metrics.scaledFont(for: customFont, compatibleWith: UITraitCollection(preferredContentSizeCategory: overrideFontSize ?? .unspecified))
+        return scaledFont
     }
 }
 

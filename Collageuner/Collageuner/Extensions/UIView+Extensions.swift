@@ -28,3 +28,41 @@ extension UIView {
      To change the sequence of subviews in a parent view in Swift, you can use the insertSubview(_:at:), exchangeSubview(at:withSubviewAt:), bringSubviewToFront(_:), and sendSubviewToBack(_:) methods provided by the UIView class.
      */
 }
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+struct UIViewPreview<View: UIView>: UIViewRepresentable {
+    let view: View
+
+    init(_ builder: @escaping () -> View) {
+        view = builder()
+    }
+
+    // MARK: - UIViewRepresentable
+
+    func makeUIView(context: Context) -> UIView {
+        return view
+    }
+
+    func updateUIView(_ view: UIView, context: Context) {
+        view.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        view.setContentHuggingPriority(.defaultHigh, for: .vertical)
+    }
+}
+#endif
+
+/* Usage:
+ 
+ #if canImport(SwiftUI) && DEBUG
+ import SwiftUI
+
+ struct MyViewPreview: PreviewProvider{
+     static var previews: some View {
+         UIViewPreview {
+             return PlanFirstGuideView(frame: CGRect(x: 0, y: 0, width: 300, height: 200))
+         }.previewLayout(.sizeThatFits)
+     }
+ }
+ #endif
+ 
+ */
