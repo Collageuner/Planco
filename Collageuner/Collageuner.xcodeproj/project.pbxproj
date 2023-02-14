@@ -60,6 +60,10 @@
 		5878147B296818680074FA56 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 5878147A296818680074FA56 /* Then */; };
 		5878147E296818920074FA56 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 5878147D296818920074FA56 /* Lottie */; };
 		5894B2B7296838B500263584 /* Identifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5894B2B6296838B500263584 /* Identifiers.swift */; };
+		58A41E70299B4A6E00036C59 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 58A41E6F299B4A6E00036C59 /* FSCalendar */; };
+		58A41E72299B532900036C59 /* UIViewController+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A41E71299B532900036C59 /* UIViewController+Extentions.swift */; };
+		58A41E74299B69D600036C59 /* PlanFirstGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A41E73299B69D600036C59 /* PlanFirstGuideView.swift */; };
+		58A41E76299B7D0E00036C59 /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A41E75299B7D0E00036C59 /* UILabel+Extensions.swift */; };
 		58AF77092980FBAF00A46B3D /* GardenCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF77082980FBAF00A46B3D /* GardenCanvas.swift */; };
 		58AF770C298102C500A46B3D /* Tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF770B298102C500A46B3D /* Tasks.swift */; };
 		58AF770E2981054A00A46B3D /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF770D2981054A00A46B3D /* Profile.swift */; };
@@ -131,6 +135,9 @@
 		5878146729680BEA0074FA56 /* CollageunerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageunerUITests.swift; sourceTree = "<group>"; };
 		5878146929680BEA0074FA56 /* CollageunerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageunerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5894B2B6296838B500263584 /* Identifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Identifiers.swift; path = Collageuner/Logics/Identifiers.swift; sourceTree = SOURCE_ROOT; };
+		58A41E71299B532900036C59 /* UIViewController+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extentions.swift"; sourceTree = "<group>"; };
+		58A41E73299B69D600036C59 /* PlanFirstGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanFirstGuideView.swift; sourceTree = "<group>"; };
+		58A41E75299B7D0E00036C59 /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		58AF77082980FBAF00A46B3D /* GardenCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardenCanvas.swift; sourceTree = "<group>"; };
 		58AF770B298102C500A46B3D /* Tasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tasks.swift; sourceTree = "<group>"; };
 		58AF770D2981054A00A46B3D /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
@@ -160,6 +167,7 @@
 				583966B4297E5BCA00B63E52 /* RxCocoa in Frameworks */,
 				580E63D62990CD4F00A0762F /* Differentiator in Frameworks */,
 				5878147E296818920074FA56 /* Lottie in Frameworks */,
+				58A41E70299B4A6E00036C59 /* FSCalendar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +227,7 @@
 			children = (
 				581CC52729992296007178B9 /* PlanTimeSectionCollectionViewCell.swift */,
 				58ED69F7299A891000B2C859 /* PlanItemCollectionViewCell.swift */,
+				58A41E73299B69D600036C59 /* PlanFirstGuideView.swift */,
 			);
 			path = Plan;
 			sourceTree = "<group>";
@@ -248,7 +257,9 @@
 				58396696297E386400B63E52 /* UIFont+Extensions.swift */,
 				5814EAFA298E3BDC006CDBFA /* UIImage+Extensions.swift */,
 				583966A1297E401800B63E52 /* UIView+Extensions.swift */,
+				58A41E71299B532900036C59 /* UIViewController+Extentions.swift */,
 				585BB0FD2994B00E00EF01DA /* Optional+Extensions.swift */,
+				58A41E75299B7D0E00036C59 /* UILabel+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -456,6 +467,7 @@
 				586950792984BE6300FDFEC8 /* RealmSwift */,
 				580E63D52990CD4F00A0762F /* Differentiator */,
 				580E63D72990CD4F00A0762F /* RxDataSources */,
+				58A41E6F299B4A6E00036C59 /* FSCalendar */,
 			);
 			productName = Collageuner;
 			productReference = 5878144029680BE90074FA56 /* Collageuner.app */;
@@ -536,6 +548,7 @@
 				583966B2297E5BCA00B63E52 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				586950762984BE6300FDFEC8 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				580E63D42990CD4F00A0762F /* XCRemoteSwiftPackageReference "RxDataSources" */,
+				58A41E6E299B4A6E00036C59 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = 5878144129680BE90074FA56 /* Products */;
 			projectDirPath = "";
@@ -608,8 +621,11 @@
 				58305227298386D700E299C8 /* TasksViewModel.swift in Sources */,
 				58AF77152981228500A46B3D /* GuideInformationCheck.swift in Sources */,
 				58AF77132981115E00A46B3D /* TimeViewModel.swift in Sources */,
+				58A41E72299B532900036C59 /* UIViewController+Extentions.swift in Sources */,
 				58396697297E386400B63E52 /* UIFont+Extensions.swift in Sources */,
+				58A41E74299B69D600036C59 /* PlanFirstGuideView.swift in Sources */,
 				5894B2B7296838B500263584 /* Identifiers.swift in Sources */,
+				58A41E76299B7D0E00036C59 /* UILabel+Extensions.swift in Sources */,
 				583966A2297E401800B63E52 /* UIView+Extensions.swift in Sources */,
 				581CC52829992296007178B9 /* PlanTimeSectionCollectionViewCell.swift in Sources */,
 				58F1C41629961F42000071BC /* CodesSaved.swift in Sources */,
@@ -1041,6 +1057,14 @@
 				minimumVersion = 4.0.0;
 			};
 		};
+		58A41E6E299B4A6E00036C59 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1093,6 +1117,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5878147C296818920074FA56 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		};
+		58A41E6F299B4A6E00036C59 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 58A41E6E299B4A6E00036C59 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
