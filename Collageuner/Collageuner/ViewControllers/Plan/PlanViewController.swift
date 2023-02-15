@@ -9,12 +9,22 @@ import UIKit
 
 import FSCalendar
 import RealmSwift
+import RxDataSources
 import RxSwift
 import RxCocoa
 import SnapKit
 import Then
 
 final class PlanViewController: UIViewController {
+    
+    var disposeBag = DisposeBag()
+    private var dateSelected: Date = Date()
+    
+    private lazy var taskViewModel = TasksViewModel(dateForList: dateSelected)
+    
+    private var sections = BehaviorSubject(value: [
+        TaskTimeZoneSection(header: <#T##String#>, items: <#T##[Tasks]#>)
+    ])
     
     private lazy var weeklyCalendarView = FSCalendar(frame: .zero).then {
         
@@ -42,6 +52,11 @@ final class PlanViewController: UIViewController {
         $0.isHidden = false
     }
     
+    private let planTableView = UITableView().then {
+        $0.isEditing = true
+        $0.setEditing(true, animated: true)
+    }
+    
     private let backgroundPlantImage = UIImageView().then {
         $0.clipsToBounds = true
         $0.image = UIImage(named: "BackgroundPlantOne")
@@ -61,6 +76,11 @@ final class PlanViewController: UIViewController {
         let symbolConfiguration = UIImage.SymbolConfiguration(paletteColors: [.PopGreen])
         navigationController?.navigationBar.tintColor = .MainGreen
         navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage(systemName: "photo.stack", withConfiguration: symbolConfiguration), style: .plain, target: self, action: #selector(actionThree)), UIBarButtonItem(image: UIImage(systemName: "calendar", withConfiguration: symbolConfiguration),  style: .plain, target: self, action: #selector(actionTwo)), UIBarButtonItem(image: UIImage(systemName: "person.crop.circle.badge.clock", withConfiguration: symbolConfiguration), style: .plain, target: self, action: #selector(actionOne))]
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        disposeBag = DisposeBag()
     }
 
     private func basicSetup() {
@@ -103,6 +123,26 @@ final class PlanViewController: UIViewController {
     private func actions() {
     }
     
+//    private func configureCollectionViewLayout() -> UICollectionViewLayout {
+//        let layout = UICollectionViewCompositionalLayout {
+//            _, _ in
+//            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+//            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+//
+//            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(0.1))
+//            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+//
+//            let headerFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(30.0))
+//            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerFooterSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+//
+//            let section = NSCollectionLayoutSection(group: group)
+//            section.boundarySupplementaryItems = [header]
+//
+//            return section
+//        }
+//
+//        return layout
+//    }
     
     
     @objc
@@ -137,12 +177,12 @@ extension PlanViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
     }
 }
 
-#if canImport(SwiftUI) && DEBUG
-import SwiftUI
-
-struct PlanViewController_PreViews: PreviewProvider {
-    static var previews: some View {
-        PlanViewController().toPreview()
-    }
-}
-#endif
+//#if canImport(SwiftUI) && DEBUG
+//import SwiftUI
+//
+//struct PlanViewController_PreViews: PreviewProvider {
+//    static var previews: some View {
+//        PlanViewController().toPreview()
+//    }
+//}
+//#endif

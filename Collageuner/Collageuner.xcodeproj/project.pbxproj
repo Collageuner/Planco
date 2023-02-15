@@ -72,6 +72,7 @@
 		58AF77152981228500A46B3D /* GuideInformationCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF77142981228500A46B3D /* GuideInformationCheck.swift */; };
 		58AF77172981245F00A46B3D /* TextConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF77162981245F00A46B3D /* TextConfigurations.swift */; };
 		58AF77192981269400A46B3D /* GarageImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF77182981269400A46B3D /* GarageImages.swift */; };
+		58EC28EC299BB81E00A000D0 /* TaskTimeZoneSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58EC28EB299BB81E00A000D0 /* TaskTimeZoneSection.swift */; };
 		58ED69F8299A891000B2C859 /* PlanItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58ED69F7299A891000B2C859 /* PlanItemCollectionViewCell.swift */; };
 		58F1C41629961F42000071BC /* CodesSaved.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F1C41529961F42000071BC /* CodesSaved.swift */; };
 		58F832232993880D0070786F /* EmptyStoryTask.json in Resources */ = {isa = PBXBuildFile; fileRef = 58F832222993880D0070786F /* EmptyStoryTask.json */; };
@@ -146,6 +147,7 @@
 		58AF77142981228500A46B3D /* GuideInformationCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideInformationCheck.swift; sourceTree = "<group>"; };
 		58AF77162981245F00A46B3D /* TextConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextConfigurations.swift; sourceTree = "<group>"; };
 		58AF77182981269400A46B3D /* GarageImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageImages.swift; sourceTree = "<group>"; };
+		58EC28EB299BB81E00A000D0 /* TaskTimeZoneSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTimeZoneSection.swift; sourceTree = "<group>"; };
 		58ED69F7299A891000B2C859 /* PlanItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		58F1C41529961F42000071BC /* CodesSaved.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodesSaved.swift; sourceTree = "<group>"; };
 		58F832222993880D0070786F /* EmptyStoryTask.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EmptyStoryTask.json; sourceTree = "<group>"; };
@@ -418,6 +420,7 @@
 				58AF770B298102C500A46B3D /* Tasks.swift */,
 				58AF77162981245F00A46B3D /* TextConfigurations.swift */,
 				58AF771029810B4F00A46B3D /* TimeString.swift */,
+				58EC28EB299BB81E00A000D0 /* TaskTimeZoneSection.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -615,6 +618,7 @@
 				586E19222988D521000D6C84 /* Protocols.swift in Sources */,
 				585098D42997417500BCC087 /* GardenListSheetViewController.swift in Sources */,
 				585098D22997416300BCC087 /* PlantsListSheetViewController.swift in Sources */,
+				58EC28EC299BB81E00A000D0 /* TaskTimeZoneSection.swift in Sources */,
 				58AF771129810B4F00A46B3D /* TimeString.swift in Sources */,
 				58101EE6298B8F65000C2671 /* Date+Extensions.swift in Sources */,
 				5830522529837B4C00E299C8 /* GardenCanvasViewModel.swift in Sources */,

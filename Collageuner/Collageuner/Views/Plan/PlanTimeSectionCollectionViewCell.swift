@@ -7,10 +7,14 @@
 
 import UIKit
 
+import RxCocoa
+import RxSwift
 import SnapKit
 import Then
 
 final class PlanTimeSectionCollectionViewCell: UICollectionViewCell {
+    
+    var disposeBag = DisposeBag()
     
     let planTimeZoneLabel = UILabel().then {
         $0.textColor = .white
