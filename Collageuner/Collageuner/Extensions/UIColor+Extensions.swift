@@ -48,6 +48,18 @@ extension UIColor {
     static var BottomSheetGreen: UIColor {
         return UIColor(hex: "#7D837B")
     }
+    
+    static var MorningColor: UIColor {
+        return UIColor(hex: "#8A9B82")
+    }
+    
+    static var EarlyAfternoonColor: UIColor {
+        return UIColor(hex: "#728767")
+    }
+    
+    static var LateAfternoonColor: UIColor {
+        return UIColor(hex: "#617D54")
+    }
 }
 
 extension UIColor {

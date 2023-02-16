@@ -12,7 +12,7 @@ import RxSwift
 import SnapKit
 import Then
 
-final class PlanTimeSectionCollectionViewCell: UICollectionViewCell {
+final class PlanTimeSectionHeaderView: UICollectionReusableView {
     
     var disposeBag = DisposeBag()
     
