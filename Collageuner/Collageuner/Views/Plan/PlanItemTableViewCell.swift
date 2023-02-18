@@ -7,7 +7,14 @@
 
 import UIKit
 
-final class PlanItemCollectionViewCell: UICollectionViewCell {
+import RxCocoa
+import RxSwift
+import SnapKit
+import Then
+
+final class PlanItemCollectionViewCell: UITableViewCell {
+    
+    var disposeBag = DisposeBag()
     
     private var planCheckedToDone: Bool = false {
         didSet {
@@ -45,8 +52,8 @@ final class PlanItemCollectionViewCell: UICollectionViewCell {
         $0.font = .customVersatileFont(.medium, forTextStyle: .footnote)
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = .white
         updateConstraints()
     }
