@@ -73,14 +73,14 @@ final class TasksViewModel {
             .disposed(by: disposeBag)
     }
     
-    func createTask(timeZone: String, taskTime: Date, taskImage: UIImage?, mainTask: String, subTasks: [String?] = [], taskExpiredCheck: Bool = false, taskCompleted: Bool = false) {
+    func createTask(timeZone: MyTimeZone, taskTime: Date, taskImage: UIImage?, mainTask: String, subTasks: [String?] = [], taskExpiredCheck: Bool = false, taskCompleted: Bool = false) {
         let subTaskList = arrayToListRealm(swiftArray: subTasks)
         
         let taskDateToTime = Date.fullDateToString(date: taskTime)
         let taskYearAndMonth = Date.dateToYearAndMonth(date: taskTime)
         let taskKey = Date.dateToCheckDay(date: taskTime)
         
-        let taskToCreate: Tasks = Tasks(taskTimeZone: timeZone, taskTime: taskDateToTime, keyForYearAndMonthCheck: taskYearAndMonth, keyForDayCheck: taskKey, mainTask: mainTask, subTasks: subTaskList, taskExpiredCheck: false, taskCompleted: false)
+        let taskToCreate: Tasks = Tasks(taskTimeZone: timeZone.time, taskTime: taskDateToTime, keyForYearAndMonthCheck: taskYearAndMonth, keyForDayCheck: taskKey, mainTask: mainTask, subTasks: subTaskList, taskExpiredCheck: false, taskCompleted: false)
         
         let imageName: String = taskToCreate.taskTime + taskToCreate._id.stringValue
         
@@ -114,15 +114,13 @@ final class TasksViewModel {
             .disposed(by: disposeBag)
     }
     
-//    func updateTask(timeZone: String, taskTime: Date, taskImage: UIImage?, mainTask: String, subTasks: [String?] = []) {
-//        let subTaskList = arrayToListRealm(swiftArray: subTasks)
-//
-//        let taskDateToTime = Date.dateToJoinedString(date: taskTime)
-//        let taskKey = Date.dateToCheckDay(date: taskTime)
-//
-//
-//
-//    }
+    func getNumberOfTasks(timeZone: MyTimeZone, date: Date) -> CGFloat {
+        let dateKey = Date.dateToYearAndMonth(date: date)
+
+        let realmResultCount = myTaskRealm.objects(Tasks.self).filter(NSPredicate(format: "keyForYearAndMonthCheck = %@", dateKey)).filter(NSPredicate(format: "taskTimeZone = %@", timeZone.time)).count
+        
+        return CGFloat(realmResultCount)
+    }
     
     private func arrayToListRealm(swiftArray: [String?]) -> List<String> {
         let subTaskArray = swiftArray.compactMap { $0 }
