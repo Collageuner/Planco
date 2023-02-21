@@ -83,7 +83,7 @@ final class PlanFirstGuideView: UIView {
         $0.axis = .horizontal
     }
     
-    let checkedGuideButton = UIButton(type: .system).then {
+    lazy var checkedGuideButton = UIButton(type: .system).then {
         $0.titleLabel?.font = .customVersatileFont(.semibold, forTextStyle: .body)
         $0.layer.cornerRadius = 15
         $0.tintColor = UIColor(hex: "#F58C40")
