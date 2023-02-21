@@ -13,7 +13,7 @@ class Tasks: Object {
     @Persisted(primaryKey: true) var _id: ObjectId
     
     @Persisted var taskTimeZone: String
-    @Persisted var taskTime: String // yyMMddHHmmss - 230212183102
+    @Persisted var taskTime: String // yyMMddHHmm - 2302121831
     @Persisted var keyForYearAndMonthCheck: String // yyMM - 2302
     @Persisted var keyForDayCheck: String // yyMMdd - 230212
     @Persisted var mainTask: String

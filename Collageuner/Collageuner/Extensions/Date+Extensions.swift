@@ -24,10 +24,10 @@ extension Date {
         return dateFormatter.string(from: date)
     }
     
-    /// Returns -> "yyMMddHHmmss"
+    /// Returns -> "yyMMddHHmm"
     static func fullDateToString(date: Date) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyMMddHHmmss"
+        dateFormatter.dateFormat = "yyMMddHHmm"
         
         return dateFormatter.string(from: date)
     }

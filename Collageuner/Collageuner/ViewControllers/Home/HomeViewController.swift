@@ -181,7 +181,6 @@ final class HomeViewController: UIViewController {
     // MARK: - View Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(#function)
         basicSetup()
         layouts()
         bindings()
@@ -190,26 +189,13 @@ final class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print(#function)
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print(#function)
         navigationController?.setNavigationBarHidden(false, animated: false)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print(#function)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        disposeBag = DisposeBag()
-        print(#function)
     }
     
     override func viewDidLayoutSubviews() {

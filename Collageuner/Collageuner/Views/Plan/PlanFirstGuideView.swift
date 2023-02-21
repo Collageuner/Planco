@@ -129,7 +129,7 @@ final class PlanFirstGuideView: UIView {
         
         myGarageImagesGuideLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(20)
-            $0.top.equalTo(myTimeZoneStack.snp.bottom).offset(14)
+            $0.top.equalTo(myTimeZoneStack.snp.bottom).offset(10)
         }
         
         myGarageStack.snp.makeConstraints {
@@ -138,8 +138,9 @@ final class PlanFirstGuideView: UIView {
         }
         
         checkedGuideButton.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.bottom.equalToSuperview().inset(15)
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(20)
+            $0.width.equalTo(300)
             $0.height.equalToSuperview().dividedBy(5)
         }
     }
