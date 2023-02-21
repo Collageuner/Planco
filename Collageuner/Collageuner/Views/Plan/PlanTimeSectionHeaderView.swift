@@ -1,5 +1,5 @@
 //
-//  PlanTimeSectionCollectionViewCell.swift
+//  PlanTimeSectionHeaderView.swift
 //  Collageuner
 //
 //  Created by KYUBO A. SHIM on 2023/02/12.
@@ -12,7 +12,7 @@ import RxSwift
 import SnapKit
 import Then
 
-final class PlanTimeSectionHeaderView: UICollectionReusableView {
+final class PlanTimeSectionHeaderView: UIView {
     
     var disposeBag = DisposeBag()
     
@@ -22,14 +22,16 @@ final class PlanTimeSectionHeaderView: UICollectionReusableView {
     }
     
     let addTappedButton = UIImageView().then {
+        let symbolConfiguration = UIImage.SymbolConfiguration(scale: .large)
         $0.contentMode = .scaleAspectFit
         $0.clipsToBounds = true
         $0.tintColor = .white
-        $0.image = UIImage(systemName: "plus.circle.fill")
+        $0.image = UIImage(systemName: "plus.circle.fill", withConfiguration: symbolConfiguration)
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        updateConstraints()
     }
     
     override func updateConstraints() {
@@ -39,6 +41,7 @@ final class PlanTimeSectionHeaderView: UICollectionReusableView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         self.clipsToBounds = true
         self.layer.cornerRadius = 10
     }
@@ -52,7 +55,7 @@ final class PlanTimeSectionHeaderView: UICollectionReusableView {
         }
         
         addTappedButton.snp.makeConstraints {
-            $0.height.equalToSuperview().dividedBy(1.6)
+            $0.height.equalToSuperview().dividedBy(1.4)
             $0.trailing.equalToSuperview().inset(10)
             $0.centerY.equalToSuperview()
         }
