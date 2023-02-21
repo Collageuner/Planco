@@ -114,14 +114,6 @@ final class TasksViewModel {
             .disposed(by: disposeBag)
     }
     
-    func getNumberOfTasks(timeZone: MyTimeZone, date: Date) -> CGFloat {
-        let dateKey = Date.dateToYearAndMonth(date: date)
-
-        let realmResultCount = myTaskRealm.objects(Tasks.self).filter(NSPredicate(format: "keyForYearAndMonthCheck = %@", dateKey)).filter(NSPredicate(format: "taskTimeZone = %@", timeZone.time)).count
-        
-        return CGFloat(realmResultCount)
-    }
-    
     private func arrayToListRealm(swiftArray: [String?]) -> List<String> {
         let subTaskArray = swiftArray.compactMap { $0 }
         let subTaskList = List<String>()
