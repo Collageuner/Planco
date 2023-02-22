@@ -20,6 +20,10 @@ final class PlansTableItemViewModel {
     private var earlyAfternoonPlans: BehaviorRelay<[Tasks]> = BehaviorRelay(value: [])
     private var lateAfternoonPlans: BehaviorRelay<[Tasks]> = BehaviorRelay(value: [])
     
+    private lazy var morningPlanCounts: BehaviorRelay<Int> = BehaviorRelay(value: 0)
+    private lazy var earlyAfternoonPlanCounts: BehaviorRelay<Int> = BehaviorRelay(value: 0)
+    private lazy var lateAfternoonPlanCounts: BehaviorRelay<Int> = BehaviorRelay(value: 0)
+    
     func fetchPlansForTableView(timeZone: MyTimeZone, date: Date) -> BehaviorRelay<[Tasks]> {
         let dateKey = Date.dateToCheckDay(date: date)
         var taskFetchedArray: [Tasks] = []
@@ -49,6 +53,33 @@ final class PlansTableItemViewModel {
                 .disposed(by: disposeBag)
             
             return lateAfternoonPlans
+        }
+    }
+    
+    func fetchCountOfPlans(timeZone: MyTimeZone) -> BehaviorRelay<Int> {
+        let morningTaskNumber: Int = morningPlans.value.count
+        let earlyAfternoonTaskNumber: Int = earlyAfternoonPlans.value.count
+        let lateAfternoonTaskNumber: Int = lateAfternoonPlans.value.count
+        
+        switch timeZone {
+        case .morningTime:
+            _ = Observable.just(morningTaskNumber)
+                .bind(to: morningPlanCounts)
+                .disposed(by: disposeBag)
+            
+            return morningPlanCounts
+        case .earlyAfternoonTime:
+            _ = Observable.just(earlyAfternoonTaskNumber)
+                .bind(to: earlyAfternoonPlanCounts)
+                .disposed(by: disposeBag)
+            
+            return earlyAfternoonPlanCounts
+        case .lateAfternoonTime:
+            _ = Observable.just(lateAfternoonTaskNumber)
+                .bind(to: lateAfternoonPlanCounts)
+                .disposed(by: disposeBag)
+            
+            return lateAfternoonPlanCounts
         }
     }
     
