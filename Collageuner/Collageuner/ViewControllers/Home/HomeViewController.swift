@@ -321,7 +321,6 @@ final class HomeViewController: UIViewController {
             .disposed(by: disposeBag)
         
         gardenCanvasViewModel.currentGardenCanvas
-            .debug()
             .map { [weak self] canvas in
                 let imageName: String = canvas.monthAndYear + "_Canvas"
                 let canvasFetched: UIImage? = self?.loadGardenCanvasFromDirectory(imageName: imageName)
@@ -333,7 +332,6 @@ final class HomeViewController: UIViewController {
         
         if !taskViewModelStory.taskStoryImages.value.isEmpty {
             taskViewModelStory.taskStoryImages
-                .debug()
                 .observe(on: MainScheduler.instance)
                 .bind(to: taskStoryCollectionView.rx.items(cellIdentifier: IdsForCollectionView.StoryCollectionViewId.identifier, cellType: TaskStoryCollectionViewCell.self)) { [weak self] index, image, cell in
                     // switch 를 통해서 timeZone 에 따라 borderColor 바꿀 수 있음!

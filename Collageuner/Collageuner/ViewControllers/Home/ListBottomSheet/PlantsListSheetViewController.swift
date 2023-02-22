@@ -72,7 +72,7 @@ final class PlantsListSheetViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        disposeBag = DisposeBag()
+//        disposeBag = DisposeBag()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -125,7 +125,6 @@ final class PlantsListSheetViewController: UIViewController {
     
     private func bindings() {
         taskListViewModel.taskListForMonth
-            .debug()
             .observe(on: MainScheduler.instance)
             .bind(to: plantsListCollectionView.rx.items(cellIdentifier: IdsForCollectionView.PlantsListCollectionViewId.identifier, cellType: PlantsListCollectionViewCell.self)) { [weak self] index, task, cell in
                 let plantImageName = task.taskTime + task._id.stringValue
