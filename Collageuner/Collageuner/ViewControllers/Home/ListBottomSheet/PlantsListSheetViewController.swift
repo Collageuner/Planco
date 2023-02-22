@@ -64,7 +64,7 @@ final class PlantsListSheetViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        basicUI()
+        basicSetup()
         layouts()
         bindings()
         actions()
@@ -72,7 +72,7 @@ final class PlantsListSheetViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        disposeBag = DisposeBag()
+//        disposeBag = DisposeBag()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -88,7 +88,7 @@ final class PlantsListSheetViewController: UIViewController {
         super.viewWillDisappear(animated)
     }
     
-    private func basicUI() {
+    private func basicSetup() {
         view.backgroundColor = .Background
     }
     
@@ -125,7 +125,6 @@ final class PlantsListSheetViewController: UIViewController {
     
     private func bindings() {
         taskListViewModel.taskListForMonth
-            .debug()
             .observe(on: MainScheduler.instance)
             .bind(to: plantsListCollectionView.rx.items(cellIdentifier: IdsForCollectionView.PlantsListCollectionViewId.identifier, cellType: PlantsListCollectionViewCell.self)) { [weak self] index, task, cell in
                 let plantImageName = task.taskTime + task._id.stringValue

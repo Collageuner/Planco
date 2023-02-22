@@ -11,15 +11,24 @@ enum IdsForCollectionView: String, CaseIterable {
     case StoryCollectionViewId
     case GardenListCollectionViewId
     case PlantsListCollectionViewId
+    case MorningPlanItemId
+    case EarlyAfternoonPlanItemId
+    case LateAfternoonPlanItemId
     
     var identifier: String {
         switch self {
         case .StoryCollectionViewId:
-            return "homeStoryIdentifier"
+            return "homeStory"
         case .GardenListCollectionViewId:
-            return "gardenListIdentifier"
+            return "gardenList"
         case .PlantsListCollectionViewId:
-            return "plantsListIdentifier"
+            return "plantsList"
+        case .MorningPlanItemId:
+            return "morningPlan"
+        case .EarlyAfternoonPlanItemId:
+            return "earlyPlan"
+        case .LateAfternoonPlanItemId:
+            return "latePlan"
         }
     }
 }
@@ -35,17 +44,28 @@ enum DirectoryForWritingData: String, CaseIterable {
     var dataDirectory: String {
         switch self {
         case .TaskOriginalImages:
-            return "TaskOriginalImages"
+            return "TaskOriginalImage"
         case .TaskThumbnailImages:
-            return "TaskThumbnailImages"
+            return "TaskThumbnailImage"
         case .GarageOriginalImages:
-            return "GarageOriginalImages"
+            return "GarageOriginalImage"
         case .GarageThumbnailImages:
-            return "GarageThumbnailImages"
+            return "GarageThumbnailImage"
         case .GardenOriginalImages:
-            return "GardenOriginalImages"
+            return "GardenOriginalImage"
         case .GardenThumbnailImages:
-            return "GardenThumbnailImages"
+            return "GardenThumbnailImage"
+        }
+    }
+}
+
+enum SettingConfigurations: String, CaseIterable {
+    case GuideBoxChecked
+    
+    var isChecked: String {
+        switch self {
+        case .GuideBoxChecked:
+            return "guideBox"
         }
     }
 }
