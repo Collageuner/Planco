@@ -29,9 +29,9 @@ final class MyTimeZoneViewModel {
 //        if timeZoneRealmResult.count {
 //
 //        }
-        let morningRealmResult = fetchMorningRealm()
-        let earlyAfternoonRealmResult = fetchEarlyRealm()
-        let lateAfternoonRealmResult = fetchLateRealm()
+        let morningRealmResult = fetchMorningDateComponents()
+        let earlyAfternoonRealmResult = fetchEarlyDateComponents()
+        let lateAfternoonRealmResult = fetchLateDateComponents()
         
         let morningString: String = "\(morningRealmResult.hour):\(morningRealmResult.minute) \(morningRealmResult.noon)"
         let earlyAfternoonString: String = "\(earlyAfternoonRealmResult.hour):\(earlyAfternoonRealmResult.minute) \(earlyAfternoonRealmResult.noon)"
@@ -118,19 +118,19 @@ final class MyTimeZoneViewModel {
         }
     }
     
-    private func fetchMorningRealm() -> MyTimeZoneString {
+    func fetchMorningDateComponents() -> MyTimeZoneString {
         guard let morningRealmResult = timeZoneRealmResult.filter(NSPredicate(format: "timeZone = %@", "morningTime")).first else {
             return MyTimeZoneString(hour: "7", minute: "00", timeZone: "morningTime", noon: "am")}
         return morningRealmResult
     }
     
-    private func fetchEarlyRealm() -> MyTimeZoneString {
+    func fetchEarlyDateComponents() -> MyTimeZoneString {
         guard let earlyAfternoonRealmResult = timeZoneRealmResult.filter(NSPredicate(format: "timeZone = %@", "earlyAfternoonTime")).first else {
             return MyTimeZoneString(hour: "12", minute: "00", timeZone: "earlyAfternoonTime", noon: "pm")}
         return earlyAfternoonRealmResult
     }
     
-    private func fetchLateRealm() -> MyTimeZoneString {
+    func fetchLateDateComponents() -> MyTimeZoneString {
         guard let lateAfternoonRealmResult = timeZoneRealmResult.filter(NSPredicate(format: "timeZone = %@", "lateAfternoonTime")).first else {
             return MyTimeZoneString(hour: "6", minute: "00", timeZone: "lateAfternoonTime", noon: "pm")}
         return lateAfternoonRealmResult

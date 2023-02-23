@@ -8,6 +8,7 @@
 import UIKit
 
 extension UIImage {
+    /// Reduce Image File size with preserving Aspect Ratio
     func scalePreservingAspectRatio(targetSize: CGSize) -> UIImage {
         let widthRatio = targetSize.width / size.width
         let heightRatio = targetSize.height / size.height
