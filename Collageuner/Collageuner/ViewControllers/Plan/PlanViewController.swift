@@ -353,8 +353,8 @@ extension PlanViewController {
     @objc
     private func moveToAddMorningPlan() {
         let nextAddPlanView = AddPlanViewController()
-        nextAddPlanView.currentTimeDay = currentDate
-        nextAddPlanView.currentTimeZone = MyTimeZone.morningTime.time
+        nextAddPlanView.changeCurrentDate(date: currentDate)
+        nextAddPlanView.changeCurrentTimeZone(timeZone: .morningTime)
         nextAddPlanView.modalPresentationStyle = .fullScreen
         self.navigationController?.present(nextAddPlanView, animated: true)
     }
@@ -362,8 +362,8 @@ extension PlanViewController {
     @objc
     private func moveToAddEarlyPlan() {
         let nextAddPlanView = AddPlanViewController()
-        nextAddPlanView.currentTimeDay = currentDate
-        nextAddPlanView.currentTimeZone = MyTimeZone.earlyAfternoonTime.time
+        nextAddPlanView.changeCurrentDate(date: currentDate)
+        nextAddPlanView.changeCurrentTimeZone(timeZone: .earlyAfternoonTime)
         nextAddPlanView.modalPresentationStyle = .fullScreen
         self.navigationController?.present(nextAddPlanView, animated: true)
     }
@@ -371,8 +371,8 @@ extension PlanViewController {
     @objc
     private func moveToAddLatePlan() {
         let nextAddPlanView = AddPlanViewController()
-        nextAddPlanView.currentTimeDay = currentDate
-        nextAddPlanView.currentTimeZone = MyTimeZone.lateAfternoonTime.time
+        nextAddPlanView.changeCurrentDate(date: currentDate)
+        nextAddPlanView.changeCurrentTimeZone(timeZone: .lateAfternoonTime)
         nextAddPlanView.modalPresentationStyle = .fullScreen
         self.navigationController?.present(nextAddPlanView, animated: true)
     }
