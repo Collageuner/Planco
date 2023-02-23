@@ -149,14 +149,12 @@ final class GardenListSheetViewController: UIViewController {
     
     private func bindings() {
         currentYear
-            .debug()
             .map {String($0)}
             .observe(on: MainScheduler.instance)
             .bind(to: currentYearLabel.rx.text)
             .disposed(by: disposBag)
         
         gardenCanvasViewModel.collectionOfCanvas
-            .debug()
             .observe(on: MainScheduler.instance)
             .bind(to: gardenListCollectionView.rx.items(cellIdentifier: IdsForCollectionView.GardenListCollectionViewId.identifier, cellType: GardenListCollectionViewCell.self)) { [weak self] index, garden, cell in
                 let gardenImageName = "\(garden.monthAndYear)_Canvas"

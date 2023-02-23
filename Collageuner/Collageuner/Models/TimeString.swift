@@ -37,6 +37,23 @@ class MyTimeZoneString: Object {
         self.timeZone = timeZone
         self.noon = noon
     }
+    
+    /// Returns -> "HH:mm:00"
+    func hourToFullHour() -> String {
+        if hour == "12" {
+            return hour + ":" + minute + ":00"
+        }
+        
+        switch noon {
+        case "am":
+            return hour + ":" + minute + ":00"
+        case "pm":
+            guard let addedHour = Int(hour) else { return "12:00"}
+            return String(addedHour + 12) + ":" + minute + ":00"
+        default:
+            return "12:00"
+        }
+    }
 }
 
 enum MyTimeZone: String, CaseIterable {

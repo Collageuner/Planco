@@ -9,7 +9,6 @@ import UIKit
 
 import FSCalendar
 import RealmSwift
-import RxDataSources
 import RxSwift
 import RxCocoa
 import SnapKit
@@ -23,7 +22,7 @@ final class PlanViewController: UIViewController {
     private lazy var lateAfternoonPlanTableViewHeight: CGFloat = cellHeight * CGFloat(lateAfternoonTasks.value.count)
     
     private lazy var cellHeight: CGFloat = view.frame.height/11.1
-    private lazy var sectionHeight: CGFloat = view.frame.height/21
+    private lazy var sectionHeight: CGFloat = view.frame.height/19
     private var currentDate: Date = Date()
     
     // MARK: - Rx Models
@@ -61,19 +60,19 @@ final class PlanViewController: UIViewController {
     
     // MARK: - Section Components
     private lazy var morningSectionView = PlanTimeSectionHeaderView().then {
-//        if morningTasks.value.count >= 2 {
-//            $0.addTappedButton.isHidden = true
-//        }
+        $0.addTappedButton.isUserInteractionEnabled = true
         $0.planTimeZoneLabel.text = "오전"
         $0.backgroundColor = .MorningColor
     }
     
     private lazy var earlyAfternoonSectionView = PlanTimeSectionHeaderView().then {
+        $0.addTappedButton.isUserInteractionEnabled = true
         $0.planTimeZoneLabel.text = "이른 오후"
         $0.backgroundColor = .EarlyAfternoonColor
     }
     
     private lazy var lateAfternoonSectionView = PlanTimeSectionHeaderView().then {
+        $0.addTappedButton.isUserInteractionEnabled = true
         $0.planTimeZoneLabel.text = "늦은 오후"
         $0.backgroundColor = .LateAfternoonColor
     }
@@ -200,7 +199,7 @@ final class PlanViewController: UIViewController {
         
         earlyAfternoonSectionView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(25)
-            $0.top.equalTo(morningPlanTableView.snp.bottom).offset(5)
+            $0.top.equalTo(morningPlanTableView.snp.bottom).offset(8)
             $0.height.equalTo(sectionHeight)
         }
         
@@ -212,7 +211,7 @@ final class PlanViewController: UIViewController {
         
         lateAfternoonSectionView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(25)
-            $0.top.equalTo(earlyAfternoonPlanTableView.snp.bottom).offset(5)
+            $0.top.equalTo(earlyAfternoonPlanTableView.snp.bottom).offset(8)
             $0.height.equalTo(sectionHeight)
         }
         
@@ -335,13 +334,47 @@ final class PlanViewController: UIViewController {
     }
     
     deinit {
-        print("Blue Out")
+        print("PlanView Out")
     }
 }
 
     // MARK: - Other Supplementary Actions
 extension PlanViewController {
     private func actions() {
+        let AddMorningPlanTapped = UITapGestureRecognizer(target: self, action: #selector(moveToAddMorningPlan))
+        let AddEarlyPlanTapped = UITapGestureRecognizer(target: self, action: #selector(moveToAddEarlyPlan))
+        let AddLatePlanTapped = UITapGestureRecognizer(target: self, action: #selector(moveToAddLatePlan))
+        
+        morningSectionView.addTappedButton.addGestureRecognizer(AddMorningPlanTapped)
+        earlyAfternoonSectionView.addTappedButton.addGestureRecognizer(AddEarlyPlanTapped)
+        lateAfternoonSectionView.addTappedButton.addGestureRecognizer(AddLatePlanTapped)
+    }
+    
+    @objc
+    private func moveToAddMorningPlan() {
+        let nextAddPlanView = AddPlanViewController()
+        nextAddPlanView.currentTimeDay = currentDate
+        nextAddPlanView.currentTimeZone = MyTimeZone.morningTime.time
+        nextAddPlanView.modalPresentationStyle = .fullScreen
+        self.navigationController?.present(nextAddPlanView, animated: true)
+    }
+    
+    @objc
+    private func moveToAddEarlyPlan() {
+        let nextAddPlanView = AddPlanViewController()
+        nextAddPlanView.currentTimeDay = currentDate
+        nextAddPlanView.currentTimeZone = MyTimeZone.earlyAfternoonTime.time
+        nextAddPlanView.modalPresentationStyle = .fullScreen
+        self.navigationController?.present(nextAddPlanView, animated: true)
+    }
+    
+    @objc
+    private func moveToAddLatePlan() {
+        let nextAddPlanView = AddPlanViewController()
+        nextAddPlanView.currentTimeDay = currentDate
+        nextAddPlanView.currentTimeZone = MyTimeZone.lateAfternoonTime.time
+        nextAddPlanView.modalPresentationStyle = .fullScreen
+        self.navigationController?.present(nextAddPlanView, animated: true)
     }
     
     // MARK: - Navigation Actions
