@@ -69,9 +69,9 @@ final class HomeViewController: UIViewController {
         $0.backgroundColor = .white
         $0.contentMode = .scaleAspectFill
         $0.layer.cornerRadius = 4
-        $0.layer.borderColor = UIColor.MainText.cgColor
-        $0.layer.borderWidth = 4
-        $0.image = UIImage()
+        $0.layer.borderColor = UIColor.black.withAlphaComponent(0.6).cgColor
+        $0.layer.borderWidth = 3
+        $0.image = UIImage().withAlignmentRectInsets(UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10))
         $0.clipsToBounds = true
     }
     
@@ -143,14 +143,14 @@ final class HomeViewController: UIViewController {
         self?.navigationController?.pushViewController(planViewController, animated: true)
     })
     ).then {
-        let symbolConfiguration = UIImage.SymbolConfiguration(textStyle: .title1)
+        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 27, weight: .light)
         $0.setImage(UIImage(systemName: "plus", withConfiguration: symbolConfiguration), for: .normal)
         $0.tintColor = .black
         $0.backgroundColor = .white
         $0.layer.shadowColor = UIColor.black.cgColor
-        $0.layer.shadowOpacity = 0.3
-        $0.layer.shadowOffset = CGSize(width: 0, height: 3)
-        $0.layer.shadowRadius = 3
+        $0.layer.shadowOpacity = 0.2
+        $0.layer.shadowOffset = CGSize(width: 0.5, height: 1.5)
+        $0.layer.shadowRadius = 4
     }
     
     // MARK: - Other UI Components
@@ -228,7 +228,7 @@ final class HomeViewController: UIViewController {
         
         currentMonthLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(25)
-            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(15)
         }
         
         currentDayLabel.snp.makeConstraints {
@@ -302,22 +302,22 @@ final class HomeViewController: UIViewController {
     
     // MARK: - Rx Bindings
     private func bindings() {
-        LiveTime.liveMonth.asObservable()
-            .map{ _ in
-                let month = self.dateToMonth(date: Date())
+        LiveTime.liveMonth
+            .map { [weak self] _ in
+                let month = self?.dateToMonth(date: Date())
                 
                 return month
             }
-            .bind(to: currentMonthLabel.rx.text)
+            .drive(currentMonthLabel.rx.text)
             .disposed(by: disposeBag)
         
-        LiveTime.liveDay.asObservable()
-            .map{ _ in
-                let day = self.dateToDay(date: Date())
+        LiveTime.liveDay
+            .map { [weak self] _ in
+                let day = self?.dateToDay(date: Date())
                 
                 return day
             }
-            .bind(to: currentDayLabel.rx.text)
+            .drive(currentDayLabel.rx.text)
             .disposed(by: disposeBag)
         
         gardenCanvasViewModel.currentGardenCanvas
