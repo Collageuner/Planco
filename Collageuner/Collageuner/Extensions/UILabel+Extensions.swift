@@ -24,4 +24,6 @@ extension UILabel {
             self.attributedText = attrString
         }
     }
+    
+    // 다른 기능이 필요함
 }
