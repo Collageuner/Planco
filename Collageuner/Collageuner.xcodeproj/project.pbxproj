@@ -60,6 +60,7 @@
 		5878147B296818680074FA56 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 5878147A296818680074FA56 /* Then */; };
 		5878147E296818920074FA56 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 5878147D296818920074FA56 /* Lottie */; };
 		5894B2B7296838B500263584 /* Identifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5894B2B6296838B500263584 /* Identifiers.swift */; };
+		58A3C6E429A901E20034C404 /* EmptyPlanTaskImage.json in Resources */ = {isa = PBXBuildFile; fileRef = 58A3C6E329A901E20034C404 /* EmptyPlanTaskImage.json */; };
 		58A41E70299B4A6E00036C59 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 58A41E6F299B4A6E00036C59 /* FSCalendar */; };
 		58A41E72299B532900036C59 /* UIViewController+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A41E71299B532900036C59 /* UIViewController+Extentions.swift */; };
 		58A41E74299B69D600036C59 /* PlanFirstGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A41E73299B69D600036C59 /* PlanFirstGuideView.swift */; };
@@ -72,7 +73,8 @@
 		58AF77152981228500A46B3D /* GuideInformationCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF77142981228500A46B3D /* GuideInformationCheck.swift */; };
 		58AF77172981245F00A46B3D /* TextConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF77162981245F00A46B3D /* TextConfigurations.swift */; };
 		58AF77192981269400A46B3D /* GarageImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF77182981269400A46B3D /* GarageImages.swift */; };
-		58EC28EC299BB81E00A000D0 /* TaskTimeZoneSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58EC28EB299BB81E00A000D0 /* TaskTimeZoneSection.swift */; };
+		58E8130729A714D1001EF12E /* AddPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E8130629A714D1001EF12E /* AddPlanViewController.swift */; };
+		58E8130C29A7ABDB001EF12E /* AddPlanCustomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E8130B29A7ABDB001EF12E /* AddPlanCustomBarView.swift */; };
 		58ED69F8299A891000B2C859 /* PlanItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58ED69F7299A891000B2C859 /* PlanItemTableViewCell.swift */; };
 		58F1C41629961F42000071BC /* CodesSaved.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F1C41529961F42000071BC /* CodesSaved.swift */; };
 		58F27B8D29A219B100ED843E /* PlansTabelItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F27B8C29A219B100ED843E /* PlansTabelItemViewModel.swift */; };
@@ -137,6 +139,7 @@
 		5878146729680BEA0074FA56 /* CollageunerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageunerUITests.swift; sourceTree = "<group>"; };
 		5878146929680BEA0074FA56 /* CollageunerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageunerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5894B2B6296838B500263584 /* Identifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Identifiers.swift; path = Collageuner/Logics/Identifiers.swift; sourceTree = SOURCE_ROOT; };
+		58A3C6E329A901E20034C404 /* EmptyPlanTaskImage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EmptyPlanTaskImage.json; sourceTree = "<group>"; };
 		58A41E71299B532900036C59 /* UIViewController+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extentions.swift"; sourceTree = "<group>"; };
 		58A41E73299B69D600036C59 /* PlanFirstGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanFirstGuideView.swift; sourceTree = "<group>"; };
 		58A41E75299B7D0E00036C59 /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
@@ -148,7 +151,8 @@
 		58AF77142981228500A46B3D /* GuideInformationCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideInformationCheck.swift; sourceTree = "<group>"; };
 		58AF77162981245F00A46B3D /* TextConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextConfigurations.swift; sourceTree = "<group>"; };
 		58AF77182981269400A46B3D /* GarageImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageImages.swift; sourceTree = "<group>"; };
-		58EC28EB299BB81E00A000D0 /* TaskTimeZoneSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTimeZoneSection.swift; sourceTree = "<group>"; };
+		58E8130629A714D1001EF12E /* AddPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanViewController.swift; sourceTree = "<group>"; };
+		58E8130B29A7ABDB001EF12E /* AddPlanCustomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanCustomBarView.swift; sourceTree = "<group>"; };
 		58ED69F7299A891000B2C859 /* PlanItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanItemTableViewCell.swift; sourceTree = "<group>"; };
 		58F1C41529961F42000071BC /* CodesSaved.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodesSaved.swift; sourceTree = "<group>"; };
 		58F27B8C29A219B100ED843E /* PlansTabelItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansTabelItemViewModel.swift; sourceTree = "<group>"; };
@@ -222,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				581CC5232999222D007178B9 /* PlanViewController.swift */,
+				58E8130529A70A57001EF12E /* AddPlan */,
 			);
 			path = Plan;
 			sourceTree = "<group>";
@@ -232,6 +237,7 @@
 				581CC52729992296007178B9 /* PlanTimeSectionHeaderView.swift */,
 				58ED69F7299A891000B2C859 /* PlanItemTableViewCell.swift */,
 				58A41E73299B69D600036C59 /* PlanFirstGuideView.swift */,
+				58E8130A29A7ABB7001EF12E /* AddPlan */,
 			);
 			path = Plan;
 			sourceTree = "<group>";
@@ -423,7 +429,6 @@
 				58AF770B298102C500A46B3D /* Tasks.swift */,
 				58AF77162981245F00A46B3D /* TextConfigurations.swift */,
 				58AF771029810B4F00A46B3D /* TimeString.swift */,
-				58EC28EB299BB81E00A000D0 /* TaskTimeZoneSection.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -437,9 +442,26 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		58E8130529A70A57001EF12E /* AddPlan */ = {
+			isa = PBXGroup;
+			children = (
+				58E8130629A714D1001EF12E /* AddPlanViewController.swift */,
+			);
+			path = AddPlan;
+			sourceTree = "<group>";
+		};
+		58E8130A29A7ABB7001EF12E /* AddPlan */ = {
+			isa = PBXGroup;
+			children = (
+				58E8130B29A7ABDB001EF12E /* AddPlanCustomBarView.swift */,
+			);
+			path = AddPlan;
+			sourceTree = "<group>";
+		};
 		58F83221299387B90070786F /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
+				58A3C6E329A901E20034C404 /* EmptyPlanTaskImage.json */,
 				58F832262993933C0070786F /* EmptyHome.json */,
 				58F832222993880D0070786F /* EmptyStoryTask.json */,
 			);
@@ -574,6 +596,7 @@
 			files = (
 				58F832272993933D0070786F /* EmptyHome.json in Resources */,
 				5878145329680BEA0074FA56 /* LaunchScreen.storyboard in Resources */,
+				58A3C6E429A901E20034C404 /* EmptyPlanTaskImage.json in Resources */,
 				5839669B297E398A00B63E52 /* EBGaramond-Italic-VariableFont_wght.ttf in Resources */,
 				5839669E297E398A00B63E52 /* EBGaramond-VariableFont_wght.ttf in Resources */,
 				58F832232993880D0070786F /* EmptyStoryTask.json in Resources */,
@@ -621,10 +644,10 @@
 				586E19222988D521000D6C84 /* Protocols.swift in Sources */,
 				585098D42997417500BCC087 /* GardenListSheetViewController.swift in Sources */,
 				585098D22997416300BCC087 /* PlantsListSheetViewController.swift in Sources */,
-				58EC28EC299BB81E00A000D0 /* TaskTimeZoneSection.swift in Sources */,
 				58AF771129810B4F00A46B3D /* TimeString.swift in Sources */,
 				58101EE6298B8F65000C2671 /* Date+Extensions.swift in Sources */,
 				5830522529837B4C00E299C8 /* GardenCanvasViewModel.swift in Sources */,
+				58E8130729A714D1001EF12E /* AddPlanViewController.swift in Sources */,
 				58305227298386D700E299C8 /* TasksViewModel.swift in Sources */,
 				58AF77152981228500A46B3D /* GuideInformationCheck.swift in Sources */,
 				58AF77132981115E00A46B3D /* TimeViewModel.swift in Sources */,
@@ -646,6 +669,7 @@
 				58F27B8D29A219B100ED843E /* PlansTabelItemViewModel.swift in Sources */,
 				58AF77092980FBAF00A46B3D /* GardenCanvas.swift in Sources */,
 				58ED69F8299A891000B2C859 /* PlanItemTableViewCell.swift in Sources */,
+				58E8130C29A7ABDB001EF12E /* AddPlanCustomBarView.swift in Sources */,
 				581CC52A299922B3007178B9 /* ProfileSettingTableViewCell.swift in Sources */,
 				580649DF29861FB600D0DF5F /* RealmManager.swift in Sources */,
 				581CC5242999222D007178B9 /* PlanViewController.swift in Sources */,

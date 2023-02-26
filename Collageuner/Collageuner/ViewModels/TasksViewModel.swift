@@ -54,6 +54,7 @@ final class TasksViewModel {
             .disposed(by: disposeBag)
     }
     
+    /// 이거 뭐지?
     init(dateForMonthList: Date) {
         let dateKey = Date.dateToYearAndMonth(date: dateForMonthList)
         var taskFetchedArray: [Tasks] = []
@@ -124,6 +125,4 @@ final class TasksViewModel {
 
     /// 결국에 tableView 에서 어떻게 데이터 전달이 돼서 새로운 변수만 있으면 되는건지 아니면 조회를 해야하는건지...
 //    func deleteTask
-    
-//    func finishTask
 }
