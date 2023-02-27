@@ -6,3 +6,7 @@
 //
 
 import UIKit
+
+protocol GarageSheetDelegate: AnyObject {
+    func fetchImageFromGarage(garageImage: UIImage)
+}

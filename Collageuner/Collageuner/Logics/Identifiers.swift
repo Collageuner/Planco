@@ -14,6 +14,7 @@ enum IdsForCollectionView: String, CaseIterable {
     case MorningPlanItemId
     case EarlyAfternoonPlanItemId
     case LateAfternoonPlanItemId
+    case GarageSheetCollectionItemId
     
     var identifier: String {
         switch self {
@@ -29,15 +30,17 @@ enum IdsForCollectionView: String, CaseIterable {
             return "earlyPlan"
         case .LateAfternoonPlanItemId:
             return "latePlan"
+        case .GarageSheetCollectionItemId:
+            return "garageSheet"
         }
     }
 }
 
 enum DirectoryForWritingData: String, CaseIterable {
-    case TaskOriginalImages
-    case TaskThumbnailImages
     case GarageOriginalImages
     case GarageThumbnailImages
+    case TaskOriginalImages
+    case TaskThumbnailImages
     case GardenOriginalImages
     case GardenThumbnailImages
     
