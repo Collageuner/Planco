@@ -70,11 +70,6 @@ final class PlantsListSheetViewController: UIViewController {
         actions()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-//        disposeBag = DisposeBag()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if taskListViewModel.taskListForMonth.value.isEmpty {

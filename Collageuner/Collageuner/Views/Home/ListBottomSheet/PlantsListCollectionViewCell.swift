@@ -29,7 +29,6 @@ final class PlantsListCollectionViewCell: UICollectionViewCell {
         $0.font = .customEnglishFont(.medium, forTextStyle: .footnote)
     }
     
-    // 1. axis(축) 2. distribution(분배) 3. alignment(정렬) 4. spacing(여백)
     private let textStackView = UIStackView().then {
         $0.spacing = 2
         $0.distribution = .fillProportionally
@@ -80,7 +79,6 @@ final class PlantsListCollectionViewCell: UICollectionViewCell {
             $0.leading.top.bottom.equalToSuperview()
             $0.width.equalTo(self.snp.height)
         }
-        
     }
     
     required init?(coder: NSCoder) {
