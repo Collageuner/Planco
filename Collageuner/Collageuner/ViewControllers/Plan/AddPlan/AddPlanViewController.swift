@@ -403,7 +403,7 @@ final class AddPlanViewController: UIViewController {
     private func assetUsageInfoAction() -> UIAction {
         let action = UIAction { [weak self] _ in
             print("QUESTION MARK!")
-//            self?.view.layer.opacity = 0.5
+            // 안내 페이지 On
         }
         
         return action
@@ -417,6 +417,23 @@ final class AddPlanViewController: UIViewController {
         imagePicker.delegate = self
         
         self.present(imagePicker, animated: true)
+    }
+    
+    private func openGarageBottomSheet() {
+        let garageBottomSheet = GarageImageSheetViewController()
+        garageBottomSheet.delegate = self
+        garageBottomSheet.modalPresentationStyle = .pageSheet
+
+        if let sheet = garageBottomSheet.sheetPresentationController {
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 30
+            sheet.detents = [
+                .custom { context in
+                    return context.maximumDetentValue * 0.7
+                }
+            ]
+        }
+        self.present(garageBottomSheet, animated: true)
     }
     
     private func bindTimeLabelFromTimeZone(timeZone: String) {
@@ -452,7 +469,7 @@ final class AddPlanViewController: UIViewController {
     private func getMenuActionForImage() -> [UIAction] {
         let menuActions: [UIAction] = [
             UIAction(title: "개러지에서 가져오기", image: UIImage(systemName: "photo.on.rectangle.angled"), handler: { [unowned self] _ in
-                print("⭐️⭐️")
+                self.openGarageBottomSheet()
             }),
             UIAction(title: "앨범에서 가져오기",image: UIImage(named: "ApplePhotoAlbumLogo.png"), handler: { [unowned self] _ in
                 self.openPHPicker()
@@ -567,6 +584,15 @@ extension AddPlanViewController: PHPickerViewControllerDelegate {
         }
         
         self.defaultTaskImageView.isHidden = true
+    }
+}
 
+extension AddPlanViewController: GarageSheetDelegate {
+    func fetchImageFromGarage(garageImage: UIImage) {
+        Observable.just(garageImage)
+            .bind(to: self.taskImageSubject)
+            .disposed(by: disposeBag)
+        
+        defaultTaskImageView.isHidden = true
     }
 }
