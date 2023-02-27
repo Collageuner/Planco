@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PhotosUI
 
 import Lottie
 import RealmSwift
@@ -18,6 +19,7 @@ final class AddPlanViewController: UIViewController {
     
     var disposeBag = DisposeBag()
     private let timeZoneViewModel = MyTimeZoneViewModel()
+    private let taskImageSubject: BehaviorRelay<UIImage> = BehaviorRelay(value: UIImage())
     
     private var currentTimeZone: String = ""
     private var currentTimeDay: Date = Date()
@@ -290,7 +292,7 @@ final class AddPlanViewController: UIViewController {
         
         taskImageSelectedView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(taskImageSelectSectionLabel.snp.bottom).offset(30)
+            $0.top.equalTo(taskImageSelectSectionLabel.snp.bottom).offset(20)
             $0.height.width.equalTo(view.snp.height).dividedBy(4.7)
         }
         
@@ -301,7 +303,10 @@ final class AddPlanViewController: UIViewController {
     }
     
     private func bindings() {
-        fetchTimeLabelFromTimeZone(timeZone: currentTimeZone)
+        bindTimeLabelFromTimeZone(timeZone: currentTimeZone)
+        taskImageSubject.asDriver()
+            .drive(taskImageSelectedView.rx.image)
+            .disposed(by: disposeBag)
     }
     
     private func actions() {
@@ -404,7 +409,17 @@ final class AddPlanViewController: UIViewController {
         return action
     }
     
-    private func fetchTimeLabelFromTimeZone(timeZone: String) {
+    private func openPHPicker() {
+        var phpickerConfiguration = PHPickerConfiguration()
+        phpickerConfiguration.selectionLimit = 1
+        phpickerConfiguration.filter = .images
+        let imagePicker = PHPickerViewController(configuration: phpickerConfiguration)
+        imagePicker.delegate = self
+        
+        self.present(imagePicker, animated: true)
+    }
+    
+    private func bindTimeLabelFromTimeZone(timeZone: String) {
         let timeLabelDriver: Driver<String>
         
         switch timeZone {
@@ -436,14 +451,11 @@ final class AddPlanViewController: UIViewController {
     
     private func getMenuActionForImage() -> [UIAction] {
         let menuActions: [UIAction] = [
-            UIAction(title: "카메라로 찍기", image: UIImage(systemName: "camera.on.rectangle"), handler: { [unowned self] _ in
-                print("⭐️⭐️⭐️")
-            }),
             UIAction(title: "개러지에서 가져오기", image: UIImage(systemName: "photo.on.rectangle.angled"), handler: { [unowned self] _ in
                 print("⭐️⭐️")
             }),
             UIAction(title: "앨범에서 가져오기",image: UIImage(named: "ApplePhotoAlbumLogo.png"), handler: { [unowned self] _ in
-                print("⭐️")
+                self.openPHPicker()
             })
         ]
         
@@ -520,5 +532,41 @@ extension AddPlanViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+extension AddPlanViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        
+        picker.dismiss(animated: true)
+        
+        guard let itemProvider = results.first?.itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) else {
+            print("Error Fetching Data From PHPicker")
+            return
+        }
+        
+        itemProvider.loadObject(ofClass: UIImage.self) { [unowned self] taskImage, error in
+            
+            // 여기서 Navigation 으로 넘어가서 crop 할 수 있는 기능을 넣자.
+            // 그러면 VC 가 달라질테니 ViewModel 로 하나 만들어서 편하게 통일 시켜야겠네.
+            
+            Observable<UIImage>.create { emitter in
+                guard let selectedImage = taskImage as? UIImage else {
+                    print("Error Changing into Data.")
+                    return Disposables.create()}
+                let pngImage = selectedImage
+                
+                emitter.onNext(pngImage)
+                emitter.onCompleted()
+                
+                return Disposables.create()
+            }
+            .bind(to: self.taskImageSubject)
+            .disposed(by: self.disposeBag)
+            
+        }
+        
+        self.defaultTaskImageView.isHidden = true
+
     }
 }

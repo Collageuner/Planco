@@ -140,7 +140,7 @@ final class PlanFirstGuideView: UIView {
         checkedGuideButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.bottom.equalToSuperview().inset(20)
-            $0.width.equalTo(300)
+            $0.width.equalToSuperview().dividedBy(1.1)
             $0.height.equalToSuperview().dividedBy(5)
         }
     }
