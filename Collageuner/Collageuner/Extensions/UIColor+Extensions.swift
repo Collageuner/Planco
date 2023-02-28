@@ -50,15 +50,15 @@ extension UIColor {
     }
     
     static var MorningColor: UIColor {
-        return UIColor(hex: "#8A9B82")
+        return UIColor(hex: "#A7C2B2")
     }
     
     static var EarlyAfternoonColor: UIColor {
-        return UIColor(hex: "#728767")
+        return UIColor(hex: "#86AE96")
     }
     
     static var LateAfternoonColor: UIColor {
-        return UIColor(hex: "#617D54")
+        return UIColor(hex: "#5D8F71")
     }
 }
 
