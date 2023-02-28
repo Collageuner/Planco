@@ -20,6 +20,8 @@ final class TasksViewModel {
     let taskListForDay: BehaviorRelay<[Tasks]> = BehaviorRelay(value: [])
     let taskListForMonth: BehaviorRelay<[Tasks]> = BehaviorRelay(value: [])
     
+    init() {}
+    
     /// init for getting HomeView Story Images
     init(dateForStories: Date) {
         let dateKey = Date.dateToCheckDay(date: dateForStories)
@@ -75,7 +77,8 @@ final class TasksViewModel {
     }
     
     func createTask(timeZone: MyTimeZone, taskTime: Date, taskImage: UIImage?, mainTask: String, subTasks: [String?] = [], taskExpiredCheck: Bool = false, taskCompleted: Bool = false) {
-        let subTaskList = arrayToListRealm(swiftArray: subTasks)
+        let removeNilFromSubTasks = subTasks.compactMap { $0 }
+        let subTaskList = arrayToListRealm(swiftArray: removeNilFromSubTasks)
         
         let taskDateToTime = Date.fullDateToString(date: taskTime)
         let taskYearAndMonth = Date.dateToYearAndMonth(date: taskTime)
