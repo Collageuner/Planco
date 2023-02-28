@@ -21,7 +21,7 @@ final class PlanViewController: UIViewController {
     private lazy var earlyAfternoonPlanTableViewHeight: CGFloat = cellHeight * CGFloat(earlyAfternoonTasks.value.count)
     private lazy var lateAfternoonPlanTableViewHeight: CGFloat = cellHeight * CGFloat(lateAfternoonTasks.value.count)
     
-    private lazy var cellHeight: CGFloat = view.frame.height/11.1
+    private lazy var cellHeight: CGFloat = view.frame.height/10.9
     private lazy var sectionHeight: CGFloat = view.frame.height/19
     private var currentDate: Date = Date()
     
@@ -35,10 +35,10 @@ final class PlanViewController: UIViewController {
     private lazy var morningTasksCount = plansViewModel.fetchCountOfPlans(timeZone: .morningTime)
     
     private lazy var earlyAfternoonTasks = plansViewModel.fetchPlansForTableView(timeZone: .earlyAfternoonTime, date: currentDate)
-    private lazy var earlyAfternoonTasksCount = plansViewModel.fetchCountOfPlans(timeZone: .morningTime)
+    private lazy var earlyAfternoonTasksCount = plansViewModel.fetchCountOfPlans(timeZone: .earlyAfternoonTime)
     
     private lazy var lateAfternoonTasks = plansViewModel.fetchPlansForTableView(timeZone: .lateAfternoonTime, date: currentDate)
-    private lazy var lateAfternoonTasksCount = plansViewModel.fetchCountOfPlans(timeZone: .morningTime)
+    private lazy var lateAfternoonTasksCount = plansViewModel.fetchCountOfPlans(timeZone: .lateAfternoonTime)
     
     // MARK: - Calendar Components
     private lazy var weeklyCalendarView = FSCalendar(frame: .zero).then {
@@ -146,13 +146,6 @@ final class PlanViewController: UIViewController {
     
     // MARK: - Basic View Configuaration
     private func basicSetup() {
-        //        taskViewModel.createTask(timeZone: .morningTime, taskTime: currentDate, taskImage: UIImage(named: "tempLogo"), mainTask: "그냥 명상하기", subTasks: ["다른 생각 진짜 하지 않기!"])
-        //        taskViewModel.createTask(timeZone: .morningTime, taskTime: Date(timeIntervalSinceNow: 1000), taskImage: UIImage(named: "ExampleProfileImage"), mainTask: "떡볶이 먹기", subTasks: ["엽떡!!!! 끄아앙아ㅡ아ㅡ아아아ㅡ아으ㅏ앙앙", "움ㄴ냠ㄴ누ㅑㅁㅁ냠ㅁ냠"])
-        //        taskViewModel.createTask(timeZone: .earlyAfternoonTime, taskTime: Date(timeIntervalSinceNow: 2000), taskImage: UIImage(named: "GardenListLogo"), mainTask: "낮잠 절대로 참기! 절대로 절대로!!!!!!", subTasks: ["기타치기", "끼얏호"])
-        //        taskViewModel.createTask(timeZone: .earlyAfternoonTime, taskTime: Date(timeIntervalSinceNow: 2500), taskImage: UIImage(named: "GardenListLogo"), mainTask: "낮잠 절대 절대로!!!!!!", subTasks: ["기타치기", "끼얏호"])
-        //        taskViewModel.createTask(timeZone: .lateAfternoonTime, taskTime: Date(timeIntervalSinceNow: 5000), taskImage: UIImage(named: "G4"), mainTask: "저녁은 샐러드로!", subTasks: ["엽! 끄아앙아ㅡ아ㅡ아아아ㅡ아으ㅏ앙앙", "움ㄴ냠ㄴ누ㅑㅁㅁ냠ㅁ냠"])
-        //        taskViewModel.createTask(timeZone: .lateAfternoonTime, taskTime: Date(timeIntervalSinceNow: 6000), taskImage: UIImage(named: "G4"), mainTask: "저녁은 샐러드로!", subTasks: ["엽떡!!!! 끄아앙아ㅡ아ㅡ아아아ㅡ아으ㅏ앙앙", "움ㄴ냠ㄴ누ㅑㅁㅁ냠ㅁ냠"])
-        //        UserDefaults.standard.set(false, forKey: SettingConfigurations.GuideBoxChecked.isChecked)
         view.backgroundColor = .Background
         
         weeklyCalendarView.delegate = self
@@ -226,40 +219,46 @@ final class PlanViewController: UIViewController {
     private func bindings() {
         /// Morning List
         morningTasks.asDriver()
-            .distinctUntilChanged()
             .drive(morningPlanTableView.rx.items(cellIdentifier: IdsForCollectionView.MorningPlanItemId.identifier, cellType: PlanItemTableViewCell.self)) { row, task, cell in
                 cell.updateUICell(cell: task) }
             .disposed(by: disposeBag)
         
         morningTasksCount.asDriver()
-            .map { if $0 < 2 { return false } else { return true }}
-            .distinctUntilChanged()
+            .map {
+                switch $0 {
+                case 2: return true
+                default: return false }
+            }
             .drive(morningSectionView.addTappedButton.rx.isHidden)
             .disposed(by: disposeBag)
         
         /// EarlyAfternoon List
         earlyAfternoonTasks.asDriver()
-            .distinctUntilChanged()
             .drive(earlyAfternoonPlanTableView.rx.items(cellIdentifier: IdsForCollectionView.EarlyAfternoonPlanItemId.identifier, cellType: PlanItemTableViewCell.self)) { row, task, cell in
                 cell.updateUICell(cell: task) }
             .disposed(by: disposeBag)
         
         earlyAfternoonTasksCount.asDriver()
-            .map { if $0 < 2 { return false } else { return true }}
-            .distinctUntilChanged()
+            .map {
+                switch $0 {
+                case 2: return true
+                default: return false }
+            }
             .drive(earlyAfternoonSectionView.addTappedButton.rx.isHidden)
             .disposed(by: disposeBag)
         
         /// LateAfternoon List
         lateAfternoonTasks.asDriver()
-            .distinctUntilChanged()
             .drive(lateAfternoonPlanTableView.rx.items(cellIdentifier: IdsForCollectionView.LateAfternoonPlanItemId.identifier, cellType: PlanItemTableViewCell.self)) { row, task, cell in
                 cell.updateUICell(cell: task) }
             .disposed(by: disposeBag)
         
         lateAfternoonTasksCount.asDriver()
-            .map { if $0 < 2 { return false } else { return true }}
-            .distinctUntilChanged()
+            .map {
+                switch $0 {
+                case 2: return true
+                default: return false }
+            }
             .drive(lateAfternoonSectionView.addTappedButton.rx.isHidden)
             .disposed(by: disposeBag)
     }
@@ -285,17 +284,7 @@ final class PlanViewController: UIViewController {
     }
     
     private func updateSectionView() {
-        _ = Observable.just(morningTasks.value.count)
-            .bind(to: morningTasksCount)
-            .disposed(by: disposeBag)
-        
-        _ = Observable.just(earlyAfternoonTasks.value.count)
-            .bind(to: earlyAfternoonTasksCount)
-            .disposed(by: disposeBag)
-        
-        _ = Observable.just(lateAfternoonTasks.value.count)
-            .bind(to: lateAfternoonTasksCount)
-            .disposed(by: disposeBag)
+        plansViewModel.updatePlanCounts(morningCount: morningTasks.value.count, earlyCount: earlyAfternoonTasks.value.count, lateCount: lateAfternoonTasks.value.count)
     }
     
     // MARK: - ViewWillAppear Actions
@@ -350,33 +339,6 @@ extension PlanViewController {
         lateAfternoonSectionView.addTappedButton.addGestureRecognizer(AddLatePlanTapped)
     }
     
-    @objc
-    private func moveToAddMorningPlan() {
-        let nextAddPlanView = AddPlanViewController()
-        nextAddPlanView.changeCurrentDate(date: currentDate)
-        nextAddPlanView.changeCurrentTimeZone(timeZone: .morningTime)
-        nextAddPlanView.modalPresentationStyle = .fullScreen
-        self.navigationController?.present(nextAddPlanView, animated: true)
-    }
-    
-    @objc
-    private func moveToAddEarlyPlan() {
-        let nextAddPlanView = AddPlanViewController()
-        nextAddPlanView.changeCurrentDate(date: currentDate)
-        nextAddPlanView.changeCurrentTimeZone(timeZone: .earlyAfternoonTime)
-        nextAddPlanView.modalPresentationStyle = .fullScreen
-        self.navigationController?.present(nextAddPlanView, animated: true)
-    }
-    
-    @objc
-    private func moveToAddLatePlan() {
-        let nextAddPlanView = AddPlanViewController()
-        nextAddPlanView.changeCurrentDate(date: currentDate)
-        nextAddPlanView.changeCurrentTimeZone(timeZone: .lateAfternoonTime)
-        nextAddPlanView.modalPresentationStyle = .fullScreen
-        self.navigationController?.present(nextAddPlanView, animated: true)
-    }
-    
     // MARK: - Navigation Actions
     @objc
     private func actionOne() {
@@ -388,6 +350,36 @@ extension PlanViewController {
     
     @objc
     private func actionThree() {
+    }
+    
+    @objc
+    private func moveToAddMorningPlan() {
+        let nextAddPlanView = AddPlanViewController()
+        nextAddPlanView.changeCurrentDate(date: currentDate)
+        nextAddPlanView.changeCurrentTimeZone(timeZone: .morningTime)
+        nextAddPlanView.modalPresentationStyle = .fullScreen
+        nextAddPlanView.delegate = self
+        self.navigationController?.present(nextAddPlanView, animated: true)
+    }
+    
+    @objc
+    private func moveToAddEarlyPlan() {
+        let nextAddPlanView = AddPlanViewController()
+        nextAddPlanView.changeCurrentDate(date: currentDate)
+        nextAddPlanView.changeCurrentTimeZone(timeZone: .earlyAfternoonTime)
+        nextAddPlanView.modalPresentationStyle = .fullScreen
+        nextAddPlanView.delegate = self
+        self.navigationController?.present(nextAddPlanView, animated: true)
+    }
+    
+    @objc
+    private func moveToAddLatePlan() {
+        let nextAddPlanView = AddPlanViewController()
+        nextAddPlanView.changeCurrentDate(date: currentDate)
+        nextAddPlanView.changeCurrentTimeZone(timeZone: .lateAfternoonTime)
+        nextAddPlanView.modalPresentationStyle = .fullScreen
+        nextAddPlanView.delegate = self
+        self.navigationController?.present(nextAddPlanView, animated: true)
     }
 }
 
@@ -411,7 +403,7 @@ extension PlanViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalend
 }
 
     // MARK: - Extension for TableView Delegates
-extension PlanViewController: UITableViewDelegate {
+extension PlanViewController: UITableViewDelegate  {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return cellHeight
     }
@@ -419,8 +411,8 @@ extension PlanViewController: UITableViewDelegate {
     /// Swipe action settings
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard let cell = tableView.cellForRow(at: indexPath) as? PlanItemTableViewCell else { return UISwipeActionsConfiguration() }
-        let isExpired = cell.fetchIsExpired()
-        let isCompleted = cell.fetchIsCompleted()
+        let isExpired: Bool = cell.fetchIsExpired()
+        let isCompleted: Bool = cell.fetchIsCompleted()
                 
         if isExpired == true || isCompleted == true {
             cell.isUserInteractionEnabled = false
@@ -441,6 +433,14 @@ extension PlanViewController: UITableViewDelegate {
         let configuration = UISwipeActionsConfiguration(actions: [checkAction])
 
         return configuration
+    }
+}
+
+extension PlanViewController: AddPlanDelegate {
+    func reloadTableViews() {
+        plansViewModel.updateTableView(date: currentDate)
+        updateTableHeight()
+        updateSectionView()
     }
 }
 
