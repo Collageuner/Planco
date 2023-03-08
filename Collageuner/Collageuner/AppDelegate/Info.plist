@@ -4,8 +4,7 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>EBGaramond-VariableFont_wght.ttf</string>
-		<string>EBGaramond-Italic-VariableFont_wght.ttf</string>
+		<string>Anton-Regular.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
