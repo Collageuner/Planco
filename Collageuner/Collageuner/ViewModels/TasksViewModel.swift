@@ -40,7 +40,7 @@ final class TasksViewModel {
             .disposed(by: disposeBag)
     }
     
-    /// init for getting Array of Tasks
+    /// init for getting current day's Array of Tasks
     init(dateForList: Date) {
         let dateKey = Date.dateToCheckDay(date: dateForList)
         var tasksArray: [Tasks] = []
@@ -56,7 +56,7 @@ final class TasksViewModel {
             .disposed(by: disposeBag)
     }
     
-    /// 이거 뭐지?
+    /// init for getting this Month's Tasks List
     init(dateForMonthList: Date) {
         let dateKey = Date.dateToYearAndMonth(date: dateForMonthList)
         var taskFetchedArray: [Tasks] = []
@@ -116,6 +116,32 @@ final class TasksViewModel {
             .take(1)
             .bind(to: taskListForMonth)
             .disposed(by: disposeBag)
+    }
+    
+    func filterTaskByCurrentTime(time: Date, index: Int) -> BehaviorRelay<Tasks?> {
+        let dateKey = Date.dateToYearAndMonth(date: time)
+        let dateFilter = Date.fullDateToString(date: time)
+        let realmResult = myTaskRealm.objects(Tasks.self).filter(NSPredicate(format: "keyForYearAndMonthCheck = %@", dateKey)).filter({
+            $0.taskTime >= dateFilter
+        })
+        
+        if realmResult.isEmpty {
+            print("🪜 Today's List is Empty")
+            return BehaviorRelay(value: nil)
+        }
+        
+        if index == 0 {
+            guard let closestTask: Tasks = realmResult.first else { return BehaviorRelay(value: nil) }
+            return BehaviorRelay(value: closestTask)
+        } else {
+            if realmResult.count == 1 {
+                return BehaviorRelay(value: nil)
+            } else {
+                let removedResult: [Tasks] = Array(realmResult.dropFirst())
+                guard let secondTask = removedResult.first else { return BehaviorRelay(value: nil) }
+                return BehaviorRelay(value: secondTask)
+            }
+        }
     }
     
     private func arrayToListRealm(swiftArray: [String?]) -> List<String> {
