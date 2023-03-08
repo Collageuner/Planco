@@ -32,36 +32,23 @@ final class HomeViewController: UIViewController {
     var disposeBag = DisposeBag()
     
     private let gardenCanvasViewModel = GardenCanvasViewModel(currentDate: Date())
-    private let taskViewModelStory = TasksViewModel(dateForStories: Date())
+    private let taskViewModelStory = TasksViewModel(dateForList: Date())
     
     // MARK: - Time Components
     private lazy var currentMonthLabel = UILabel().then {
         let month = self.dateToMonth(date: Date())
         
-        $0.textColor = .MainText
-        $0.font = .customEnglishFont(.semibold, forTextStyle: .largeTitle)
-        $0.text = month
+        $0.textColor = .SubGreen
+        $0.font = .customVersatileFont(.light, forTextStyle: .title1)
+        $0.text = "\(month),"
     }
     
     private lazy var currentDayLabel = UILabel().then {
         let day = self.dateToDay(date: Date())
         
-        $0.textColor = .MainText
-        $0.font = .customEnglishFont(.medium, forTextStyle: .title2)
-        $0.text = "\(day)"
-    }
-    
-    // MARK: - Task CollectionView Components
-    private lazy var taskStoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: storyFlowLayout).then {
-        $0.backgroundColor = .clear
-        $0.register(TaskStoryCollectionViewCell.self, forCellWithReuseIdentifier: IdsForCollectionView.StoryCollectionViewId.identifier)
-    }
-    
-    private lazy var storyFlowLayout = UICollectionViewFlowLayout().then {
-        let itemSizes = Double(view.frame.width - 65)/6
-        $0.itemSize = CGSize(width: itemSizes, height: itemSizes)
-        $0.minimumLineSpacing = 5
-        $0.scrollDirection = .horizontal
+        $0.textColor = .SubGreen
+        $0.font = .customVersatileFont(.light, forTextStyle: .title2)
+        $0.text = day
     }
     
     // MARK: - Garden Canvas Components
@@ -74,6 +61,15 @@ final class HomeViewController: UIViewController {
         $0.clipsToBounds = true
     }
     
+    // MARK: - Plan Blocks Components
+    private let planBlockOne = HomePlanBlockView().then {
+        $0.backgroundColor = .clear
+    }
+    
+    private let planBlockTwo = HomePlanBlockView().then {
+        $0.backgroundColor = .clear
+    }
+    
     // MARK: - Buttons for Navigation
     /// To Profile
     private lazy var profileButton = UIButton(type: .system, primaryAction: UIAction(handler: { [weak self] _ in
@@ -82,58 +78,10 @@ final class HomeViewController: UIViewController {
     })
     ).then {
         $0.contentMode = .scaleAspectFill
-        $0.setImage(UIImage(named: "ExampleProfileImage.png"), for: .normal)
+        $0.setImage(UIImage(named: "ExampleProfileImage"), for: .normal)
         $0.layer.masksToBounds = true
         $0.clipsToBounds = true
         $0.backgroundColor = .MainGray
-    }
-    
-    /// To Garden List of the year
-    private lazy var gardenListButton = UIButton(type: .system, primaryAction: UIAction(handler: { [weak self] _ in
-        let gardenBottomSheet = GardenListSheetViewController()
-        gardenBottomSheet.modalPresentationStyle = .pageSheet
-        if let sheet = gardenBottomSheet.sheetPresentationController {
-            sheet.prefersGrabberVisible = true
-            sheet.preferredCornerRadius = 30
-            sheet.detents = [
-                .custom { context in
-                    return context.maximumDetentValue * 0.98
-                }
-            ]
-        }
-        self?.present(gardenBottomSheet, animated: true, completion: nil)
-    })
-    ).then {
-        $0.contentMode = .scaleAspectFill
-        $0.setImage(UIImage(named: "GardenListLogo"), for: .normal)
-        $0.layer.masksToBounds = true
-        $0.clipsToBounds = true
-    }
-    
-    /// To Plant List of the month
-    private lazy var plantsListButton = UIButton(type: .system, primaryAction: UIAction(handler: { [weak self] _ in
-        let plantsBottomSheet = PlantsListSheetViewController()
-        plantsBottomSheet.modalPresentationStyle = .pageSheet
-        if let sheet = plantsBottomSheet.sheetPresentationController {
-            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-            sheet.prefersGrabberVisible = true
-            sheet.preferredCornerRadius = 30
-            sheet.detents = [
-                .custom { context in
-                    return context.maximumDetentValue * 0.6
-                },
-                .custom { context in
-                    return context.maximumDetentValue * 0.9
-                }
-            ]
-        }
-        self?.present(plantsBottomSheet, animated: true, completion: nil)
-    })
-    ).then {
-        $0.contentMode = .scaleAspectFill
-        $0.setImage(UIImage(named: "PlantsListLogo"), for: .normal)
-        $0.layer.masksToBounds = true
-        $0.clipsToBounds = true
     }
     
     /// To Garden of Planning
@@ -142,24 +90,22 @@ final class HomeViewController: UIViewController {
         self?.navigationController?.pushViewController(planViewController, animated: true)
     })
     ).then {
-        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 27, weight: .light)
-        $0.setImage(UIImage(systemName: "plus", withConfiguration: symbolConfiguration), for: .normal)
-        $0.tintColor = .black
-        $0.backgroundColor = .white
-        $0.layer.shadowColor = UIColor.black.cgColor
-        $0.layer.shadowOpacity = 0.2
-        $0.layer.shadowOffset = CGSize(width: 0.5, height: 1.5)
-        $0.layer.shadowRadius = 4
+        $0.setImage(UIImage(named: "ToGardenLogo"), for: .normal)
+        $0.backgroundColor = .clear
+        $0.layer.masksToBounds = true
+        $0.contentMode = .scaleAspectFill
+        $0.clipsToBounds = true
     }
     
     // MARK: - Other UI Components
-    private let backgroundTrees = UIImageView().then {
-        $0.clipsToBounds = true
-        $0.contentMode = .scaleAspectFit
-        $0.image = UIImage(named: "BackgroundTree") ?? UIImage()
+    private let appNameLabel = UILabel().then {
+        $0.textColor = .PopGreen
+        $0.font = .customEnglishFont(.regular, forTextStyle: .largeTitle)
+        $0.text = "Planco"
     }
     
-    private var notifyingDot = UIView().then {
+    // 얘도 분기처리는 ViewWill 이나 ViewDidAppear 로 처리해야할 듯
+    private let notifyingDot = UIView().then {
         $0.clipsToBounds = true
         $0.backgroundColor = .systemRed
         $0.isHidden = false
@@ -169,18 +115,8 @@ final class HomeViewController: UIViewController {
     private let emptyGardenLabel = UILabel().then {
         $0.isHidden = true
         $0.textColor = .MainGray
-        $0.font = .customEnglishFont(.medium, forTextStyle: .title1)
+        $0.font = .customEnglishFont(.regular, forTextStyle: .title1)
         $0.text = "Fill Your Garden."
-    }
-    
-    // MARK: - Lottie Components
-    private let defaultStoryImage: LottieAnimationView = .init(name: "EmptyHome").then {
-        $0.layer.cornerRadius = 5
-        $0.contentMode = .scaleAspectFill
-        $0.play()
-        $0.clipsToBounds = true
-        $0.animationSpeed = 1.0
-        $0.loopMode = .loop
     }
     
     // MARK: - View Cycle
@@ -194,6 +130,8 @@ final class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        bindCanvas()
+        bindPlanBlock()
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
@@ -205,7 +143,6 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         profileButton.layer.cornerRadius = self.profileButton.frame.width/2
-        gardenListButton.layer.cornerRadius = self.gardenListButton.frame.width/2
         moveToGardenButton.layer.cornerRadius = self.moveToGardenButton.frame.width/2
         notifyingDot.layer.cornerRadius = self.notifyingDot.frame.width/2
     }
@@ -213,93 +150,68 @@ final class HomeViewController: UIViewController {
     // MARK: - Basic View Configuration
     private func basicSetup() {
         view.backgroundColor = .Background
-        UIFont.familyNames.forEach({ familyName in
-            let fontNames = UIFont.fontNames(forFamilyName: familyName)
-            print(familyName, fontNames)
-        })
     }
     
     // MARK: - UI Constraint Layouts
     private func layouts() {
-        view.addSubviews(backgroundTrees, currentMonthLabel, currentDayLabel, profileButton, notifyingDot, defaultStoryImage, taskStoryCollectionView, mainGardenCanvasView, emptyGardenLabel, gardenListButton, plantsListButton, moveToGardenButton)
+        view.addSubviews(appNameLabel, currentMonthLabel, currentDayLabel, profileButton, notifyingDot, mainGardenCanvasView, emptyGardenLabel, moveToGardenButton, planBlockOne, planBlockTwo)
         
-        backgroundTrees.snp.makeConstraints {
-            $0.height.equalToSuperview().dividedBy(14)
-            $0.bottom.equalToSuperview()
-            $0.width.equalToSuperview()
+        appNameLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(15)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(25)
         }
         
         currentMonthLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(25)
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(15)
+            $0.leading.equalToSuperview().inset(15)
+            $0.top.equalTo(appNameLabel.snp.bottom).inset(3)
         }
         
         currentDayLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(25)
-            $0.top.equalTo(currentMonthLabel.snp.bottom)
+            $0.leading.equalTo(currentMonthLabel.snp.trailing).offset(4)
+            $0.centerY.equalTo(currentMonthLabel.snp.centerY).offset(1.5)
         }
         
         profileButton.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(25)
-            $0.bottom.equalTo(currentDayLabel.snp.bottom).inset(5)
-            $0.width.height.equalTo(view.snp.width).dividedBy(9)
+            $0.trailing.equalToSuperview().inset(15)
+            $0.bottom.equalTo(currentDayLabel.snp.bottom).inset(3)
+            $0.width.height.equalTo(view.snp.width).dividedBy(8)
         }
         
         notifyingDot.snp.makeConstraints {
             $0.centerX.equalTo(profileButton.snp.trailing)
             $0.centerY.equalTo(profileButton.snp.top)
-            $0.width.height.equalTo(view.frame.width/65.5)
-        }
-        
-        if taskViewModelStory.taskStoryImages.value.isEmpty {
-            defaultStoryImage.layer.opacity = 0.75
-            defaultStoryImage.snp.makeConstraints {
-                $0.top.equalTo(currentDayLabel.snp.bottom).offset(12)
-                $0.leading.trailing.equalToSuperview().inset(20)
-                $0.height.equalTo(view.snp.height).dividedBy(14)
-            }
-        } else {
-            taskStoryCollectionView.snp.makeConstraints {
-                $0.top.equalTo(currentDayLabel.snp.bottom).offset(12)
-                $0.leading.trailing.equalToSuperview().inset(20)
-                $0.height.equalTo(view.snp.height).dividedBy(14)
-            }
-            
-            defaultStoryImage.layer.opacity = 0.2
-            defaultStoryImage.snp.makeConstraints {
-                $0.top.equalTo(currentDayLabel.snp.bottom).offset(12)
-                $0.leading.trailing.equalToSuperview().inset(20)
-                $0.height.equalTo(view.snp.height).dividedBy(14)
-            }
+            $0.width.height.equalTo(view.frame.width/68)
         }
         
         mainGardenCanvasView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.top.equalTo(currentDayLabel.snp.bottom).offset(view.frame.height/10.65)
+            $0.leading.trailing.equalToSuperview().inset(15)
+            $0.top.equalTo(currentDayLabel.snp.bottom).offset(view.frame.height/37)
             $0.height.equalTo(mainGardenCanvasView.snp.width).multipliedBy(1.414)
         }
         
-        // 분기처리 해야함. 어떤 자료를 기준으로?
+        // 분기처리 해야함. 어떤 자료를 기준으로? -> ViewWillAppear 로 애니메이션 넣는걸로 끝내자.
         emptyGardenLabel.snp.makeConstraints {
             $0.center.equalTo(mainGardenCanvasView.snp.center)
         }
         
-        gardenListButton.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(25)
-            $0.top.equalTo(mainGardenCanvasView.snp.bottom).offset(20)
-            $0.width.height.equalTo(view.snp.width).dividedBy(6.1)
-        }
-        
-        plantsListButton.snp.makeConstraints {
-            $0.leading.equalTo(gardenListButton.snp.trailing).offset(15)
-            $0.top.equalTo(mainGardenCanvasView.snp.bottom).offset(20)
-            $0.width.height.equalTo(gardenListButton.snp.width)
-        }
-        
         moveToGardenButton.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(25)
-            $0.top.equalTo(mainGardenCanvasView.snp.bottom).offset(20)
-            $0.width.height.equalTo(gardenListButton.snp.width)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.top.equalTo(mainGardenCanvasView.snp.bottom).offset(30)
+            $0.width.height.equalTo(view.snp.height).dividedBy(13.3)
+        }
+        
+        planBlockOne.snp.makeConstraints {
+            $0.top.equalTo(moveToGardenButton.snp.top)
+            $0.leading.equalToSuperview().inset(15)
+            $0.width.equalToSuperview().dividedBy(3)
+            $0.height.equalTo(moveToGardenButton.snp.height).multipliedBy(1.45)
+        }
+        
+        planBlockTwo.snp.makeConstraints {
+            $0.top.equalTo(planBlockOne.snp.top)
+            $0.leading.equalTo(planBlockOne.snp.trailing).offset(10)
+            $0.width.equalToSuperview().dividedBy(3)
+            $0.height.equalTo(moveToGardenButton.snp.height).multipliedBy(1.45)
         }
     }
     
@@ -307,9 +219,9 @@ final class HomeViewController: UIViewController {
     private func bindings() {
         LiveTime.liveMonth
             .map { [weak self] _ in
-                let month = self?.dateToMonth(date: Date())
+                guard let month = self?.dateToMonth(date: Date()) else { return "" }
                 
-                return month
+                return "\(month),"
             }
             .drive(currentMonthLabel.rx.text)
             .disposed(by: disposeBag)
@@ -332,30 +244,46 @@ final class HomeViewController: UIViewController {
             }
             .drive(mainGardenCanvasView.rx.image)
             .disposed(by: disposeBag)
-        
-        if !taskViewModelStory.taskStoryImages.value.isEmpty {
-            taskViewModelStory.taskStoryImages
-                .asDriver()
-                .drive(taskStoryCollectionView.rx.items(cellIdentifier: IdsForCollectionView.StoryCollectionViewId.identifier, cellType: TaskStoryCollectionViewCell.self)) { [weak self] index, image, cell in
-                    // switch 를 통해서 timeZone 에 따라 borderColor 바꿀 수 있음!
-                    // 다음 버전에 올리자.
-                    let thumbnailFetched = self?.loadThumbnailImageFromDirectory(imageName: image)
-                    cell.taskImage.image = thumbnailFetched
-                }
-                .disposed(by: disposeBag)
-            
-            taskStoryCollectionView.rx.itemSelected
-                .subscribe { index in
-                    print(index)
-                }
-                .disposed(by: disposeBag)
-        }
     }
 }
  
     // MARK: - Other Supplementary Actions
 extension HomeViewController {
     private func actions() {
+    }
+    
+    private func bindCanvas() {
+        gardenCanvasViewModel.currentGardenCanvas
+            .asDriver()
+            .map { [weak self] canvas in
+                let imageName: String = canvas.monthAndYear + "_Canvas"
+                let canvasFetched: UIImage? = self?.loadGardenCanvasFromDirectory(imageName: imageName)
+                return canvasFetched
+            }
+            .drive(mainGardenCanvasView.rx.image)
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindPlanBlock() {
+        taskViewModelStory.filterTaskByCurrentTime(time: Date(), index: 0)
+            .bind { [weak self] task in
+                guard let cell = task else {
+                    self?.planBlockOne.updateToEmptyCell()
+                    return
+                }
+                self?.planBlockOne.updateUIView(cell: cell)
+            }
+            .disposed(by: disposeBag)
+            
+        taskViewModelStory.filterTaskByCurrentTime(time: Date(), index: 1)
+            .bind { [weak self] task in
+                guard let cell = task else {
+                    self?.planBlockTwo.updateToEmptyCell()
+                    return
+                }
+                self?.planBlockTwo.updateUIView(cell: cell)
+            }
+            .disposed(by: disposeBag)
     }
     
     // MARK: - Date Display Actions
@@ -375,45 +303,19 @@ extension HomeViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd"
         
-        let dayFormatter = DateFormatter()
-        dayFormatter.dateFormat = "EEE"
-        dayFormatter.locale = Locale(identifier: "en_US_POSIX")
-        
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .ordinal
         numberFormatter.locale = Locale(identifier: "en_US_POSIX")
         
         let dateString = dateFormatter.string(from: date)
-        let dayString = dayFormatter.string(from: date)
         guard let dayInt = Int(dateString) else { return "1st" }
         guard let dayResult = numberFormatter.string(from: NSNumber(value: dayInt)) else { return "2nd" }
         
-        return "\(dayResult), \(dayString)"
+        return "\(dayResult)"
     }
     
     // MARK: - Fetching Images from Disk
     // Function: Load Thumbnail Image from app disk.
-    private func loadThumbnailImageFromDirectory(imageName: String) -> UIImage? {
-        let fileManager = FileManager.default
-        guard let thumbnailDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: DirectoryForWritingData.TaskThumbnailImages.dataDirectory) else {
-            print("Failed fetching directory for Thumbnail Images for Home-Stories")
-            return UIImage(named: "TaskDefaultImage")
-        }
-        
-        let imageURL = thumbnailDirectoryURL.appending(component: imageName)
-        
-        do {
-            let imageData = try Data(contentsOf: imageURL)
-            print("Succeeded fetching Thumbnail Images")
-            return UIImage(data: imageData)
-        } catch let error {
-            print("Failed fetching Thumbnail Images for Home-Stories")
-            print(error)
-        }
-        
-        print("Returning Default Image.")
-        return UIImage(named: "TaskDefaultImage")
-    }
     
     private func loadGardenCanvasFromDirectory(imageName: String) -> UIImage? {
         let fileManager = FileManager.default

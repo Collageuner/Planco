@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class GardenListCollectionViewCell: UICollectionViewCell {
+final class GardenListCollectionViewCell: UICollectionViewCell {
     
     let gardenCanvasImage = UIImageView().then {
         $0.clipsToBounds = true

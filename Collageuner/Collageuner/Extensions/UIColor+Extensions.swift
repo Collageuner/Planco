@@ -10,7 +10,7 @@ import UIKit
 extension UIColor {
         
     static var Background: UIColor {
-        return UIColor(hex: "#F8F8F8")
+        return UIColor(hex: "#F4F4F4")
     }
     
     static var MainText: UIColor {

@@ -33,13 +33,13 @@ final class GardenListSheetViewController: UIViewController {
     
     private let gardenSheetLabel = UILabel().then {
         $0.textColor = .black
-        $0.font = .customEnglishFont(.regualar, forTextStyle: .title2)
+        $0.font = .customEnglishFont(.regular, forTextStyle: .title2)
         $0.text = "Gardens of the year"
     }
     
     private lazy var currentYearLabel = UILabel().then {
         $0.textColor = .black
-        $0.font = .customEnglishFont(.medium, forTextStyle: .title3)
+        $0.font = .customVersatileFont(.medium, forTextStyle: .title3)
     }
     
     private lazy var yearMenuDropDown = UIButton(type: .system).then {

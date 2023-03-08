@@ -9,7 +9,7 @@ import UIKit
 
 import RealmSwift
 
-class Profile: Object {
+final class Profile: Object {
     @Persisted(primaryKey: true) var _id: ObjectId
     @Persisted var userName: String
     @Persisted var userProfileImage: String

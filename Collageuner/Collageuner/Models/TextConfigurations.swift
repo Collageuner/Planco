@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TextConfiguration {
+final class TextConfiguration {
 //    @Persisted var textsAdded = List<String>() // VM 에서!
     var currentFont: String
 //    var fontsStored: [String] -> ViewModel 에서!

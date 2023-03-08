@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-class GardenCanvas: Object {
+final class GardenCanvas: Object {
     @Persisted(primaryKey: true) var _id: ObjectId
 
     @Persisted var monthAndYear: String

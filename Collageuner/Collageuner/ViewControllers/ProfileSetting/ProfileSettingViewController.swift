@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileSettingViewController: UIViewController {
+final class ProfileSettingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
