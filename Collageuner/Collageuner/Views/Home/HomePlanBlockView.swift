@@ -57,19 +57,19 @@ final class HomePlanBlockView: UIView {
         }
         
         timeZoneLabel.snp.makeConstraints {
-            $0.top.equalTo(lineDivider.snp.bottom).offset(5)
+            $0.top.equalTo(lineDivider.snp.bottom).offset(10)
             $0.leading.equalToSuperview()
             $0.trailing.equalToSuperview().inset(5)
         }
         
         mainTaskLabel.snp.makeConstraints {
-            $0.top.equalTo(timeZoneLabel.snp.bottom).offset(5)
+            $0.top.equalTo(timeZoneLabel.snp.bottom).offset(10)
             $0.leading.equalToSuperview()
             $0.trailing.equalToSuperview().inset(5)
         }
         
         taskTimeLabel.snp.makeConstraints {
-            $0.top.equalTo(timeZoneLabel.snp.bottom).offset(3)
+            $0.top.equalTo(timeZoneLabel.snp.bottom).offset(4)
             $0.leading.equalToSuperview()
         }
     }

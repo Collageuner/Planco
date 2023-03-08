@@ -314,8 +314,8 @@
 		583966B9297E5FBF00B63E52 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				580E63D22990C4A100A0762F /* TaskStoryCollectionViewCell.swift */,
 				58B523B829B87C9D00FE0F17 /* HomePlanBlockView.swift */,
+				580E63D22990C4A100A0762F /* TaskStoryCollectionViewCell.swift */,
 				581CC51E2999219E007178B9 /* ListBottomSheet */,
 			);
 			path = Home;
