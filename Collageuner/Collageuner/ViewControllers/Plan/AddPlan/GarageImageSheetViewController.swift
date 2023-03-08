@@ -13,7 +13,7 @@ import RxCocoa
 import SnapKit
 import Then
 
-class GarageImageSheetViewController: UIViewController {
+final class GarageImageSheetViewController: UIViewController {
 
     var disposeBag = DisposeBag()
     weak var delegate: GarageSheetDelegate?
@@ -31,7 +31,7 @@ class GarageImageSheetViewController: UIViewController {
     
     private let garageSheetLabel = UILabel().then {
         $0.textColor = .MainText
-        $0.font = .customEnglishFont(.regualar, forTextStyle: .title2)
+        $0.font = .customEnglishFont(.regular, forTextStyle: .title2)
         $0.text = "My Garage"
     }
     

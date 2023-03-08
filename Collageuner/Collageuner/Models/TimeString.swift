@@ -9,7 +9,7 @@ import UIKit
 
 import RealmSwift
 
-class HourMinuteString {
+final class HourMinuteString {
     var hour: String
     var minute: String
     var noon: String
@@ -21,7 +21,7 @@ class HourMinuteString {
     }
 }
 
-class MyTimeZoneString: Object {
+final class MyTimeZoneString: Object {
     @Persisted(primaryKey: true) var _id: ObjectId
     
     @Persisted var hour: String

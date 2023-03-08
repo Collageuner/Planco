@@ -9,7 +9,7 @@ import UIKit
 
 import RealmSwift
 
-class GarageLists {
+final class GarageLists {
     var imageList: [GarageImage]
     var counts: Int
     var todayDate: Date
@@ -21,7 +21,7 @@ class GarageLists {
     }
 }
 
-class GarageImage: Object {
+final class GarageImage: Object {
     @Persisted(primaryKey: true) var _id: ObjectId
     @Persisted var usedNumber: Int
 

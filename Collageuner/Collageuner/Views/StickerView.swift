@@ -7,7 +7,7 @@
 
 import UIKit
 
-class StickerView: UIView {
+final class StickerView: UIView {
     var panGestureRecognizer: UIPanGestureRecognizer!
     var pinchGestureRecognizer: UIPinchGestureRecognizer!
     var rotationGestureRecognizer: UIRotationGestureRecognizer!

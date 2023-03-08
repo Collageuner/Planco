@@ -32,7 +32,7 @@ final class PlantsListSheetViewController: UIViewController {
     
     private let plantsSheetLabel = UILabel().then {
         $0.textColor = .MainText
-        $0.font = .customEnglishFont(.regualar, forTextStyle: .title2)
+        $0.font = .customEnglishFont(.regular, forTextStyle: .title2)
         $0.text = "Your Plants"
     }
     

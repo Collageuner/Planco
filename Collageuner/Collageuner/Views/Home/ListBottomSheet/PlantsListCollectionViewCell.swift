@@ -20,13 +20,13 @@ final class PlantsListCollectionViewCell: UICollectionViewCell {
     
     let plantedDate = UILabel().then {
         $0.textColor = .MainText
-        $0.font = .customEnglishFont(.regualar, forTextStyle: .caption1)
+        $0.font = .customVersatileFont(.regualar, forTextStyle: .caption1)
     }
     
     let plantedTask = UILabel().then {
         $0.numberOfLines = 1
         $0.textColor = .MainText
-        $0.font = .customEnglishFont(.medium, forTextStyle: .footnote)
+        $0.font = .customVersatileFont(.medium, forTextStyle: .footnote)
     }
     
     private let textStackView = UIStackView().then {

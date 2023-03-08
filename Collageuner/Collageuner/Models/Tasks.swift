@@ -9,7 +9,7 @@ import UIKit
 
 import RealmSwift
 
-class Tasks: Object {
+final class Tasks: Object {
     @Persisted(primaryKey: true) var _id: ObjectId
     
     @Persisted var taskTimeZone: String
