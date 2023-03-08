@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		580649DF29861FB600D0DF5F /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580649DE29861FB600D0DF5F /* RealmManager.swift */; };
+		580D23D729B850DE00E8CBCE /* V1.0.0Codes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580D23D629B850DE00E8CBCE /* V1.0.0Codes.swift */; };
+		580D23D929B8560C00E8CBCE /* Anton-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 580D23D829B8560C00E8CBCE /* Anton-Regular.ttf */; };
+		580D23DA29B8560C00E8CBCE /* Anton-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 580D23D829B8560C00E8CBCE /* Anton-Regular.ttf */; };
 		580E63D32990C4A100A0762F /* TaskStoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580E63D22990C4A100A0762F /* TaskStoryCollectionViewCell.swift */; };
 		580E63D62990CD4F00A0762F /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = 580E63D52990CD4F00A0762F /* Differentiator */; };
 		580E63D82990CD4F00A0762F /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 580E63D72990CD4F00A0762F /* RxDataSources */; };
@@ -73,6 +76,7 @@
 		58AF77152981228500A46B3D /* GuideInformationCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF77142981228500A46B3D /* GuideInformationCheck.swift */; };
 		58AF77172981245F00A46B3D /* TextConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF77162981245F00A46B3D /* TextConfigurations.swift */; };
 		58AF77192981269400A46B3D /* GarageImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF77182981269400A46B3D /* GarageImages.swift */; };
+		58B523B929B87C9D00FE0F17 /* HomePlanBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B523B829B87C9D00FE0F17 /* HomePlanBlockView.swift */; };
 		58CA8E4029B746E4002440C6 /* BingCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CA8E3F29B746E4002440C6 /* BingCodes.swift */; };
 		58D9F53E29AC786F0009E907 /* GarageImageSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D9F53D29AC786F0009E907 /* GarageImageSheetViewController.swift */; };
 		58D9F54029AC7FB90009E907 /* GarageSheetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D9F53F29AC7FB90009E907 /* GarageSheetCollectionViewCell.swift */; };
@@ -106,6 +110,8 @@
 
 /* Begin PBXFileReference section */
 		580649DE29861FB600D0DF5F /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		580D23D629B850DE00E8CBCE /* V1.0.0Codes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V1.0.0Codes.swift; sourceTree = "<group>"; };
+		580D23D829B8560C00E8CBCE /* Anton-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Anton-Regular.ttf"; sourceTree = "<group>"; };
 		580E63D22990C4A100A0762F /* TaskStoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		58101EE5298B8F65000C2671 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		5814EAFA298E3BDC006CDBFA /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
@@ -156,6 +162,7 @@
 		58AF77142981228500A46B3D /* GuideInformationCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideInformationCheck.swift; sourceTree = "<group>"; };
 		58AF77162981245F00A46B3D /* TextConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextConfigurations.swift; sourceTree = "<group>"; };
 		58AF77182981269400A46B3D /* GarageImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageImages.swift; sourceTree = "<group>"; };
+		58B523B829B87C9D00FE0F17 /* HomePlanBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePlanBlockView.swift; sourceTree = "<group>"; };
 		58CA8E3F29B746E4002440C6 /* BingCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingCodes.swift; sourceTree = "<group>"; };
 		58D9F53D29AC786F0009E907 /* GarageImageSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageImageSheetViewController.swift; sourceTree = "<group>"; };
 		58D9F53F29AC7FB90009E907 /* GarageSheetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageSheetCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -212,6 +219,16 @@
 				580649DE29861FB600D0DF5F /* RealmManager.swift */,
 			);
 			path = Realm;
+			sourceTree = "<group>";
+		};
+		580D23D529B8508200E8CBCE /* CodesSaved */ = {
+			isa = PBXGroup;
+			children = (
+				58F1C41529961F42000071BC /* CodesSaved.swift */,
+				58CA8E3F29B746E4002440C6 /* BingCodes.swift */,
+				580D23D629B850DE00E8CBCE /* V1.0.0Codes.swift */,
+			);
+			path = CodesSaved;
 			sourceTree = "<group>";
 		};
 		581CC51D29992174007178B9 /* ListBottomSheet */ = {
@@ -287,6 +304,7 @@
 		58396698297E395000B63E52 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				580D23D829B8560C00E8CBCE /* Anton-Regular.ttf */,
 				58396699297E398A00B63E52 /* EBGaramond-Italic-VariableFont_wght.ttf */,
 				5839669A297E398A00B63E52 /* EBGaramond-VariableFont_wght.ttf */,
 			);
@@ -297,6 +315,7 @@
 			isa = PBXGroup;
 			children = (
 				580E63D22990C4A100A0762F /* TaskStoryCollectionViewCell.swift */,
+				58B523B829B87C9D00FE0F17 /* HomePlanBlockView.swift */,
 				581CC51E2999219E007178B9 /* ListBottomSheet */,
 			);
 			path = Home;
@@ -364,6 +383,7 @@
 		5878144229680BE90074FA56 /* Collageuner */ = {
 			isa = PBXGroup;
 			children = (
+				580D23D529B8508200E8CBCE /* CodesSaved */,
 				5868D82B29682FFB002E0919 /* AppDelegate */,
 				58396693297E364800B63E52 /* Extensions */,
 				5894B2B22968388800263584 /* Logics */,
@@ -424,8 +444,6 @@
 			isa = PBXGroup;
 			children = (
 				5894B2B6296838B500263584 /* Identifiers.swift */,
-				58F1C41529961F42000071BC /* CodesSaved.swift */,
-				58CA8E3F29B746E4002440C6 /* BingCodes.swift */,
 			);
 			path = Logics;
 			sourceTree = "<group>";
@@ -614,6 +632,7 @@
 				5878145329680BEA0074FA56 /* LaunchScreen.storyboard in Resources */,
 				58A3C6E429A901E20034C404 /* EmptyPlanTaskImage.json in Resources */,
 				5839669B297E398A00B63E52 /* EBGaramond-Italic-VariableFont_wght.ttf in Resources */,
+				580D23D929B8560C00E8CBCE /* Anton-Regular.ttf in Resources */,
 				5839669E297E398A00B63E52 /* EBGaramond-VariableFont_wght.ttf in Resources */,
 				58F832232993880D0070786F /* EmptyStoryTask.json in Resources */,
 				5878145029680BEA0074FA56 /* Assets.xcassets in Resources */,
@@ -635,6 +654,7 @@
 			files = (
 				583966A0297E398A00B63E52 /* EBGaramond-VariableFont_wght.ttf in Resources */,
 				5839669D297E398A00B63E52 /* EBGaramond-Italic-VariableFont_wght.ttf in Resources */,
+				580D23DA29B8560C00E8CBCE /* Anton-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -683,9 +703,11 @@
 				585098D82997422E00BCC087 /* PlantsListCollectionViewCell.swift in Sources */,
 				5830522D2983870400E299C8 /* GarageImagesViewModel.swift in Sources */,
 				5830522F29839C5600E299C8 /* StickerView.swift in Sources */,
+				58B523B929B87C9D00FE0F17 /* HomePlanBlockView.swift in Sources */,
 				58AF770C298102C500A46B3D /* Tasks.swift in Sources */,
 				58D9F54029AC7FB90009E907 /* GarageSheetCollectionViewCell.swift in Sources */,
 				58F27B8D29A219B100ED843E /* PlansTabelItemViewModel.swift in Sources */,
+				580D23D729B850DE00E8CBCE /* V1.0.0Codes.swift in Sources */,
 				58AF77092980FBAF00A46B3D /* GardenCanvas.swift in Sources */,
 				58D9F53E29AC786F0009E907 /* GarageImageSheetViewController.swift in Sources */,
 				58ED69F8299A891000B2C859 /* PlanItemTableViewCell.swift in Sources */,
