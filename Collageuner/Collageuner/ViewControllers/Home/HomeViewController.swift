@@ -130,7 +130,6 @@ final class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("🌿BIND🌿🌿BIND🌿🌿BIND🌿🌿BIND🌿")
         bindCanvas()
         bindPlanBlock()
         navigationController?.setNavigationBarHidden(true, animated: false)
