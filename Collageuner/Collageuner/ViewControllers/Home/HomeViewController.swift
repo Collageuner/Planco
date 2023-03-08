@@ -68,9 +68,8 @@ final class HomeViewController: UIViewController {
     private let mainGardenCanvasView = UIImageView().then {
         $0.backgroundColor = .white
         $0.contentMode = .scaleAspectFill
-        $0.layer.cornerRadius = 4
         $0.layer.borderColor = UIColor.black.withAlphaComponent(0.6).cgColor
-        $0.layer.borderWidth = 3
+        $0.layer.borderWidth = 0
         $0.image = UIImage().withAlignmentRectInsets(UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10))
         $0.clipsToBounds = true
     }
@@ -214,6 +213,10 @@ final class HomeViewController: UIViewController {
     // MARK: - Basic View Configuration
     private func basicSetup() {
         view.backgroundColor = .Background
+        UIFont.familyNames.forEach({ familyName in
+            let fontNames = UIFont.fontNames(forFamilyName: familyName)
+            print(familyName, fontNames)
+        })
     }
     
     // MARK: - UI Constraint Layouts

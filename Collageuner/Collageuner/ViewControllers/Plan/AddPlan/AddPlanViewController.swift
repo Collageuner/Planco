@@ -20,11 +20,14 @@ final class AddPlanViewController: UIViewController {
     var disposeBag = DisposeBag()
     private let timeZoneViewModel = MyTimeZoneViewModel()
     private let taskImageSubject: BehaviorRelay<UIImage> = BehaviorRelay(value: UIImage())
+    private let taskViewModel = TasksViewModel()
     
-    private var currentTimeZone: String = ""
+    private var currentTimeZoneEnum: MyTimeZone!
+    private var currentTimeZoneString: String = ""
     private var currentTimeDay: Date = Date()
     
-    private var selectedTaskTime: Date = Date()
+    private lazy var selectedTaskTime: Date = getMinTime()
+    weak var delegate: AddPlanDelegate?
     
     private let customNavigationView = AddPlanCustomBarView()
     
@@ -165,6 +168,11 @@ final class AddPlanViewController: UIViewController {
             return self?.getMenuActionForImage() ?? [UIAction]()
         }())
     }
+    
+    private let loadingView = AwaitLoadingView().then {
+        $0.isHidden = true
+        $0.backgroundColor = .Background
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -176,15 +184,16 @@ final class AddPlanViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("⭐️⭐️⭐️")
-        print(#function)
-        print("⭐️⭐️⭐️")
         navigationItemSetup()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         buttonJumpAnimation()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
     }
     
     private func basicSetup() {
@@ -303,7 +312,8 @@ final class AddPlanViewController: UIViewController {
     }
     
     private func bindings() {
-        bindTimeLabelFromTimeZone(timeZone: currentTimeZone)
+        bindTimeLabelFromTimeZone(timeZone: currentTimeZoneString)
+        
         taskImageSubject.asDriver()
             .drive(taskImageSelectedView.rx.image)
             .disposed(by: disposeBag)
@@ -334,7 +344,7 @@ final class AddPlanViewController: UIViewController {
         let stringDateEarlyAfternoon: String = prefixOfDate + "T" + suffixOfDateOfEarlyAfternoon
         let stringDateLateAfternoon: String = prefixOfDate + "T" + suffixOfDateOfLateAfternoon
         
-        switch currentTimeZone {
+        switch currentTimeZoneString {
         case MyTimeZone.morningTime.time:
             return dateFormatter.date(from: stringDateMorning) ?? Date()
         case MyTimeZone.earlyAfternoonTime.time:
@@ -361,7 +371,7 @@ final class AddPlanViewController: UIViewController {
         let stringDateLateAfternoon: String = prefixOfDate + "T" + suffixOfDateOfLateAfternoon
         let stringDateMidnight: String = prefixOfDate + "T23:59:59"
         
-        switch currentTimeZone {
+        switch currentTimeZoneString {
         case MyTimeZone.morningTime.time:
             return dateFormatter.date(from: stringDateEarlyAfternoon) ?? Date()
         case MyTimeZone.earlyAfternoonTime.time:
@@ -375,7 +385,7 @@ final class AddPlanViewController: UIViewController {
     }
     
     private func fetchTimeZoneLabel() -> String {
-        switch currentTimeZone {
+        switch currentTimeZoneString {
         case MyTimeZone.morningTime.time:
             return "나의 오전"
         case MyTimeZone.earlyAfternoonTime.time:
@@ -388,7 +398,7 @@ final class AddPlanViewController: UIViewController {
     }
     
     private func fetchImageString() -> String {
-        switch currentTimeZone {
+        switch currentTimeZoneString {
         case MyTimeZone.morningTime.time:
             return "morningPlant.png"
         case MyTimeZone.earlyAfternoonTime.time:
@@ -491,6 +501,17 @@ final class AddPlanViewController: UIViewController {
         addTaskImageButton.layer.add(animation, forKey: nil)
     }
     
+    private func mainTextFieldAnimationWhenEmpty() {
+        let animation = CAKeyframeAnimation(keyPath: "position.x")
+        animation.values = [0, 4, -10, 10, -4, 0]
+        animation.keyTimes = [0, 0.07, 0.15, 0.25, 0.32, 0.4]
+        animation.duration = 0.4
+        animation.fillMode = .forwards
+        animation.isRemovedOnCompletion = false
+        animation.isAdditive = true
+        mainTaskTextField.layer.add(animation, forKey: nil)
+    }
+    
     @objc
     private func shakeImageAnimation() {
         let animation = CAKeyframeAnimation(keyPath: "position.y")
@@ -506,6 +527,7 @@ final class AddPlanViewController: UIViewController {
     @objc
     private func didSelectDate() {
         selectedTaskTime = taskTimeDatePicker.date
+        print(selectedTaskTime)
     }
     
     @objc
@@ -515,8 +537,37 @@ final class AddPlanViewController: UIViewController {
     
     @objc
     private func finishAdding() {
-        // Realm Things Here
-        self.dismiss(animated: true)
+        let mainTaskisNilorEmpty = mainTaskTextField.text.isNilorEmpty
+        switch mainTaskisNilorEmpty {
+        case true:
+            mainTextFieldAnimationWhenEmpty()
+        case false:
+            view.endEditing(true)
+            
+            let taskImage: UIImage = taskImageSubject.value
+            guard let mainTaskText = mainTaskTextField.text else { return }
+            let subTasks: [String?] = [subTaskTopTextField.text?.emptyToNil, subTaskBottomTextField.text?.emptyToNil]
+            
+            taskViewModel.createTask(timeZone: currentTimeZoneEnum, taskTime: selectedTaskTime, taskImage: taskImage, mainTask: mainTaskText, subTasks: subTasks)
+            
+            self.delegate?.reloadTableViews()
+            
+            loadingViewAppear()
+        }
+    }
+    
+    private func loadingViewAppear() {
+        view.addSubview(loadingView)
+        
+        loadingView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        loadingView.isHidden = false
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+            self.dismiss(animated: true)
+        }
     }
     
     deinit {
@@ -528,11 +579,14 @@ extension AddPlanViewController {
     func changeCurrentTimeZone(timeZone: MyTimeZone) {
         switch timeZone {
         case .morningTime:
-            currentTimeZone = timeZone.time
+            currentTimeZoneEnum = timeZone
+            currentTimeZoneString = timeZone.time
         case .earlyAfternoonTime:
-            currentTimeZone = timeZone.time
+            currentTimeZoneEnum = timeZone
+            currentTimeZoneString = timeZone.time
         case .lateAfternoonTime:
-            currentTimeZone = timeZone.time
+            currentTimeZoneEnum = timeZone
+            currentTimeZoneString = timeZone.time
         }
     }
     
@@ -580,7 +634,6 @@ extension AddPlanViewController: PHPickerViewControllerDelegate {
             }
             .bind(to: self.taskImageSubject)
             .disposed(by: self.disposeBag)
-            
         }
         
         self.defaultTaskImageView.isHidden = true

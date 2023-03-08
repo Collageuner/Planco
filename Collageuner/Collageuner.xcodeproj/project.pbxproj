@@ -73,6 +73,11 @@
 		58AF77152981228500A46B3D /* GuideInformationCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF77142981228500A46B3D /* GuideInformationCheck.swift */; };
 		58AF77172981245F00A46B3D /* TextConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF77162981245F00A46B3D /* TextConfigurations.swift */; };
 		58AF77192981269400A46B3D /* GarageImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF77182981269400A46B3D /* GarageImages.swift */; };
+		58CA8E4029B746E4002440C6 /* BingCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CA8E3F29B746E4002440C6 /* BingCodes.swift */; };
+		58D9F53E29AC786F0009E907 /* GarageImageSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D9F53D29AC786F0009E907 /* GarageImageSheetViewController.swift */; };
+		58D9F54029AC7FB90009E907 /* GarageSheetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D9F53F29AC7FB90009E907 /* GarageSheetCollectionViewCell.swift */; };
+		58D9F54229ACA6E60009E907 /* AwaitLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D9F54129ACA6E60009E907 /* AwaitLoadingView.swift */; };
+		58D9F54629AD2EDC0009E907 /* loadingView.json in Resources */ = {isa = PBXBuildFile; fileRef = 58D9F54529AD2EDC0009E907 /* loadingView.json */; };
 		58E8130729A714D1001EF12E /* AddPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E8130629A714D1001EF12E /* AddPlanViewController.swift */; };
 		58E8130C29A7ABDB001EF12E /* AddPlanCustomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E8130B29A7ABDB001EF12E /* AddPlanCustomBarView.swift */; };
 		58ED69F8299A891000B2C859 /* PlanItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58ED69F7299A891000B2C859 /* PlanItemTableViewCell.swift */; };
@@ -151,6 +156,11 @@
 		58AF77142981228500A46B3D /* GuideInformationCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideInformationCheck.swift; sourceTree = "<group>"; };
 		58AF77162981245F00A46B3D /* TextConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextConfigurations.swift; sourceTree = "<group>"; };
 		58AF77182981269400A46B3D /* GarageImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageImages.swift; sourceTree = "<group>"; };
+		58CA8E3F29B746E4002440C6 /* BingCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingCodes.swift; sourceTree = "<group>"; };
+		58D9F53D29AC786F0009E907 /* GarageImageSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageImageSheetViewController.swift; sourceTree = "<group>"; };
+		58D9F53F29AC7FB90009E907 /* GarageSheetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageSheetCollectionViewCell.swift; sourceTree = "<group>"; };
+		58D9F54129ACA6E60009E907 /* AwaitLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwaitLoadingView.swift; sourceTree = "<group>"; };
+		58D9F54529AD2EDC0009E907 /* loadingView.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loadingView.json; sourceTree = "<group>"; };
 		58E8130629A714D1001EF12E /* AddPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanViewController.swift; sourceTree = "<group>"; };
 		58E8130B29A7ABDB001EF12E /* AddPlanCustomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanCustomBarView.swift; sourceTree = "<group>"; };
 		58ED69F7299A891000B2C859 /* PlanItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanItemTableViewCell.swift; sourceTree = "<group>"; };
@@ -305,9 +315,9 @@
 		5868D82F29683027002E0919 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				581CC521299921FE007178B9 /* ProfileSetting */,
-				581CC51F299921EE007178B9 /* Plan */,
 				58AF770A2981023600A46B3D /* Home */,
+				581CC51F299921EE007178B9 /* Plan */,
+				581CC521299921FE007178B9 /* ProfileSetting */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -390,11 +400,11 @@
 			children = (
 				5830522C2983870400E299C8 /* GarageImagesViewModel.swift */,
 				5830522429837B4C00E299C8 /* GardenCanvasViewModel.swift */,
+				58F27B8C29A219B100ED843E /* PlansTabelItemViewModel.swift */,
 				58305228298386E500E299C8 /* ProfileViewModel.swift */,
 				58305226298386D700E299C8 /* TasksViewModel.swift */,
 				5830522A298386F400E299C8 /* TextConfigurationsViewModel.swift */,
 				58AF77122981115E00A46B3D /* TimeViewModel.swift */,
-				58F27B8C29A219B100ED843E /* PlansTabelItemViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -415,6 +425,7 @@
 			children = (
 				5894B2B6296838B500263584 /* Identifiers.swift */,
 				58F1C41529961F42000071BC /* CodesSaved.swift */,
+				58CA8E3F29B746E4002440C6 /* BingCodes.swift */,
 			);
 			path = Logics;
 			sourceTree = "<group>";
@@ -446,6 +457,7 @@
 			isa = PBXGroup;
 			children = (
 				58E8130629A714D1001EF12E /* AddPlanViewController.swift */,
+				58D9F53D29AC786F0009E907 /* GarageImageSheetViewController.swift */,
 			);
 			path = AddPlan;
 			sourceTree = "<group>";
@@ -454,6 +466,8 @@
 			isa = PBXGroup;
 			children = (
 				58E8130B29A7ABDB001EF12E /* AddPlanCustomBarView.swift */,
+				58D9F53F29AC7FB90009E907 /* GarageSheetCollectionViewCell.swift */,
+				58D9F54129ACA6E60009E907 /* AwaitLoadingView.swift */,
 			);
 			path = AddPlan;
 			sourceTree = "<group>";
@@ -461,6 +475,7 @@
 		58F83221299387B90070786F /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
+				58D9F54529AD2EDC0009E907 /* loadingView.json */,
 				58A3C6E329A901E20034C404 /* EmptyPlanTaskImage.json */,
 				58F832262993933C0070786F /* EmptyHome.json */,
 				58F832222993880D0070786F /* EmptyStoryTask.json */,
@@ -595,6 +610,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				58F832272993933D0070786F /* EmptyHome.json in Resources */,
+				58D9F54629AD2EDC0009E907 /* loadingView.json in Resources */,
 				5878145329680BEA0074FA56 /* LaunchScreen.storyboard in Resources */,
 				58A3C6E429A901E20034C404 /* EmptyPlanTaskImage.json in Resources */,
 				5839669B297E398A00B63E52 /* EBGaramond-Italic-VariableFont_wght.ttf in Resources */,
@@ -637,6 +653,7 @@
 				5878144429680BE90074FA56 /* AppDelegate.swift in Sources */,
 				5878144629680BE90074FA56 /* SceneDelegate.swift in Sources */,
 				5830522B298386F400E299C8 /* TextConfigurationsViewModel.swift in Sources */,
+				58CA8E4029B746E4002440C6 /* BingCodes.swift in Sources */,
 				585BB0FE2994B00E00EF01DA /* Optional+Extensions.swift in Sources */,
 				58305229298386E500E299C8 /* ProfileViewModel.swift in Sources */,
 				585098DA2997425800BCC087 /* GardenListCollectionViewCell.swift in Sources */,
@@ -662,12 +679,15 @@
 				58AF77172981245F00A46B3D /* TextConfigurations.swift in Sources */,
 				58AF77192981269400A46B3D /* GarageImages.swift in Sources */,
 				581CC5262999223E007178B9 /* ProfileSettingViewController.swift in Sources */,
+				58D9F54229ACA6E60009E907 /* AwaitLoadingView.swift in Sources */,
 				585098D82997422E00BCC087 /* PlantsListCollectionViewCell.swift in Sources */,
 				5830522D2983870400E299C8 /* GarageImagesViewModel.swift in Sources */,
 				5830522F29839C5600E299C8 /* StickerView.swift in Sources */,
 				58AF770C298102C500A46B3D /* Tasks.swift in Sources */,
+				58D9F54029AC7FB90009E907 /* GarageSheetCollectionViewCell.swift in Sources */,
 				58F27B8D29A219B100ED843E /* PlansTabelItemViewModel.swift in Sources */,
 				58AF77092980FBAF00A46B3D /* GardenCanvas.swift in Sources */,
+				58D9F53E29AC786F0009E907 /* GarageImageSheetViewController.swift in Sources */,
 				58ED69F8299A891000B2C859 /* PlanItemTableViewCell.swift in Sources */,
 				58E8130C29A7ABDB001EF12E /* AddPlanCustomBarView.swift in Sources */,
 				581CC52A299922B3007178B9 /* ProfileSettingTableViewCell.swift in Sources */,
