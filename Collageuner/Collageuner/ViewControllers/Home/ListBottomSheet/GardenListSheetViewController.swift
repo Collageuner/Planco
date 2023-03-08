@@ -46,9 +46,8 @@ final class GardenListSheetViewController: UIViewController {
         let symbolConfiguration = UIImage.SymbolConfiguration(textStyle: .caption1)
         $0.setImage(UIImage(systemName: "arrowtriangle.down.fill", withConfiguration: symbolConfiguration), for: .normal)
         $0.showsMenuAsPrimaryAction = true
-        $0.menu = UIMenu(identifier: nil, options: .displayInline, children: {
-            [weak self] in
-            return self?.menuActions ?? [UIAction]()
+        $0.menu = UIMenu(identifier: nil, options: .displayInline, children: { [weak self] in
+            return self?.getMenuActions() ?? [UIAction]()
         }())
         $0.tintColor = .MainGray
         $0.backgroundColor = .clear
@@ -73,16 +72,7 @@ final class GardenListSheetViewController: UIViewController {
         $0.scrollDirection = .vertical
     }
     
-    private lazy var menuActions: [UIAction] = [
-        UIAction(title: "2023", handler: { [unowned self] _ in
-            _ = Observable.just("2023").take(1).bind(to: self.currentYear).disposed(by: self.disposBag)
-            self.gardenCanvasViewModel.fetchSpecifirYearsCanvas(specificYear: "2023")
-        }),
-        UIAction(title: "2024", handler: { [unowned self] _ in
-            _ = Observable.just("2024").take(1).bind(to: self.currentYear).disposed(by: self.disposBag)
-            self.gardenCanvasViewModel.fetchSpecifirYearsCanvas(specificYear: "2024")
-        })
-    ]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -149,14 +139,12 @@ final class GardenListSheetViewController: UIViewController {
     
     private func bindings() {
         currentYear
-            .debug()
             .map {String($0)}
             .observe(on: MainScheduler.instance)
             .bind(to: currentYearLabel.rx.text)
             .disposed(by: disposBag)
         
         gardenCanvasViewModel.collectionOfCanvas
-            .debug()
             .observe(on: MainScheduler.instance)
             .bind(to: gardenListCollectionView.rx.items(cellIdentifier: IdsForCollectionView.GardenListCollectionViewId.identifier, cellType: GardenListCollectionViewCell.self)) { [weak self] index, garden, cell in
                 let gardenImageName = "\(garden.monthAndYear)_Canvas"
@@ -174,6 +162,21 @@ final class GardenListSheetViewController: UIViewController {
     
     private func actions() {
         
+    }
+    
+    private func getMenuActions() -> [UIAction] {
+        let menuActions: [UIAction] = [
+            UIAction(title: "2023", handler: { [unowned self] _ in
+                _ = Observable.just("2023").take(1).bind(to: self.currentYear).disposed(by: self.disposBag)
+                self.gardenCanvasViewModel.fetchSpecifirYearsCanvas(specificYear: "2023")
+            }),
+            UIAction(title: "2024", handler: { [unowned self] _ in
+                _ = Observable.just("2024").take(1).bind(to: self.currentYear).disposed(by: self.disposBag)
+                self.gardenCanvasViewModel.fetchSpecifirYearsCanvas(specificYear: "2024")
+            })
+        ]
+        
+        return menuActions
     }
     
     private func loadThumbnailImageFromDirectory(imageName: String) -> UIImage? {

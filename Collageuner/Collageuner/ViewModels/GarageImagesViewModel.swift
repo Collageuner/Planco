@@ -64,4 +64,46 @@ final class GarageImagesViewModel {
             print(error)
         }
     }
+    
+    func fetchGarageOriginalImage(id: String) -> UIImage? {
+        let fileManager = FileManager.default
+        guard let thumbnailDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: DirectoryForWritingData.GarageOriginalImages.dataDirectory) else {
+            print("Failed fetching directory for Original Images for Garage Sheet List")
+            return UIImage(named: "TaskDefaultImage")
+        }
+        let imageURL = thumbnailDirectoryURL.appending(component: "\(id).png")
+        
+        do {
+            let imageData = try Data(contentsOf: imageURL)
+            print("Succeeded fetching Original Images")
+            return UIImage(data: imageData)
+        } catch let error {
+            print("Failed fetching Original Images for Garage Sheet List")
+            print(error)
+        }
+        
+        print("Returning Default Image.")
+        return UIImage(named: "TaskDefaultImage")
+    }
+    
+    func fetchGarageThumbnailImage(id: String) -> UIImage? {
+        let fileManager = FileManager.default
+        guard let thumbnailDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: DirectoryForWritingData.GarageThumbnailImages.dataDirectory) else {
+            print("Failed fetching directory for Thumbnail Images for Garage Sheet List")
+            return UIImage(named: "TaskDefaultImage")
+        }
+        let imageURL = thumbnailDirectoryURL.appending(component: "Thumbnail_\(id).png")
+        
+        do {
+            let imageData = try Data(contentsOf: imageURL)
+            print("Succeeded fetching Thumbnail Images")
+            return UIImage(data: imageData)
+        } catch let error {
+            print("Failed fetching Thumbnail Images for Garage Sheet List")
+            print(error)
+        }
+        
+        print("Returning Default Image.")
+        return UIImage(named: "TaskDefaultImage")
+    }
 }

@@ -30,7 +30,7 @@ final class PlanItemTableViewCell: UITableViewCell {
     let taskImage = UIImageView().then {
         $0.backgroundColor = .Background
         $0.layer.masksToBounds = true
-        $0.contentMode = .scaleAspectFill
+        $0.contentMode = .scaleAspectFit
     }
     
     let mainTaskLabel = UILabel().then {
@@ -140,7 +140,7 @@ final class PlanItemTableViewCell: UITableViewCell {
         } else {
             if isPlanCompleted == true {
                 self.subviews.forEach {
-                    $0.layer.opacity = 0.6
+                    $0.layer.opacity = 0.8
                 }
             }
         }

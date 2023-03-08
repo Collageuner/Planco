@@ -20,9 +20,9 @@ final class PlansTableItemViewModel {
     private var earlyAfternoonPlans: BehaviorRelay<[Tasks]> = BehaviorRelay(value: [])
     private var lateAfternoonPlans: BehaviorRelay<[Tasks]> = BehaviorRelay(value: [])
     
-    private lazy var morningPlanCounts: BehaviorRelay<Int> = BehaviorRelay(value: 0)
-    private lazy var earlyAfternoonPlanCounts: BehaviorRelay<Int> = BehaviorRelay(value: 0)
-    private lazy var lateAfternoonPlanCounts: BehaviorRelay<Int> = BehaviorRelay(value: 0)
+    private let morningPlanCounts: BehaviorRelay<Int> = BehaviorRelay(value: 0)
+    private let earlyAfternoonPlanCounts: BehaviorRelay<Int> = BehaviorRelay(value: 0)
+    private let lateAfternoonPlanCounts: BehaviorRelay<Int> = BehaviorRelay(value: 0)
     
     func fetchPlansForTableView(timeZone: MyTimeZone, date: Date) -> BehaviorRelay<[Tasks]> {
         let dateKey = Date.dateToCheckDay(date: date)
@@ -32,6 +32,10 @@ final class PlansTableItemViewModel {
         
         realmResult.forEach {
             taskFetchedArray.append($0)
+        }
+        
+        taskFetchedArray.sort {
+            $0.taskTime < $1.taskTime
         }
                 
         switch timeZone {
@@ -95,6 +99,10 @@ final class PlansTableItemViewModel {
                 taskFetchedArray.append($0)
             }
             
+            taskFetchedArray.sort {
+                $0.taskTime < $1.taskTime
+            }
+            
             switch timeZone {
             case .morningTime:
                 _ = Observable.just(taskFetchedArray)
@@ -110,6 +118,20 @@ final class PlansTableItemViewModel {
                     .disposed(by: disposeBag)
             }
         }
+    }
+    
+    func updatePlanCounts(morningCount: Int, earlyCount: Int, lateCount: Int) {
+        _ = Observable.just(morningCount)
+            .bind(to: morningPlanCounts)
+            .disposed(by: disposeBag)
+
+        _ = Observable.just(earlyCount)
+            .bind(to: earlyAfternoonPlanCounts)
+            .disposed(by: disposeBag)
+
+        _ = Observable.just(lateCount)
+            .bind(to: lateAfternoonPlanCounts)
+            .disposed(by: disposeBag)
     }
     
     func updatePlanCompleted(id: ObjectId) {

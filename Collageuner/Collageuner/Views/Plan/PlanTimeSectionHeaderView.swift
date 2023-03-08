@@ -18,7 +18,7 @@ final class PlanTimeSectionHeaderView: UIView {
     
     let planTimeZoneLabel = UILabel().then {
         $0.textColor = .white
-        $0.font = .customVersatileFont(.semibold, forTextStyle: .subheadline)
+        $0.font = .customVersatileFont(.semibold, forTextStyle: .callout)
     }
     
     let addTappedButton = UIImageView().then {
@@ -56,6 +56,7 @@ final class PlanTimeSectionHeaderView: UIView {
         
         addTappedButton.snp.makeConstraints {
             $0.height.equalToSuperview().dividedBy(1.4)
+            $0.width.equalTo(addTappedButton.snp.height)
             $0.trailing.equalToSuperview().inset(10)
             $0.centerY.equalToSuperview()
         }

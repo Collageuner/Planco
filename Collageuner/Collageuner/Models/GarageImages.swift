@@ -23,13 +23,11 @@ class GarageLists {
 
 class GarageImage: Object {
     @Persisted(primaryKey: true) var _id: ObjectId
-//    @Persisted var garageImageURL: String
     @Persisted var usedNumber: Int
 
-    convenience init( usedNumber: Int) {
+    convenience init(usedNumber: Int) {
         self.init()
 
-//        self.garageImageURL = garageImageURL
         self.usedNumber = usedNumber
     }
 }

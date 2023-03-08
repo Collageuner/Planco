@@ -8,7 +8,15 @@
 import UIKit
 
 extension Date {
-    /// Retruns -> "yyMM"
+    /// Returns -> "yyyy-MM-dd"
+    static func prefixOfStringToDate(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        return dateFormatter.string(from: date)
+    }
+    
+    /// Returns -> "yyMM"
     static func dateToYearAndMonth(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyMM"
