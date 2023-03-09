@@ -22,23 +22,23 @@ final class TasksViewModel {
     
     init() {}
     
-    /// init for getting HomeView Story Images
-    init(dateForStories: Date) {
-        let dateKey = Date.dateToCheckDay(date: dateForStories)
-        var imageStringArray: [String] = []
-        
-        let realmResult = myTaskRealm.objects(Tasks.self).filter(NSPredicate(format: "keyForDayCheck = %@", dateKey))
-        
-        realmResult.forEach{
-            let imageName: String = "Thumbnail_\($0.taskTime)\($0._id.stringValue).png"
-            imageStringArray.append(imageName)
-        }
-
-        let sortedArrayOfImage = imageStringArray.sorted()
-        _ = Observable.just(sortedArrayOfImage)
-            .bind(to: taskStoryImages)
-            .disposed(by: disposeBag)
-    }
+//    /// init for getting HomeView Story Images
+//    init(dateForStories: Date) {
+//        let dateKey = Date.dateToCheckDay(date: dateForStories)
+//        var imageStringArray: [String] = []
+//
+//        let realmResult = myTaskRealm.objects(Tasks.self).filter(NSPredicate(format: "keyForDayCheck = %@", dateKey))
+//
+//        realmResult.forEach{
+//            let imageName: String = "Thumbnail_\($0.taskTime)\($0._id.stringValue).png"
+//            imageStringArray.append(imageName)
+//        }
+//
+//        let sortedArrayOfImage = imageStringArray.sorted()
+//        _ = Observable.just(sortedArrayOfImage)
+//            .bind(to: taskStoryImages)
+//            .disposed(by: disposeBag)
+//    }
     
     /// init for getting current day's Array of Tasks
     init(dateForList: Date) {
@@ -76,28 +76,29 @@ final class TasksViewModel {
             .disposed(by: disposeBag)
     }
     
-    func createTask(timeZone: MyTimeZone, taskTime: Date, taskImage: UIImage?, mainTask: String, subTasks: [String?] = [], taskExpiredCheck: Bool = false, taskCompleted: Bool = false) {
-        let removeNilFromSubTasks = subTasks.compactMap { $0 }
-        let subTaskList = arrayToListRealm(swiftArray: removeNilFromSubTasks)
+    func createTask(timeZone: MyTimeZone, taskTime: Date, taskImage: UIImage?, mainTask: String, emotion: String?, taskExpiredCheck: Bool = false, taskCompleted: Bool = false) {
         
         let taskDateToTime = Date.fullDateToString(date: taskTime)
         let taskYearAndMonth = Date.dateToYearAndMonth(date: taskTime)
         let taskKey = Date.dateToCheckDay(date: taskTime)
         
-        let taskToCreate: Tasks = Tasks(taskTimeZone: timeZone.time, taskTime: taskDateToTime, keyForYearAndMonthCheck: taskYearAndMonth, keyForDayCheck: taskKey, mainTask: mainTask, subTasks: subTaskList, taskExpiredCheck: false, taskCompleted: false)
-        
-        let imageName: String = taskToCreate.taskTime + taskToCreate._id.stringValue
+        let taskToCreate: Tasks = Tasks(taskTimeZone: timeZone.time, taskTime: taskDateToTime, keyForYearAndMonthCheck: taskYearAndMonth, keyForDayCheck: taskKey, mainTask: mainTask, emotion: emotion, taskExpiredCheck: false, taskCompleted: false)
         
         do {
             try myTaskRealm.write({
                 myTaskRealm.add(taskToCreate)
-                myTaskRealm.saveImagesToDocumentDirectory(imageName: imageName, image: taskImage ?? UIImage(), originalImageAt: .TaskOriginalImages, thumbnailImageAt: .TaskThumbnailImages)
             })
             print("🪜 Task Created")
         } catch let error {
             print(error)
         }
     }
+    
+//    func createPhotoToSave() {
+//        let imageName: String = taskToCreate.taskTime + taskToCreate._id.stringValue
+//
+//        myTaskRealm.saveImagesToDocumentDirectory(imageName: imageName, image: taskImage ?? UIImage(), originalImageAt: .TaskOriginalImages, thumbnailImageAt: .TaskThumbnailImages)
+//    }
     
     func fetchThisMonthTaskList(date: Date) {
         let dateKey = Date.dateToYearAndMonth(date: date)
@@ -152,6 +153,5 @@ final class TasksViewModel {
         return subTaskList
     }
 
-    /// 결국에 tableView 에서 어떻게 데이터 전달이 돼서 새로운 변수만 있으면 되는건지 아니면 조회를 해야하는건지...
 //    func deleteTask
 }
