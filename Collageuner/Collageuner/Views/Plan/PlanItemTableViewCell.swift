@@ -120,42 +120,39 @@ final class PlanItemTableViewCell: UITableViewCell {
     }
     
     func updateUICell(cell: Tasks) {
-        let imageFetched = loadThumbnailImageFromDirectory(imageName: "\(cell.taskTime)\(cell._id.stringValue)")
+        /// Cell UI 바뀌고 나서 오픈하자
+//        let imageFetched = loadThumbnailImageFromDirectory(imageName: "\(cell.taskTime)\(cell._id.stringValue)")
+//        taskImage.image = imageFetched
+
         var timeStamp = String(cell.taskTime.suffix(4))
         timeStamp.insert(":", at: timeStamp.index(timeStamp.startIndex, offsetBy: 2))
-        taskImage.image = imageFetched
         mainTaskLabel.text = cell.mainTask
         taskTimeLabel.text = timeStamp
         cellTaskId = cell._id
         isPlanCompleted = cell.taskCompleted
         isPlanExpired = cell.taskExpiredCheck
         
-        let subTasksUnwrapped = cell.subTasks.compactMap { $0 }
-        
         if isPlanExpired == true {
-            backgroundCellView.backgroundColor = .MainGray.withAlphaComponent(0.9)
+            backgroundCellView.backgroundColor = UIColor(hex: "#CBCBCB")
             self.subviews.forEach {
-                $0.layer.opacity = 0.8
+                $0.layer.opacity = 0.9
             }
         } else {
             if isPlanCompleted == true {
+                backgroundCellView.backgroundColor = .MainGray
                 self.subviews.forEach {
-                    $0.layer.opacity = 0.8
+                    $0.layer.opacity = 0.9
                 }
             }
         }
         
-        switch cell.subTasks.count {
-        case 0:
-            subTasksTopLabel.text = "🪴 \(cell.mainTask)"
-        case 1:
-            subTasksTopLabel.text = "🪴 \(subTasksUnwrapped[0])"
-        case 2:
-            subTasksTopLabel.text = "🪴 \(subTasksUnwrapped[0])"
-            subTasksBottomLabel.text = "🪴 \(subTasksUnwrapped[1])"
-        default:
-            print("Error in PlanItemCell")
-            return
+        switch cell.emotion.isNilorEmpty {
+        case true:
+            subTasksTopLabel.text = "아무 감정 없음"
+            subTasksTopLabel.textColor = .SubText.withAlphaComponent(0.7)
+        case false:
+            guard let emotion = cell.emotion else { return }
+            subTasksTopLabel.text = emotion
         }
     }
     
