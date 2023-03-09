@@ -19,7 +19,6 @@ final class AddPlanViewController: UIViewController {
     
     var disposeBag = DisposeBag()
     private let timeZoneViewModel = MyTimeZoneViewModel()
-    private let taskImageSubject: BehaviorRelay<UIImage> = BehaviorRelay(value: UIImage())
     private let taskViewModel = TasksViewModel()
     
     private var currentTimeZoneEnum: MyTimeZone!
@@ -27,6 +26,7 @@ final class AddPlanViewController: UIViewController {
     private var currentTimeDay: Date = Date()
     
     private lazy var selectedTaskTime: Date = getMinTime()
+    
     weak var delegate: AddPlanDelegate?
     
     private let customNavigationView = AddPlanCustomBarView()
@@ -37,11 +37,10 @@ final class AddPlanViewController: UIViewController {
         $0.textColor = .MainGreen
     }
     
-    private lazy var decorationImage = UIImageView().then {
-        $0.isUserInteractionEnabled = true
-        $0.clipsToBounds = true
-        $0.image = UIImage(named: fetchImageString())
-        $0.contentMode = .scaleAspectFit
+    private let timeZoneTimeLabel = UILabel().then {
+        $0.text = ""
+        $0.font = .customVersatileFont(.regualar, forTextStyle: .callout)
+        $0.textColor = .SubText
     }
     
     private let mainTaskSectionLabel = UILabel().then {
@@ -56,7 +55,7 @@ final class AddPlanViewController: UIViewController {
         $0.leftViewMode = .always
         $0.clearButtonMode = .whileEditing
         $0.autocorrectionType = .no
-        $0.returnKeyType = .done
+        $0.returnKeyType = .next
         $0.keyboardType = .default
         $0.font = .customVersatileFont(.bold, forTextStyle: .body)
         $0.textColor = .MainText
@@ -67,13 +66,13 @@ final class AddPlanViewController: UIViewController {
         $0.backgroundColor = .SubGray.withAlphaComponent(0.8)
     }
     
-    private let subTasksSectionLabel = UILabel().then {
-        $0.text = "🌿 세부 항목"
+    private let emotionSectionLabel = UILabel().then {
+        $0.text = "🪴 일에 대한 나의 감정"
         $0.font = .customVersatileFont(.semibold, forTextStyle: .title3)
         $0.textColor = .PopGreen
     }
     
-    private let subTaskTopTextField = UITextField().then {
+    private let emotionTextField = UITextField().then {
         $0.tintColor = .SubGreen
         $0.leftView = .init(frame: .init(x: 0, y: 0, width: 4, height: 4))
         $0.leftViewMode = .always
@@ -82,7 +81,7 @@ final class AddPlanViewController: UIViewController {
         $0.returnKeyType = .done
         $0.keyboardType = .default
         $0.font = .customVersatileFont(.semibold, forTextStyle: .callout)
-        $0.attributedPlaceholder = NSAttributedString(string: " • 세부 항목은 적어도 좋고,", attributes: [NSAttributedString.Key.foregroundColor : UIColor.SubGray.withAlphaComponent(0.5), NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15, weight: .regular)])
+        $0.attributedPlaceholder = NSAttributedString(string: " 이 일을 생각하면 떠오르는 감정은요?", attributes: [NSAttributedString.Key.foregroundColor : UIColor.SubGray.withAlphaComponent(0.5), NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15, weight: .regular)])
         $0.textColor = .SubText
     }
     
@@ -90,33 +89,10 @@ final class AddPlanViewController: UIViewController {
         $0.backgroundColor = .SubGray.withAlphaComponent(0.5)
     }
     
-    private let subTaskBottomTextField = UITextField().then {
-        $0.tintColor = .SubGreen
-        $0.leftView = .init(frame: .init(x: 0, y: 0, width: 4, height: 4))
-        $0.leftViewMode = .always
-        $0.clearButtonMode = .whileEditing
-        $0.autocorrectionType = .no
-        $0.returnKeyType = .done
-        $0.keyboardType = .default
-        $0.font = .customVersatileFont(.semibold, forTextStyle: .callout)
-        $0.attributedPlaceholder = NSAttributedString(string: " • 안 적고 넘겨도 좋아요.", attributes: [NSAttributedString.Key.foregroundColor : UIColor.SubGray.withAlphaComponent(0.5), NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15, weight: .regular)])
-        $0.textColor = .SubText
-    }
-    
-    private let lineDividerThree = UIView().then {
-        $0.backgroundColor = .SubGray.withAlphaComponent(0.5)
-    }
-    
     private let taskTimeSectionLabel = UILabel().then {
-        $0.text = "🌿 시작 시간"
+        $0.text = "🕰️ 시작 시간"
         $0.font = .customVersatileFont(.bold, forTextStyle: .title3)
         $0.textColor = .PopGreen
-    }
-    
-    private let timeZoneTimeLabel = UILabel().then {
-        $0.text = ""
-        $0.font = .customVersatileFont(.semibold, forTextStyle: .subheadline)
-        $0.textColor = .PopGreen.withAlphaComponent(0.7)
     }
     
     private lazy var taskTimeDatePicker = UIDatePicker().then {
@@ -131,42 +107,18 @@ final class AddPlanViewController: UIViewController {
         $0.preferredDatePickerStyle = .compact
     }
     
-    private let taskImageSelectSectionLabel = UILabel().then {
-        $0.text = "🌿 심을 사진 및 추억"
-        $0.font = .customVersatileFont(.bold, forTextStyle: .title3)
-        $0.textColor = .MainGreen
+    private let timeGuideLabel = UILabel().then {
+        $0.numberOfLines = 2
+        $0.font = .customVersatileFont(.light, forTextStyle: .subheadline)
+        $0.textColor = .SubGray.withAlphaComponent(0.7)
+        $0.text = "\"시간은 간단한 기준일 뿐이에요.\n 이 시간에 구속되지 않아도 좋아요.\""
     }
-    
-    private lazy var assetUsageInfoButton = UIButton(type: .system, primaryAction: assetUsageInfoAction()).then {
-        $0.tintColor = .MainCalendar.withAlphaComponent(0.5)
-        let symbolConfiguration = UIImage.SymbolConfiguration(weight: .semibold)
-        $0.setImage(UIImage(systemName: "questionmark.circle.fill", withConfiguration: symbolConfiguration), for: .normal)
-    }
-    
-    private let taskImageSelectedView = UIImageView().then {
+
+    private lazy var decorationImage = UIImageView().then {
+        $0.isUserInteractionEnabled = true
+        $0.clipsToBounds = true
+        $0.image = UIImage(named: fetchImageString())
         $0.contentMode = .scaleAspectFit
-        $0.backgroundColor = .clear
-    }
-    
-    private let defaultTaskImageView: LottieAnimationView = .init(name: "EmptyPlanTaskImage").then {
-        $0.contentMode = .scaleAspectFit
-        $0.animationSpeed = 1.8
-        $0.loopMode = .loop
-        $0.play()
-    }
-    
-    private lazy var addTaskImageButton = UIButton(type: .system).then {
-        $0.layer.shadowOpacity = 0.5
-        $0.layer.shadowOffset = CGSize(width: 1, height: 1)
-        $0.layer.shadowRadius = 1.2
-        $0.layer.shadowColor = UIColor.white.cgColor
-        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 24, weight: .regular)
-        $0.setImage(UIImage(systemName: "plus", withConfiguration: symbolConfiguration), for: .normal)
-        $0.tintColor = .PopGreen
-        $0.showsMenuAsPrimaryAction = true
-        $0.menu = UIMenu(identifier: nil, options: .displayInline, children: { [weak self] in
-            return self?.getMenuActionForImage() ?? [UIAction]()
-        }())
     }
     
     private let loadingView = AwaitLoadingView().then {
@@ -185,11 +137,11 @@ final class AddPlanViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItemSetup()
+        mainTaskTextField.becomeFirstResponder()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        buttonJumpAnimation()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -200,12 +152,11 @@ final class AddPlanViewController: UIViewController {
         view.backgroundColor = .Background
         
         mainTaskTextField.delegate = self
-        subTaskTopTextField.delegate = self
-        subTaskBottomTextField.delegate = self
+        emotionTextField.delegate = self
     }
     
     private func layouts() {
-        view.addSubviews(customNavigationView, timeZoneLabel, decorationImage, mainTaskSectionLabel, mainTaskTextField, lineDividerOne, subTasksSectionLabel, subTaskTopTextField, lineDividerTwo, subTaskBottomTextField, lineDividerThree, taskTimeSectionLabel, timeZoneTimeLabel, taskTimeDatePicker, taskImageSelectSectionLabel, assetUsageInfoButton, taskImageSelectedView, defaultTaskImageView, addTaskImageButton)
+        view.addSubviews(customNavigationView, timeZoneLabel, timeZoneTimeLabel, mainTaskSectionLabel, mainTaskTextField, lineDividerOne, emotionSectionLabel, emotionTextField, lineDividerTwo, taskTimeSectionLabel, taskTimeDatePicker, timeGuideLabel, decorationImage)
         
         customNavigationView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
@@ -218,16 +169,14 @@ final class AddPlanViewController: UIViewController {
             $0.top.equalTo(customNavigationView.snp.bottom).offset(15)
         }
         
-        decorationImage.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(20)
-            $0.top.equalTo(timeZoneLabel.snp.top)
-            $0.height.equalTo(view.snp.height).dividedBy(11)
-            $0.width.equalTo(decorationImage.snp.height).dividedBy(1.4)
+        timeZoneTimeLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(25)
+            $0.top.equalTo(timeZoneLabel.snp.bottom)
         }
         
         mainTaskSectionLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(25)
-            $0.top.equalTo(timeZoneLabel.snp.bottom).offset(50)
+            $0.top.equalTo(timeZoneLabel.snp.bottom).offset(60)
         }
         
         mainTaskTextField.snp.makeConstraints {
@@ -241,82 +190,47 @@ final class AddPlanViewController: UIViewController {
             $0.height.equalTo(1)
         }
         
-        subTasksSectionLabel.snp.makeConstraints {
+        emotionSectionLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(25)
             $0.top.equalTo(lineDividerOne.snp.bottom).offset(30)
         }
         
-        subTaskTopTextField.snp.makeConstraints {
+        emotionTextField.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(25)
-            $0.top.equalTo(subTasksSectionLabel.snp.bottom).offset(10)
+            $0.top.equalTo(emotionSectionLabel.snp.bottom).offset(10)
         }
         
         lineDividerTwo.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(25)
-            $0.top.equalTo(subTaskTopTextField.snp.bottom).offset(5)
-            $0.height.equalTo(1)
-        }
-        
-        subTaskBottomTextField.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(25)
-            $0.top.equalTo(lineDividerTwo.snp.bottom).offset(10)
-        }
-        
-        lineDividerThree.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(25)
-            $0.top.equalTo(subTaskBottomTextField.snp.bottom).offset(5)
+            $0.top.equalTo(emotionTextField.snp.bottom).offset(5)
             $0.height.equalTo(1)
         }
         
         taskTimeSectionLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(25)
-            $0.top.equalTo(lineDividerThree.snp.top).offset(50)
+            $0.top.equalTo(lineDividerTwo.snp.top).offset(40)
+        }
+        
+        timeGuideLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(35)
+            $0.top.equalTo(taskTimeSectionLabel.snp.bottom).offset(5)
         }
         
         taskTimeDatePicker.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(25)
             $0.centerY.equalTo(taskTimeSectionLabel.snp.centerY)
         }
-        
-        timeZoneTimeLabel.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(28)
-            $0.top.equalTo(taskTimeDatePicker.snp.bottom).offset(5)
-        }
-        
-        taskImageSelectSectionLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(25)
-            $0.top.equalTo(timeZoneTimeLabel.snp.bottom).offset(50)
-        }
-        
-        assetUsageInfoButton.snp.makeConstraints {
-            $0.leading.equalTo(taskImageSelectSectionLabel.snp.trailing).offset(10)
-            $0.height.equalTo(taskImageSelectSectionLabel.snp.height)
-            $0.centerY.equalTo(taskImageSelectSectionLabel.snp.centerY).offset(-1)
-        }
-        
-        addTaskImageButton.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(25)
-            $0.centerY.equalTo(taskImageSelectSectionLabel.snp.centerY)
-        }
-        
-        taskImageSelectedView.snp.makeConstraints {
+    
+        decorationImage.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(taskImageSelectSectionLabel.snp.bottom).offset(20)
-            $0.height.width.equalTo(view.snp.height).dividedBy(4.7)
-        }
-        
-        defaultTaskImageView.snp.makeConstraints {
-            $0.center.equalTo(taskImageSelectedView.snp.center)
-            $0.height.equalTo(160)
+            $0.bottom.equalToSuperview().inset(60)
+            $0.height.equalTo(view.snp.height).dividedBy(3.4)
+            $0.width.equalTo(view.snp.width).dividedBy(2.5)
         }
     }
     
     private func bindings() {
         bindTimeLabelFromTimeZone(timeZone: currentTimeZoneString)
-        
-        taskImageSubject.asDriver()
-            .drive(taskImageSelectedView.rx.image)
-            .disposed(by: disposeBag)
     }
     
     private func actions() {
@@ -410,42 +324,6 @@ final class AddPlanViewController: UIViewController {
         }
     }
     
-    private func assetUsageInfoAction() -> UIAction {
-        let action = UIAction { [weak self] _ in
-            print("QUESTION MARK!")
-            // 안내 페이지 On
-        }
-        
-        return action
-    }
-    
-    private func openPHPicker() {
-        var phpickerConfiguration = PHPickerConfiguration()
-        phpickerConfiguration.selectionLimit = 1
-        phpickerConfiguration.filter = .images
-        let imagePicker = PHPickerViewController(configuration: phpickerConfiguration)
-        imagePicker.delegate = self
-        
-        self.present(imagePicker, animated: true)
-    }
-    
-    private func openGarageBottomSheet() {
-        let garageBottomSheet = GarageImageSheetViewController()
-        garageBottomSheet.delegate = self
-        garageBottomSheet.modalPresentationStyle = .pageSheet
-
-        if let sheet = garageBottomSheet.sheetPresentationController {
-            sheet.prefersGrabberVisible = true
-            sheet.preferredCornerRadius = 30
-            sheet.detents = [
-                .custom { context in
-                    return context.maximumDetentValue * 0.7
-                }
-            ]
-        }
-        self.present(garageBottomSheet, animated: true)
-    }
-    
     private func bindTimeLabelFromTimeZone(timeZone: String) {
         let timeLabelDriver: Driver<String>
         
@@ -476,30 +354,6 @@ final class AddPlanViewController: UIViewController {
         navigationItem.setRightBarButton(rightBarDoneButton, animated: true)
     }
     
-    private func getMenuActionForImage() -> [UIAction] {
-        let menuActions: [UIAction] = [
-            UIAction(title: "개러지에서 가져오기", image: UIImage(systemName: "photo.on.rectangle.angled"), handler: { [unowned self] _ in
-                self.openGarageBottomSheet()
-            }),
-            UIAction(title: "앨범에서 가져오기",image: UIImage(named: "ApplePhotoAlbumLogo.png"), handler: { [unowned self] _ in
-                self.openPHPicker()
-            })
-        ]
-        
-        return menuActions
-    }
-    
-    private func buttonJumpAnimation() {
-        let animation = CAKeyframeAnimation(keyPath: "position.y")
-        animation.values = [0, -12, 0, 4, -5, 0, 0]
-        animation.keyTimes = [0, 0.25, 0.35, 0.4, 0.45, 0.5, 0.7]
-        animation.duration = 0.7
-        animation.repeatCount = 2
-        animation.fillMode = .forwards
-        animation.isRemovedOnCompletion = false
-        animation.isAdditive = true
-        addTaskImageButton.layer.add(animation, forKey: nil)
-    }
     
     private func mainTextFieldAnimationWhenEmpty() {
         let animation = CAKeyframeAnimation(keyPath: "position.x")
@@ -544,11 +398,10 @@ final class AddPlanViewController: UIViewController {
         case false:
             view.endEditing(true)
             
-            let taskImage: UIImage = taskImageSubject.value
             guard let mainTaskText = mainTaskTextField.text else { return }
-            let subTasks: [String?] = [subTaskTopTextField.text?.emptyToNil, subTaskBottomTextField.text?.emptyToNil]
+            let emotion: String? = emotionTextField.text?.emptyToNil
             
-            taskViewModel.createTask(timeZone: currentTimeZoneEnum, taskTime: selectedTaskTime, taskImage: taskImage, mainTask: mainTaskText, subTasks: subTasks)
+            taskViewModel.createTask(timeZone: currentTimeZoneEnum, taskTime: selectedTaskTime, taskImage: UIImage(), mainTask: mainTaskText, emotion: emotion)
             
             self.delegate?.reloadTableViews()
             
@@ -601,51 +454,15 @@ extension AddPlanViewController {
 
 extension AddPlanViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-}
-
-extension AddPlanViewController: PHPickerViewControllerDelegate {
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        
-        picker.dismiss(animated: true)
-        
-        guard let itemProvider = results.first?.itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) else {
-            print("Error Fetching Data From PHPicker")
-            return
+        switch textField {
+        case mainTaskTextField:
+            emotionTextField.becomeFirstResponder()
+            return true
+        case emotionTextField:
+            textField.resignFirstResponder()
+            return true
+        default:
+            return true
         }
-        
-        itemProvider.loadObject(ofClass: UIImage.self) { [unowned self] taskImage, error in
-            
-            // 여기서 Navigation 으로 넘어가서 crop 할 수 있는 기능을 넣자.
-            // 그러면 VC 가 달라질테니 ViewModel 로 하나 만들어서 편하게 통일 시켜야겠네.
-            
-            Observable<UIImage>.create { emitter in
-                guard let selectedImage = taskImage as? UIImage else {
-                    print("Error Changing into Data.")
-                    return Disposables.create()}
-                let pngImage = selectedImage
-                
-                emitter.onNext(pngImage)
-                emitter.onCompleted()
-                
-                return Disposables.create()
-            }
-            .bind(to: self.taskImageSubject)
-            .disposed(by: self.disposeBag)
-        }
-        
-        self.defaultTaskImageView.isHidden = true
-    }
-}
-
-extension AddPlanViewController: GarageSheetDelegate {
-    func fetchImageFromGarage(garageImage: UIImage) {
-        Observable.just(garageImage)
-            .bind(to: self.taskImageSubject)
-            .disposed(by: disposeBag)
-        
-        defaultTaskImageView.isHidden = true
     }
 }

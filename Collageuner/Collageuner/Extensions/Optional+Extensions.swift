@@ -8,6 +8,7 @@
 import UIKit
 
 extension String? {
+    /// Returns True when Nil or Empty
     var isNilorEmpty: Bool {
         return self == nil || self == ""
     }
