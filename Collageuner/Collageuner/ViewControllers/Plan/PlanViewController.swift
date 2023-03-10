@@ -22,7 +22,7 @@ final class PlanViewController: UIViewController {
     private lazy var lateAfternoonPlanTableViewHeight: CGFloat = cellHeight * CGFloat(lateAfternoonTasks.value.count)
     
     private lazy var cellHeight: CGFloat = view.frame.height/10.9
-    private lazy var sectionHeight: CGFloat = view.frame.height/19
+    private lazy var sectionHeight: CGFloat = view.frame.height/24
     private var currentDate: Date = Date()
     
     // MARK: - Rx Models
