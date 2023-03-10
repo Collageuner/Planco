@@ -20,14 +20,14 @@ final class PlanTimeSectionHeaderView: UIView {
         $0.textColor = .white
         $0.font = .customVersatileFont(.semibold, forTextStyle: .callout)
     }
-    
-    let addTappedButton = UIImageView().then {
-        let symbolConfiguration = UIImage.SymbolConfiguration(scale: .large)
-        $0.contentMode = .scaleAspectFit
-        $0.clipsToBounds = true
-        $0.tintColor = .white
-        $0.image = UIImage(systemName: "plus.circle.fill", withConfiguration: symbolConfiguration)
-    }
+//
+//    let addTappedButton = UIImageView().then {
+//        let symbolConfiguration = UIImage.SymbolConfiguration(scale: .large)
+//        $0.contentMode = .scaleAspectFit
+//        $0.clipsToBounds = true
+//        $0.tintColor = .white
+//        $0.image = UIImage(systemName: "plus.circle.fill", withConfiguration: symbolConfiguration)
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -47,19 +47,19 @@ final class PlanTimeSectionHeaderView: UIView {
     }
     
     private func render() {
-        self.addSubviews(planTimeZoneLabel, addTappedButton)
+        self.addSubviews(planTimeZoneLabel)
         
         planTimeZoneLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(15)
             $0.centerY.equalToSuperview()
         }
-        
-        addTappedButton.snp.makeConstraints {
-            $0.height.equalToSuperview().dividedBy(1.4)
-            $0.width.equalTo(addTappedButton.snp.height)
-            $0.trailing.equalToSuperview().inset(10)
-            $0.centerY.equalToSuperview()
-        }
+//
+//        addTappedButton.snp.makeConstraints {
+//            $0.height.equalToSuperview().dividedBy(1.4)
+//            $0.width.equalTo(addTappedButton.snp.height)
+//            $0.trailing.equalToSuperview().inset(10)
+//            $0.centerY.equalToSuperview()
+//        }
     }
     
     required init?(coder: NSCoder) {

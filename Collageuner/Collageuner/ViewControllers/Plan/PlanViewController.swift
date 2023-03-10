@@ -60,21 +60,15 @@ final class PlanViewController: UIViewController {
     
     // MARK: - Section Components
     private lazy var morningSectionView = PlanTimeSectionHeaderView().then {
-        $0.addTappedButton.isUserInteractionEnabled = true
         $0.planTimeZoneLabel.text = "오전"
-        $0.backgroundColor = .MorningColor
     }
     
     private lazy var earlyAfternoonSectionView = PlanTimeSectionHeaderView().then {
-        $0.addTappedButton.isUserInteractionEnabled = true
         $0.planTimeZoneLabel.text = "이른 오후"
-        $0.backgroundColor = .EarlyAfternoonColor
     }
     
     private lazy var lateAfternoonSectionView = PlanTimeSectionHeaderView().then {
-        $0.addTappedButton.isUserInteractionEnabled = true
         $0.planTimeZoneLabel.text = "늦은 오후"
-        $0.backgroundColor = .LateAfternoonColor
     }
     
     // MARK: - TableView Components
@@ -223,43 +217,16 @@ final class PlanViewController: UIViewController {
                 cell.updateUICell(cell: task) }
             .disposed(by: disposeBag)
         
-        morningTasksCount.asDriver()
-            .map {
-                switch $0 {
-                case 2: return true
-                default: return false }
-            }
-            .drive(morningSectionView.addTappedButton.rx.isHidden)
-            .disposed(by: disposeBag)
-        
         /// EarlyAfternoon List
         earlyAfternoonTasks.asDriver()
             .drive(earlyAfternoonPlanTableView.rx.items(cellIdentifier: IdsForCollectionView.EarlyAfternoonPlanItemId.identifier, cellType: PlanItemTableViewCell.self)) { row, task, cell in
                 cell.updateUICell(cell: task) }
             .disposed(by: disposeBag)
         
-        earlyAfternoonTasksCount.asDriver()
-            .map {
-                switch $0 {
-                case 2: return true
-                default: return false }
-            }
-            .drive(earlyAfternoonSectionView.addTappedButton.rx.isHidden)
-            .disposed(by: disposeBag)
-        
         /// LateAfternoon List
         lateAfternoonTasks.asDriver()
             .drive(lateAfternoonPlanTableView.rx.items(cellIdentifier: IdsForCollectionView.LateAfternoonPlanItemId.identifier, cellType: PlanItemTableViewCell.self)) { row, task, cell in
                 cell.updateUICell(cell: task) }
-            .disposed(by: disposeBag)
-        
-        lateAfternoonTasksCount.asDriver()
-            .map {
-                switch $0 {
-                case 2: return true
-                default: return false }
-            }
-            .drive(lateAfternoonSectionView.addTappedButton.rx.isHidden)
             .disposed(by: disposeBag)
     }
     
@@ -338,9 +305,10 @@ extension PlanViewController {
         let AddEarlyPlanTapped = UITapGestureRecognizer(target: self, action: #selector(moveToAddEarlyPlan))
         let AddLatePlanTapped = UITapGestureRecognizer(target: self, action: #selector(moveToAddLatePlan))
         
-        morningSectionView.addTappedButton.addGestureRecognizer(AddMorningPlanTapped)
-        earlyAfternoonSectionView.addTappedButton.addGestureRecognizer(AddEarlyPlanTapped)
-        lateAfternoonSectionView.addTappedButton.addGestureRecognizer(AddLatePlanTapped)
+        /// 이곳에 이제 UIActions 
+//        morningSectionView.addTappedButton.addGestureRecognizer(AddMorningPlanTapped)
+//        earlyAfternoonSectionView.addTappedButton.addGestureRecognizer(AddEarlyPlanTapped)
+//        lateAfternoonSectionView.addTappedButton.addGestureRecognizer(AddLatePlanTapped)
     }
     
     // MARK: - Navigation Actions
