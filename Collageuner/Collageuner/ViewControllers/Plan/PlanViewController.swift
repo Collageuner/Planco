@@ -152,7 +152,7 @@ final class PlanViewController: UIViewController {
     
     // MARK: - UI Constraint Layouts
     private func layouts() {
-        view.addSubviews(backgroundPlantImage, weeklyCalendarView, lineDivider, morningSectionView, morningPlanTableView, earlyAfternoonSectionView, earlyAfternoonPlanTableView, lateAfternoonSectionView, lateAfternoonPlanTableView)
+        view.addSubviews(backgroundPlantImage, weeklyCalendarView, lineDivider, morningPlanTableView, earlyAfternoonPlanTableView, lateAfternoonPlanTableView, morningSectionView, earlyAfternoonSectionView, lateAfternoonSectionView)
         
         backgroundPlantImage.snp.makeConstraints {
             $0.centerX.equalToSuperview()
@@ -247,6 +247,10 @@ final class PlanViewController: UIViewController {
         
         lateAfternoonPlanTableView.snp.updateConstraints {
             $0.height.equalTo(lateAfternoonPlanTableViewHeight)
+        }
+        
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
         }
     }
     

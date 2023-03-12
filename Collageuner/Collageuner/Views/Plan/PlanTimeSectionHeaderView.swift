@@ -21,7 +21,7 @@ final class PlanTimeSectionHeaderView: UIView {
         $0.font = .customVersatileFont(.semibold, forTextStyle: .callout)
     }
     
-    private let lineDivider = UIView().then {
+    let lineDivider = UIView().then {
         $0.backgroundColor = .MainGray
     }
     
@@ -35,10 +35,6 @@ final class PlanTimeSectionHeaderView: UIView {
         super.updateConstraints()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-    }
-    
     private func render() {
         self.addSubviews(planTimeZoneLabel, lineDivider)
         
@@ -50,7 +46,7 @@ final class PlanTimeSectionHeaderView: UIView {
         lineDivider.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview().inset(2)
-            $0.height.equalTo(0.5)
+            $0.height.equalTo(1)
         }
     }
     
