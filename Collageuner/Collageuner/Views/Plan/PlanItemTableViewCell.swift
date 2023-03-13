@@ -21,44 +21,42 @@ final class PlanItemTableViewCell: UITableViewCell {
     private var isPlanCompleted: Bool = false
     private var isPlanExpired: Bool = false
     
-    let backgroundCellView = UIView().then {
+    private let backgroundCellView = UIView().then {
+        $0.backgroundColor = UIColor(hex: "FDFDFD")
         $0.layer.cornerRadius = 15
-        $0.backgroundColor = .white
         $0.clipsToBounds = true
     }
     
-    let taskImage = UIImageView().then {
-        $0.backgroundColor = .Background
-        $0.layer.masksToBounds = true
-        $0.contentMode = .scaleAspectFit
+    private let pointUIView = UIView().then {
+        $0.clipsToBounds = true
+        $0.backgroundColor = .MainGreen
     }
-    
-    let mainTaskLabel = UILabel().then {
+   
+    private let mainTaskLabel = UILabel().then {
         $0.textAlignment = .left
         $0.numberOfLines = 1
         $0.textColor = .MainText.withAlphaComponent(0.9)
-        $0.font = .customVersatileFont(.bold, forTextStyle: .subheadline)
+        $0.font = .customVersatileFont(.semibold, forTextStyle: .subheadline)
     }
     
-    let subTasksTopLabel = UILabel().then {
+    private let subTasksTopLabel = UILabel().then {
         $0.text = ""
         $0.textAlignment = .left
         $0.numberOfLines = 1
         $0.textColor = .SubText
-        $0.font = .customVersatileFont(.medium, forTextStyle: .footnote)
+        $0.font = .customVersatileFont(.regualar, forTextStyle: .footnote)
     }
-    
-    let subTasksBottomLabel = UILabel().then {
-        $0.text = ""
-        $0.textAlignment = .left
-        $0.numberOfLines = 1
+
+    private let taskTimeLabel = UILabel().then {
         $0.textColor = .SubText
         $0.font = .customVersatileFont(.medium, forTextStyle: .footnote)
     }
     
-    let taskTimeLabel = UILabel().then {
-        $0.textColor = .SubText
-        $0.font = .customVersatileFont(.medium, forTextStyle: .footnote)
+    private let taskImage = UIImageView().then {
+        $0.backgroundColor = .Background
+        $0.layer.masksToBounds = true
+        $0.contentMode = .scaleAspectFit
+        $0.isHidden = true
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -78,54 +76,44 @@ final class PlanItemTableViewCell: UITableViewCell {
         
         taskImage.clipsToBounds = true
         taskImage.layer.cornerRadius = self.taskImage.frame.height/2
+        pointUIView.layer.cornerRadius = self.pointUIView.frame.height/2
     }
     
     private func render() {
-        self.addSubviews(backgroundCellView, taskImage, mainTaskLabel, taskTimeLabel, subTasksTopLabel, subTasksBottomLabel)
+        self.addSubviews(backgroundCellView, pointUIView, mainTaskLabel, taskTimeLabel, subTasksTopLabel, taskImage)
         
         backgroundCellView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(contentView.snp.bottom).inset(5)
         }
         
-        taskImage.snp.makeConstraints {
-            $0.leading.top.equalToSuperview().inset(10)
-            $0.bottom.equalTo(backgroundCellView.snp.bottom).inset(10)
+        pointUIView.snp.makeConstraints {
             $0.centerY.equalTo(backgroundCellView.snp.centerY)
-            $0.width.equalTo(taskImage.snp.height).multipliedBy(1.0/1.0)
+            $0.leading.equalToSuperview().inset(15)
+            $0.height.width.equalTo(8)
         }
         
         mainTaskLabel.snp.makeConstraints {
-            $0.leading.equalTo(taskImage.snp.trailing).offset(23)
-            $0.top.equalToSuperview().inset(9)
-            $0.width.equalToSuperview().dividedBy(1.8)
+            $0.leading.equalTo(pointUIView.snp.trailing).offset(12)
+            $0.centerY.equalTo(backgroundCellView.snp.centerY).offset(-10)
+            $0.width.equalToSuperview().dividedBy(1.67)
         }
         
         taskTimeLabel.snp.makeConstraints {
             $0.centerY.equalTo(mainTaskLabel.snp.centerY)
-            $0.trailing.equalToSuperview().inset(10)
+            $0.trailing.equalToSuperview().inset(12)
         }
         
         subTasksTopLabel.snp.makeConstraints {
-            $0.leading.equalTo(taskImage.snp.trailing).offset(18)
-            $0.top.equalTo(mainTaskLabel.snp.bottom).offset(3)
-            $0.width.equalToSuperview().dividedBy(1.48)
-        }
-        
-        subTasksBottomLabel.snp.makeConstraints {
-            $0.leading.equalTo(taskImage.snp.trailing).offset(18)
-            $0.top.equalTo(subTasksTopLabel.snp.bottom).offset(1.5)
-            $0.width.equalToSuperview().dividedBy(1.48)
+            $0.leading.equalTo(pointUIView.snp.trailing).offset(12)
+            $0.centerY.equalTo(backgroundCellView.snp.centerY).offset(10)
+            $0.width.equalToSuperview().dividedBy(1.67)
         }
     }
     
     func updateUICell(cell: Tasks) {
-        /// Cell UI 바뀌고 나서 오픈하자
-//        let imageFetched = loadThumbnailImageFromDirectory(imageName: "\(cell.taskTime)\(cell._id.stringValue)")
-//        taskImage.image = imageFetched
-
-        var timeStamp = String(cell.taskTime.suffix(4))
-        timeStamp.insert(":", at: timeStamp.index(timeStamp.startIndex, offsetBy: 2))
+        let timeStamp = cell.taskTime.changeHourIntoShort
+        
         mainTaskLabel.text = cell.mainTask
         taskTimeLabel.text = timeStamp
         cellTaskId = cell._id
@@ -139,16 +127,25 @@ final class PlanItemTableViewCell: UITableViewCell {
             }
         } else {
             if isPlanCompleted == true {
-                backgroundCellView.backgroundColor = .MainGray
-                self.subviews.forEach {
-                    $0.layer.opacity = 0.9
+                backgroundCellView.backgroundColor = UIColor(hex: "#EAEAEA")
+                let imageFetched = loadThumbnailImageFromDirectory(imageName: "\(cell.taskTime)\(cell._id.stringValue)")
+                taskImage.image = imageFetched
+                taskImage.isHidden = false
+                        
+                taskImage.snp.makeConstraints {
+                    $0.centerY.equalTo(backgroundCellView.snp.centerY)
+                    $0.height.width.equalTo(self.frame.height/1.7)
+                    $0.trailing.equalTo(taskTimeLabel.snp.leading).offset(-10)
                 }
+            } else {
+                taskImage.isHidden = true
+                backgroundCellView.backgroundColor = UIColor(hex: "FDFDFD")
             }
         }
         
         switch cell.emotion.isNilorEmpty {
         case true:
-            subTasksTopLabel.text = "아무 감정 없음"
+            subTasksTopLabel.text = "-"
             subTasksTopLabel.textColor = .SubText.withAlphaComponent(0.7)
         case false:
             guard let emotion = cell.emotion else { return }

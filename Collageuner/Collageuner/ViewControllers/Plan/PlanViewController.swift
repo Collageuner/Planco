@@ -21,8 +21,8 @@ final class PlanViewController: UIViewController {
     private lazy var earlyAfternoonPlanTableViewHeight: CGFloat = cellHeight * CGFloat(earlyAfternoonTasks.value.count)
     private lazy var lateAfternoonPlanTableViewHeight: CGFloat = cellHeight * CGFloat(lateAfternoonTasks.value.count)
     
-    private lazy var cellHeight: CGFloat = view.frame.height/10.9
-    private lazy var sectionHeight: CGFloat = view.frame.height/19
+    private lazy var cellHeight: CGFloat = view.frame.height/12.8
+    private lazy var sectionHeight: CGFloat = view.frame.height/24
     private var currentDate: Date = Date()
     
     // MARK: - Rx Models
@@ -42,6 +42,7 @@ final class PlanViewController: UIViewController {
     
     // MARK: - Calendar Components
     private lazy var weeklyCalendarView = FSCalendar(frame: .zero).then {
+        $0.appearance.titleDefaultColor = .black.withAlphaComponent(0.8)
         $0.appearance.selectionColor = .MainCalendar
         $0.appearance.todayColor = .MainCalendar.withAlphaComponent(0.5)
         $0.appearance.titleWeekendColor = .SubText
@@ -49,8 +50,8 @@ final class PlanViewController: UIViewController {
         $0.appearance.titleFont = .customVersatileFont(.medium, forTextStyle: .callout)
         $0.appearance.weekdayFont = UIFont.systemFont(ofSize: 12, weight: .medium)
         $0.locale = Locale(identifier: "en_US")
-        $0.collectionViewLayout.sectionInsets = UIEdgeInsets(top: 3, left: 0, bottom: 3, right: 0)
-        $0.weekdayHeight = CGFloat(22)
+        $0.collectionViewLayout.sectionInsets = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0)
+        $0.weekdayHeight = CGFloat(24)
         $0.calendarHeaderView.isHidden = true
         $0.headerHeight = 2
         $0.scrollDirection = .horizontal
@@ -60,21 +61,18 @@ final class PlanViewController: UIViewController {
     
     // MARK: - Section Components
     private lazy var morningSectionView = PlanTimeSectionHeaderView().then {
-        $0.addTappedButton.isUserInteractionEnabled = true
+        $0.planTimeZoneLabel.textColor = .MorningColor
         $0.planTimeZoneLabel.text = "오전"
-        $0.backgroundColor = .MorningColor
     }
     
     private lazy var earlyAfternoonSectionView = PlanTimeSectionHeaderView().then {
-        $0.addTappedButton.isUserInteractionEnabled = true
+        $0.planTimeZoneLabel.textColor = .EarlyAfternoonColor
         $0.planTimeZoneLabel.text = "이른 오후"
-        $0.backgroundColor = .EarlyAfternoonColor
     }
     
     private lazy var lateAfternoonSectionView = PlanTimeSectionHeaderView().then {
-        $0.addTappedButton.isUserInteractionEnabled = true
+        $0.planTimeZoneLabel.textColor = .LateAfternoonColor
         $0.planTimeZoneLabel.text = "늦은 오후"
-        $0.backgroundColor = .LateAfternoonColor
     }
     
     // MARK: - TableView Components
@@ -108,15 +106,26 @@ final class PlanViewController: UIViewController {
         $0.register(PlanItemTableViewCell.self, forCellReuseIdentifier: IdsForCollectionView.LateAfternoonPlanItemId.identifier)
     }
     
-    // MARK: - Other UI Components
-    private let lineDivider = UIView().then {
-        $0.backgroundColor = .MainGray
+    // MARK: - Button for UIMenu action
+    private lazy var addButton = UIButton(type: .system).then {
+        $0.layer.shadowOffset = CGSize(width: 20, height: 20)
+        $0.layer.shadowColor = UIColor.black.cgColor
+        $0.layer.shadowOpacity = 1
+        $0.layer.shadowRadius = 10
+        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 24, weight: .light)
+        $0.setImage(UIImage(systemName: "plus", withConfiguration: symbolConfiguration), for: .normal)
+        $0.clipsToBounds = true
+        $0.tintColor = .PopGreen
+        $0.backgroundColor = .white
+        $0.showsMenuAsPrimaryAction = true
+        $0.menu = UIMenu(identifier: nil, options: .displayInline, children: { [weak self] in
+            return self?.getMenuActionForAddingPlan() ?? [UIAction]()
+        }())
     }
     
-    private let backgroundPlantImage = UIImageView().then {
-        $0.clipsToBounds = true
-        $0.image = UIImage(named: "BackgroundPlantOne")
-        $0.contentMode = .scaleAspectFit
+    // MARK: - Other UI Components
+    private let lineDivider = UIView().then {
+        $0.backgroundColor = .PopGreen.withAlphaComponent(0.4)
     }
     
     private let guideBox = PlanFirstGuideView(frame: .zero).then {
@@ -125,7 +134,7 @@ final class PlanViewController: UIViewController {
         $0.isHidden = true
     }
     
-    // MARK: - View Cycle
+    // MARK: - View Cycle 🔄
     override func viewDidLoad() {
         super.viewDidLoad()
         basicSetup()
@@ -144,6 +153,11 @@ final class PlanViewController: UIViewController {
         super.viewDidDisappear(animated)
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        addButton.layer.cornerRadius = self.addButton.frame.width/2
+    }
+    
     // MARK: - Basic View Configuaration
     private func basicSetup() {
         view.backgroundColor = .Background
@@ -158,13 +172,7 @@ final class PlanViewController: UIViewController {
     
     // MARK: - UI Constraint Layouts
     private func layouts() {
-        view.addSubviews(backgroundPlantImage, weeklyCalendarView, lineDivider, morningSectionView, morningPlanTableView, earlyAfternoonSectionView, earlyAfternoonPlanTableView, lateAfternoonSectionView, lateAfternoonPlanTableView)
-        
-        backgroundPlantImage.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview().offset(50)
-            $0.width.equalToSuperview().dividedBy(2.4)
-        }
+        view.addSubviews(weeklyCalendarView, lineDivider, morningPlanTableView, earlyAfternoonPlanTableView, lateAfternoonPlanTableView, morningSectionView, earlyAfternoonSectionView, lateAfternoonSectionView, addButton)
         
         weeklyCalendarView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(10)
@@ -173,9 +181,9 @@ final class PlanViewController: UIViewController {
         }
         
         lineDivider.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(25)
-            $0.top.equalTo(weeklyCalendarView.snp.bottom)
-            $0.height.equalTo(1)
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalTo(weeklyCalendarView.snp.bottom).offset(1)
+            $0.height.equalTo(2)
         }
         
         morningSectionView.snp.makeConstraints {
@@ -186,32 +194,38 @@ final class PlanViewController: UIViewController {
         
         morningPlanTableView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(25)
-            $0.top.equalTo(morningSectionView.snp.bottom).offset(5)
+            $0.top.equalTo(morningSectionView.snp.bottom).offset(3)
             $0.height.equalTo(morningPlanTableViewHeight)
         }
         
         earlyAfternoonSectionView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(25)
-            $0.top.equalTo(morningPlanTableView.snp.bottom).offset(8)
+            $0.top.equalTo(morningPlanTableView.snp.bottom).offset(4)
             $0.height.equalTo(sectionHeight)
         }
         
         earlyAfternoonPlanTableView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(25)
-            $0.top.equalTo(earlyAfternoonSectionView.snp.bottom).offset(5)
+            $0.top.equalTo(earlyAfternoonSectionView.snp.bottom).offset(3)
             $0.height.equalTo(earlyAfternoonPlanTableViewHeight)
         }
         
         lateAfternoonSectionView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(25)
-            $0.top.equalTo(earlyAfternoonPlanTableView.snp.bottom).offset(8)
+            $0.top.equalTo(earlyAfternoonPlanTableView.snp.bottom).offset(4)
             $0.height.equalTo(sectionHeight)
         }
         
         lateAfternoonPlanTableView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(25)
-            $0.top.equalTo(lateAfternoonSectionView.snp.bottom).offset(5)
+            $0.top.equalTo(lateAfternoonSectionView.snp.bottom).offset(3)
             $0.height.equalTo(lateAfternoonPlanTableViewHeight)
+        }
+        
+        addButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(25)
+            $0.bottom.equalToSuperview().inset(45)
+            $0.height.width.equalTo(view.snp.width).dividedBy(6.5)
         }
     }
     
@@ -223,43 +237,16 @@ final class PlanViewController: UIViewController {
                 cell.updateUICell(cell: task) }
             .disposed(by: disposeBag)
         
-        morningTasksCount.asDriver()
-            .map {
-                switch $0 {
-                case 2: return true
-                default: return false }
-            }
-            .drive(morningSectionView.addTappedButton.rx.isHidden)
-            .disposed(by: disposeBag)
-        
         /// EarlyAfternoon List
         earlyAfternoonTasks.asDriver()
             .drive(earlyAfternoonPlanTableView.rx.items(cellIdentifier: IdsForCollectionView.EarlyAfternoonPlanItemId.identifier, cellType: PlanItemTableViewCell.self)) { row, task, cell in
                 cell.updateUICell(cell: task) }
             .disposed(by: disposeBag)
         
-        earlyAfternoonTasksCount.asDriver()
-            .map {
-                switch $0 {
-                case 2: return true
-                default: return false }
-            }
-            .drive(earlyAfternoonSectionView.addTappedButton.rx.isHidden)
-            .disposed(by: disposeBag)
-        
         /// LateAfternoon List
         lateAfternoonTasks.asDriver()
             .drive(lateAfternoonPlanTableView.rx.items(cellIdentifier: IdsForCollectionView.LateAfternoonPlanItemId.identifier, cellType: PlanItemTableViewCell.self)) { row, task, cell in
                 cell.updateUICell(cell: task) }
-            .disposed(by: disposeBag)
-        
-        lateAfternoonTasksCount.asDriver()
-            .map {
-                switch $0 {
-                case 2: return true
-                default: return false }
-            }
-            .drive(lateAfternoonSectionView.addTappedButton.rx.isHidden)
             .disposed(by: disposeBag)
     }
     
@@ -280,6 +267,10 @@ final class PlanViewController: UIViewController {
         
         lateAfternoonPlanTableView.snp.updateConstraints {
             $0.height.equalTo(lateAfternoonPlanTableViewHeight)
+        }
+        
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
         }
     }
     
@@ -334,13 +325,75 @@ final class PlanViewController: UIViewController {
     // MARK: - Other Supplementary Actions
 extension PlanViewController {
     private func actions() {
-        let AddMorningPlanTapped = UITapGestureRecognizer(target: self, action: #selector(moveToAddMorningPlan))
-        let AddEarlyPlanTapped = UITapGestureRecognizer(target: self, action: #selector(moveToAddEarlyPlan))
-        let AddLatePlanTapped = UITapGestureRecognizer(target: self, action: #selector(moveToAddLatePlan))
+    }
+    
+    // MARK: - UIMenu Actions
+    private func getMenuActionForAddingPlan() -> [UIAction] {
+        let menuActions: [UIAction] = [
+            UIAction(title: "늦은 오후에 추가하기", image: UIImage(systemName: "moonphase.waxing.crescent.inverse"), handler: { [unowned self] _ in
+                self.moveToAddLatePlan()
+            }),
+            UIAction(title: "이른 오후에 추가하기", image: UIImage(systemName: "moonphase.last.quarter"), handler: { [unowned self] _ in
+                self.moveToAddEarlyPlan()
+            }),
+            UIAction(title: "오전에 추가하기", image: UIImage(systemName: "moonphase.waning.crescent"), handler: { [unowned self] _ in
+                self.moveToAddMorningPlan()
+            })
+        ]
         
-        morningSectionView.addTappedButton.addGestureRecognizer(AddMorningPlanTapped)
-        earlyAfternoonSectionView.addTappedButton.addGestureRecognizer(AddEarlyPlanTapped)
-        lateAfternoonSectionView.addTappedButton.addGestureRecognizer(AddLatePlanTapped)
+        return menuActions
+    }
+    
+    private func moveToAddMorningPlan() {
+        if morningTasksCount.value < 2 {
+            let nextAddPlanView = AddPlanViewController()
+            nextAddPlanView.changeCurrentDate(date: currentDate)
+            nextAddPlanView.changeCurrentTimeZone(timeZone: .morningTime)
+            nextAddPlanView.modalPresentationStyle = .fullScreen
+            nextAddPlanView.delegate = self
+            self.navigationController?.present(nextAddPlanView, animated: true)
+        } else {
+            bounceWhenPlanIsFull(morningPlanTableView)
+        }
+    }
+    
+    private func moveToAddEarlyPlan() {
+        if earlyAfternoonTasksCount.value < 2 {
+            let nextAddPlanView = AddPlanViewController()
+            nextAddPlanView.changeCurrentDate(date: currentDate)
+            nextAddPlanView.changeCurrentTimeZone(timeZone: .earlyAfternoonTime)
+            nextAddPlanView.modalPresentationStyle = .fullScreen
+            nextAddPlanView.delegate = self
+            self.navigationController?.present(nextAddPlanView, animated: true)
+        } else {
+            bounceWhenPlanIsFull(earlyAfternoonPlanTableView)
+        }
+    }
+    
+    private func moveToAddLatePlan() {
+        if lateAfternoonTasksCount.value < 2 {
+            let nextAddPlanView = AddPlanViewController()
+            nextAddPlanView.changeCurrentDate(date: currentDate)
+            nextAddPlanView.changeCurrentTimeZone(timeZone: .lateAfternoonTime)
+            nextAddPlanView.modalPresentationStyle = .fullScreen
+            nextAddPlanView.delegate = self
+            self.navigationController?.present(nextAddPlanView, animated: true)
+        } else {
+            bounceWhenPlanIsFull(lateAfternoonPlanTableView)
+        }
+    }
+    
+    // MARK: - Animations
+    
+    private func bounceWhenPlanIsFull(_ tableView: UITableView) {
+        let animation = CAKeyframeAnimation(keyPath: "position.y")
+        animation.values = [0, 4, -7, 7, -4, 0]
+        animation.keyTimes = [0, 0.1, 0.2, 0.3, 0.41, 0.55]
+        animation.duration = 0.55
+        animation.fillMode = .forwards
+        animation.isRemovedOnCompletion = false
+        animation.isAdditive = true
+        tableView.layer.add(animation, forKey: nil)
     }
     
     // MARK: - Navigation Actions
@@ -354,36 +407,6 @@ extension PlanViewController {
     
     @objc
     private func actionThree() {
-    }
-    
-    @objc
-    private func moveToAddMorningPlan() {
-        let nextAddPlanView = AddPlanViewController()
-        nextAddPlanView.changeCurrentDate(date: currentDate)
-        nextAddPlanView.changeCurrentTimeZone(timeZone: .morningTime)
-        nextAddPlanView.modalPresentationStyle = .fullScreen
-        nextAddPlanView.delegate = self
-        self.navigationController?.present(nextAddPlanView, animated: true)
-    }
-    
-    @objc
-    private func moveToAddEarlyPlan() {
-        let nextAddPlanView = AddPlanViewController()
-        nextAddPlanView.changeCurrentDate(date: currentDate)
-        nextAddPlanView.changeCurrentTimeZone(timeZone: .earlyAfternoonTime)
-        nextAddPlanView.modalPresentationStyle = .fullScreen
-        nextAddPlanView.delegate = self
-        self.navigationController?.present(nextAddPlanView, animated: true)
-    }
-    
-    @objc
-    private func moveToAddLatePlan() {
-        let nextAddPlanView = AddPlanViewController()
-        nextAddPlanView.changeCurrentDate(date: currentDate)
-        nextAddPlanView.changeCurrentTimeZone(timeZone: .lateAfternoonTime)
-        nextAddPlanView.modalPresentationStyle = .fullScreen
-        nextAddPlanView.delegate = self
-        self.navigationController?.present(nextAddPlanView, animated: true)
     }
 }
 
@@ -434,7 +457,9 @@ extension PlanViewController: UITableViewDelegate  {
 
         checkAction.backgroundColor = .Background
         checkAction.image = UIImage(systemName: "checkmark", withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .bold))?.withTintColor(.PopGreen, renderingMode: .alwaysOriginal)
+        
         let configuration = UISwipeActionsConfiguration(actions: [checkAction])
+        configuration.performsFirstActionWithFullSwipe = false
 
         return configuration
     }

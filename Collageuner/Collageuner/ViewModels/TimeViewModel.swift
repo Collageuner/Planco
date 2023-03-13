@@ -24,11 +24,6 @@ final class MyTimeZoneViewModel {
     
     /// query 도 따로 지정해서 만들자.
     init() { // 이렇게 하는거 아닌거 같은데... 여긴 필수적으로 리펙토링이 필요하겠다.
-        
-        /// 뭐할거냐면, 어차피 실제 서비스에서는 하나의 VC 에서 한번에 받을거고, DatePicker 로 옵셔널 분기처리도 할거니깐 count = 0 일때는 기본 값을 넣어주는 걸로만 하자.
-//        if timeZoneRealmResult.count {
-//
-//        }
         let morningRealmResult = fetchMorningDateComponents()
         let earlyAfternoonRealmResult = fetchEarlyDateComponents()
         let lateAfternoonRealmResult = fetchLateDateComponents()

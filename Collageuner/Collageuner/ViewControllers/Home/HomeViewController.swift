@@ -158,7 +158,7 @@ final class HomeViewController: UIViewController {
         
         appNameLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(15)
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(25)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(15)
         }
         
         currentMonthLabel.snp.makeConstraints {
@@ -197,19 +197,19 @@ final class HomeViewController: UIViewController {
         moveToGardenButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(20)
             $0.top.equalTo(mainGardenCanvasView.snp.bottom).offset(30)
-            $0.width.height.equalTo(view.snp.height).dividedBy(13.3)
+            $0.width.height.equalTo(view.snp.height).dividedBy(13)
         }
         
         planBlockOne.snp.makeConstraints {
-            $0.top.equalTo(moveToGardenButton.snp.top)
-            $0.leading.equalToSuperview().inset(15)
+            $0.top.equalTo(mainGardenCanvasView.snp.bottom).offset(24)
+            $0.leading.equalToSuperview().inset(18)
             $0.width.equalToSuperview().dividedBy(3)
             $0.height.equalTo(moveToGardenButton.snp.height).multipliedBy(1.45)
         }
         
         planBlockTwo.snp.makeConstraints {
-            $0.top.equalTo(planBlockOne.snp.top)
-            $0.leading.equalTo(planBlockOne.snp.trailing).offset(10)
+            $0.top.equalTo(mainGardenCanvasView.snp.bottom).offset(24)
+            $0.leading.equalTo(planBlockOne.snp.trailing).offset(8)
             $0.width.equalToSuperview().dividedBy(3)
             $0.height.equalTo(moveToGardenButton.snp.height).multipliedBy(1.45)
         }

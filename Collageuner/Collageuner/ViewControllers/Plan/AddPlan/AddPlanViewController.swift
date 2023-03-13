@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import PhotosUI
 
 import Lottie
 import RealmSwift
@@ -418,7 +417,7 @@ final class AddPlanViewController: UIViewController {
         
         loadingView.isHidden = false
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.dismiss(animated: true)
         }
     }
