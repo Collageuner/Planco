@@ -22,7 +22,7 @@ final class PlanTimeSectionHeaderView: UIView {
     }
     
     let lineDivider = UIView().then {
-        $0.backgroundColor = .MainGray
+        $0.backgroundColor = .MainGray.withAlphaComponent(0.6)
     }
     
     override init(frame: CGRect) {
@@ -39,12 +39,12 @@ final class PlanTimeSectionHeaderView: UIView {
         self.addSubviews(planTimeZoneLabel, lineDivider)
         
         planTimeZoneLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(12)
+            $0.leading.equalToSuperview().inset(14)
             $0.centerY.equalToSuperview()
         }
 
         lineDivider.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(10)
             $0.bottom.equalToSuperview().inset(2)
             $0.height.equalTo(1)
         }
