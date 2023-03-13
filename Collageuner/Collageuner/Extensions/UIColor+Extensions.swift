@@ -10,7 +10,7 @@ import UIKit
 extension UIColor {
         
     static var Background: UIColor {
-        return UIColor(hex: "#F4F4F4")
+        return UIColor(hex: "#F6F6F6")
     }
     
     static var MainText: UIColor {
@@ -58,7 +58,7 @@ extension UIColor {
     }
     
     static var LateAfternoonColor: UIColor {
-        return UIColor(hex: "#5D8F71")
+        return UIColor(hex: "#6F927D")
     }
 }
 
