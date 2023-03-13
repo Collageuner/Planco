@@ -57,26 +57,25 @@ final class HomePlanBlockView: UIView {
         }
         
         timeZoneLabel.snp.makeConstraints {
-            $0.top.equalTo(lineDivider.snp.bottom).offset(10)
+            $0.top.equalTo(lineDivider.snp.bottom).offset(5)
             $0.leading.equalToSuperview()
             $0.trailing.equalToSuperview().inset(5)
         }
         
         mainTaskLabel.snp.makeConstraints {
-            $0.top.equalTo(timeZoneLabel.snp.bottom).offset(10)
+            $0.top.equalTo(timeZoneLabel.snp.bottom).offset(8)
             $0.leading.equalToSuperview()
             $0.trailing.equalToSuperview().inset(5)
         }
         
         taskTimeLabel.snp.makeConstraints {
-            $0.top.equalTo(timeZoneLabel.snp.bottom).offset(4)
+            $0.top.equalTo(mainTaskLabel.snp.bottom).offset(4)
             $0.leading.equalToSuperview()
         }
     }
     
     func updateUIView(cell: Tasks) {
-        var timeStamp: String = String(cell.taskTime.suffix(4))
-        timeStamp.insert(":", at: timeStamp.index(timeStamp.startIndex, offsetBy: 2))
+        let timeStamp: String = cell.taskTime.changeAmPmToString
         let lineColor: String = cell.taskTimeZone
         mainTaskLabel.text = cell.mainTask
         taskTimeLabel.text = timeStamp
@@ -84,10 +83,16 @@ final class HomePlanBlockView: UIView {
         switch lineColor {
         case MyTimeZone.morningTime.time:
             lineDivider.backgroundColor = .MorningColor
+            timeZoneLabel.text = "오전"
+            timeZoneLabel.textColor = .MorningColor
         case MyTimeZone.earlyAfternoonTime.time:
             lineDivider.backgroundColor = .EarlyAfternoonColor
+            timeZoneLabel.text = "이른 오후"
+            timeZoneLabel.textColor = .EarlyAfternoonColor
         case MyTimeZone.lateAfternoonTime.time:
             lineDivider.backgroundColor = .LateAfternoonColor
+            timeZoneLabel.text = "늦은 오후"
+            timeZoneLabel.textColor = .LateAfternoonColor
         default:
             return
         }
