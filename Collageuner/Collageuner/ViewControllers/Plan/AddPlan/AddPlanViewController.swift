@@ -38,7 +38,7 @@ final class AddPlanViewController: UIViewController {
     
     private let timeZoneTimeLabel = UILabel().then {
         $0.text = ""
-        $0.font = .customVersatileFont(.regualar, forTextStyle: .callout)
+        $0.font = .customVersatileFont(.regular, forTextStyle: .callout)
         $0.textColor = .SubText
     }
     

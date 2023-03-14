@@ -64,7 +64,7 @@ enum AppleSDNeo {
     case ultraLight
     case thin
     case light
-    case regualar
+    case regular
     case medium
     case semibold
     case bold
@@ -74,7 +74,7 @@ enum AppleSDNeo {
         case .ultraLight: return "AppleSDGothicNeo-UltraLight"
         case .thin: return "AppleSDGothicNeo-Thin"
         case .light: return "AppleSDGothicNeo-Light"
-        case .regualar: return "AppleSDGothicNeo-Regular"
+        case .regular: return "AppleSDGothicNeo-Regular"
         case .medium: return "AppleSDGothicNeo-Medium"
         case .semibold: return "AppleSDGothicNeo-SemiBold"
         case .bold: return "AppleSDGothicNeo-Bold"

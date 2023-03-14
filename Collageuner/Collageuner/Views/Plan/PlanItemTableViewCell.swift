@@ -44,7 +44,7 @@ final class PlanItemTableViewCell: UITableViewCell {
         $0.textAlignment = .left
         $0.numberOfLines = 1
         $0.textColor = .SubText
-        $0.font = .customVersatileFont(.regualar, forTextStyle: .footnote)
+        $0.font = .customVersatileFont(.regular, forTextStyle: .footnote)
     }
 
     private let taskTimeLabel = UILabel().then {

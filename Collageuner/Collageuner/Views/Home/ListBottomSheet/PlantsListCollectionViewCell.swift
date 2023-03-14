@@ -20,7 +20,7 @@ final class PlantsListCollectionViewCell: UICollectionViewCell {
     
     let plantedDate = UILabel().then {
         $0.textColor = .MainText
-        $0.font = .customVersatileFont(.regualar, forTextStyle: .caption1)
+        $0.font = .customVersatileFont(.regular, forTextStyle: .caption1)
     }
     
     let plantedTask = UILabel().then {

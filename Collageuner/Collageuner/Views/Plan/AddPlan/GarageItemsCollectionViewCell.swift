@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class GarageSheetCollectionViewCell: UICollectionViewCell {
+final class GarageItemsCollectionViewCell: UICollectionViewCell {
     
     let garageImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit

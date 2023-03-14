@@ -13,7 +13,7 @@ import Then
 final class AddPlanCustomBarView: UIView {
     
     let cancelButton = UIButton(type: .system).then {
-        $0.setAttributedTitle(NSAttributedString(string: "Cancel", attributes: [NSAttributedString.Key.font : UIFont.customVersatileFont(.regualar, forTextStyle: .headline) ?? UIFont.preferredFont(forTextStyle: .title3, weight: .medium)]), for: .normal)
+        $0.setAttributedTitle(NSAttributedString(string: "Cancel", attributes: [NSAttributedString.Key.font : UIFont.customVersatileFont(.regular, forTextStyle: .headline) ?? UIFont.preferredFont(forTextStyle: .title3, weight: .medium)]), for: .normal)
         $0.tintColor = .gray
     }
     
