@@ -51,7 +51,7 @@ final class MyTimeZoneString: Object {
             guard let addedHour = Int(hour) else { return "12:00"}
             return String(addedHour + 12) + ":" + minute + ":00"
         default:
-            return "12:00"
+            return "12:00:00"
         }
     }
 }

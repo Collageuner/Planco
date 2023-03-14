@@ -33,9 +33,8 @@ final class GarageImagesViewModel {
     
     func addGarageImage(garageImage: UIImage) {
         let garageImageToAdd = GarageImage(usedNumber: 0)
-        
         let imageName: String = garageImageToAdd._id.stringValue
-        
+
         do {
             try myGarageRealm.write({
                 myGarageRealm.add(garageImageToAdd)
