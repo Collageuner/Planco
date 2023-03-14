@@ -149,8 +149,9 @@ final class PlanViewController: UIViewController {
         guideBoxSetup()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     override func viewDidLayoutSubviews() {
@@ -407,6 +408,8 @@ extension PlanViewController {
     
     @objc
     private func actionThree() {
+        let garageVC = GarageViewController()
+        self.navigationController?.pushViewController(garageVC, animated: true)
     }
 }
 

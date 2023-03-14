@@ -15,6 +15,7 @@ enum IdsForCollectionView: String, CaseIterable {
     case EarlyAfternoonPlanItemId
     case LateAfternoonPlanItemId
     case GarageSheetCollectionItemId
+    case GarageCollectionItemId
     
     var identifier: String {
         switch self {
@@ -32,6 +33,8 @@ enum IdsForCollectionView: String, CaseIterable {
             return "latePlan"
         case .GarageSheetCollectionItemId:
             return "garageSheet"
+        case .GarageCollectionItemId:
+            return "garageList"
         }
     }
 }
