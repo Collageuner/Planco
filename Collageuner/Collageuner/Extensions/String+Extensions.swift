@@ -46,8 +46,6 @@ extension String {
             return "\(hourToInt):\(minute)"
         case 13...23:
             return "\(hourToInt - 12):\(minute)"
-        case 12:
-            return "\(hourToInt):\(minute) pm"
         default:
             print("Error changing time h:mm")
             return ""
