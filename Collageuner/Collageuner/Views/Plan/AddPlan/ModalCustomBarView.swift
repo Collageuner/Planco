@@ -1,5 +1,5 @@
 //
-//  AddPlanCustomBarView.swift
+//  ModoalCustomBarView.swift
 //  Collageuner
 //
 //  Created by KYUBO A. SHIM on 2023/02/23.
@@ -10,15 +10,16 @@ import UIKit
 import SnapKit
 import Then
 
-final class AddPlanCustomBarView: UIView {
+final class ModalCustomBarView: UIView {
+    var doneOrNextLabel: String = "Done"
     
     let cancelButton = UIButton(type: .system).then {
         $0.setAttributedTitle(NSAttributedString(string: "Cancel", attributes: [NSAttributedString.Key.font : UIFont.customVersatileFont(.regular, forTextStyle: .headline) ?? UIFont.preferredFont(forTextStyle: .title3, weight: .medium)]), for: .normal)
         $0.tintColor = .gray
     }
     
-    let doneButton = UIButton(type: .system).then {
-        $0.setAttributedTitle(NSAttributedString(string: "Done", attributes: [NSAttributedString.Key.font : UIFont.customVersatileFont(.medium, forTextStyle: .headline) ?? UIFont.preferredFont(forTextStyle: .title3, weight: .medium)]), for: .normal)
+    lazy var doneButton = UIButton(type: .system).then {
+        $0.setAttributedTitle(NSAttributedString(string: doneOrNextLabel, attributes: [NSAttributedString.Key.font : UIFont.customVersatileFont(.medium, forTextStyle: .headline) ?? UIFont.preferredFont(forTextStyle: .title3, weight: .medium)]), for: .normal)
         $0.tintColor = .MainGreen
     }
 
