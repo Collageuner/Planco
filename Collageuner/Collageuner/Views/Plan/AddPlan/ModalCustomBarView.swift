@@ -15,18 +15,16 @@ final class ModalCustomBarView: UIView {
     
     let cancelButton = UIButton(type: .system).then {
         $0.setAttributedTitle(NSAttributedString(string: "Cancel", attributes: [NSAttributedString.Key.font : UIFont.customVersatileFont(.regular, forTextStyle: .headline) ?? UIFont.preferredFont(forTextStyle: .title3, weight: .medium)]), for: .normal)
-        $0.tintColor = .gray
+        $0.tintColor = .MainGray
     }
     
-    lazy var doneButton = UIButton(type: .system).then {
-        $0.setAttributedTitle(NSAttributedString(string: doneOrNextLabel, attributes: [NSAttributedString.Key.font : UIFont.customVersatileFont(.medium, forTextStyle: .headline) ?? UIFont.preferredFont(forTextStyle: .title3, weight: .medium)]), for: .normal)
-        $0.tintColor = .MainGreen
-    }
+    lazy var doneButton = UIButton(type: .system)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .clear
         updateConstraints()
+        setTitleForDoneButtonWith()
     }
     
     override func updateConstraints() {
@@ -46,6 +44,13 @@ final class ModalCustomBarView: UIView {
             $0.trailing.equalToSuperview().inset(15)
             $0.centerY.equalToSuperview()
         }
+    }
+    
+    /// Default Button title is "Done". It can be changed with a new title and a new button tint color.
+    func setTitleForDoneButtonWith(title: String = "Done", titleColor: UIColor = .MainGreen) {
+        doneButton.setAttributedTitle(NSAttributedString(string: title, attributes: [NSAttributedString.Key.font : UIFont.customVersatileFont(.semibold, forTextStyle: .headline) ?? UIFont.preferredFont(forTextStyle: .title3, weight: .medium)]), for: .normal)
+        doneButton.tintColor = titleColor
+        print("❌\(title)")
     }
     
     required init?(coder: NSCoder) {
