@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import PhotosUI
+import Photos
 
 import RealmSwift
 import RxSwift
@@ -57,10 +57,10 @@ final class GarageViewController: UIViewController {
         $0.scrollDirection = .vertical
     }
     
-    private let loadingView = AwaitLoadingView().then {
-        $0.backgroundColor = .Background
-        $0.isHidden = true
-    }
+//    private let loadingView = AwaitLoadingView().then {
+//        $0.backgroundColor = .Background
+//        $0.isHidden = true
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,7 +80,7 @@ final class GarageViewController: UIViewController {
     }
 
     private func layouts() {
-        view.addSubviews(garageLabel, garageGuideLabel, lineDivider, garageListCollectionView, imageWhenEmpty, loadingView)
+        view.addSubviews(garageLabel, garageGuideLabel, lineDivider, garageListCollectionView, imageWhenEmpty)
         
         garageLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(25)
@@ -141,18 +141,18 @@ final class GarageViewController: UIViewController {
         
     }
     
-    private func loadingViewAppear() {
-        loadingView.snp.makeConstraints {
-            $0.top.equalTo(view.snp.top)
-            $0.leading.trailing.bottom.equalToSuperview()
-        }
-        
-        loadingView.isHidden = false
-    }
-    
-    private func loadingViewDisappear() async {
-        loadingView.isHidden = true
-    }
+//    private func loadingViewAppear() {
+//        loadingView.snp.makeConstraints {
+//            $0.top.equalTo(view.snp.top)
+//            $0.leading.trailing.bottom.equalToSuperview()
+//        }
+//
+//        loadingView.isHidden = false
+//    }
+//
+//    private func loadingViewDisappear() async {
+//        loadingView.isHidden = true
+//    }
     
     private func navigationItemSetup() {
         let symbolConfiguration = UIImage.SymbolConfiguration(paletteColors: [.PopGreen])
@@ -161,43 +161,65 @@ final class GarageViewController: UIViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
+    private func presentGalleryViewToAdd() {
+        DispatchQueue.main.async {
+            let galleryVC = GalleryViewController()
+            galleryVC.modalPresentationStyle = .overFullScreen
+            galleryVC.customNavigationView.setTitleForDoneButtonWith(title: "Next", titleColor: .PopGreen)
+            self.present(galleryVC, animated: true)
+        }
+    }
+    
+    private func moveToSettingView() {
+        let alertController = UIAlertController(title: "권한 거부됨", message: "앨범 접근이 거부 되었습니다. 개러지에 사진을 넣을 수 없어요.", preferredStyle: UIAlertController.Style.alert)
+        
+        let okAction = UIAlertAction(title: "권한 설정으로 이동하기", style: .default) { (action) in
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                return
+            }
+            
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                    print("Settings opened: \(success)")
+                })
+            }
+        }
+        let cancelAction = UIAlertAction(title: "확인", style: .cancel, handler: nil)
+        
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        
+        DispatchQueue.main.async {
+            self.present(alertController, animated: false, completion: nil)
+        }
+    }
+    
     @objc
     private func addAssetTapped() {
-        var phpickerConfiguration = PHPickerConfiguration()
-        phpickerConfiguration.filter = .images
-        phpickerConfiguration.selectionLimit = 1
-        phpickerConfiguration.selection = .default
-        let imagePicker = PHPickerViewController(configuration: phpickerConfiguration)
-        imagePicker.delegate = self
-        
-        self.present(imagePicker, animated: true)
+        switch PHPhotoLibrary.authorizationStatus(for: .readWrite){
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
+                switch status {
+                case .authorized, .limited:
+                    self.presentGalleryViewToAdd()
+                case .denied:
+                    self.moveToSettingView()
+                default:
+                    print("")
+                }
+            }
+        case .restricted:
+            print("Restricted")
+        case .denied:
+            self.moveToSettingView()
+        case .authorized, .limited:
+            self.presentGalleryViewToAdd()
+        default:
+            print("")
+        }
     }
     
     deinit {
         print("GarageView Out")
-    }
-}
-
-extension GarageViewController: PHPickerViewControllerDelegate {
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        if results.isEmpty {
-            picker.dismiss(animated: true)
-        } else {
-            var selectedPngImage: UIImage = UIImage()
-            guard let itemProvider = results.first?.itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) else {
-                print("Error Fetching Data From PHPicker")
-                return
-            }
-            
-            itemProvider.loadObject(ofClass: UIImage.self) { data, error in
-                guard let selectedImage = data as? UIImage else { return }
-                selectedPngImage = selectedImage
-            }
-            
-            let confirmVC = GarageConfirmViewController()
-            confirmVC.passAsset(image: selectedPngImage)
-            present(confirmVC, animated: true)
-//            self.navigationController?.pushViewController(confirmVC, animated: true)
-        }
     }
 }
