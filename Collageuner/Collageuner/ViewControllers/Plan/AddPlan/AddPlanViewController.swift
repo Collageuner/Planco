@@ -28,7 +28,7 @@ final class AddPlanViewController: UIViewController {
     
     weak var delegate: AddPlanDelegate?
     
-    private let customNavigationView = AddPlanCustomBarView()
+    private let customNavigationView = ModalCustomBarView()
     
     private lazy var timeZoneLabel = UILabel().then {
         $0.text = fetchTimeZoneLabel()

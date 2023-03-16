@@ -13,7 +13,7 @@ import Then
 class GalleryCollectionViewCell: UICollectionViewCell {
     var representedAssetIdentifier: String?
     
-    let imageView = UIImageView().then {
+    private let imageView = UIImageView().then {
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
         $0.backgroundColor = .clear
