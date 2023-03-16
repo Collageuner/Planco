@@ -67,12 +67,12 @@ final class GarageViewController: UIViewController {
         basicSetup()
         layouts()
         actions()
+        bindings()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItemSetup()
-        bindings()
     }
     
     private func basicSetup() {
@@ -166,6 +166,7 @@ final class GarageViewController: UIViewController {
             let galleryVC = GalleryViewController()
             galleryVC.modalPresentationStyle = .overFullScreen
             galleryVC.customNavigationView.setTitleForDoneButtonWith(title: "Next", titleColor: .PopGreen)
+            galleryVC.delegate = self
             self.present(galleryVC, animated: true)
         }
     }
@@ -221,5 +222,12 @@ final class GarageViewController: UIViewController {
     
     deinit {
         print("GarageView Out")
+    }
+}
+
+extension GarageViewController: GarageViewDelegate {
+    func reloadTableViews() {
+        garageImagesViewModel.updateGarageImages()
+        print("📍📍 Is the CollectionViewReloaded? 📍📍")
     }
 }
