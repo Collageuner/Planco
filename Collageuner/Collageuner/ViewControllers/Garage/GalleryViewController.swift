@@ -60,6 +60,7 @@ final class GalleryViewController: UIViewController {
         view.backgroundColor = .black
         fetchAssetInitialize()
         
+        PHPhotoLibrary.shared().register(self)
         galleryCollectionView.delegate = self
         galleryCollectionView.dataSource = self
     }
@@ -99,6 +100,7 @@ final class GalleryViewController: UIViewController {
     }
     
     deinit {
+        PHPhotoLibrary.shared().unregisterChangeObserver(self)
         print("GalleryView Out")
     }
 }
@@ -121,5 +123,27 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
         }
         
         return cell
+    }
+}
+
+extension GalleryViewController: PHPhotoLibraryChangeObserver {
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        guard let assetChanges = changeInstance.changeDetails(for: self.asset) else { return }
+
+        self.asset = assetChanges.fetchResultAfterChanges
+        
+        if assetChanges.hasIncrementalChanges {
+            DispatchQueue.main.async {
+                self.galleryCollectionView.performBatchUpdates {
+                    if let inserted = assetChanges.insertedIndexes, !inserted.isEmpty {
+                        self.galleryCollectionView.insertItems(at: inserted.map({ IndexPath(item: $0, section: 0) }))
+                    }
+                    
+                    if let removed = assetChanges.removedIndexes, !removed.isEmpty {
+                        self.galleryCollectionView.deleteItems(at: removed.map({ IndexPath(item: $0, section: 0) }))
+                    }
+                }
+            }
+        }
     }
 }
