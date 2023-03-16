@@ -31,6 +31,19 @@ final class GarageImagesViewModel {
             .disposed(by: disposeBag)
     }
     
+    func updateGarageImages() {
+        var garageImagesArray: [GarageImage] = []
+        let realmResult = myGarageRealm.objects(GarageImage.self)
+        
+        realmResult.forEach {
+            garageImagesArray.append($0)
+        }
+        
+        _ = Observable.just(garageImagesArray)
+            .bind(to: garageImages)
+            .disposed(by: disposeBag)
+    }
+    
     func addGarageImage(garageImage: UIImage) {
         let garageImageToAdd = GarageImage(usedNumber: 0)
         let imageName: String = garageImageToAdd._id.stringValue
