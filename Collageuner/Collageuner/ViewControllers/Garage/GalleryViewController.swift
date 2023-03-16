@@ -16,14 +16,18 @@ import Then
 
 final class GalleryViewController: UIViewController {
     var disposeBag = DisposeBag()
+    private let garageViewModel = GarageImagesViewModel()
     
+    weak var delegate: GarageViewDelegate?
+
     private var asset: PHFetchResult<PHAsset>!
+    private var selectedPngData: Data? = nil
 
     private let phFetchOptions = PHFetchOptions().then {
         $0.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
     }
     
-    let imageManager = PHCachingImageManager().then {
+    private let imageManager = PHCachingImageManager().then {
         $0.allowsCachingHighQualityImages = true
     }
     
@@ -58,8 +62,8 @@ final class GalleryViewController: UIViewController {
     
     private func basicSetup() {
         view.backgroundColor = .black
+
         fetchAssetInitialize()
-        
         PHPhotoLibrary.shared().register(self)
         galleryCollectionView.delegate = self
         galleryCollectionView.dataSource = self
@@ -86,12 +90,32 @@ final class GalleryViewController: UIViewController {
     }
     
     private func actions() {
+        let nextTapped = UITapGestureRecognizer(target: self, action: #selector(moveToConfirm))
         let cancelTapped = UITapGestureRecognizer(target: self, action: #selector(dismissView))
+        
+        customNavigationView.doneButton.addGestureRecognizer(nextTapped)
         customNavigationView.cancelButton.addGestureRecognizer(cancelTapped)
     }
     
     private func fetchAssetInitialize() {
         asset = PHAsset.fetchAssets(with: phFetchOptions)
+    }
+    
+    @objc
+    private func moveToConfirm() {
+        if selectedPngData != nil {
+            guard let pngData = selectedPngData else {
+                print("Changing selected PHAsset to png Data Failed")
+                return
+            }
+            guard let pngImage = UIImage(data: pngData) else { return }
+            garageViewModel.addGarageImage(garageImage: pngImage)
+            self.delegate?.reloadTableViews()
+            self.dismiss(animated: true)
+        } else {
+            print("Nil has been selected")
+            self.dismiss(animated: true)
+        }
     }
     
     @objc
@@ -123,6 +147,21 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
         }
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.item)
+        let imageManager = PHImageManager()
+        var imageOptions = PHImageRequestOptions()
+        imageOptions.isNetworkAccessAllowed = true
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: IdsForCollectionView.GalleryCollectionItemId.identifier, for: indexPath) as? GalleryCollectionViewCell else { return }
+        let asset = self.asset[indexPath.item]
+        cell.representedAssetIdentifier = asset.localIdentifier
+        
+        
+        imageManager.requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: imageOptions) { [weak self] image, _ in
+            self?.selectedPngData = image?.pngData()
+        }
     }
 }
 
