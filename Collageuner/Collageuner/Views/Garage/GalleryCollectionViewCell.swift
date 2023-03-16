@@ -13,6 +13,18 @@ import Then
 class GalleryCollectionViewCell: UICollectionViewCell {
     var representedAssetIdentifier: String?
     
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                imageView.layer.borderWidth = 3
+                imageView.layer.borderColor = UIColor.MainCalendar.cgColor
+            } else {
+                imageView.layer.borderWidth = 0
+                imageView.layer.borderColor = UIColor.clear.cgColor
+            }
+        }
+    }
+    
     private let imageView = UIImageView().then {
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
@@ -29,8 +41,12 @@ class GalleryCollectionViewCell: UICollectionViewCell {
         super.updateConstraints()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    }
+    
     private func render() {
-        self.addSubview(imageView)
+        self.addSubviews(imageView)
         
         imageView.snp.makeConstraints {
             $0.edges.equalToSuperview()
