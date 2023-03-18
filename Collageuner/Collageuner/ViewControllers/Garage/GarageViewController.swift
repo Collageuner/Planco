@@ -57,11 +57,6 @@ final class GarageViewController: UIViewController {
         $0.scrollDirection = .vertical
     }
     
-//    private let loadingView = AwaitLoadingView().then {
-//        $0.backgroundColor = .Background
-//        $0.isHidden = true
-//    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         basicSetup()
@@ -141,19 +136,6 @@ final class GarageViewController: UIViewController {
         
     }
     
-//    private func loadingViewAppear() {
-//        loadingView.snp.makeConstraints {
-//            $0.top.equalTo(view.snp.top)
-//            $0.leading.trailing.bottom.equalToSuperview()
-//        }
-//
-//        loadingView.isHidden = false
-//    }
-//
-//    private func loadingViewDisappear() async {
-//        loadingView.isHidden = true
-//    }
-    
     private func navigationItemSetup() {
         let symbolConfiguration = UIImage.SymbolConfiguration(paletteColors: [.PopGreen])
         navigationController?.navigationBar.tintColor = .MainGreen
@@ -228,6 +210,5 @@ final class GarageViewController: UIViewController {
 extension GarageViewController: GarageViewDelegate {
     func reloadTableViews() {
         garageImagesViewModel.updateGarageImages()
-        print("📍📍 Is the CollectionViewReloaded? 📍📍")
     }
 }

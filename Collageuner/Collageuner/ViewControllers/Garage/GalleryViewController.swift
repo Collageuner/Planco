@@ -152,7 +152,7 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath.item)
         let imageManager = PHImageManager()
-        var imageOptions = PHImageRequestOptions()
+        let imageOptions = PHImageRequestOptions()
         imageOptions.isNetworkAccessAllowed = true
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: IdsForCollectionView.GalleryCollectionItemId.identifier, for: indexPath) as? GalleryCollectionViewCell else { return }
         let asset = self.asset[indexPath.item]
