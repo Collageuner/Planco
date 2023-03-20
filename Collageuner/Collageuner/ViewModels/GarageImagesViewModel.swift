@@ -77,13 +77,17 @@ final class GarageImagesViewModel {
         }
     }
     
+    func isGarageEmpty() -> Bool {
+        return garageImages.value.isEmpty
+    }
+    
     func fetchGarageOriginalImage(id: String) -> UIImage? {
         let fileManager = FileManager.default
-        guard let thumbnailDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: DirectoryForWritingData.GarageOriginalImages.dataDirectory) else {
+        guard let originalDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: DirectoryForWritingData.GarageOriginalImages.dataDirectory) else {
             print("Failed fetching directory for Original Images for Garage Sheet List")
             return UIImage(named: "TaskDefaultImage")
         }
-        let imageURL = thumbnailDirectoryURL.appending(component: "\(id).png")
+        let imageURL = originalDirectoryURL.appending(component: "\(id).png")
         
         do {
             let imageData = try Data(contentsOf: imageURL)
