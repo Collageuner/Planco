@@ -47,7 +47,7 @@ extension Realm {
         let originalImageURL = originalImageWriteDirectory.appending(component: "\(imageName).png")
         
         let thumbnailImageURL = thumbnailImageWriteDirectory.appending(path: "Thumbnail_\(imageName).png")
-        let resizedImageForThumbnail = resizeImageForThumbnail(image: image, cgsize: 100)
+        let resizedImageForThumbnail = resizeImageForThumbnail(image: image, cgsize: 200)
         
         guard let originalImageData = image.pngData() else {
             print("Failed to Compress Image into .png")
