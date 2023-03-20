@@ -15,6 +15,8 @@ import SnapKit
 import Then
 
 final class GarageViewController: UIViewController {
+    private let cache = ImageCacheManager.shared
+    
     var disposeBag = DisposeBag()
     private let garageImagesViewModel = GarageImagesViewModel()
     
@@ -43,6 +45,7 @@ final class GarageViewController: UIViewController {
     }
     
     private lazy var garageListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: garageListFlowLayout).then {
+        $0.bounces = false
         $0.register(GarageItemsCollectionViewCell.self, forCellWithReuseIdentifier: IdsForCollectionView.GarageCollectionItemId.identifier)
         $0.showsVerticalScrollIndicator = true
         $0.backgroundColor = .clear
@@ -95,7 +98,7 @@ final class GarageViewController: UIViewController {
         
         garageListCollectionView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(25)
-            $0.top.equalTo(lineDivider.snp.bottom).offset(10)
+            $0.top.equalTo(lineDivider.snp.bottom).offset(20)
             $0.bottom.equalToSuperview().inset(15)
         }
         
@@ -111,21 +114,26 @@ final class GarageViewController: UIViewController {
             .asDriver()
             .drive(garageListCollectionView.rx.items(cellIdentifier: IdsForCollectionView.GarageCollectionItemId.identifier, cellType: GarageItemsCollectionViewCell.self)) { [weak self] index, item, cell in
                 let garageImageName = item._id.stringValue
-                let originalFetched = self?.garageImagesViewModel.fetchGarageOriginalImage(id: garageImageName)
-                cell.garageImageView.image = originalFetched?.preparingThumbnail(of: CGSize(width: 400, height: 400))
+                let garageCacheKey = NSString(string: garageImageName)
+                
+                if let cachedImage = self?.cache.object(forKey: garageCacheKey) {
+                    cell.garageImageView.image = cachedImage
+                } else {
+                    guard let thumbnailFetched = self?.garageImagesViewModel.fetchGarageThumbnailImage(id: garageImageName) else { return }
+                    cell.garageImageView.image = thumbnailFetched
+                    
+                    self?.cache.setObject(thumbnailFetched, forKey: garageCacheKey)
+                }
             }
             .disposed(by: disposeBag)
         
         garageImagesViewModel.garageImages
             .asDriver()
-            .map {
-                $0.count
-            }
             .drive(onNext: { [weak self] in
-                switch $0 {
-                case 0:
+                switch $0.isEmpty {
+                case true:
                     self?.imageWhenEmpty.isHidden = false
-                default:
+                case false:
                     self?.imageWhenEmpty.isHidden = true
                 }
             })
@@ -137,9 +145,10 @@ final class GarageViewController: UIViewController {
     }
     
     private func navigationItemSetup() {
-        let symbolConfiguration = UIImage.SymbolConfiguration(paletteColors: [.PopGreen])
+        let symbolConfiguration = UIImage.SymbolConfiguration(weight: .semibold)
         navigationController?.navigationBar.tintColor = .MainGreen
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus", withConfiguration: symbolConfiguration), style: .plain, target: self, action: #selector(addAssetTapped))
+        navigationItem.rightBarButtonItem?.tintColor = .PopGreen
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
@@ -210,5 +219,6 @@ final class GarageViewController: UIViewController {
 extension GarageViewController: GarageViewDelegate {
     func reloadTableViews() {
         garageImagesViewModel.updateGarageImages()
+        imageWhenEmpty.isHidden = true
     }
 }
