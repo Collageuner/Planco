@@ -50,7 +50,6 @@ final class ModalCustomBarView: UIView {
     func setTitleForDoneButtonWith(title: String = "Done", titleColor: UIColor = .MainGreen) {
         doneButton.setAttributedTitle(NSAttributedString(string: title, attributes: [NSAttributedString.Key.font : UIFont.customVersatileFont(.semibold, forTextStyle: .headline) ?? UIFont.preferredFont(forTextStyle: .title3, weight: .medium)]), for: .normal)
         doneButton.tintColor = titleColor
-        print("❌\(title)")
     }
     
     required init?(coder: NSCoder) {
