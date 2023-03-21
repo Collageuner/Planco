@@ -26,7 +26,9 @@ final class GarageImagesViewModel {
             garageImagesArray.append($0)
         }
         
-        _ = Observable.just(garageImagesArray)
+        let reversedArray = Array(garageImagesArray.reversed())
+        
+        _ = Observable.just(reversedArray)
             .bind(to: garageImages)
             .disposed(by: disposeBag)
     }
@@ -39,19 +41,22 @@ final class GarageImagesViewModel {
             garageImagesArray.append($0)
         }
         
-        _ = Observable.just(garageImagesArray)
+        let reversedArray = Array(garageImagesArray.reversed())
+        
+        _ = Observable.just(reversedArray)
             .bind(to: garageImages)
             .disposed(by: disposeBag)
     }
     
-    func addGarageImage(garageImage: UIImage) {
+    func addGarageImage(pngGarageData: Data?) {
         let garageImageToAdd = GarageImage(usedNumber: 0)
         let imageName: String = garageImageToAdd._id.stringValue
-
+        guard let pngImage = UIImage(data: pngGarageData ?? Data()) else { return }
+        
         do {
             try myGarageRealm.write({
                 myGarageRealm.add(garageImageToAdd)
-                myGarageRealm.saveImagesToDocumentDirectory(imageName: imageName, image: garageImage, originalImageAt: .GarageOriginalImages, thumbnailImageAt: .GarageThumbnailImages)
+                myGarageRealm.saveImagesToDocumentDirectory(imageName: imageName, image: pngImage, originalImageAt: .GarageOriginalImages, thumbnailImageAt: .GarageThumbnailImages)
             })
             print("🌅 Garage Image Added")
         } catch let error {
