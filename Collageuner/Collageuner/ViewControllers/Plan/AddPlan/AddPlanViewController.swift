@@ -121,6 +121,7 @@ final class AddPlanViewController: UIViewController {
     }
     
     private let loadingView = AwaitLoadingView().then {
+        $0.selectLottieFileName(lottieName: "LoadingView")
         $0.isHidden = true
         $0.backgroundColor = .Background
     }
