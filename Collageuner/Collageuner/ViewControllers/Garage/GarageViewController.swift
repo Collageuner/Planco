@@ -112,17 +112,17 @@ final class GarageViewController: UIViewController {
     private func bindings() {
         garageImagesViewModel.garageImages
             .asDriver()
-            .drive(garageListCollectionView.rx.items(cellIdentifier: IdsForCollectionView.GarageCollectionItemId.identifier, cellType: GarageItemsCollectionViewCell.self)) { [weak self] index, item, cell in
+            .drive(garageListCollectionView.rx.items(cellIdentifier: IdsForCollectionView.GarageCollectionItemId.identifier, cellType: GarageItemsCollectionViewCell.self)) { index, item, cell in
                 let garageImageName = item._id.stringValue
                 let garageCacheKey = NSString(string: garageImageName)
                 
-                if let cachedImage = self?.cache.object(forKey: garageCacheKey) {
+                if let cachedImage = self.cache.object(forKey: garageCacheKey) {
                     cell.garageImageView.image = cachedImage
                 } else {
-                    guard let thumbnailFetched = self?.garageImagesViewModel.fetchGarageThumbnailImage(id: garageImageName) else { return }
+                    guard let thumbnailFetched = self.garageImagesViewModel.fetchGarageThumbnailImage(id: garageImageName) else { return }
                     cell.garageImageView.image = thumbnailFetched
                     
-                    self?.cache.setObject(thumbnailFetched, forKey: garageCacheKey)
+                    self.cache.setObject(thumbnailFetched, forKey: garageCacheKey)
                 }
             }
             .disposed(by: disposeBag)
@@ -153,13 +153,30 @@ final class GarageViewController: UIViewController {
     }
     
     private func presentGalleryViewToAdd() {
-        DispatchQueue.main.async {
-            let galleryVC = GalleryViewController()
-            galleryVC.modalPresentationStyle = .overFullScreen
-            galleryVC.customNavigationView.setTitleForDoneButtonWith(title: "Next", titleColor: .PopGreen)
-            galleryVC.delegate = self
-            self.present(galleryVC, animated: true)
+        let garageItems: Int = garageImagesViewModel.garageImages.value.count
+        
+        if garageItems < 20 {
+            DispatchQueue.main.async {
+                let galleryVC = GalleryViewController()
+                galleryVC.modalPresentationStyle = .overFullScreen
+                galleryVC.customNavigationView.setTitleForDoneButtonWith(title: "Next", titleColor: .PopGreen)
+                galleryVC.delegate = self
+                self.present(galleryVC, animated: true)
+            }
+        } else {
+            alertWhenGarageIsFull()
         }
+    }
+    
+    private func alertWhenGarageIsFull() {
+        let alertController = UIAlertController(title: "추가 실패", message: "개러지에 저장된 이미지가 제한 개수를 넘었어요!", preferredStyle: .alert)
+        alertController.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor(hex: "#465E62")
+        alertController.view.tintColor = .PopGreen
+        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+        
+        alertController.addAction(okAction)
+        
+        self.present(alertController, animated: true, completion: nil)
     }
     
     private func moveToSettingView() {
