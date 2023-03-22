@@ -8,6 +8,7 @@
 import UIKit
 import Photos
 
+import Lottie
 import RealmSwift
 import RxSwift
 import RxCocoa
@@ -47,7 +48,13 @@ final class GalleryViewController: UIViewController {
         $0.minimumInteritemSpacing = 5
         $0.scrollDirection = .vertical
     }
-
+    
+    private let loadingView = AwaitLoadingView().then {
+        $0.selectLottieFileName(lottieName: "SavingGarageView")
+        $0.isHidden = true
+        $0.backgroundColor = .Background
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         basicSetup()
@@ -93,25 +100,23 @@ final class GalleryViewController: UIViewController {
         customNavigationView.cancelButton.addGestureRecognizer(cancelTapped)
     }
         
-    private func saveAssetBeforeTap(_ asset: PHAsset) async {
+    private func saveAssetBeforeDismiss(_ asset: PHAsset) async {
         let imageManager = PHImageManager()
         let imageOptions = PHImageRequestOptions()
         imageOptions.isSynchronous = false
         imageOptions.deliveryMode = .highQualityFormat
         imageOptions.isNetworkAccessAllowed = true
         
-        imageManager.requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: imageOptions) { [weak self] image, _ in
-            self?.selectedPngData = image?.pngData()
-        }
-        
-        
-    }
-    
-    private func passThumbnailImageToGarageViewController(_ asset: PHAsset) {
-        let imageManager = PHImageManager()
-
-        imageManager.requestImage(for: asset, targetSize: CGSize(width: 300, height: 300), contentMode: .aspectFit, options: nil) { [weak self] image, _ in
-            // reloadData Delegate
+        imageManager.requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: imageOptions) { [weak self] image, info in
+            let isDegraged = (info?[PHImageResultIsDegradedKey] as? Bool) ?? false
+            if isDegraged { return }
+            
+            let pngData = image?.pngData()
+            self?.garageViewModel.addGarageImage(pngGarageData: pngData)
+            print("Adding Image to Garage Successed")
+            
+            self?.delegate?.reloadTableViews()
+            self?.dismiss(animated: true)
         }
     }
     
@@ -119,25 +124,38 @@ final class GalleryViewController: UIViewController {
         asset = PHAsset.fetchAssets(with: .image, options: phFetchOptions)
     }
     
+    private func loadingViewAppear() {
+        view.addSubview(loadingView)
+        
+        loadingView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        loadingView.isHidden = false
+        print("LoadingView Appeared")
+    }
+    
+    private func alertWhenNoneIsSelected() {
+        let alertController = UIAlertController(title: "사진이 선택되지 않았어요.", message: "개러지에 추가할 사진이 선택되지 않았어요.", preferredStyle: .alert)
+        alertController.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor(hex: "#465E62")
+        alertController.view.tintColor = .PopGreen
+        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+        
+        alertController.addAction(okAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     @objc
     private func moveToConfirm() {
         if selectedAsset != nil {
+            loadingViewAppear()
+            
             Task {
-                await saveAssetBeforeTap(selectedAsset)
-                
-                guard let pngData = selectedPngData else {
-                    print("Changing selected PHAsset to png Data Failed")
-                    return
-                }
-                guard let pngImage = UIImage(data: pngData) else { return }
-                
-                garageViewModel.addGarageImage(garageImage: pngImage)
-                self.delegate?.reloadTableViews()
-                self.dismiss(animated: true)
+                await saveAssetBeforeDismiss(selectedAsset)
             }
         } else {
-            print("Nil has been selected")
-            self.dismiss(animated: true)
+            alertWhenNoneIsSelected()
         }
     }
     
