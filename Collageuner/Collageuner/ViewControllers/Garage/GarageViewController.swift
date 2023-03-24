@@ -16,8 +16,10 @@ import Then
 
 final class GarageViewController: UIViewController {
     private let cache = ImageCacheManager.shared
+    private var currentLongPressedCell: GarageItemsCollectionViewCell?
     
     var disposeBag = DisposeBag()
+    
     private let garageImagesViewModel = GarageImagesViewModel()
     
     private let garageLabel = UILabel().then {
@@ -60,6 +62,16 @@ final class GarageViewController: UIViewController {
         $0.scrollDirection = .vertical
     }
     
+    private let deletePopUpView = LongTappedPopUpView().then {
+        $0.setLabel(label: "삭제", color: .systemRed)
+        $0.setBackgroundColor(color: .white)
+    }
+    
+    private let okPopUpView = LongTappedPopUpView().then {
+        $0.setLabel(label: "완료", color: .PopGreen)
+        $0.setBackgroundColor(color: .white)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         basicSetup()
@@ -75,6 +87,7 @@ final class GarageViewController: UIViewController {
     
     private func basicSetup() {
         view.backgroundColor = .Background
+        setupLongGestureRecognizerOnCollectionVew()
     }
 
     private func layouts() {
@@ -113,15 +126,18 @@ final class GarageViewController: UIViewController {
         garageImagesViewModel.garageImages
             .asDriver()
             .drive(garageListCollectionView.rx.items(cellIdentifier: IdsForCollectionView.GarageCollectionItemId.identifier, cellType: GarageItemsCollectionViewCell.self)) { index, item, cell in
+                let garageObjectId = item._id
                 let garageImageName = item._id.stringValue
                 let garageCacheKey = NSString(string: garageImageName)
                 
                 if let cachedImage = self.cache.object(forKey: garageCacheKey) {
                     cell.garageImageView.image = cachedImage
+                    cell.putIdToCell(id: garageObjectId)
                 } else {
                     guard let thumbnailFetched = self.garageImagesViewModel.fetchGarageThumbnailImage(id: garageImageName) else { return }
                     cell.garageImageView.image = thumbnailFetched
-                    
+                    cell.putIdToCell(id: garageObjectId)
+
                     self.cache.setObject(thumbnailFetched, forKey: garageCacheKey)
                 }
             }
@@ -141,15 +157,132 @@ final class GarageViewController: UIViewController {
     }
     
     private func actions() {
-        
+        let deleteTapped = UITapGestureRecognizer(target: self, action: #selector(deleteViewTapped))
+        let okTapped = UITapGestureRecognizer(target: self, action: #selector(okViewTapped))
+        deletePopUpView.addGestureRecognizer(deleteTapped)
+        okPopUpView.addGestureRecognizer(okTapped)
     }
     
+    @objc
+    private func addAssetTapped() {
+        switch PHPhotoLibrary.authorizationStatus(for: .readWrite){
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
+                switch status {
+                case .authorized, .limited:
+                    self.presentGalleryViewToAdd()
+                case .denied:
+                    self.moveToSettingView()
+                default:
+                    print("")
+                }
+            }
+        case .restricted:
+            print("Restricted")
+        case .denied:
+            self.moveToSettingView()
+        case .authorized, .limited:
+            self.presentGalleryViewToAdd()
+        default:
+            print("")
+        }
+    }
+    
+    deinit {
+        print("📍📍📍GarageView Out📍📍📍")
+    }
+}
+
+extension GarageViewController {
     private func navigationItemSetup() {
         let symbolConfiguration = UIImage.SymbolConfiguration(weight: .semibold)
         navigationController?.navigationBar.tintColor = .MainGreen
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus", withConfiguration: symbolConfiguration), style: .plain, target: self, action: #selector(addAssetTapped))
         navigationItem.rightBarButtonItem?.tintColor = .PopGreen
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    }
+    
+    private func startShakingCellLongTapped(cell: UICollectionViewCell) {
+        let editingAnimation = CAKeyframeAnimation(keyPath: "position.y")
+        editingAnimation.values = [0, -10, -1, -6, -3, 0]
+        editingAnimation.keyTimes = [0, 0.4, 0.5, 0.59, 0.65, 0.7]
+        editingAnimation.duration = 0.7
+        editingAnimation.repeatCount = .infinity
+        editingAnimation.fillMode = .forwards
+        editingAnimation.isRemovedOnCompletion = false
+        editingAnimation.isAdditive = true
+        cell.layer.add(editingAnimation, forKey: "jumpUntilDone")
+    }
+    
+    private func finishShakingCellLongTapped(cell: UICollectionViewCell?) {
+        cell?.layer.removeAllAnimations()
+    }
+    
+    private func deleteViewAppear(cell: GarageItemsCollectionViewCell) {
+        deletePopUpView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        okPopUpView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        
+        view.addSubviews(deletePopUpView, okPopUpView)
+        
+        deletePopUpView.snp.makeConstraints {
+            $0.centerX.equalTo(cell.snp.trailing).offset(-20)
+            $0.centerY.equalTo(cell.snp.top).offset(10)
+            $0.height.equalTo(35)
+            $0.width.equalTo(55)
+        }
+        
+        okPopUpView.snp.makeConstraints {
+            $0.centerX.equalTo(cell.snp.trailing).offset(-20)
+            $0.centerY.equalTo(cell.snp.top).offset(50)
+            $0.height.equalTo(35)
+            $0.width.equalTo(55)
+        }
+        
+        UIView.animate(withDuration: 0.15, delay: 0) {
+            self.deletePopUpView.transform = .identity
+            self.okPopUpView.transform = .identity
+        }
+    }
+    
+    private func popUpViewDisappear() {
+        deletePopUpView.removeFromSuperview()
+        okPopUpView.removeFromSuperview()
+    }
+    
+    private func disableViewTouch() {
+        navigationItem.rightBarButtonItem?.isEnabled = false
+        garageListCollectionView.isUserInteractionEnabled = false
+        print("CollectionView Touch Disabled")
+    }
+    
+    private func enableViewTouch() {
+        navigationItem.rightBarButtonItem?.isEnabled = true
+        garageListCollectionView.isUserInteractionEnabled = true
+        print("CollectionView Touch Enabled")
+    }
+    
+    @objc
+    private func deleteViewTapped() {
+        deleteSelectedImage(cell: currentLongPressedCell)
+        finishShakingCellLongTapped(cell: currentLongPressedCell)
+        popUpViewDisappear()
+        enableViewTouch()
+    }
+    
+    @objc
+    private func okViewTapped() {
+        finishShakingCellLongTapped(cell: currentLongPressedCell)
+        popUpViewDisappear()
+        enableViewTouch()
+    }
+    
+    private func deleteSelectedImage(cell: GarageItemsCollectionViewCell?) {
+        guard let cellId = cell?.fetchCellId() else { return }
+        garageImagesViewModel.deleteGarageImage(garageImageId: cellId)
+        garageImagesViewModel.updateGarageImages()
+        UIView.animate(withDuration: 0.3, delay: 0) {
+            self.view.layoutIfNeeded()
+        }
     }
     
     private func presentGalleryViewToAdd() {
@@ -202,34 +335,49 @@ final class GarageViewController: UIViewController {
             self.present(alertController, animated: false, completion: nil)
         }
     }
-    
-    @objc
-    private func addAssetTapped() {
-        switch PHPhotoLibrary.authorizationStatus(for: .readWrite){
-        case .notDetermined:
-            PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
-                switch status {
-                case .authorized, .limited:
-                    self.presentGalleryViewToAdd()
-                case .denied:
-                    self.moveToSettingView()
-                default:
-                    print("")
-                }
-            }
-        case .restricted:
-            print("Restricted")
-        case .denied:
-            self.moveToSettingView()
-        case .authorized, .limited:
-            self.presentGalleryViewToAdd()
-        default:
-            print("")
-        }
+}
+
+extension GarageViewController: UIGestureRecognizerDelegate {
+    private func setupLongGestureRecognizerOnCollectionVew() {
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressEditCollectionView(gestureRecognizer: )))
+        longPressGesture.minimumPressDuration = 0.4
+        longPressGesture.delegate = self
+        longPressGesture.delaysTouchesBegan = true
+        garageListCollectionView.addGestureRecognizer(longPressGesture)
     }
     
-    deinit {
-        print("GarageView Out")
+    @objc
+    private func longPressEditCollectionView(gestureRecognizer: UILongPressGestureRecognizer) {
+        let tappedLocation: CGPoint = gestureRecognizer.location(in: garageListCollectionView)
+        
+        if gestureRecognizer.state == .began {
+            if let indexPath = garageListCollectionView.indexPathForItem(at: tappedLocation) {
+                UIView.animate(withDuration: 0.2) {
+                    guard let cell = self.garageListCollectionView.cellForItem(at: indexPath) as? GarageItemsCollectionViewCell else {
+                        return
+                    }
+                    
+                    self.currentLongPressedCell = cell
+                    cell.transform = .init(scaleX: 0.9, y: 0.9)
+                }
+            }
+        } else if gestureRecognizer.state == .ended {
+            if let indexPath = garageListCollectionView.indexPathForItem(at: tappedLocation) {
+                guard let cell = self.garageListCollectionView.cellForItem(at: indexPath) as? GarageItemsCollectionViewCell else {
+                    return
+                }
+                
+                disableViewTouch()
+                
+                self.currentLongPressedCell = cell
+                cell.transform = .init(scaleX: 1.0, y: 1.0)
+                
+                startShakingCellLongTapped(cell: cell)
+                self.deleteViewAppear(cell: cell)
+            }
+        } else {
+            return
+        }
     }
 }
 

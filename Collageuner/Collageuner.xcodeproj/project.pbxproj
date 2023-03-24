@@ -66,6 +66,7 @@
 		5878147B296818680074FA56 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 5878147A296818680074FA56 /* Then */; };
 		5878147E296818920074FA56 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 5878147D296818920074FA56 /* Lottie */; };
 		5894B2B7296838B500263584 /* Identifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5894B2B6296838B500263584 /* Identifiers.swift */; };
+		589BE87B29CD476900C17F34 /* LongTappedPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589BE87A29CD476900C17F34 /* LongTappedPopUpView.swift */; };
 		58A3C6E429A901E20034C404 /* EmptyPlanTaskImage.json in Resources */ = {isa = PBXBuildFile; fileRef = 58A3C6E329A901E20034C404 /* EmptyPlanTaskImage.json */; };
 		58A41E70299B4A6E00036C59 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 58A41E6F299B4A6E00036C59 /* FSCalendar */; };
 		58A41E72299B532900036C59 /* UIViewController+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A41E71299B532900036C59 /* UIViewController+Extentions.swift */; };
@@ -158,6 +159,7 @@
 		5878146729680BEA0074FA56 /* CollageunerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageunerUITests.swift; sourceTree = "<group>"; };
 		5878146929680BEA0074FA56 /* CollageunerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageunerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5894B2B6296838B500263584 /* Identifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Identifiers.swift; path = Collageuner/Logics/Identifiers.swift; sourceTree = SOURCE_ROOT; };
+		589BE87A29CD476900C17F34 /* LongTappedPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTappedPopUpView.swift; sourceTree = "<group>"; };
 		58A3C6E329A901E20034C404 /* EmptyPlanTaskImage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EmptyPlanTaskImage.json; sourceTree = "<group>"; };
 		58A41E71299B532900036C59 /* UIViewController+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extentions.swift"; sourceTree = "<group>"; };
 		58A41E73299B69D600036C59 /* PlanFirstGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanFirstGuideView.swift; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 			isa = PBXGroup;
 			children = (
 				582E7E8D29C1973800C87946 /* GalleryCollectionViewCell.swift */,
+				589BE87A29CD476900C17F34 /* LongTappedPopUpView.swift */,
 			);
 			path = Garage;
 			sourceTree = "<group>";
@@ -723,6 +726,7 @@
 				58AF77132981115E00A46B3D /* TimeViewModel.swift in Sources */,
 				58A41E72299B532900036C59 /* UIViewController+Extentions.swift in Sources */,
 				58396697297E386400B63E52 /* UIFont+Extensions.swift in Sources */,
+				589BE87B29CD476900C17F34 /* LongTappedPopUpView.swift in Sources */,
 				58A41E74299B69D600036C59 /* PlanFirstGuideView.swift in Sources */,
 				58BC4C6929BF747700AB2052 /* GarageViewController.swift in Sources */,
 				5894B2B7296838B500263584 /* Identifiers.swift in Sources */,
