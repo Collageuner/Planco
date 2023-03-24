@@ -7,7 +7,12 @@
 
 import UIKit
 
+import RealmSwift
+import SnapKit
+import Then
+
 final class GarageItemsCollectionViewCell: UICollectionViewCell {
+    private var cellId: ObjectId?
     
     let garageImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
@@ -17,14 +22,9 @@ final class GarageItemsCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        updateConstraints()
-    }
-    
-    override func updateConstraints() {
         render()
-        super.updateConstraints()
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         garageImageView.clipsToBounds = true
@@ -37,6 +37,15 @@ final class GarageItemsCollectionViewCell: UICollectionViewCell {
         garageImageView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+    }
+    
+    func putIdToCell(id: ObjectId) {
+        cellId = id
+    }
+    
+    func fetchCellId() -> ObjectId {
+        guard let id = cellId else { return ObjectId() }
+        return id
     }
     
     required init?(coder: NSCoder) {

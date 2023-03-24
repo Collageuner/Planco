@@ -8,6 +8,8 @@
 import UIKit
 
 import Lottie
+import SnapKit
+import Then
 
 final class AwaitLoadingView: UIView {
     private var loadingImage = LottieAnimationView()
