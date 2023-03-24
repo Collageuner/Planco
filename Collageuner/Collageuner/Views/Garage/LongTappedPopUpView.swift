@@ -11,31 +11,42 @@ import SnapKit
 import Then
 
 final class LongTappedPopUpView: UIView {
-    private let deleteLabel = UILabel().then {
-        $0.textColor = .systemRed
+    private var viewTintColor: UIColor?
+    
+    private let viewLabel = UILabel().then {
         $0.font = .customVersatileFont(.medium, forTextStyle: .subheadline)
-        $0.text = "삭제"
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor(hex: "#465E62")
         render()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         self.layer.cornerRadius = self.frame.height/2
-        self.layer.borderColor = UIColor.systemRed.cgColor
-        self.layer.borderWidth = 1
+        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowOffset = CGSize(width: 1, height: 1)
+        self.layer.shadowRadius = 1
+        self.layer.shadowOpacity = 0.2
     }
     
     private func render() {
-        self.addSubview(deleteLabel)
+        self.addSubview(viewLabel)
         
-        deleteLabel.snp.makeConstraints {
+        viewLabel.snp.makeConstraints {
             $0.center.equalToSuperview()
         }
+    }
+    
+    func setLabel(label: String, color: UIColor) {
+        viewTintColor = color
+        viewLabel.text = label
+        viewLabel.textColor = viewTintColor
+    }
+    
+    func setBackgroundColor(color: UIColor) {
+        self.backgroundColor = color
     }
     
     required init?(coder: NSCoder) {
