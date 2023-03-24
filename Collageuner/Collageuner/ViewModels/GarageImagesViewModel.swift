@@ -65,16 +65,18 @@ final class GarageImagesViewModel {
     }
     
     /// Use parameter as GarageImage's _id
-    func deleteGarageImage(garageImageId: String) {
+    func deleteGarageImage(garageImageId: ObjectId) {
         guard let realmResult = myGarageRealm.objects(GarageImage.self).filter(NSPredicate(format: "_id = %@", garageImageId)).first else {
             print("The Selected Image doesn't exist. _Id: \(garageImageId)")
             return
         }
         
+        let imageName: String = garageImageId.stringValue
+        
         do {
             try myGarageRealm.write({
                 myGarageRealm.delete(realmResult)
-                myGarageRealm.deleteImageFromDirectory(fromOriginalDirectory: .GarageOriginalImages, fromThumbnailDirectory: .GarageThumbnailImages, imageName: garageImageId)
+                myGarageRealm.deleteImageFromDirectory(fromOriginalDirectory: .GarageOriginalImages, fromThumbnailDirectory: .GarageThumbnailImages, imageName: imageName)
             })
             print("🗑️ Garage Image Deleted")
         } catch let error {
