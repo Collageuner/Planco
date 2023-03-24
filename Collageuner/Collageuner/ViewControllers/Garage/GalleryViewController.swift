@@ -16,11 +16,15 @@ import SnapKit
 import Then
 
 final class GalleryViewController: UIViewController {
+    
+    // MARK: - Rx Models
     private let garageViewModel = GarageImagesViewModel()
     private lazy var garageImages: [GarageImage] = garageViewModel.garageImages.value
     
+    // MARK: - Custom Delegate for Reloading
     weak var delegate: GarageViewDelegate?
 
+    // MARK: - PHAsset Setup Components
     private var asset: PHFetchResult<PHAsset>!
     private var selectedAsset: PHAsset! = nil
     private var selectedPngData: Data? = nil
@@ -33,8 +37,10 @@ final class GalleryViewController: UIViewController {
         $0.allowsCachingHighQualityImages = true
     }
     
+    // MARK: - Custom Navigation bar
     let customNavigationView = ModalCustomBarView()
     
+    // MARK: - CollectionView Components
     private lazy var galleryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: galleryCollectionViewLayout).then {
         $0.scrollsToTop = true
         $0.register(GalleryCollectionViewCell.self, forCellWithReuseIdentifier: IdsForCollectionView.GalleryCollectionItemId.identifier)
@@ -49,12 +55,14 @@ final class GalleryViewController: UIViewController {
         $0.scrollDirection = .vertical
     }
     
+    // MARK: - Other UI Components
     private let loadingView = AwaitLoadingView().then {
         $0.selectLottieFileName(lottieName: "SavingGarageView")
         $0.isHidden = true
         $0.backgroundColor = .Background
     }
     
+    // MARK: - View Cycle 🔄
     override func viewDidLoad() {
         super.viewDidLoad()
         basicSetup()
@@ -67,15 +75,19 @@ final class GalleryViewController: UIViewController {
         self.navigationController?.setToolbarHidden(true, animated: true)
     }
     
+    // MARK: - Basic View Configuaration
     private func basicSetup() {
         view.backgroundColor = .black
 
         initializePHAsset()
-        PHPhotoLibrary.shared().register(self)
         galleryCollectionView.delegate = self
         galleryCollectionView.dataSource = self
+        
+        // Registering Photo Assets Change Observer
+        PHPhotoLibrary.shared().register(self)
     }
     
+    // MARK: - UI Constraint Layouts
     private func layouts() {
         view.addSubviews(customNavigationView, galleryCollectionView)
         
@@ -92,6 +104,7 @@ final class GalleryViewController: UIViewController {
         }
     }
     
+    // MARK: - Adding Gesture Recognizer to Buttons
     private func actions() {
         let nextTapped = UITapGestureRecognizer(target: self, action: #selector(moveToConfirm))
         let cancelTapped = UITapGestureRecognizer(target: self, action: #selector(dismissView))
@@ -99,8 +112,9 @@ final class GalleryViewController: UIViewController {
         customNavigationView.doneButton.addGestureRecognizer(nextTapped)
         customNavigationView.cancelButton.addGestureRecognizer(cancelTapped)
     }
-        
-    private func saveAssetBeforeDismiss(_ asset: PHAsset) async {
+     
+    // MARK: - Saving Garage Image when Next Button is Tapped
+    private func saveAsset(_ asset: PHAsset) async {
         let imageManager = PHImageManager()
         let imageOptions = PHImageRequestOptions()
         imageOptions.isSynchronous = false
@@ -120,21 +134,24 @@ final class GalleryViewController: UIViewController {
         }
     }
     
+    @objc
+    private func moveToConfirm() {
+        if selectedAsset != nil {
+            loadingViewAppear()
+            Task {
+                await saveAsset(selectedAsset)
+            }
+        } else {
+            alertWhenNoneIsSelected()
+        }
+    }
+    
+    // MARK: - Initializing PHAsset
     private func initializePHAsset() {
         asset = PHAsset.fetchAssets(with: .image, options: phFetchOptions)
     }
     
-    private func loadingViewAppear() {
-        view.addSubview(loadingView)
-        
-        loadingView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        
-        loadingView.isHidden = false
-        print("LoadingView Appeared")
-    }
-    
+    // MARK: - Alert action when No Image is selected
     private func alertWhenNoneIsSelected() {
         let alertController = UIAlertController(title: "사진이 선택되지 않았어요.", message: "개러지에 추가할 사진이 선택되지 않았어요.", preferredStyle: .alert)
         alertController.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor(hex: "#465E62")
@@ -146,17 +163,17 @@ final class GalleryViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    @objc
-    private func moveToConfirm() {
-        if selectedAsset != nil {
-            loadingViewAppear()
-            
-            Task {
-                await saveAssetBeforeDismiss(selectedAsset)
-            }
-        } else {
-            alertWhenNoneIsSelected()
+    // MARK: - Other Stuffs
+    /// Loading View Appears
+    private func loadingViewAppear() {
+        view.addSubview(loadingView)
+        
+        loadingView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
+        
+        loadingView.isHidden = false
+        print("LoadingView Appeared")
     }
     
     @objc
@@ -164,17 +181,19 @@ final class GalleryViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
+    // MARK: - Unregister PHAsset Change Observer when deinit
     deinit {
         PHPhotoLibrary.shared().unregisterChangeObserver(self)
         print("GalleryView Out")
     }
 }
-
+    // MARK: - Extension for CollectionView Delegate and Datasource
 extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return asset.count
     }
     
+    /// CollectionView Fetches Thumbnail images
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let thumbnailSize = 300
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: IdsForCollectionView.GalleryCollectionItemId.identifier, for: indexPath) as? GalleryCollectionViewCell else { return UICollectionViewCell()}
@@ -197,7 +216,9 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
 }
 
+    // MARK: - Extension for PHPhotoLibraryChangeObserver
 extension GalleryViewController: PHPhotoLibraryChangeObserver {
+    /// Now it observes the change of Assets while the app is running
     func photoLibraryDidChange(_ changeInstance: PHChange) {
         guard let assetChanges = changeInstance.changeDetails(for: self.asset) else { return }
 

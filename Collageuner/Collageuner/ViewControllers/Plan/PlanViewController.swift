@@ -108,13 +108,12 @@ final class PlanViewController: UIViewController {
     
     // MARK: - Button for UIMenu action
     private lazy var addButton = UIButton(type: .system).then {
-        $0.layer.shadowOffset = CGSize(width: 20, height: 20)
-        $0.layer.shadowColor = UIColor.black.cgColor
-        $0.layer.shadowOpacity = 1
-        $0.layer.shadowRadius = 10
+        $0.layer.shadowOffset = CGSize(width: 0, height: 0)
+        $0.layer.shadowColor = UIColor.PopGreen.cgColor
+        $0.layer.shadowOpacity = 0.6
+        $0.layer.shadowRadius = 1.5
         let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 24, weight: .light)
         $0.setImage(UIImage(systemName: "plus", withConfiguration: symbolConfiguration), for: .normal)
-        $0.clipsToBounds = true
         $0.tintColor = .PopGreen
         $0.backgroundColor = .white
         $0.showsMenuAsPrimaryAction = true
@@ -226,7 +225,7 @@ final class PlanViewController: UIViewController {
         addButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(25)
             $0.bottom.equalToSuperview().inset(45)
-            $0.height.width.equalTo(view.snp.width).dividedBy(6.5)
+            $0.height.width.equalTo(view.snp.width).dividedBy(6.1)
         }
     }
     
@@ -384,8 +383,8 @@ extension PlanViewController {
         }
     }
     
-    // MARK: - Animations
-    
+    // MARK: - Animations when Needed
+    /// Animate when the Garage is Full
     private func bounceWhenPlanIsFull(_ tableView: UITableView) {
         let animation = CAKeyframeAnimation(keyPath: "position.y")
         animation.values = [0, 4, -7, 7, -4, 0]
@@ -468,6 +467,7 @@ extension PlanViewController: UITableViewDelegate  {
     }
 }
 
+    // MARK: - Extension for Custom Delegate for updating TableViews
 extension PlanViewController: AddPlanDelegate {
     func reloadTableViews() {
         plansViewModel.updateTableView(date: currentDate)

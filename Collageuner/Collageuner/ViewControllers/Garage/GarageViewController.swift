@@ -15,13 +15,18 @@ import SnapKit
 import Then
 
 final class GarageViewController: UIViewController {
+    
+    // MARK: - Caching Singleton Instance
     private let cache = ImageCacheManager.shared
+    
+    // MARK: - Specifying Long Pressed Cell
     private var currentLongPressedCell: GarageItemsCollectionViewCell?
     
+    // MARK: - Rx Models
     var disposeBag = DisposeBag()
-    
     private let garageImagesViewModel = GarageImagesViewModel()
     
+    // MARK: - Label UI Components
     private let garageLabel = UILabel().then {
         $0.font = .customEnglishFont(.regular, forTextStyle: .title1)
         $0.textColor = .PopGreen
@@ -35,17 +40,7 @@ final class GarageViewController: UIViewController {
         $0.numberOfLines = 2
     }
     
-    private let lineDivider = UIView().then {
-        $0.backgroundColor = .MainGray
-    }
-    
-    private var imageWhenEmpty = UIImageView().then {
-        $0.isHidden = true
-        $0.image = UIImage(named: "PlantListEmptyLight")
-        $0.contentMode = .scaleAspectFit
-        $0.clipsToBounds = true
-    }
-    
+    // MARK: - CollectionView Components
     private lazy var garageListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: garageListFlowLayout).then {
         $0.bounces = false
         $0.register(GarageItemsCollectionViewCell.self, forCellWithReuseIdentifier: IdsForCollectionView.GarageCollectionItemId.identifier)
@@ -62,6 +57,7 @@ final class GarageViewController: UIViewController {
         $0.scrollDirection = .vertical
     }
     
+    // MARK: - PopUp View For Deletion Components
     private let deletePopUpView = LongTappedPopUpView().then {
         $0.setLabel(label: "삭제", color: .systemRed)
         $0.setBackgroundColor(color: .white)
@@ -72,6 +68,19 @@ final class GarageViewController: UIViewController {
         $0.setBackgroundColor(color: .white)
     }
     
+    // MARK: - Other UI Components
+    private let lineDivider = UIView().then {
+        $0.backgroundColor = .MainGray
+    }
+    
+    private var imageWhenEmpty = UIImageView().then {
+        $0.isHidden = true
+        $0.image = UIImage(named: "PlantListEmptyLight")
+        $0.contentMode = .scaleAspectFit
+        $0.clipsToBounds = true
+    }
+    
+    // MARK: - View Cycle 🔄
     override func viewDidLoad() {
         super.viewDidLoad()
         basicSetup()
@@ -85,11 +94,13 @@ final class GarageViewController: UIViewController {
         navigationItemSetup()
     }
     
+    // MARK: - Basic View Configuaration
     private func basicSetup() {
         view.backgroundColor = .Background
         setupLongGestureRecognizerOnCollectionVew()
     }
 
+    // MARK: - UI Constraint Layouts
     private func layouts() {
         view.addSubviews(garageLabel, garageGuideLabel, lineDivider, garageListCollectionView, imageWhenEmpty)
         
@@ -122,27 +133,30 @@ final class GarageViewController: UIViewController {
         }
     }
     
+    // MARK: - Rx Bindings
     private func bindings() {
+        /// Garage Images List
         garageImagesViewModel.garageImages
             .asDriver()
-            .drive(garageListCollectionView.rx.items(cellIdentifier: IdsForCollectionView.GarageCollectionItemId.identifier, cellType: GarageItemsCollectionViewCell.self)) { index, item, cell in
+            .drive(garageListCollectionView.rx.items(cellIdentifier: IdsForCollectionView.GarageCollectionItemId.identifier, cellType: GarageItemsCollectionViewCell.self)) { [weak self] index, item, cell in
                 let garageObjectId = item._id
                 let garageImageName = item._id.stringValue
                 let garageCacheKey = NSString(string: garageImageName)
                 
-                if let cachedImage = self.cache.object(forKey: garageCacheKey) {
+                if let cachedImage = self?.cache.object(forKey: garageCacheKey) {
                     cell.garageImageView.image = cachedImage
                     cell.putIdToCell(id: garageObjectId)
                 } else {
-                    guard let thumbnailFetched = self.garageImagesViewModel.fetchGarageThumbnailImage(id: garageImageName) else { return }
+                    guard let thumbnailFetched = self?.garageImagesViewModel.fetchGarageThumbnailImage(id: garageImageName) else { return }
                     cell.garageImageView.image = thumbnailFetched
                     cell.putIdToCell(id: garageObjectId)
 
-                    self.cache.setObject(thumbnailFetched, forKey: garageCacheKey)
+                    self?.cache.setObject(thumbnailFetched, forKey: garageCacheKey)
                 }
             }
             .disposed(by: disposeBag)
         
+        /// Background Image When Garage is Empty
         garageImagesViewModel.garageImages
             .asDriver()
             .drive(onNext: { [weak self] in
@@ -156,6 +170,7 @@ final class GarageViewController: UIViewController {
             .disposed(by: DisposeBag())
     }
     
+    // MARK: - Adding Long Tap Gesture Recognizer to Items
     private func actions() {
         let deleteTapped = UITapGestureRecognizer(target: self, action: #selector(deleteViewTapped))
         let okTapped = UITapGestureRecognizer(target: self, action: #selector(okViewTapped))
@@ -163,6 +178,7 @@ final class GarageViewController: UIViewController {
         okPopUpView.addGestureRecognizer(okTapped)
     }
     
+    // MARK: - Checking Permission for Photos
     @objc
     private func addAssetTapped() {
         switch PHPhotoLibrary.authorizationStatus(for: .readWrite){
@@ -194,6 +210,8 @@ final class GarageViewController: UIViewController {
 }
 
 extension GarageViewController {
+    
+    // MARK: - ViewWillAppear Action
     private func navigationItemSetup() {
         let symbolConfiguration = UIImage.SymbolConfiguration(weight: .semibold)
         navigationController?.navigationBar.tintColor = .MainGreen
@@ -202,6 +220,8 @@ extension GarageViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
+    // MARK: - Animation When Needed
+    /// Animate when Cell is being Edited
     private func startShakingCellLongTapped(cell: UICollectionViewCell) {
         let editingAnimation = CAKeyframeAnimation(keyPath: "position.y")
         editingAnimation.values = [0, -10, -1, -6, -3, 0]
@@ -214,10 +234,12 @@ extension GarageViewController {
         cell.layer.add(editingAnimation, forKey: "jumpUntilDone")
     }
     
+    /// Finish Animation
     private func finishShakingCellLongTapped(cell: UICollectionViewCell?) {
         cell?.layer.removeAllAnimations()
     }
     
+    // MARK: - Popping up and out custom Delete View
     private func deleteViewAppear(cell: GarageItemsCollectionViewCell) {
         deletePopUpView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         okPopUpView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
@@ -249,6 +271,7 @@ extension GarageViewController {
         okPopUpView.removeFromSuperview()
     }
     
+    // MARK: - Disabling and Enabling View While Editing
     private func disableViewTouch() {
         navigationItem.rightBarButtonItem?.isEnabled = false
         garageListCollectionView.isUserInteractionEnabled = false
@@ -261,6 +284,8 @@ extension GarageViewController {
         print("CollectionView Touch Enabled")
     }
     
+    // MARK: - PopUp Views Tapped
+    /// Delete-PopUp View Tapped
     @objc
     private func deleteViewTapped() {
         deleteSelectedImage(cell: currentLongPressedCell)
@@ -269,6 +294,7 @@ extension GarageViewController {
         enableViewTouch()
     }
     
+    /// Ok-PopUp View Tapped
     @objc
     private func okViewTapped() {
         finishShakingCellLongTapped(cell: currentLongPressedCell)
@@ -276,6 +302,7 @@ extension GarageViewController {
         enableViewTouch()
     }
     
+    // MARK: - Deleting selected Image from Disk and Realm
     private func deleteSelectedImage(cell: GarageItemsCollectionViewCell?) {
         guard let cellId = cell?.fetchCellId() else { return }
         garageImagesViewModel.deleteGarageImage(garageImageId: cellId)
@@ -285,6 +312,7 @@ extension GarageViewController {
         }
     }
     
+    // MARK: - Opening GalleryView for Photos
     private func presentGalleryViewToAdd() {
         let garageItems: Int = garageImagesViewModel.garageImages.value.count
         
@@ -301,6 +329,8 @@ extension GarageViewController {
         }
     }
     
+    // MARK: - Alert Actions when Needed
+    /// Alert when Garage is Fully Stored
     private func alertWhenGarageIsFull() {
         let alertController = UIAlertController(title: "추가 실패", message: "개러지에 저장된 이미지가 제한 개수를 넘었어요!", preferredStyle: .alert)
         alertController.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor(hex: "#465E62")
@@ -312,6 +342,7 @@ extension GarageViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
+    /// Alert when Permission has been denied
     private func moveToSettingView() {
         let alertController = UIAlertController(title: "권한 거부됨", message: "앨범 접근이 거부 되었습니다. 개러지에 사진을 넣을 수 없어요.", preferredStyle: UIAlertController.Style.alert)
         
@@ -337,6 +368,7 @@ extension GarageViewController {
     }
 }
 
+    // MARK: - Extension for Gesture Recognizer Delegete
 extension GarageViewController: UIGestureRecognizerDelegate {
     private func setupLongGestureRecognizerOnCollectionVew() {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressEditCollectionView(gestureRecognizer: )))
@@ -381,6 +413,7 @@ extension GarageViewController: UIGestureRecognizerDelegate {
     }
 }
 
+    // MARK: - Extension for Custom Delegate for updating CollectionView
 extension GarageViewController: GarageViewDelegate {
     func reloadTableViews() {
         garageImagesViewModel.updateGarageImages()
