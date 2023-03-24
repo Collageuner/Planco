@@ -47,7 +47,7 @@ final class GarageImageSheetViewController: UIViewController {
     }
     
     private lazy var garageSheetListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: garageSheetListFlowLayout).then {
-        $0.register(GarageSheetCollectionViewCell.self, forCellWithReuseIdentifier: IdsForCollectionView.GarageSheetCollectionItemId.identifier)
+        $0.register(GarageItemsCollectionViewCell.self, forCellWithReuseIdentifier: IdsForCollectionView.GarageSheetCollectionItemId.identifier)
         $0.showsVerticalScrollIndicator = true
         $0.backgroundColor = .clear
     }
@@ -121,7 +121,7 @@ final class GarageImageSheetViewController: UIViewController {
     private func bindings() {
         garageImagesViewModel.garageImages
             .observe(on: MainScheduler.instance)
-            .bind(to: garageSheetListCollectionView.rx.items(cellIdentifier: IdsForCollectionView.GarageSheetCollectionItemId.identifier, cellType: GarageSheetCollectionViewCell.self)) { [weak self] index, item, cell in
+            .bind(to: garageSheetListCollectionView.rx.items(cellIdentifier: IdsForCollectionView.GarageSheetCollectionItemId.identifier, cellType: GarageItemsCollectionViewCell.self)) { [weak self] index, item, cell in
                 let garageImageName = item._id.stringValue
                 let thumbnailFetched = self?.garageImagesViewModel.fetchGarageThumbnailImage(id: garageImageName)
                 cell.garageImageView.image = thumbnailFetched

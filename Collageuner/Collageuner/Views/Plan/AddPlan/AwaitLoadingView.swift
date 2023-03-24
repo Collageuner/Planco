@@ -8,15 +8,11 @@
 import UIKit
 
 import Lottie
+import SnapKit
+import Then
 
 final class AwaitLoadingView: UIView {
-    
-    private let loadingImage: LottieAnimationView = .init(name: "loadingView").then {
-        $0.loopMode = .loop
-        $0.animationSpeed = 1.3
-        $0.contentMode = .scaleAspectFit
-        $0.play(toFrame: 300)
-    }
+    private var loadingImage = LottieAnimationView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,6 +31,14 @@ final class AwaitLoadingView: UIView {
             $0.center.equalToSuperview()
             $0.height.width.equalTo(300)
         }
+    }
+    
+    func selectLottieFileName(lottieName : String) {
+        loadingImage = .init(name: lottieName)
+        loadingImage.loopMode = .loop
+        loadingImage.animationSpeed = 1.3
+        loadingImage.contentMode = .scaleAspectFit
+        loadingImage.play()
     }
     
     required init?(coder: NSCoder) {

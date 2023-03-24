@@ -26,20 +26,37 @@ final class GarageImagesViewModel {
             garageImagesArray.append($0)
         }
         
-        _ = Observable.just(garageImagesArray)
+        let reversedArray = Array(garageImagesArray.reversed())
+        
+        _ = Observable.just(reversedArray)
             .bind(to: garageImages)
             .disposed(by: disposeBag)
     }
     
-    func addGarageImage(garageImage: UIImage) {
-        let garageImageToAdd = GarageImage(usedNumber: 0)
+    func updateGarageImages() {
+        var garageImagesArray: [GarageImage] = []
+        let realmResult = myGarageRealm.objects(GarageImage.self)
         
+        realmResult.forEach {
+            garageImagesArray.append($0)
+        }
+        
+        let reversedArray = Array(garageImagesArray.reversed())
+        
+        _ = Observable.just(reversedArray)
+            .bind(to: garageImages)
+            .disposed(by: disposeBag)
+    }
+    
+    func addGarageImage(pngGarageData: Data?) {
+        let garageImageToAdd = GarageImage(usedNumber: 0)
         let imageName: String = garageImageToAdd._id.stringValue
+        guard let pngImage = UIImage(data: pngGarageData ?? Data()) else { return }
         
         do {
             try myGarageRealm.write({
                 myGarageRealm.add(garageImageToAdd)
-                myGarageRealm.saveImagesToDocumentDirectory(imageName: imageName, image: garageImage, originalImageAt: .GarageOriginalImages, thumbnailImageAt: .GarageThumbnailImages)
+                myGarageRealm.saveImagesToDocumentDirectory(imageName: imageName, image: pngImage, originalImageAt: .GarageOriginalImages, thumbnailImageAt: .GarageThumbnailImages)
             })
             print("🌅 Garage Image Added")
         } catch let error {
@@ -48,16 +65,18 @@ final class GarageImagesViewModel {
     }
     
     /// Use parameter as GarageImage's _id
-    func deleteGarageImage(garageImageId: String) {
+    func deleteGarageImage(garageImageId: ObjectId) {
         guard let realmResult = myGarageRealm.objects(GarageImage.self).filter(NSPredicate(format: "_id = %@", garageImageId)).first else {
             print("The Selected Image doesn't exist. _Id: \(garageImageId)")
             return
         }
         
+        let imageName: String = garageImageId.stringValue
+        
         do {
             try myGarageRealm.write({
                 myGarageRealm.delete(realmResult)
-                myGarageRealm.deleteImageFromDirectory(fromOriginalDirectory: .GarageOriginalImages, fromThumbnailDirectory: .GarageThumbnailImages, imageName: garageImageId)
+                myGarageRealm.deleteImageFromDirectory(fromOriginalDirectory: .GarageOriginalImages, fromThumbnailDirectory: .GarageThumbnailImages, imageName: imageName)
             })
             print("🗑️ Garage Image Deleted")
         } catch let error {
@@ -65,13 +84,17 @@ final class GarageImagesViewModel {
         }
     }
     
+    func isGarageEmpty() -> Bool {
+        return garageImages.value.isEmpty
+    }
+    
     func fetchGarageOriginalImage(id: String) -> UIImage? {
         let fileManager = FileManager.default
-        guard let thumbnailDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: DirectoryForWritingData.GarageOriginalImages.dataDirectory) else {
+        guard let originalDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: DirectoryForWritingData.GarageOriginalImages.dataDirectory) else {
             print("Failed fetching directory for Original Images for Garage Sheet List")
             return UIImage(named: "TaskDefaultImage")
         }
-        let imageURL = thumbnailDirectoryURL.appending(component: "\(id).png")
+        let imageURL = originalDirectoryURL.appending(component: "\(id).png")
         
         do {
             let imageData = try Data(contentsOf: imageURL)

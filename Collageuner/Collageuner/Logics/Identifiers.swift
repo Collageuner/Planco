@@ -8,18 +8,17 @@
 import UIKit
 
 enum IdsForCollectionView: String, CaseIterable {
-    case StoryCollectionViewId
     case GardenListCollectionViewId
     case PlantsListCollectionViewId
     case MorningPlanItemId
     case EarlyAfternoonPlanItemId
     case LateAfternoonPlanItemId
     case GarageSheetCollectionItemId
+    case GarageCollectionItemId
+    case GalleryCollectionItemId
     
     var identifier: String {
         switch self {
-        case .StoryCollectionViewId:
-            return "homeStory"
         case .GardenListCollectionViewId:
             return "gardenList"
         case .PlantsListCollectionViewId:
@@ -32,6 +31,10 @@ enum IdsForCollectionView: String, CaseIterable {
             return "latePlan"
         case .GarageSheetCollectionItemId:
             return "garageSheet"
+        case .GarageCollectionItemId:
+            return "garageList"
+        case .GalleryCollectionItemId:
+            return "galleryCell"
         }
     }
 }

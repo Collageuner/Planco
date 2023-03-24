@@ -15,7 +15,6 @@ import SnapKit
 import Then
 
 /// 할것 -> enum 으로 내부 Constraints length 한번에 정리해두기!
-
 final class HomeViewController: UIViewController {
     
     // MARK: - Drivers for Live Time Display
@@ -90,11 +89,13 @@ final class HomeViewController: UIViewController {
         self?.navigationController?.pushViewController(planViewController, animated: true)
     })
     ).then {
+        $0.layer.shadowOffset = CGSize(width: 0, height: 0)
+        $0.layer.shadowColor = UIColor.white.cgColor
+        $0.layer.shadowOpacity = 0.6
+        $0.layer.shadowRadius = 1.5
         $0.setImage(UIImage(named: "ToGardenLogo"), for: .normal)
         $0.backgroundColor = .clear
-        $0.layer.masksToBounds = true
         $0.contentMode = .scaleAspectFill
-        $0.clipsToBounds = true
     }
     
     // MARK: - Other UI Components

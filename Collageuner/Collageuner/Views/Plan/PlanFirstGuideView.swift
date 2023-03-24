@@ -18,7 +18,7 @@ final class PlanFirstGuideView: UIView {
         """, lineHeight: 20)
         $0.numberOfLines = 0
         $0.textColor = .SubText
-        $0.font = .customVersatileFont(.regualar, forTextStyle: .footnote)
+        $0.font = .customVersatileFont(.regular, forTextStyle: .footnote)
     }
     
     private let myTimeButtonLabel = UILabel().then {
@@ -48,7 +48,7 @@ final class PlanFirstGuideView: UIView {
         """, lineHeight: 20)
         $0.numberOfLines = 0
         $0.textColor = .SubText
-        $0.font = .customVersatileFont(.regualar, forTextStyle: .footnote)
+        $0.font = .customVersatileFont(.regular, forTextStyle: .footnote)
     }
     
     private let myGarageButtonLabel = UILabel().then {

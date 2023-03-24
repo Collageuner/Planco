@@ -63,7 +63,7 @@ final class HomePlanBlockView: UIView {
         }
         
         mainTaskLabel.snp.makeConstraints {
-            $0.top.equalTo(timeZoneLabel.snp.bottom).offset(8)
+            $0.top.equalTo(timeZoneLabel.snp.bottom).offset(5)
             $0.leading.equalToSuperview()
             $0.trailing.equalToSuperview().inset(5)
         }
@@ -100,6 +100,8 @@ final class HomePlanBlockView: UIView {
     
     func updateToEmptyCell() {
         timeZoneLabel.text = "Nothing"
+        mainTaskLabel.text = ""
+        taskTimeLabel.text = ""
     }
     
     required init?(coder: NSCoder) {

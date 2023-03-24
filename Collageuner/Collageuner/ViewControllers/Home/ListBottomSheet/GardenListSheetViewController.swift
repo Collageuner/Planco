@@ -211,6 +211,6 @@ final class GardenListSheetViewController: UIViewController {
     }
     
     deinit {
-        print("deinited - ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️")
+        print("deinited ")
     }
 }

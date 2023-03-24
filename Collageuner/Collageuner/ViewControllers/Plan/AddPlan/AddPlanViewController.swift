@@ -16,20 +16,25 @@ import Then
 
 final class AddPlanViewController: UIViewController {
     
+    // MARK: - Rx Models
     var disposeBag = DisposeBag()
     private let timeZoneViewModel = MyTimeZoneViewModel()
     private let taskViewModel = TasksViewModel()
     
+    // MARK: - Time Components
     private var currentTimeZoneEnum: MyTimeZone!
     private var currentTimeZoneString: String = ""
     private var currentTimeDay: Date = Date()
-    
+
     private lazy var selectedTaskTime: Date = getMinTime()
     
+    // MARK: - Custom Delegate for Reloading
     weak var delegate: AddPlanDelegate?
     
-    private let customNavigationView = AddPlanCustomBarView()
+    // MARK: - Custom Navigation bar
+    private let customNavigationView = ModalCustomBarView()
     
+    // MARK: - Time UI Components
     private lazy var timeZoneLabel = UILabel().then {
         $0.text = fetchTimeZoneLabel()
         $0.font = .customVersatileFont(.bold, forTextStyle: .largeTitle)
@@ -38,10 +43,36 @@ final class AddPlanViewController: UIViewController {
     
     private let timeZoneTimeLabel = UILabel().then {
         $0.text = ""
-        $0.font = .customVersatileFont(.regualar, forTextStyle: .callout)
+        $0.font = .customVersatileFont(.regular, forTextStyle: .callout)
         $0.textColor = .SubText
     }
     
+    private let taskTimeSectionLabel = UILabel().then {
+        $0.text = "🕰️ 시작 시간"
+        $0.font = .customVersatileFont(.bold, forTextStyle: .title3)
+        $0.textColor = .PopGreen
+    }
+    
+    private lazy var taskTimeDatePicker = UIDatePicker().then {
+        $0.date = getMinTime()
+        $0.addTarget(self, action: #selector(didSelectDate), for: .valueChanged)
+        $0.locale = Locale(identifier: "en_US")
+        $0.maximumDate = getMaxTime()
+        $0.minimumDate = getMinTime()
+        $0.tintColor = .MainCalendar
+        $0.minuteInterval = 5
+        $0.datePickerMode = .time
+        $0.preferredDatePickerStyle = .compact
+    }
+    
+    private let timeGuideLabel = UILabel().then {
+        $0.numberOfLines = 2
+        $0.font = .customVersatileFont(.light, forTextStyle: .subheadline)
+        $0.textColor = .SubGray.withAlphaComponent(0.7)
+        $0.text = "\"시간은 간단한 기준일 뿐이에요.\n 이 시간에 구속되지 않아도 좋아요.\""
+    }
+    
+    // MARK: - Task UI Components - Labels and TextFields
     private let mainTaskSectionLabel = UILabel().then {
         $0.text = "🌿 해야할 일"
         $0.font = .customVersatileFont(.bold, forTextStyle: .title3)
@@ -88,31 +119,7 @@ final class AddPlanViewController: UIViewController {
         $0.backgroundColor = .SubGray.withAlphaComponent(0.5)
     }
     
-    private let taskTimeSectionLabel = UILabel().then {
-        $0.text = "🕰️ 시작 시간"
-        $0.font = .customVersatileFont(.bold, forTextStyle: .title3)
-        $0.textColor = .PopGreen
-    }
-    
-    private lazy var taskTimeDatePicker = UIDatePicker().then {
-        $0.date = getMinTime()
-        $0.addTarget(self, action: #selector(didSelectDate), for: .valueChanged)
-        $0.locale = Locale(identifier: "en_US")
-        $0.maximumDate = getMaxTime()
-        $0.minimumDate = getMinTime()
-        $0.tintColor = .MainCalendar
-        $0.minuteInterval = 5
-        $0.datePickerMode = .time
-        $0.preferredDatePickerStyle = .compact
-    }
-    
-    private let timeGuideLabel = UILabel().then {
-        $0.numberOfLines = 2
-        $0.font = .customVersatileFont(.light, forTextStyle: .subheadline)
-        $0.textColor = .SubGray.withAlphaComponent(0.7)
-        $0.text = "\"시간은 간단한 기준일 뿐이에요.\n 이 시간에 구속되지 않아도 좋아요.\""
-    }
-
+    // MARK: - Other UI Components
     private lazy var decorationImage = UIImageView().then {
         $0.isUserInteractionEnabled = true
         $0.clipsToBounds = true
@@ -121,10 +128,12 @@ final class AddPlanViewController: UIViewController {
     }
     
     private let loadingView = AwaitLoadingView().then {
+        $0.selectLottieFileName(lottieName: "LoadingView")
         $0.isHidden = true
         $0.backgroundColor = .Background
     }
 
+    // MARK: - View Cycle 🔄
     override func viewDidLoad() {
         super.viewDidLoad()
         basicSetup()
@@ -139,14 +148,7 @@ final class AddPlanViewController: UIViewController {
         mainTaskTextField.becomeFirstResponder()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-    }
-    
+    // MARK: - Basic View Configuration
     private func basicSetup() {
         view.backgroundColor = .Background
         
@@ -154,6 +156,7 @@ final class AddPlanViewController: UIViewController {
         emotionTextField.delegate = self
     }
     
+    // MARK: - UI Constraint Layouts
     private func layouts() {
         view.addSubviews(customNavigationView, timeZoneLabel, timeZoneTimeLabel, mainTaskSectionLabel, mainTaskTextField, lineDividerOne, emotionSectionLabel, emotionTextField, lineDividerTwo, taskTimeSectionLabel, taskTimeDatePicker, timeGuideLabel, decorationImage)
         
@@ -228,10 +231,12 @@ final class AddPlanViewController: UIViewController {
         }
     }
     
+    // MARK: - Rx Bindings
     private func bindings() {
         bindTimeLabelFromTimeZone(timeZone: currentTimeZoneString)
     }
     
+    // MARK: - Adding Gesture Recognizers to Buttons
     private func actions() {
         let animationTapped = UITapGestureRecognizer(target: self, action: #selector(self.shakeImageAnimation))
         let cancelTapped = UITapGestureRecognizer(target: self, action: #selector(cancelAdding))
@@ -242,6 +247,7 @@ final class AddPlanViewController: UIViewController {
         customNavigationView.doneButton.addGestureRecognizer(doneTapped)
     }
     
+    // MARK: - Calculating Time to limit task time
     private func getMinTime() -> Date {
         let prefixOfDate: String = Date.prefixOfStringToDate(date: currentTimeDay)
         let suffixOfDateOfMorning: String = timeZoneViewModel.fetchMorningDateComponents().hourToFullHour()
@@ -297,6 +303,7 @@ final class AddPlanViewController: UIViewController {
         }
     }
     
+    // MARK: - Modifying Label and Image regarding to TimeZone
     private func fetchTimeZoneLabel() -> String {
         switch currentTimeZoneString {
         case MyTimeZone.morningTime.time:
@@ -323,6 +330,8 @@ final class AddPlanViewController: UIViewController {
         }
     }
     
+    // MARK: - Time Actions
+    /// Bind Labels regarding to TimeZone
     private func bindTimeLabelFromTimeZone(timeZone: String) {
         let timeLabelDriver: Driver<String>
         
@@ -342,18 +351,9 @@ final class AddPlanViewController: UIViewController {
             .drive(timeZoneTimeLabel.rx.text)
             .disposed(by: disposeBag)
     }
-    
-    private func navigationItemSetup() {
-        navigationItem.hidesBackButton = true
-        navigationController?.setToolbarHidden(false, animated: true)
-        let rightBarDoneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(finishAdding))
-        let backBarCancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelAdding))
-        rightBarDoneButton.tintColor = .PopGreen
-        navigationItem.setLeftBarButton(backBarCancelButton, animated: true)
-        navigationItem.setRightBarButton(rightBarDoneButton, animated: true)
-    }
-    
-    
+
+    // MARK: - Animation When Needed
+    /// Animate when main Task is Empty
     private func mainTextFieldAnimationWhenEmpty() {
         let animation = CAKeyframeAnimation(keyPath: "position.x")
         animation.values = [0, 4, -10, 10, -4, 0]
@@ -365,6 +365,7 @@ final class AddPlanViewController: UIViewController {
         mainTaskTextField.layer.add(animation, forKey: nil)
     }
     
+    /// Animate when Decoration Image is Tapped
     @objc
     private func shakeImageAnimation() {
         let animation = CAKeyframeAnimation(keyPath: "position.y")
@@ -377,17 +378,7 @@ final class AddPlanViewController: UIViewController {
         decorationImage.layer.add(animation, forKey: nil)
     }
     
-    @objc
-    private func didSelectDate() {
-        selectedTaskTime = taskTimeDatePicker.date
-        print(selectedTaskTime)
-    }
-    
-    @objc
-    private func cancelAdding() {
-        self.dismiss(animated: true)
-    }
-    
+    // MARK: - Saving Task to Realm
     @objc
     private func finishAdding() {
         let mainTaskisNilorEmpty = mainTaskTextField.text.isNilorEmpty
@@ -407,27 +398,15 @@ final class AddPlanViewController: UIViewController {
             loadingViewAppear()
         }
     }
-    
-    private func loadingViewAppear() {
-        view.addSubview(loadingView)
         
-        loadingView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        
-        loadingView.isHidden = false
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.dismiss(animated: true)
-        }
-    }
-    
     deinit {
         print("AddPlanView Out")
     }
 }
 
 extension AddPlanViewController {
+    
+    // MARK: - Prerequisite Settings Before Previous ViewController
     func changeCurrentTimeZone(timeZone: MyTimeZone) {
         switch timeZone {
         case .morningTime:
@@ -449,8 +428,48 @@ extension AddPlanViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
+    
+    // MARK: - ViewWillAppear Actions
+    private func navigationItemSetup() {
+        navigationItem.hidesBackButton = true
+        navigationController?.setToolbarHidden(false, animated: true)
+        let rightBarDoneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(finishAdding))
+        let backBarCancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelAdding))
+        rightBarDoneButton.tintColor = .PopGreen
+        navigationItem.setLeftBarButton(backBarCancelButton, animated: true)
+        navigationItem.setRightBarButton(rightBarDoneButton, animated: true)
+    }
+    
+    // MARK: - Other stuffs
+    /// Loading View Appears as Task is being made
+    private func loadingViewAppear() {
+        view.addSubview(loadingView)
+        
+        loadingView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        loadingView.isHidden = false
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.dismiss(animated: true)
+        }
+    }
+    
+    /// Update time selected
+    @objc
+    private func didSelectDate() {
+        selectedTaskTime = taskTimeDatePicker.date
+        print(selectedTaskTime)
+    }
+    
+    @objc
+    private func cancelAdding() {
+        self.dismiss(animated: true)
+    }
 }
 
+    // MARK: - Extension for TextField Delegate
 extension AddPlanViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {

@@ -18,3 +18,8 @@ protocol GarageSheetDelegate: AnyObject {
 protocol AddPlanDelegate: AnyObject {
     func reloadTableViews()
 }
+
+    /// Reload the tableView with GarageViewcController subscribing GarageImagesViewModel
+protocol GarageViewDelegate: AnyObject {
+    func reloadTableViews()
+}

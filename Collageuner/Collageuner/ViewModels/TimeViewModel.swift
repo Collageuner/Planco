@@ -144,8 +144,10 @@ final class MyTimeZoneViewModel {
         switch hourToInt {
         case 0...11:
             return HourMinuteString(hour: hour, minute: minute, noon: "am")
-        case 12...23:
+        case 13...23:
             return HourMinuteString(hour: String(hourToInt - 12), minute: minute, noon: "pm")
+        case 12:
+            return HourMinuteString(hour: hour, minute: minute, noon: "pm")
         default:
             print("Failed To Convert Date to HourMinuteString.")
             return nil
