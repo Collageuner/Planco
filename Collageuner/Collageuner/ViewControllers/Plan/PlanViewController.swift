@@ -403,6 +403,8 @@ extension PlanViewController {
     
     @objc
     private func actionTwo() {
+        let testTaskCompleteVC = TaskCompleteImagePickerViewController()
+        self.navigationController?.pushViewController(testTaskCompleteVC, animated: true)
     }
     
     @objc
