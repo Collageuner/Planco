@@ -20,6 +20,7 @@
 		581CC5262999223E007178B9 /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581CC5252999223E007178B9 /* ProfileSettingViewController.swift */; };
 		581CC52829992296007178B9 /* PlanTimeSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581CC52729992296007178B9 /* PlanTimeSectionHeaderView.swift */; };
 		581CC52A299922B3007178B9 /* ProfileSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581CC529299922B3007178B9 /* ProfileSettingTableViewCell.swift */; };
+		5824E9EF29CDF76000B9A2A8 /* TaskCompleteImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5824E9EE29CDF76000B9A2A8 /* TaskCompleteImagePickerViewController.swift */; };
 		582E7E8B29C1943800C87946 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582E7E8A29C1943800C87946 /* GalleryViewController.swift */; };
 		582E7E8E29C1973800C87946 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582E7E8D29C1973800C87946 /* GalleryCollectionViewCell.swift */; };
 		5830522529837B4C00E299C8 /* GardenCanvasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830522429837B4C00E299C8 /* GardenCanvasViewModel.swift */; };
@@ -125,6 +126,7 @@
 		581CC5252999223E007178B9 /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 		581CC52729992296007178B9 /* PlanTimeSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanTimeSectionHeaderView.swift; sourceTree = "<group>"; };
 		581CC529299922B3007178B9 /* ProfileSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingTableViewCell.swift; sourceTree = "<group>"; };
+		5824E9EE29CDF76000B9A2A8 /* TaskCompleteImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCompleteImagePickerViewController.swift; sourceTree = "<group>"; };
 		582E7E8A29C1943800C87946 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		582E7E8D29C1973800C87946 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		5830522429837B4C00E299C8 /* GardenCanvasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardenCanvasViewModel.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 		580D23D529B8508200E8CBCE /* CodesSaved */ = {
 			isa = PBXGroup;
 			children = (
+				581CC51D29992174007178B9 /* ListBottomSheet */,
 				58F1C41529961F42000071BC /* CodesSaved.swift */,
 				58CA8E3F29B746E4002440C6 /* BingCodes.swift */,
 				580D23D629B850DE00E8CBCE /* V1.0.0Codes.swift */,
@@ -490,7 +493,6 @@
 			isa = PBXGroup;
 			children = (
 				5878144729680BE90074FA56 /* HomeViewController.swift */,
-				581CC51D29992174007178B9 /* ListBottomSheet */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -509,6 +511,7 @@
 			children = (
 				58E8130629A714D1001EF12E /* AddPlanViewController.swift */,
 				58D9F53D29AC786F0009E907 /* GarageImageSheetViewController.swift */,
+				5824E9EE29CDF76000B9A2A8 /* TaskCompleteImagePickerViewController.swift */,
 			);
 			path = AddPlan;
 			sourceTree = "<group>";
@@ -742,6 +745,7 @@
 				5830522D2983870400E299C8 /* GarageImagesViewModel.swift in Sources */,
 				5830522F29839C5600E299C8 /* StickerView.swift in Sources */,
 				58B523B929B87C9D00FE0F17 /* HomePlanBlockView.swift in Sources */,
+				5824E9EF29CDF76000B9A2A8 /* TaskCompleteImagePickerViewController.swift in Sources */,
 				586453A929C83F4E00B17FF6 /* ImageCacheManager.swift in Sources */,
 				58AF770C298102C500A46B3D /* Tasks.swift in Sources */,
 				582E7E8E29C1973800C87946 /* GalleryCollectionViewCell.swift in Sources */,
