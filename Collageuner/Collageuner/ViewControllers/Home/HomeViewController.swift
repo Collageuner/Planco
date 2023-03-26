@@ -89,10 +89,10 @@ final class HomeViewController: UIViewController {
         self?.navigationController?.pushViewController(planViewController, animated: true)
     })
     ).then {
-        $0.layer.shadowOffset = CGSize(width: 0, height: 0)
-        $0.layer.shadowColor = UIColor.white.cgColor
-        $0.layer.shadowOpacity = 0.6
-        $0.layer.shadowRadius = 1.5
+        $0.layer.shadowOffset = CGSize(width: 0, height: 1)
+        $0.layer.shadowColor = UIColor.SubGray.cgColor
+        $0.layer.shadowOpacity = 0.8
+        $0.layer.shadowRadius = 2
         $0.setImage(UIImage(named: "ToGardenLogo"), for: .normal)
         $0.backgroundColor = .clear
         $0.contentMode = .scaleAspectFill
@@ -236,15 +236,16 @@ final class HomeViewController: UIViewController {
             .drive(currentDayLabel.rx.text)
             .disposed(by: disposeBag)
         
-        gardenCanvasViewModel.currentGardenCanvas
-            .asDriver()
-            .map { [weak self] canvas in
-                let imageName: String = canvas.monthAndYear + "_Canvas"
-                let canvasFetched: UIImage? = self?.loadGardenCanvasFromDirectory(imageName: imageName)
-                return canvasFetched
-            }
-            .drive(mainGardenCanvasView.rx.image)
-            .disposed(by: disposeBag)
+        // 두번씩이나 불러올 필요는 없잖아?
+//        gardenCanvasViewModel.currentGardenCanvas
+//            .asDriver()
+//            .map { [weak self] canvas in
+//                let imageName: String = canvas.monthAndYear + "_Canvas"
+//                let canvasFetched: UIImage? = self?.loadGardenCanvasFromDirectory(imageName: imageName)
+//                return canvasFetched
+//            }
+//            .drive(mainGardenCanvasView.rx.image)
+//            .disposed(by: disposeBag)
     }
 }
  
@@ -266,6 +267,7 @@ extension HomeViewController {
     }
     
     private func bindPlanBlock() {
+        // Closest Task Binding
         taskViewModelStory.filterTaskByCurrentTime(time: Date(), index: 0)
             .bind { [weak self] task in
                 guard let cell = task else {
@@ -276,6 +278,7 @@ extension HomeViewController {
             }
             .disposed(by: disposeBag)
             
+        // Second Closest Task Binding
         taskViewModelStory.filterTaskByCurrentTime(time: Date(), index: 1)
             .bind { [weak self] task in
                 guard let cell = task else {
