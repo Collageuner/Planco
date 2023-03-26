@@ -21,7 +21,7 @@
 		581CC52829992296007178B9 /* PlanTimeSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581CC52729992296007178B9 /* PlanTimeSectionHeaderView.swift */; };
 		581CC52A299922B3007178B9 /* ProfileSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581CC529299922B3007178B9 /* ProfileSettingTableViewCell.swift */; };
 		5824E9EF29CDF76000B9A2A8 /* TaskCompleteImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5824E9EE29CDF76000B9A2A8 /* TaskCompleteImagePickerViewController.swift */; };
-		582E7E8B29C1943800C87946 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582E7E8A29C1943800C87946 /* GalleryViewController.swift */; };
+		582E7E8B29C1943800C87946 /* GalleryViewForGarageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582E7E8A29C1943800C87946 /* GalleryViewForGarageViewController.swift */; };
 		582E7E8E29C1973800C87946 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582E7E8D29C1973800C87946 /* GalleryCollectionViewCell.swift */; };
 		5830522529837B4C00E299C8 /* GardenCanvasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830522429837B4C00E299C8 /* GardenCanvasViewModel.swift */; };
 		58305227298386D700E299C8 /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58305226298386D700E299C8 /* TasksViewModel.swift */; };
@@ -73,6 +73,7 @@
 		58A41E72299B532900036C59 /* UIViewController+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A41E71299B532900036C59 /* UIViewController+Extentions.swift */; };
 		58A41E74299B69D600036C59 /* PlanFirstGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A41E73299B69D600036C59 /* PlanFirstGuideView.swift */; };
 		58A41E76299B7D0E00036C59 /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A41E75299B7D0E00036C59 /* UILabel+Extensions.swift */; };
+		58A9EC0329D0275500E5F420 /* GalleryViewForCompleteTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A9EC0229D0275500E5F420 /* GalleryViewForCompleteTaskViewController.swift */; };
 		58AF77092980FBAF00A46B3D /* GardenCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF77082980FBAF00A46B3D /* GardenCanvas.swift */; };
 		58AF770C298102C500A46B3D /* Tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF770B298102C500A46B3D /* Tasks.swift */; };
 		58AF770E2981054A00A46B3D /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF770D2981054A00A46B3D /* Profile.swift */; };
@@ -127,7 +128,7 @@
 		581CC52729992296007178B9 /* PlanTimeSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanTimeSectionHeaderView.swift; sourceTree = "<group>"; };
 		581CC529299922B3007178B9 /* ProfileSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingTableViewCell.swift; sourceTree = "<group>"; };
 		5824E9EE29CDF76000B9A2A8 /* TaskCompleteImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCompleteImagePickerViewController.swift; sourceTree = "<group>"; };
-		582E7E8A29C1943800C87946 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
+		582E7E8A29C1943800C87946 /* GalleryViewForGarageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewForGarageViewController.swift; sourceTree = "<group>"; };
 		582E7E8D29C1973800C87946 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		5830522429837B4C00E299C8 /* GardenCanvasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardenCanvasViewModel.swift; sourceTree = "<group>"; };
 		58305226298386D700E299C8 /* TasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
@@ -166,6 +167,7 @@
 		58A41E71299B532900036C59 /* UIViewController+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extentions.swift"; sourceTree = "<group>"; };
 		58A41E73299B69D600036C59 /* PlanFirstGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanFirstGuideView.swift; sourceTree = "<group>"; };
 		58A41E75299B7D0E00036C59 /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
+		58A9EC0229D0275500E5F420 /* GalleryViewForCompleteTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewForCompleteTaskViewController.swift; sourceTree = "<group>"; };
 		58AF77082980FBAF00A46B3D /* GardenCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardenCanvas.swift; sourceTree = "<group>"; };
 		58AF770B298102C500A46B3D /* Tasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tasks.swift; sourceTree = "<group>"; };
 		58AF770D2981054A00A46B3D /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
@@ -268,7 +270,10 @@
 		581CC51F299921EE007178B9 /* Plan */ = {
 			isa = PBXGroup;
 			children = (
+				58A9EC0229D0275500E5F420 /* GalleryViewForCompleteTaskViewController.swift */,
+				58D9F53D29AC786F0009E907 /* GarageImageSheetViewController.swift */,
 				581CC5232999222D007178B9 /* PlanViewController.swift */,
+				5824E9EE29CDF76000B9A2A8 /* TaskCompleteImagePickerViewController.swift */,
 				58E8130529A70A57001EF12E /* AddPlan */,
 			);
 			path = Plan;
@@ -500,8 +505,8 @@
 		58BC4C6729BF745B00AB2052 /* Garage */ = {
 			isa = PBXGroup;
 			children = (
+				582E7E8A29C1943800C87946 /* GalleryViewForGarageViewController.swift */,
 				58BC4C6829BF747700AB2052 /* GarageViewController.swift */,
-				582E7E8A29C1943800C87946 /* GalleryViewController.swift */,
 			);
 			path = Garage;
 			sourceTree = "<group>";
@@ -510,8 +515,6 @@
 			isa = PBXGroup;
 			children = (
 				58E8130629A714D1001EF12E /* AddPlanViewController.swift */,
-				58D9F53D29AC786F0009E907 /* GarageImageSheetViewController.swift */,
-				5824E9EE29CDF76000B9A2A8 /* TaskCompleteImagePickerViewController.swift */,
 			);
 			path = AddPlan;
 			sourceTree = "<group>";
@@ -720,7 +723,7 @@
 				585098D42997417500BCC087 /* GardenListSheetViewController.swift in Sources */,
 				585098D22997416300BCC087 /* PlantsListSheetViewController.swift in Sources */,
 				58AF771129810B4F00A46B3D /* TimeString.swift in Sources */,
-				582E7E8B29C1943800C87946 /* GalleryViewController.swift in Sources */,
+				582E7E8B29C1943800C87946 /* GalleryViewForGarageViewController.swift in Sources */,
 				58101EE6298B8F65000C2671 /* Date+Extensions.swift in Sources */,
 				5830522529837B4C00E299C8 /* GardenCanvasViewModel.swift in Sources */,
 				58E8130729A714D1001EF12E /* AddPlanViewController.swift in Sources */,
@@ -732,6 +735,7 @@
 				589BE87B29CD476900C17F34 /* LongTappedPopUpView.swift in Sources */,
 				58A41E74299B69D600036C59 /* PlanFirstGuideView.swift in Sources */,
 				58BC4C6929BF747700AB2052 /* GarageViewController.swift in Sources */,
+				58A9EC0329D0275500E5F420 /* GalleryViewForCompleteTaskViewController.swift in Sources */,
 				5894B2B7296838B500263584 /* Identifiers.swift in Sources */,
 				58A41E76299B7D0E00036C59 /* UILabel+Extensions.swift in Sources */,
 				583966A2297E401800B63E52 /* UIView+Extensions.swift in Sources */,

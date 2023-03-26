@@ -17,10 +17,16 @@ import Then
 
 final class TaskCompleteImagePickerViewController: UIViewController {
 
+    private var cellId: ObjectId!
+    
+    private var originalScale: CGAffineTransform!
     private lazy var halfDistanceBetweenButtons: CGFloat = view.frame.width/5.3
     
+    weak var delegate: AddPlanDelegate?
+    
     var disposeBag = DisposeBag()
-    private let taskImageSubject: BehaviorRelay<UIImage> = BehaviorRelay(value: UIImage())
+    private let planTaskViewModel = PlansTableItemViewModel()
+    private let taskImageSubject: BehaviorRelay<UIImage?> = BehaviorRelay(value: nil)
     
     private let mainLabel = UILabel().then {
         $0.font = .customEnglishFont(.regular, forTextStyle: .title1)
@@ -38,11 +44,11 @@ final class TaskCompleteImagePickerViewController: UIViewController {
         $0.textColor = .LateAfternoonColor
         $0.text = "정성스럽게, 그리고 조심스럽게 기록해주세요.\n왜냐하면 당신이 끝낸 일과 그에 대한 감정은\n소중하고, 사라지지 않았으면 좋겠으니까요."
         $0.numberOfLines = 3
-        $0.font = .customVersatileFont(.semibold, forTextStyle: .body)
+        $0.font = .customVersatileFont(.semibold, forTextStyle: .callout)
     }
     
     private let selectedImageView = UIImageView().then {
-        $0.backgroundColor = .red
+        $0.backgroundColor = .clear
         $0.contentMode = .scaleAspectFit
     }
     
@@ -55,14 +61,14 @@ final class TaskCompleteImagePickerViewController: UIViewController {
     }
     
     private lazy var fetchImageFromAlbumButton = UIButton(type: .system, primaryAction: UIAction(handler: { [weak self] _ in
-        print("Fetching Image from Album")
+        self?.presentAlbumGalleryViewToAdd()
     })).then {
         $0.clipsToBounds = true
         $0.setImage(UIImage(named: "ApplePhotoAlbumLogo"), for: .normal)
     }
     
     private lazy var fetchImageFromGarageButton = UIButton(type: .system, primaryAction: UIAction(handler: { [weak self] _ in
-        print("Fetching Image from Garage")
+        self?.presentGarageSheetViewToAdd()
     })).then {
         $0.setImage(UIImage(named: "GarageAppIcon"), for: .normal)
     }
@@ -109,6 +115,7 @@ final class TaskCompleteImagePickerViewController: UIViewController {
     
     private func basicSetup() {
         view.backgroundColor = .Background
+        addingPinchGesture()
     }
     
     private func layouts() {
@@ -118,7 +125,7 @@ final class TaskCompleteImagePickerViewController: UIViewController {
         stackViewForGarage.addArrangedSubview(fetchImageFromGarageButton)
         stackViewForGarage.addArrangedSubview(garageButtonLabel)
         
-        view.addSubviews(mainLabel, suggestingLabel, emotionLabel, selectedImageView, defaultLottieView, stackViewForAlbum, stackViewForGarage)
+        view.addSubviews(mainLabel, suggestingLabel, emotionLabel, defaultLottieView, stackViewForAlbum, stackViewForGarage, selectedImageView)
         
         mainLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(25)
@@ -160,21 +167,31 @@ final class TaskCompleteImagePickerViewController: UIViewController {
         }
         
         fetchImageFromAlbumButton.snp.makeConstraints {
-            $0.height.width.equalTo(view.snp.width).dividedBy(7.4)
+            $0.height.width.equalTo(view.snp.width).dividedBy(7)
         }
         
         fetchImageFromGarageButton.snp.makeConstraints {
-            $0.height.width.equalTo(view.snp.width).dividedBy(7.4)
+            $0.height.width.equalTo(view.snp.width).dividedBy(7)
         }
     }
     
     private func bindings() {
+        taskImageSubject.asDriver()
+            .drive(selectedImageView.rx.image)
+            .disposed(by: disposeBag)
+    }
+    
+    private func addingPinchGesture() {
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinchToZoom(_:)))
+        selectedImageView.addGestureRecognizer(pinchGesture)
+        selectedImageView.isUserInteractionEnabled = true
         
+        originalScale = selectedImageView.transform
     }
     
     private func presentAlbumGalleryViewToAdd() {
         DispatchQueue.main.async {
-            let galleryVC = GalleryViewForGarageController()
+            let galleryVC = GalleryViewForCompleteTaskViewController()
             galleryVC.modalPresentationStyle = .overFullScreen
             galleryVC.customNavigationView.setTitleForDoneButtonWith(title: "Next", titleColor: .PopGreen)
             galleryVC.delegate = self
@@ -182,14 +199,78 @@ final class TaskCompleteImagePickerViewController: UIViewController {
         }
     }
     
+    private func presentGarageSheetViewToAdd() {
+        let garageBottomSheetVC = GarageImageSheetViewController()
+        garageBottomSheetVC.delegate = self
+        garageBottomSheetVC.modalPresentationStyle = .pageSheet
+        
+        if let sheet = garageBottomSheetVC.sheetPresentationController {
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 30
+            sheet.detents = [
+                .custom { context in
+                    return context.maximumDetentValue * 0.9
+                }
+            ]
+        }
+        
+        self.present(garageBottomSheetVC, animated: true)
+    }
+    
     private func navigationItemSetup() {
         navigationController?.navigationBar.tintColor = .MainGreen
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "다음", style: .plain, target: self, action: #selector(moveNext))
     }
     
+    private func alertWhenNoImageIsSelected() {
+        let alertController = UIAlertController(title: "사진이 선택되지 않았어요.", message: "사진 없이 기록을 끝내시나요?", preferredStyle: .alert)
+        alertController.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor(hex: "#465E62")
+        alertController.view.tintColor = .PopGreen
+        
+        let okAction = UIAlertAction(title: "확인", style: .cancel) { [weak self] _ in
+            self?.saveTaskDoneWithoutImage()
+            self?.dismiss(animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .destructive, handler: nil)
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    private func saveTaskDoneWithoutImage() {
+        planTaskViewModel.updatePlanCompleted(id: cellId)
+        self.delegate?.reloadTableViews()
+    }
+    
+    @objc
+    private func pinchToZoom(_ gestureRecognizer: UIPinchGestureRecognizer) {
+        guard let view = gestureRecognizer.view else {return}
+        
+        view.transform = view.transform.scaledBy(x: gestureRecognizer.scale, y: gestureRecognizer.scale)
+        gestureRecognizer.scale = 1.0
+        
+        if gestureRecognizer.state == .ended {
+            UIView.animate(withDuration: 0.3) {
+                view.transform = self.originalScale
+            }
+        }
+    }
+    
     @objc
     private func moveNext() {
-        
+        if taskImageSubject.value == nil {
+            alertWhenNoImageIsSelected()
+        } else {
+            let tempVC = ProfileSettingViewController()
+            self.navigationController?.pushViewController(tempVC, animated: true)
+            // let newVC = UIViewController()
+            // 1. relay.value 넘기는 함수 받기
+            // 2. cellId 도 똑같이 넘기기
+            // 3. 네비로 넘기기
+            // 그러면... 다시 돌아와도... 그 뭐냐 저거 남아있으려나 value..?
+        }
     }
     
     deinit {
@@ -197,9 +278,32 @@ final class TaskCompleteImagePickerViewController: UIViewController {
     }
 }
 
+extension TaskCompleteImagePickerViewController {
+    func saveCellId(id: ObjectId) {
+        cellId = id
+    }
+}
+
 extension TaskCompleteImagePickerViewController: GarageViewDelegate {
-    func reloadTableViews() {
-        <#code#>
+    func fetchImage(selectedImageData: Data) {
+        guard let pngImage = UIImage(data: selectedImageData) else { return }
+        
+        _ = Observable.just(pngImage)
+            .bind(to: taskImageSubject)
+            .disposed(by: disposeBag)
+        
+        defaultLottieView.isHidden = true
+    }
+}
+
+extension TaskCompleteImagePickerViewController: GarageSheetDelegate {
+    func fetchImageFromGarageSheet(garageImage: UIImage) {
+        
+        _ = Observable.just(garageImage)
+            .bind(to: taskImageSubject)
+            .disposed(by: disposeBag)
+        
+        defaultLottieView.isHidden = true
     }
 }
 
