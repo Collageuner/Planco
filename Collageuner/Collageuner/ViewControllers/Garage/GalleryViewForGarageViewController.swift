@@ -1,5 +1,5 @@
 //
-//  GalleryViewController.swift
+//  GalleryViewForGarageController.swift
 //  Collageuner
 //
 //  Created by KYUBO A. SHIM on 2023/03/15.
@@ -15,11 +15,10 @@ import RxCocoa
 import SnapKit
 import Then
 
-final class GalleryViewController: UIViewController {
+final class GalleryViewForGarageViewController: UIViewController {
     
     // MARK: - Rx Models
     private let garageViewModel = GarageImagesViewModel()
-    private lazy var garageImages: [GarageImage] = garageViewModel.garageImages.value
     
     // MARK: - Custom Delegate for Reloading
     weak var delegate: GarageViewDelegate?
@@ -129,7 +128,7 @@ final class GalleryViewController: UIViewController {
             self?.garageViewModel.addGarageImage(pngGarageData: pngData)
             print("Adding Image to Garage Successed")
             
-            self?.delegate?.reloadTableViews()
+            self?.delegate?.reloadTableViews?()
             self?.dismiss(animated: true)
         }
     }
@@ -188,7 +187,7 @@ final class GalleryViewController: UIViewController {
     }
 }
     // MARK: - Extension for CollectionView Delegate and Datasource
-extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension GalleryViewForGarageViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return asset.count
     }
@@ -217,7 +216,7 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
 }
 
     // MARK: - Extension for PHPhotoLibraryChangeObserver
-extension GalleryViewController: PHPhotoLibraryChangeObserver {
+extension GalleryViewForGarageViewController: PHPhotoLibraryChangeObserver {
     /// Now it observes the change of Assets while the app is running
     func photoLibraryDidChange(_ changeInstance: PHChange) {
         guard let assetChanges = changeInstance.changeDetails(for: self.asset) else { return }

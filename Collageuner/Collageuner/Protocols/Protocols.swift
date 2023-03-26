@@ -12,14 +12,16 @@ import RxCocoa
 
     /// Passes Image selected from Garage List to Parent ViewController
 protocol GarageSheetDelegate: AnyObject {
-    func fetchImageFromGarage(garageImage: UIImage)
+    func fetchImageFromGarageSheet(garageImage: UIImage)
 }
     /// Reload the tableViews as Adding Task finishes
 protocol AddPlanDelegate: AnyObject {
     func reloadTableViews()
 }
 
-    /// Reload the tableView with GarageViewcController subscribing GarageImagesViewModel
+    /// Reload the tableView with GarageViewcController subscribing GarageImagesViewModel Or Passes Image selected from GalleryView to TaskCompleteImage ViewController
+@objc
 protocol GarageViewDelegate: AnyObject {
-    func reloadTableViews()
+    @objc optional func reloadTableViews()
+    @objc optional func fetchImage(selectedImageData: Data)
 }

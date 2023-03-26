@@ -205,7 +205,7 @@ final class GarageViewController: UIViewController {
     }
     
     deinit {
-        print("📍📍📍GarageView Out📍📍📍")
+        print("GarageView Out")
     }
 }
 
@@ -318,7 +318,7 @@ extension GarageViewController {
         
         if garageItems < 20 {
             DispatchQueue.main.async {
-                let galleryVC = GalleryViewController()
+                let galleryVC = GalleryViewForGarageViewController()
                 galleryVC.modalPresentationStyle = .overFullScreen
                 galleryVC.customNavigationView.setTitleForDoneButtonWith(title: "Next", titleColor: .PopGreen)
                 galleryVC.delegate = self

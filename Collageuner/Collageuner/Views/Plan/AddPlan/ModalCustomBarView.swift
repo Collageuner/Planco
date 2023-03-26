@@ -15,7 +15,7 @@ final class ModalCustomBarView: UIView {
     
     let cancelButton = UIButton(type: .system).then {
         $0.setAttributedTitle(NSAttributedString(string: "Cancel", attributes: [NSAttributedString.Key.font : UIFont.customVersatileFont(.regular, forTextStyle: .headline) ?? UIFont.preferredFont(forTextStyle: .title3, weight: .medium)]), for: .normal)
-        $0.tintColor = .MainGray
+        $0.tintColor = .SubGray
     }
     
     lazy var doneButton = UIButton(type: .system)
