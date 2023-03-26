@@ -128,7 +128,7 @@ final class GalleryViewForGarageViewController: UIViewController {
             self?.garageViewModel.addGarageImage(pngGarageData: pngData)
             print("Adding Image to Garage Successed")
             
-            self?.delegate?.reloadTableViews()
+            self?.delegate?.reloadTableViews?()
             self?.dismiss(animated: true)
         }
     }
