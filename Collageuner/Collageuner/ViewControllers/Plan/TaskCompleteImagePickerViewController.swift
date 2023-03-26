@@ -36,7 +36,7 @@ final class TaskCompleteImagePickerViewController: UIViewController {
     
     private let suggestingLabel = UILabel().then {
         $0.font = .customVersatileFont(.medium, forTextStyle: .subheadline)
-        $0.textColor = .SubGray
+        $0.textColor = .SubGray.withAlphaComponent(0.8)
         $0.text = "당신은 기록을 할 수 있고, 그저 넘길 수 있어요."
     }
     
