@@ -132,12 +132,13 @@ final class GarageImageSheetViewController: UIViewController {
             .map { $0._id.stringValue }
             .subscribe { imageId in
                 guard let imageName = imageId.element else { return }
+                
                 guard let fetchedOriginalImage = self.garageImagesViewModel.fetchGarageOriginalImage(id: imageName) else {
                     print("Error getting original Image for Garage Sheet")
                     return
                 }
-                
-                self.delegate?.fetchImageFromGarage(garageImage: fetchedOriginalImage)
+
+                self.delegate?.fetchImageFromGarageSheet(garageImage: fetchedOriginalImage)
                 self.dismiss(animated: true)
             }
             .disposed(by: disposeBag)
