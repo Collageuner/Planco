@@ -45,7 +45,7 @@ enum Anton {
     func fontSize(style: UIFont.TextStyle) -> CGFloat {
         switch style {
         case .largeTitle: return 38.0
-        case .title1: return 26.0
+        case .title1: return 28.0
         case .title2: return 22.0
         case .title3: return 20.0
         case .headline: return 18.0
