@@ -113,7 +113,7 @@ final class GalleryViewForCompleteTaskViewController: UIViewController {
     }
      
     // MARK: - Saving Garage Image when Next Button is Tapped
-    private func saveAsset(_ asset: PHAsset) async {
+    private func passAsset(_ asset: PHAsset) async {
         let imageManager = PHImageManager()
         let imageOptions = PHImageRequestOptions()
         imageOptions.isSynchronous = false
@@ -124,12 +124,13 @@ final class GalleryViewForCompleteTaskViewController: UIViewController {
             let isDegraged = (info?[PHImageResultIsDegradedKey] as? Bool) ?? false
             if isDegraged { return }
             
-            let pngData = image?.pngData()
-            self?.garageViewModel.addGarageImage(pngGarageData: pngData)
-            print("Adding Image to Garage Successed")
+            guard let pngData = image?.pngData() else {
+                print("Error Converting Data to Png Image")
+                return }
             
-            self?.delegate?.reloadTableViews()
+            self?.delegate?.fetchImage?(selectedImageData: pngData)
             self?.dismiss(animated: true)
+            print("Passing Image to ParentView Successed")
         }
     }
     
@@ -138,7 +139,7 @@ final class GalleryViewForCompleteTaskViewController: UIViewController {
         if selectedAsset != nil {
             loadingViewAppear()
             Task {
-                await saveAsset(selectedAsset)
+                await passAsset(selectedAsset)
             }
         } else {
             alertWhenNoneIsSelected()
@@ -187,7 +188,7 @@ final class GalleryViewForCompleteTaskViewController: UIViewController {
     }
 }
     // MARK: - Extension for CollectionView Delegate and Datasource
-extension GalleryViewForGarageViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension GalleryViewForCompleteTaskViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return asset.count
     }
@@ -216,7 +217,7 @@ extension GalleryViewForGarageViewController: UICollectionViewDelegate, UICollec
 }
 
     // MARK: - Extension for PHPhotoLibraryChangeObserver
-extension GalleryViewForGarageViewController: PHPhotoLibraryChangeObserver {
+extension GalleryViewForCompleteTaskViewController: PHPhotoLibraryChangeObserver {
     /// Now it observes the change of Assets while the app is running
     func photoLibraryDidChange(_ changeInstance: PHChange) {
         guard let assetChanges = changeInstance.changeDetails(for: self.asset) else { return }
