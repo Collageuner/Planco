@@ -112,7 +112,7 @@ final class PlanViewController: UIViewController {
         $0.layer.shadowColor = UIColor.PopGreen.cgColor
         $0.layer.shadowOpacity = 0.6
         $0.layer.shadowRadius = 1.5
-        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 24, weight: .light)
+        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 24, weight: .medium)
         $0.setImage(UIImage(systemName: "plus", withConfiguration: symbolConfiguration), for: .normal)
         $0.tintColor = .PopGreen
         $0.backgroundColor = .white
@@ -223,9 +223,9 @@ final class PlanViewController: UIViewController {
         }
         
         addButton.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(25)
-            $0.bottom.equalToSuperview().inset(45)
-            $0.height.width.equalTo(view.snp.width).dividedBy(6.1)
+            $0.trailing.equalToSuperview().inset(30)
+            $0.bottom.equalToSuperview().inset(50)
+            $0.height.width.equalTo(view.snp.width).dividedBy(5.8)
         }
     }
     
@@ -283,7 +283,7 @@ final class PlanViewController: UIViewController {
         let symbolConfiguration = UIImage.SymbolConfiguration(paletteColors: [.PopGreen])
         navigationController?.navigationBar.tintColor = .MainGreen
         navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(image: UIImage(systemName: "photo.on.rectangle.angled", withConfiguration: symbolConfiguration), style: .plain, target: self, action: #selector(actionThree)),
+            UIBarButtonItem(image: UIImage(named: "GarageIcon")?.resizeImage(size: CGSize(width: 22, height: 22)).withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(actionThree)),
             UIBarButtonItem(image: UIImage(systemName: "calendar.badge.clock", withConfiguration: symbolConfiguration),  style: .plain, target: self, action: #selector(actionTwo)),
             UIBarButtonItem(image: UIImage(systemName: "person.crop.circle.badge.clock", withConfiguration: symbolConfiguration), style: .plain, target: self, action: #selector(actionOne))
         ]
@@ -329,14 +329,17 @@ extension PlanViewController {
     
     // MARK: - UIMenu Actions
     private func getMenuActionForAddingPlan() -> [UIAction] {
+        let symbolConfigurationForMorning = UIImage.SymbolConfiguration(hierarchicalColor: .PopGreen)
+        let symbolConfigurationForEarlyAfternoon = UIImage.SymbolConfiguration(hierarchicalColor: .EarlyAfternoonColor)
+        let symbolConfigurationForLateAfternoon = UIImage.SymbolConfiguration(hierarchicalColor: .LateAfternoonColor)
         let menuActions: [UIAction] = [
-            UIAction(title: "늦은 오후에 추가하기", image: UIImage(systemName: "moonphase.waxing.crescent.inverse"), handler: { [unowned self] _ in
+            UIAction(title: "늦은 오후에 추가하기", image: UIImage(systemName: "moonphase.waxing.crescent.inverse", withConfiguration: symbolConfigurationForLateAfternoon), handler: { [unowned self] _ in
                 self.moveToAddLatePlan()
             }),
-            UIAction(title: "이른 오후에 추가하기", image: UIImage(systemName: "moonphase.last.quarter"), handler: { [unowned self] _ in
+            UIAction(title: "이른 오후에 추가하기", image: UIImage(systemName: "moonphase.last.quarter", withConfiguration: symbolConfigurationForEarlyAfternoon), handler: { [unowned self] _ in
                 self.moveToAddEarlyPlan()
             }),
-            UIAction(title: "오전에 추가하기", image: UIImage(systemName: "moonphase.waning.crescent"), handler: { [unowned self] _ in
+            UIAction(title: "오전에 추가하기", image: UIImage(systemName: "moonphase.waning.crescent", withConfiguration: symbolConfigurationForMorning), handler: { [unowned self] _ in
                 self.moveToAddMorningPlan()
             })
         ]
