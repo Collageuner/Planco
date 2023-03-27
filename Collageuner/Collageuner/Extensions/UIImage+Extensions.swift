@@ -36,25 +36,12 @@ extension UIImage {
     
     // Use it when resizing Image, especially for resizing UIBarButtonItem
     func resizeImage(size: CGSize) -> UIImage {
-      let originalSize = self.size
-      let ratio: CGFloat = {
-          return originalSize.width > originalSize.height ? 1 / (size.width / originalSize.width) :
-                                                            1 / (size.height / originalSize.height)
-      }()
-
-      return UIImage(cgImage: self.cgImage!, scale: self.scale * ratio, orientation: self.imageOrientation)
+        let originalSize = self.size
+        let ratio: CGFloat = {
+            return originalSize.width > originalSize.height ? 1 / (size.width / originalSize.width) :
+            1 / (size.height / originalSize.height)
+        }()
+        
+        return UIImage(cgImage: self.cgImage!, scale: self.scale * ratio, orientation: self.imageOrientation)
     }
 }
-
-
-/*   ⚠️ USAGE
-     let thumbnailSize = CGSize(width: 80, height: 80)
-     let scaledImage = image.scalePreservingAspectRatio(targetSize: thumbnailSize)
- 
-     ...
- 
-     guard let thumbnailImageData = scaledImage.pngData() else {
-         print("Failed to Compress Image into thumbnail Image")
-         return
-     }
- */
