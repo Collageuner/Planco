@@ -148,3 +148,79 @@ class ViewController: UIViewController {
 
 
 */
+
+
+/*   ⚠️ USAGE
+ let thumbnailSize = CGSize(width: 80, height: 80)
+ let scaledImage = image.scalePreservingAspectRatio(targetSize: thumbnailSize)
+ 
+ ...
+ 
+ guard let thumbnailImageData = scaledImage.pngData() else {
+ print("Failed to Compress Image into thumbnail Image")
+ return
+ }
+ */
+
+/// We'll be using OpenCV... So... but We can study the codes though.
+/// ⚠️ Code that smoothing Edges Failed, and none of them works fine....
+//    func smoothed(withRadius radius: CGFloat) -> UIImage? {
+//        let imageRect = CGRect(origin: .zero, size: size)
+//        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+//        defer { UIGraphicsEndImageContext() }
+//        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+//        context.scaleBy(x: 1, y: -1)
+//        context.translateBy(x: 0, y: -size.height)
+//        context.setBlendMode(.normal)
+//        let rectPath = UIBezierPath(roundedRect: imageRect.insetBy(dx: radius, dy: radius), cornerRadius: radius)
+//        rectPath.addClip()
+//        draw(in: imageRect)
+//        context.drawLinearGradient(CGGradient(colorsSpace: nil, colors: [UIColor.clear.cgColor, UIColor.black.cgColor] as CFArray, locations: [0, 1])!, start: CGPoint(x: 0, y: size.height - radius), end: CGPoint(x: 0, y: size.height), options: []
+//        )
+//        let smoothedImage = UIGraphicsGetImageFromCurrentImageContext()
+//        return smoothedImage
+//    }
+
+//func smoothing() {
+//    let path = UIBezierPath(roundedRect: selectedImageView.bounds, cornerRadius: 20)
+//    let maskLayer = CAShapeLayer()
+//    maskLayer.path = path.cgPath
+//    selectedImageView.layer.mask = maskLayer
+//}
+//
+//func putFeatherEffect(image: UIImage?, radius: CGFloat) -> UIImage? {
+//    guard let inputImage = image else {
+//        print("🧷 1")
+//        return UIImage() }
+//    let context = CIContext()
+//    guard let ciImage = CIImage(image: inputImage) else {
+//        print("🧷 2")
+//        return UIImage()}
+//    guard let filter = CIFilter(name: "CIGaussianBlur") else {
+//        print("🧷 3")
+//        return UIImage()}
+//    filter.setValue(ciImage, forKey: kCIInputImageKey)
+//    filter.setValue(radius, forKey: kCIInputRadiusKey)
+//    guard let outputCiImage = filter.outputImage else {
+//        print("🧷 4")
+//        return UIImage()}
+//
+//    let mask = CIImage(color: CIColor(red: 1, green: 1, blue: 1, alpha: 0))
+//    guard let maskFilter = CIFilter(name: "CIRadialGradient") else {
+//        print("🧷 5")
+//        return UIImage()}
+//    maskFilter.setValue(CIVector(x: inputImage.size.width/2, y: inputImage.size.height/2), forKey: "inputCenter")
+//    maskFilter.setValue(inputImage.size.width/2 * 0.9, forKey: "inputRadius0")
+//    maskFilter.setValue(inputImage.size.width/2 * 1.1, forKey: "inputRadius1")
+//    let maskOutputCIImage = maskFilter.outputImage!.cropped(to: ciImage.extent)
+//
+//    let invertedMask = maskOutputCIImage.applyingFilter("CIColorInvert")
+//
+//    let maskedOutputCIImage = outputCiImage.applyingFilter("CIBlendWithMask", parameters: [kCIInputMaskImageKey: invertedMask])
+//
+//
+//    let cgImage = context.createCGImage(maskedOutputCIImage, from: maskedOutputCIImage.extent)!
+//    let outputImage = UIImage(cgImage: cgImage)
+//
+//    return outputImage
+//}
