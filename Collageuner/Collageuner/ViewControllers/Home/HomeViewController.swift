@@ -253,6 +253,7 @@ extension HomeViewController {
     private func actions() {
     }
     
+    /// 여기 loadGardenCanvasFromDirectory 없애야함
     private func bindCanvas() {
         gardenCanvasViewModel.currentGardenCanvas
             .asDriver()
