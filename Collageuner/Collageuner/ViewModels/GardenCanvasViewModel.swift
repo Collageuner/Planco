@@ -90,16 +90,11 @@ final class GardenCanvasViewModel {
             .disposed(by: disposeBag)
     }
     
-    func fetchCurrentDateCanvas(currentDate: Date) -> BehaviorRelay<UIImage?> {
+    func fetchCurrentDateCanvas(currentDate: Date) -> UIImage {
         let dateKey: String = Date.dateToYearAndMonth(date: currentDate)
-        let canvasSubject: BehaviorRelay<UIImage?> = BehaviorRelay(value: nil)
-        guard let fetchedCanvasImage =  loadGardenCanvasFromDirectory(imageName: dateKey) else { return BehaviorRelay(value: UIImage()) }
+        guard let fetchedCanvasImage =  loadGardenCanvasFromDirectory(imageName: dateKey) else { return UIImage(named: "DefaultCanvasImage") ?? UIImage() }
         
-        _ = Observable.just(fetchedCanvasImage)
-            .bind(to: canvasSubject)
-            .disposed(by: disposeBag)
-        
-        return canvasSubject
+        return fetchedCanvasImage
     }
     
     private func dateToYear(date: Date) -> String {
