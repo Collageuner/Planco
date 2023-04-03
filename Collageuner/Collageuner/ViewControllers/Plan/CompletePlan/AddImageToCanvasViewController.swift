@@ -38,19 +38,14 @@ final class AddImageToCanvasViewController: UIViewController {
         $0.contentMode = .scaleAspectFit
         $0.layer.masksToBounds = true
         $0.isUserInteractionEnabled = true
-        $0.backgroundColor = .clear
+        $0.backgroundColor = .systemBlue
     }
-    
-//    private lazy var selectedMemoryStickerView = StickerView(contentView: UIImageView(image: selectedImage)).then {
-//        $0.backgroundColor = .clear
-//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         basicSetup()
         stickerViewSetup()
         layouts()
-        bindings()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,6 +55,9 @@ final class AddImageToCanvasViewController: UIViewController {
     
     private func basicSetup() {
         view.backgroundColor = .Background
+        
+        let canvasImage = gardenCanvasViewModel.fetchCurrentDateCanvas(currentDate: selectedDate)
+        mainGardenCanvasView.image = canvasImage
     }
     
     private func stickerViewSetup() {
@@ -98,14 +96,6 @@ final class AddImageToCanvasViewController: UIViewController {
         gardenCanvasBackgroundView.snp.makeConstraints {
             $0.edges.equalTo(mainGardenCanvasView.snp.edges)
         }
-    }
-    
-    private func bindings() {
-        gardenCanvasViewModel.fetchCurrentDateCanvas(currentDate: selectedDate)
-            .asDriver()
-            .compactMap({ $0 })
-            .drive(mainGardenCanvasView.rx.image)
-            .disposed(by: disposeBag)
     }
 
     private func navigationItemSetup() {

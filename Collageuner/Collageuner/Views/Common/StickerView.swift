@@ -147,9 +147,9 @@ extension StickerView {
     }
     
     func hideExceptImage() {
-        self.gripImageView.isHidden = true
-        self.gripImageView.isUserInteractionEnabled = false
-        self.gripImageView.removeFromSuperview()
+        gripImageView.isHidden = true
+        gripImageView.isUserInteractionEnabled = false
+        gripImageView.removeFromSuperview()
     }
 }
 
