@@ -12,8 +12,6 @@
 		580D23D929B8560C00E8CBCE /* Anton-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 580D23D829B8560C00E8CBCE /* Anton-Regular.ttf */; };
 		580D23DA29B8560C00E8CBCE /* Anton-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 580D23D829B8560C00E8CBCE /* Anton-Regular.ttf */; };
 		580E63D32990C4A100A0762F /* TaskStoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580E63D22990C4A100A0762F /* TaskStoryCollectionViewCell.swift */; };
-		580E63D62990CD4F00A0762F /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = 580E63D52990CD4F00A0762F /* Differentiator */; };
-		580E63D82990CD4F00A0762F /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 580E63D72990CD4F00A0762F /* RxDataSources */; };
 		58101EE6298B8F65000C2671 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58101EE5298B8F65000C2671 /* Date+Extensions.swift */; };
 		5814EAFB298E3BDC006CDBFA /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5814EAFA298E3BDC006CDBFA /* UIImage+Extensions.swift */; };
 		581CC5242999222D007178B9 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581CC5232999222D007178B9 /* PlanViewController.swift */; };
@@ -203,12 +201,10 @@
 				5869507A2984BE6300FDFEC8 /* RealmSwift in Frameworks */,
 				586950782984BE6300FDFEC8 /* Realm in Frameworks */,
 				583966B8297E5BCA00B63E52 /* RxSwift in Frameworks */,
-				580E63D82990CD4F00A0762F /* RxDataSources in Frameworks */,
 				583966B6297E5BCA00B63E52 /* RxRelay in Frameworks */,
 				58781478296818580074FA56 /* SnapKit in Frameworks */,
 				5878147B296818680074FA56 /* Then in Frameworks */,
 				583966B4297E5BCA00B63E52 /* RxCocoa in Frameworks */,
-				580E63D62990CD4F00A0762F /* Differentiator in Frameworks */,
 				5878147E296818920074FA56 /* Lottie in Frameworks */,
 				58A41E70299B4A6E00036C59 /* FSCalendar in Frameworks */,
 			);
@@ -585,8 +581,6 @@
 				583966B7297E5BCA00B63E52 /* RxSwift */,
 				586950772984BE6300FDFEC8 /* Realm */,
 				586950792984BE6300FDFEC8 /* RealmSwift */,
-				580E63D52990CD4F00A0762F /* Differentiator */,
-				580E63D72990CD4F00A0762F /* RxDataSources */,
 				58A41E6F299B4A6E00036C59 /* FSCalendar */,
 			);
 			productName = Collageuner;
@@ -667,7 +661,6 @@
 				5878147C296818920074FA56 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				583966B2297E5BCA00B63E52 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				586950762984BE6300FDFEC8 /* XCRemoteSwiftPackageReference "realm-swift" */,
-				580E63D42990CD4F00A0762F /* XCRemoteSwiftPackageReference "RxDataSources" */,
 				58A41E6E299B4A6E00036C59 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = 5878144129680BE90074FA56 /* Products */;
@@ -972,7 +965,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.HappyOtter.Collageuner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1010,7 +1003,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.HappyOtter.Collageuner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1155,14 +1148,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		580E63D42990CD4F00A0762F /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
 		583966B2297E5BCA00B63E52 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift";
@@ -1214,16 +1199,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		580E63D52990CD4F00A0762F /* Differentiator */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 580E63D42990CD4F00A0762F /* XCRemoteSwiftPackageReference "RxDataSources" */;
-			productName = Differentiator;
-		};
-		580E63D72990CD4F00A0762F /* RxDataSources */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 580E63D42990CD4F00A0762F /* XCRemoteSwiftPackageReference "RxDataSources" */;
-			productName = RxDataSources;
-		};
 		583966B3297E5BCA00B63E52 /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 583966B2297E5BCA00B63E52 /* XCRemoteSwiftPackageReference "RxSwift" */;
