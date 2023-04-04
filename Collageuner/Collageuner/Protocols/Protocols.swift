@@ -25,3 +25,13 @@ protocol GarageViewDelegate: AnyObject {
     @objc optional func reloadTableViews()
     @objc optional func fetchImage(selectedImageData: Data)
 }
+
+protocol StickerViewDelegate {
+    func stickerViewDidBeginMoving(_ stickerView: StickerView)
+    func stickerViewDidChangeMoving(_ stickerView: StickerView)
+    func stickerViewDidEndMoving(_ stickerView: StickerView)
+    func stickerViewDidBeginRotating(_ stickerView: StickerView)
+    func stickerViewDidChangeRotating(_ stickerView: StickerView)
+    func stickerViewDidEndRotating(_ stickerView: StickerView)
+    func stickerViewDidTap(_ stickerView: StickerView)
+}

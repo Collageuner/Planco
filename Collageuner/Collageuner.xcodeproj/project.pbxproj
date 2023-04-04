@@ -12,8 +12,6 @@
 		580D23D929B8560C00E8CBCE /* Anton-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 580D23D829B8560C00E8CBCE /* Anton-Regular.ttf */; };
 		580D23DA29B8560C00E8CBCE /* Anton-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 580D23D829B8560C00E8CBCE /* Anton-Regular.ttf */; };
 		580E63D32990C4A100A0762F /* TaskStoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580E63D22990C4A100A0762F /* TaskStoryCollectionViewCell.swift */; };
-		580E63D62990CD4F00A0762F /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = 580E63D52990CD4F00A0762F /* Differentiator */; };
-		580E63D82990CD4F00A0762F /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 580E63D72990CD4F00A0762F /* RxDataSources */; };
 		58101EE6298B8F65000C2671 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58101EE5298B8F65000C2671 /* Date+Extensions.swift */; };
 		5814EAFB298E3BDC006CDBFA /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5814EAFA298E3BDC006CDBFA /* UIImage+Extensions.swift */; };
 		581CC5242999222D007178B9 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581CC5232999222D007178B9 /* PlanViewController.swift */; };
@@ -28,7 +26,6 @@
 		58305229298386E500E299C8 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58305228298386E500E299C8 /* ProfileViewModel.swift */; };
 		5830522B298386F400E299C8 /* TextConfigurationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830522A298386F400E299C8 /* TextConfigurationsViewModel.swift */; };
 		5830522D2983870400E299C8 /* GarageImagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830522C2983870400E299C8 /* GarageImagesViewModel.swift */; };
-		5830522F29839C5600E299C8 /* StickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5830522E29839C5600E299C8 /* StickerView.swift */; };
 		58396695297E367300B63E52 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58396694297E367300B63E52 /* String+Extensions.swift */; };
 		58396697297E386400B63E52 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58396696297E386400B63E52 /* UIFont+Extensions.swift */; };
 		5839669B297E398A00B63E52 /* EBGaramond-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 58396699297E398A00B63E52 /* EBGaramond-Italic-VariableFont_wght.ttf */; };
@@ -66,6 +63,7 @@
 		58781478296818580074FA56 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 58781477296818580074FA56 /* SnapKit */; };
 		5878147B296818680074FA56 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 5878147A296818680074FA56 /* Then */; };
 		5878147E296818920074FA56 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 5878147D296818920074FA56 /* Lottie */; };
+		588FD6D929D587F300252130 /* StickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588FD6D829D587F300252130 /* StickerView.swift */; };
 		5894B2B7296838B500263584 /* Identifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5894B2B6296838B500263584 /* Identifiers.swift */; };
 		589BE87B29CD476900C17F34 /* LongTappedPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589BE87A29CD476900C17F34 /* LongTappedPopUpView.swift */; };
 		58A3C6E429A901E20034C404 /* EmptyPlanTaskImage.json in Resources */ = {isa = PBXBuildFile; fileRef = 58A3C6E329A901E20034C404 /* EmptyPlanTaskImage.json */; };
@@ -84,6 +82,7 @@
 		58AF77192981269400A46B3D /* GarageImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF77182981269400A46B3D /* GarageImages.swift */; };
 		58B523B929B87C9D00FE0F17 /* HomePlanBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B523B829B87C9D00FE0F17 /* HomePlanBlockView.swift */; };
 		58BC4C6929BF747700AB2052 /* GarageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BC4C6829BF747700AB2052 /* GarageViewController.swift */; };
+		58BCC99129D169F2005EA9E6 /* AddImageToCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BCC99029D169F2005EA9E6 /* AddImageToCanvasViewController.swift */; };
 		58C85B1729C97A5500F4E38C /* SavingGarageView.json in Resources */ = {isa = PBXBuildFile; fileRef = 58C85B1629C97A5500F4E38C /* SavingGarageView.json */; };
 		58CA8E4029B746E4002440C6 /* BingCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CA8E3F29B746E4002440C6 /* BingCodes.swift */; };
 		58D9F53E29AC786F0009E907 /* GarageImageSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D9F53D29AC786F0009E907 /* GarageImageSheetViewController.swift */; };
@@ -135,7 +134,6 @@
 		58305228298386E500E299C8 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		5830522A298386F400E299C8 /* TextConfigurationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextConfigurationsViewModel.swift; sourceTree = "<group>"; };
 		5830522C2983870400E299C8 /* GarageImagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageImagesViewModel.swift; sourceTree = "<group>"; };
-		5830522E29839C5600E299C8 /* StickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerView.swift; sourceTree = "<group>"; };
 		58396694297E367300B63E52 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		58396696297E386400B63E52 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		58396699297E398A00B63E52 /* EBGaramond-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "EBGaramond-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; };
@@ -161,6 +159,7 @@
 		5878146329680BEA0074FA56 /* CollageunerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CollageunerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5878146729680BEA0074FA56 /* CollageunerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageunerUITests.swift; sourceTree = "<group>"; };
 		5878146929680BEA0074FA56 /* CollageunerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageunerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		588FD6D829D587F300252130 /* StickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerView.swift; sourceTree = "<group>"; };
 		5894B2B6296838B500263584 /* Identifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Identifiers.swift; path = Collageuner/Logics/Identifiers.swift; sourceTree = SOURCE_ROOT; };
 		589BE87A29CD476900C17F34 /* LongTappedPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTappedPopUpView.swift; sourceTree = "<group>"; };
 		58A3C6E329A901E20034C404 /* EmptyPlanTaskImage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EmptyPlanTaskImage.json; sourceTree = "<group>"; };
@@ -178,6 +177,7 @@
 		58AF77182981269400A46B3D /* GarageImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageImages.swift; sourceTree = "<group>"; };
 		58B523B829B87C9D00FE0F17 /* HomePlanBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePlanBlockView.swift; sourceTree = "<group>"; };
 		58BC4C6829BF747700AB2052 /* GarageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageViewController.swift; sourceTree = "<group>"; };
+		58BCC99029D169F2005EA9E6 /* AddImageToCanvasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageToCanvasViewController.swift; sourceTree = "<group>"; };
 		58C85B1629C97A5500F4E38C /* SavingGarageView.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SavingGarageView.json; sourceTree = "<group>"; };
 		58CA8E3F29B746E4002440C6 /* BingCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingCodes.swift; sourceTree = "<group>"; };
 		58D9F53D29AC786F0009E907 /* GarageImageSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageImageSheetViewController.swift; sourceTree = "<group>"; };
@@ -201,12 +201,10 @@
 				5869507A2984BE6300FDFEC8 /* RealmSwift in Frameworks */,
 				586950782984BE6300FDFEC8 /* Realm in Frameworks */,
 				583966B8297E5BCA00B63E52 /* RxSwift in Frameworks */,
-				580E63D82990CD4F00A0762F /* RxDataSources in Frameworks */,
 				583966B6297E5BCA00B63E52 /* RxRelay in Frameworks */,
 				58781478296818580074FA56 /* SnapKit in Frameworks */,
 				5878147B296818680074FA56 /* Then in Frameworks */,
 				583966B4297E5BCA00B63E52 /* RxCocoa in Frameworks */,
-				580E63D62990CD4F00A0762F /* Differentiator in Frameworks */,
 				5878147E296818920074FA56 /* Lottie in Frameworks */,
 				58A41E70299B4A6E00036C59 /* FSCalendar in Frameworks */,
 			);
@@ -270,11 +268,9 @@
 		581CC51F299921EE007178B9 /* Plan */ = {
 			isa = PBXGroup;
 			children = (
-				58A9EC0229D0275500E5F420 /* GalleryViewForCompleteTaskViewController.swift */,
-				58D9F53D29AC786F0009E907 /* GarageImageSheetViewController.swift */,
 				581CC5232999222D007178B9 /* PlanViewController.swift */,
-				5824E9EE29CDF76000B9A2A8 /* TaskCompleteImagePickerViewController.swift */,
 				58E8130529A70A57001EF12E /* AddPlan */,
+				587F36B329D1D12300A37F8F /* CompletePlan */,
 			);
 			path = Plan;
 			sourceTree = "<group>";
@@ -282,9 +278,9 @@
 		581CC520299921F8007178B9 /* Plan */ = {
 			isa = PBXGroup;
 			children = (
-				581CC52729992296007178B9 /* PlanTimeSectionHeaderView.swift */,
-				58ED69F7299A891000B2C859 /* PlanItemTableViewCell.swift */,
 				58A41E73299B69D600036C59 /* PlanFirstGuideView.swift */,
+				58ED69F7299A891000B2C859 /* PlanItemTableViewCell.swift */,
+				581CC52729992296007178B9 /* PlanTimeSectionHeaderView.swift */,
 				58E8130A29A7ABB7001EF12E /* AddPlan */,
 			);
 			path = Plan;
@@ -446,6 +442,27 @@
 			path = CollageunerUITests;
 			sourceTree = "<group>";
 		};
+		587F36B329D1D12300A37F8F /* CompletePlan */ = {
+			isa = PBXGroup;
+			children = (
+				58BCC99029D169F2005EA9E6 /* AddImageToCanvasViewController.swift */,
+				58A9EC0229D0275500E5F420 /* GalleryViewForCompleteTaskViewController.swift */,
+				58D9F53D29AC786F0009E907 /* GarageImageSheetViewController.swift */,
+				5824E9EE29CDF76000B9A2A8 /* TaskCompleteImagePickerViewController.swift */,
+			);
+			path = CompletePlan;
+			sourceTree = "<group>";
+		};
+		588FD6D729D5844600252130 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				58E8130B29A7ABDB001EF12E /* ModalCustomBarView.swift */,
+				58D9F54129ACA6E60009E907 /* AwaitLoadingView.swift */,
+				588FD6D829D587F300252130 /* StickerView.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		5894B2B02968387600263584 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -463,11 +480,11 @@
 		5894B2B12968387D00263584 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				588FD6D729D5844600252130 /* Common */,
 				582E7E8C29C1971000C87946 /* Garage */,
 				581CC52229992203007178B9 /* ProfileSetting */,
 				581CC520299921F8007178B9 /* Plan */,
 				583966B9297E5FBF00B63E52 /* Home */,
-				5830522E29839C5600E299C8 /* StickerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -522,9 +539,7 @@
 		58E8130A29A7ABB7001EF12E /* AddPlan */ = {
 			isa = PBXGroup;
 			children = (
-				58E8130B29A7ABDB001EF12E /* ModalCustomBarView.swift */,
 				58D9F53F29AC7FB90009E907 /* GarageItemsCollectionViewCell.swift */,
-				58D9F54129ACA6E60009E907 /* AwaitLoadingView.swift */,
 			);
 			path = AddPlan;
 			sourceTree = "<group>";
@@ -566,8 +581,6 @@
 				583966B7297E5BCA00B63E52 /* RxSwift */,
 				586950772984BE6300FDFEC8 /* Realm */,
 				586950792984BE6300FDFEC8 /* RealmSwift */,
-				580E63D52990CD4F00A0762F /* Differentiator */,
-				580E63D72990CD4F00A0762F /* RxDataSources */,
 				58A41E6F299B4A6E00036C59 /* FSCalendar */,
 			);
 			productName = Collageuner;
@@ -648,7 +661,6 @@
 				5878147C296818920074FA56 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				583966B2297E5BCA00B63E52 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				586950762984BE6300FDFEC8 /* XCRemoteSwiftPackageReference "realm-swift" */,
-				580E63D42990CD4F00A0762F /* XCRemoteSwiftPackageReference "RxDataSources" */,
 				58A41E6E299B4A6E00036C59 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = 5878144129680BE90074FA56 /* Products */;
@@ -744,10 +756,11 @@
 				58AF77172981245F00A46B3D /* TextConfigurations.swift in Sources */,
 				58AF77192981269400A46B3D /* GarageImages.swift in Sources */,
 				581CC5262999223E007178B9 /* ProfileSettingViewController.swift in Sources */,
+				588FD6D929D587F300252130 /* StickerView.swift in Sources */,
 				58D9F54229ACA6E60009E907 /* AwaitLoadingView.swift in Sources */,
 				585098D82997422E00BCC087 /* PlantsListCollectionViewCell.swift in Sources */,
 				5830522D2983870400E299C8 /* GarageImagesViewModel.swift in Sources */,
-				5830522F29839C5600E299C8 /* StickerView.swift in Sources */,
+				58BCC99129D169F2005EA9E6 /* AddImageToCanvasViewController.swift in Sources */,
 				58B523B929B87C9D00FE0F17 /* HomePlanBlockView.swift in Sources */,
 				5824E9EF29CDF76000B9A2A8 /* TaskCompleteImagePickerViewController.swift in Sources */,
 				586453A929C83F4E00B17FF6 /* ImageCacheManager.swift in Sources */,
@@ -939,6 +952,7 @@
 				DEVELOPMENT_TEAM = 98TYR8WM82;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Collageuner/AppDelegate/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Planco;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Selected Photo will be used in the App.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -951,7 +965,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.HappyOtter.Collageuner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -976,6 +990,7 @@
 				DEVELOPMENT_TEAM = 98TYR8WM82;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Collageuner/AppDelegate/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Planco;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Selected Photo will be used in the App.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -988,7 +1003,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.HappyOtter.Collageuner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1133,14 +1148,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		580E63D42990CD4F00A0762F /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
 		583966B2297E5BCA00B63E52 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift";
@@ -1192,16 +1199,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		580E63D52990CD4F00A0762F /* Differentiator */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 580E63D42990CD4F00A0762F /* XCRemoteSwiftPackageReference "RxDataSources" */;
-			productName = Differentiator;
-		};
-		580E63D72990CD4F00A0762F /* RxDataSources */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 580E63D42990CD4F00A0762F /* XCRemoteSwiftPackageReference "RxDataSources" */;
-			productName = RxDataSources;
-		};
 		583966B3297E5BCA00B63E52 /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 583966B2297E5BCA00B63E52 /* XCRemoteSwiftPackageReference "RxSwift" */;

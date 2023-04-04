@@ -18,6 +18,7 @@ import Then
 final class TaskCompleteImagePickerViewController: UIViewController {
 
     private var cellId: ObjectId!
+    private var selectedDate: Date!
     
     private var originalScale: CGAffineTransform!
     private lazy var halfDistanceBetweenButtons: CGFloat = view.frame.width/5.3
@@ -111,6 +112,11 @@ final class TaskCompleteImagePickerViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItemSetup()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     private func basicSetup() {
@@ -229,7 +235,7 @@ final class TaskCompleteImagePickerViewController: UIViewController {
         
         let okAction = UIAlertAction(title: "확인", style: .cancel) { [weak self] _ in
             self?.saveTaskDoneWithoutImage()
-            self?.dismiss(animated: true)
+            self?.navigationController?.popViewController(animated: true)
         }
         let cancelAction = UIAlertAction(title: "취소", style: .destructive, handler: nil)
         
@@ -263,13 +269,11 @@ final class TaskCompleteImagePickerViewController: UIViewController {
         if taskImageSubject.value == nil {
             alertWhenNoImageIsSelected()
         } else {
-            let tempVC = ProfileSettingViewController()
-            self.navigationController?.pushViewController(tempVC, animated: true)
-            // let newVC = UIViewController()
-            // 1. relay.value 넘기는 함수 받기
-            // 2. cellId 도 똑같이 넘기기
-            // 3. 네비로 넘기기
-            // 그러면... 다시 돌아와도... 그 뭐냐 저거 남아있으려나 value..?
+            let addImageToCanvasVC = AddImageToCanvasViewController()
+            addImageToCanvasVC.saveCellId(id: cellId)
+            addImageToCanvasVC.saveSelectedDate(date: selectedDate)
+            addImageToCanvasVC.passSelectedImage(image: taskImageSubject.value)
+            self.navigationController?.pushViewController(addImageToCanvasVC, animated: true)
         }
     }
     
@@ -281,6 +285,10 @@ final class TaskCompleteImagePickerViewController: UIViewController {
 extension TaskCompleteImagePickerViewController {
     func saveCellId(id: ObjectId) {
         cellId = id
+    }
+    
+    func saveSelectedDate(date: Date) {
+        selectedDate = date
     }
 }
 

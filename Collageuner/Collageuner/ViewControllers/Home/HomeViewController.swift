@@ -52,12 +52,8 @@ final class HomeViewController: UIViewController {
     
     // MARK: - Garden Canvas Components
     private let mainGardenCanvasView = UIImageView().then {
-        $0.backgroundColor = .white
+        $0.backgroundColor = .clear
         $0.contentMode = .scaleAspectFill
-        $0.layer.borderColor = UIColor.black.withAlphaComponent(0.6).cgColor
-        $0.layer.borderWidth = 0
-        $0.image = UIImage().withAlignmentRectInsets(UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10))
-        $0.clipsToBounds = true
     }
     
     // MARK: - Plan Blocks Components
@@ -254,6 +250,7 @@ extension HomeViewController {
     private func actions() {
     }
     
+    /// 여기 loadGardenCanvasFromDirectory 없애야함
     private func bindCanvas() {
         gardenCanvasViewModel.currentGardenCanvas
             .asDriver()
@@ -325,7 +322,7 @@ extension HomeViewController {
         let fileManager = FileManager.default
         guard let thumbnailDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: DirectoryForWritingData.GardenOriginalImages.dataDirectory) else {
             print("Failed fetching directory for Images for Garden Image")
-            return UIImage(named: "DefaultGardenCanvas")
+            return UIImage(named: "DefaultCanvasImage")
         }
         
         let imageURL = thumbnailDirectoryURL.appending(component: "\(imageName).png")
@@ -340,6 +337,6 @@ extension HomeViewController {
         }
         
         print("Returning Default Image.")
-        return UIImage(named: "DefaultGardenCanvas")
+        return UIImage(named: "DefaultCanvasImage")
     }
 }

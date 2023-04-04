@@ -457,8 +457,14 @@ extension PlanViewController: UITableViewDelegate  {
         let cellId = cell.fetchCellTaskId()
         
         let checkAction = UIContextualAction(style: .normal, title: nil) { [weak self] (action, view, completionHandler) in
-            self?.plansViewModel.updatePlanCompleted(id: cellId)
-            tableView.reloadRows(at: [indexPath], with: .right)
+            let taskImagePickerVC = TaskCompleteImagePickerViewController()
+            
+            taskImagePickerVC.saveCellId(id: cellId)
+            taskImagePickerVC.saveSelectedDate(date: self?.currentDate ?? Date())
+            taskImagePickerVC.delegate = self
+            self?.navigationController?.pushViewController(taskImagePickerVC, animated: true)
+//            self?.plansViewModel.updatePlanCompleted(id: cellId)
+//            tableView.reloadRows(at: [indexPath], with: .right)
             completionHandler(true)
         }
 

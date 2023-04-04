@@ -24,14 +24,19 @@ final class GardenCanvasViewModel {
     init(currentDate: Date) {
         let dateKey: String = Date.dateToYearAndMonth(date: currentDate)
         
-        guard let realmResult = myGardenCanvasRealm.objects(GardenCanvas.self).filter(NSPredicate(format: "monthAndYear = %@", dateKey)).first else {
+        if let realmResult = myGardenCanvasRealm.objects(GardenCanvas.self).filter(NSPredicate(format: "monthAndYear = %@", dateKey)).first {
+            _ = Observable.just(realmResult)
+                .bind(to: currentGardenCanvas)
+                .disposed(by: disposeBag)
+        } else {
             print("⚠️ Failed To Fetch GardenCanvas")
-            return
+            print("❇️ Saving this month's fresh Canvas")
+            saveCurrentCanvas(modifiedCanvasImage: UIImage(named: "DefaultCanvasImage") ?? UIImage(), backgroundColor: .Background, date: currentDate)
+            guard let newRealmResult = myGardenCanvasRealm.objects(GardenCanvas.self).filter(NSPredicate(format: "monthAndYear = %@", dateKey)).first else { return }
+            _ = Observable.just(newRealmResult)
+                .bind(to: currentGardenCanvas)
+                .disposed(by: disposeBag)
         }
-        
-        _ = Observable.just(realmResult)
-            .bind(to: currentGardenCanvas)
-            .disposed(by: disposeBag)
     }
     
     /// Get array of Canvas Thumbnail Images of the year.
@@ -85,10 +90,39 @@ final class GardenCanvasViewModel {
             .disposed(by: disposeBag)
     }
     
+    func fetchCurrentDateCanvas(currentDate: Date) -> UIImage {
+        let dateKey: String = Date.dateToYearAndMonth(date: currentDate)
+        guard let fetchedCanvasImage =  loadGardenCanvasFromDirectory(imageName: dateKey) else { return UIImage(named: "DefaultCanvasImage") ?? UIImage() }
+        
+        return fetchedCanvasImage
+    }
+    
     private func dateToYear(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yy"
         
         return dateFormatter.string(from: date)
+    }
+    
+    private func loadGardenCanvasFromDirectory(imageName: String) -> UIImage? {
+        let fileManager = FileManager.default
+        guard let thumbnailDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: DirectoryForWritingData.GardenOriginalImages.dataDirectory) else {
+            print("Failed fetching directory for Images for Garden Image")
+            return UIImage(named: "DefaultCanvasImage")
+        }
+        
+        let imageURL = thumbnailDirectoryURL.appending(component: "\(imageName)_Canvas.png")
+        
+        do {
+            let imageData = try Data(contentsOf: imageURL)
+            print("Succeeded fetching Garden Canvas Images")
+            return UIImage(data: imageData)
+        } catch let error {
+            print("Failed fetching Images for Garden Image")
+            print(error)
+        }
+        
+        print("Returning Default Image.")
+        return UIImage(named: "DefaultCanvasImage")
     }
 }

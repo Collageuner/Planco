@@ -183,7 +183,7 @@ final class GardenListSheetViewController: UIViewController {
         let fileManager = FileManager.default
         guard let thumbnailDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: DirectoryForWritingData.GardenThumbnailImages.dataDirectory) else {
             print("Failed fetching directory for Thumbnail Images for Garden List")
-            return UIImage(named: "DefaultGardenCanvas")
+            return UIImage(named: "DefaultCanvasImage")
         }
         let imageURL = thumbnailDirectoryURL.appending(component: "Thumbnail_\(imageName).png")
         
@@ -197,7 +197,7 @@ final class GardenListSheetViewController: UIViewController {
         }
         
         print("Returning Default Image.")
-        return UIImage(named: "DefaultGardenCanvas")
+        return UIImage(named: "DefaultCanvasImage")
     }
     
     /// Returns -> Year in Full ex) 2023, 2024
