@@ -89,7 +89,7 @@ final class AddPlanViewController: UIViewController {
         $0.keyboardType = .default
         $0.font = .customVersatileFont(.bold, forTextStyle: .body)
         $0.textColor = .MainText
-        $0.attributedPlaceholder = NSAttributedString(string: " 가장 중요한 일을 적어주세요.", attributes: [NSAttributedString.Key.foregroundColor : UIColor.SubGray.withAlphaComponent(0.5), NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15, weight: .medium)])
+        $0.attributedPlaceholder = NSAttributedString(string: " 오늘 해야할 중요한 일을 적어주세요.", attributes: [NSAttributedString.Key.foregroundColor : UIColor.SubGray.withAlphaComponent(0.5), NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15, weight: .medium)])
     }
     
     private let lineDividerOne = UIView().then {
@@ -111,7 +111,7 @@ final class AddPlanViewController: UIViewController {
         $0.returnKeyType = .done
         $0.keyboardType = .default
         $0.font = .customVersatileFont(.semibold, forTextStyle: .callout)
-        $0.attributedPlaceholder = NSAttributedString(string: " 이 일을 생각하면 떠오르는 감정은요?", attributes: [NSAttributedString.Key.foregroundColor : UIColor.SubGray.withAlphaComponent(0.5), NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15, weight: .regular)])
+        $0.attributedPlaceholder = NSAttributedString(string: " 이 일을 생각하면 떠오르는 생각이나 감정은요?", attributes: [NSAttributedString.Key.foregroundColor : UIColor.SubGray.withAlphaComponent(0.5), NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15, weight: .regular)])
         $0.textColor = .SubText
     }
     
