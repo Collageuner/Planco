@@ -20,8 +20,11 @@ final class AddImageToCanvasViewController: UIViewController {
     private var selectedImage: UIImage!
     private var selectedStickerView: StickerView?
     
+    weak var delegate: AddPlanDelegate?
+    
     var disposeBag = DisposeBag()
     private let gardenCanvasViewModel = GardenCanvasViewModel(currentDate: Date())
+    private let planTaskViewModel = PlansTableItemViewModel()
 
     private let mainLabel = UILabel().then {
         $0.font = .customEnglishFont(.regular, forTextStyle: .title1)
@@ -38,7 +41,7 @@ final class AddImageToCanvasViewController: UIViewController {
         $0.contentMode = .scaleAspectFit
         $0.layer.masksToBounds = true
         $0.isUserInteractionEnabled = true
-        $0.backgroundColor = .systemBlue
+        $0.backgroundColor = .clear
     }
     
     override func viewDidLoad() {
@@ -106,7 +109,19 @@ final class AddImageToCanvasViewController: UIViewController {
     
     @objc
     private func finishSaving() {
-//        selectedStickerView?.hideExceptImage()
+        selectedStickerView?.hideExceptImage()
+        
+        guard let newCanvasData = mainGardenCanvasView.saveCanvasViewsIntoPngData() else { return }
+        guard let newCanvasPngImage = UIImage(data: newCanvasData) else { return }
+        gardenCanvasViewModel.saveCurrentCanvas(modifiedCanvasImage: newCanvasPngImage, backgroundColor: .clear, date: selectedDate)
+        planTaskViewModel.updatePlanCompleted(id: cellId)
+        guard let viewControllers = self.navigationController?.viewControllers else { return }
+        viewControllers.forEach {
+            if let planVC = $0 as? PlanViewController {
+                planVC.reloadTableViews()
+                self.navigationController?.popToViewController(planVC, animated: true)
+            }
+        }
     }
     
     deinit {
