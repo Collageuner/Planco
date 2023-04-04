@@ -22,11 +22,24 @@ extension UIView {
         }
         // 메모리 peak 에 대해서도 한번 살펴봐보자. 분기를 나눴던 코드에 대해서는 괜찮았는데, 바로 이 코드를 사용해보니
         // self.drawHierarchy(in: self.bounds, afterScreenUpdates: true) 를 쓰다가 안됐는데 이걸 쓰니깐 잘 된다. drawHierarchy 를 검색해보자.
+        /// What about like this?
+        // let image = renderer.image { rendererContext in
+        //      layer.render(in: rendererContext.cgContext)
+        // }
+        // return = image.pngData
     }
     
     /*
      To change the sequence of subviews in a parent view in Swift, you can use the insertSubview(_:at:), exchangeSubview(at:withSubviewAt:), bringSubviewToFront(_:), and sendSubviewToBack(_:) methods provided by the UIView class.
      */
+    
+    func saveCanvasViewsIntoPngData() -> Data? {
+        let renderer = UIGraphicsImageRenderer(size: self.bounds.size)
+        let data = renderer.pngData { ctx in
+            self.drawHierarchy(in: self.bounds, afterScreenUpdates: true)
+        }
+        return data
+    }
 }
 
 #if canImport(SwiftUI) && DEBUG
