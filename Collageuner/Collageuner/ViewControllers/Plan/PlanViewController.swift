@@ -481,7 +481,6 @@ extension PlanViewController: UITableViewDelegate  {
     // MARK: - Extension for Custom Delegate for updating TableViews
 extension PlanViewController: AddPlanDelegate {
     func reloadTableViews() {
-        print(currentDate)
         plansViewModel.updateTableView(date: currentDate)
         updateTableHeight()
         updateSectionView()

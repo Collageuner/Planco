@@ -52,11 +52,8 @@ final class HomeViewController: UIViewController {
     
     // MARK: - Garden Canvas Components
     private let mainGardenCanvasView = UIImageView().then {
-        $0.backgroundColor = .white
+        $0.backgroundColor = .clear
         $0.contentMode = .scaleAspectFill
-        $0.layer.borderColor = UIColor.black.withAlphaComponent(0.6).cgColor
-        $0.layer.borderWidth = 0
-        $0.image = UIImage().withAlignmentRectInsets(UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10))
     }
     
     // MARK: - Plan Blocks Components
