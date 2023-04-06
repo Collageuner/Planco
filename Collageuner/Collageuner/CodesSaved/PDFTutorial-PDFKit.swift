@@ -9,6 +9,15 @@
 import UIKit
 import PDFKit
 
+public func saveImageToCanvasImagePDF(canvasImage image: UIImage) {
+    let fileManager = FileManager.default
+    guard let originalDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: DirectoryForWritingData.GardenOriginalImages.dataDirectory) else {
+        print("Failed fetching directory for Images for Garden Image")
+        return
+    }
+    
+    
+}
 let documentURL = URL(string: "") // URL to your PDF document.
 
 // Create a `PDFDocument` object using the URL.
