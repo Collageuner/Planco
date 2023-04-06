@@ -52,6 +52,8 @@
 		586950782984BE6300FDFEC8 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 586950772984BE6300FDFEC8 /* Realm */; };
 		5869507A2984BE6300FDFEC8 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 586950792984BE6300FDFEC8 /* RealmSwift */; };
 		586E19222988D521000D6C84 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586E19212988D521000D6C84 /* Protocols.swift */; };
+		586FE34729DE9A6900DCDECE /* PDFTutorial-PDFKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586FE34629DE9A6900DCDECE /* PDFTutorial-PDFKit.swift */; };
+		586FE34929DEA0AA00DCDECE /* PDFTutorial-CG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586FE34829DEA0AA00DCDECE /* PDFTutorial-CG.swift */; };
 		5878144429680BE90074FA56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5878144329680BE90074FA56 /* AppDelegate.swift */; };
 		5878144629680BE90074FA56 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5878144529680BE90074FA56 /* SceneDelegate.swift */; };
 		5878144829680BE90074FA56 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5878144729680BE90074FA56 /* HomeViewController.swift */; };
@@ -147,6 +149,8 @@
 		585BB0FD2994B00E00EF01DA /* Optional+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Extensions.swift"; sourceTree = "<group>"; };
 		586453A829C83F4E00B17FF6 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		586E19212988D521000D6C84 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		586FE34629DE9A6900DCDECE /* PDFTutorial-PDFKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFTutorial-PDFKit.swift"; sourceTree = "<group>"; };
+		586FE34829DEA0AA00DCDECE /* PDFTutorial-CG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFTutorial-CG.swift"; sourceTree = "<group>"; };
 		5878144029680BE90074FA56 /* Collageuner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Collageuner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5878144329680BE90074FA56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5878144529680BE90074FA56 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -243,6 +247,8 @@
 				58F1C41529961F42000071BC /* CodesSaved.swift */,
 				58CA8E3F29B746E4002440C6 /* BingCodes.swift */,
 				580D23D629B850DE00E8CBCE /* V1.0.0Codes.swift */,
+				586FE34629DE9A6900DCDECE /* PDFTutorial-PDFKit.swift */,
+				586FE34829DEA0AA00DCDECE /* PDFTutorial-CG.swift */,
 			);
 			path = CodesSaved;
 			sourceTree = "<group>";
@@ -726,6 +732,7 @@
 				5878144429680BE90074FA56 /* AppDelegate.swift in Sources */,
 				5878144629680BE90074FA56 /* SceneDelegate.swift in Sources */,
 				5830522B298386F400E299C8 /* TextConfigurationsViewModel.swift in Sources */,
+				586FE34929DEA0AA00DCDECE /* PDFTutorial-CG.swift in Sources */,
 				58CA8E4029B746E4002440C6 /* BingCodes.swift in Sources */,
 				585BB0FE2994B00E00EF01DA /* Optional+Extensions.swift in Sources */,
 				58305229298386E500E299C8 /* ProfileViewModel.swift in Sources */,
@@ -760,6 +767,7 @@
 				58D9F54229ACA6E60009E907 /* AwaitLoadingView.swift in Sources */,
 				585098D82997422E00BCC087 /* PlantsListCollectionViewCell.swift in Sources */,
 				5830522D2983870400E299C8 /* GarageImagesViewModel.swift in Sources */,
+				586FE34729DE9A6900DCDECE /* PDFTutorial-PDFKit.swift in Sources */,
 				58BCC99129D169F2005EA9E6 /* AddImageToCanvasViewController.swift in Sources */,
 				58B523B929B87C9D00FE0F17 /* HomePlanBlockView.swift in Sources */,
 				5824E9EF29CDF76000B9A2A8 /* TaskCompleteImagePickerViewController.swift in Sources */,

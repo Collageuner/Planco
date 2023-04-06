@@ -106,12 +106,12 @@ final class GardenCanvasViewModel {
     
     private func loadGardenCanvasFromDirectory(imageName: String) -> UIImage? {
         let fileManager = FileManager.default
-        guard let thumbnailDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: DirectoryForWritingData.GardenOriginalImages.dataDirectory) else {
+        guard let originalDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: DirectoryForWritingData.GardenOriginalImages.dataDirectory) else {
             print("Failed fetching directory for Images for Garden Image")
             return UIImage(named: "DefaultCanvasImage")
         }
         
-        let imageURL = thumbnailDirectoryURL.appending(component: "\(imageName)_Canvas.png")
+        let imageURL = originalDirectoryURL.appending(component: "\(imageName)_Canvas.png")
         
         do {
             let imageData = try Data(contentsOf: imageURL)

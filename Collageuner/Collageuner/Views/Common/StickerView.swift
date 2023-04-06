@@ -11,7 +11,7 @@ import SnapKit
 import Then
 
 final class StickerView: UIView {
-    var delegate: StickerViewDelegate?
+    weak var delegate: StickerViewDelegate?
     var contentView: UIView!
     
     private var minimumSizeZero: Int = 0
@@ -85,6 +85,7 @@ extension StickerView {
     @objc
     private func handleMoveGesture(_ recognizer :UIPanGestureRecognizer) {
         let touchLocation = recognizer.location(in: self.superview)
+        print(self.frame.midX, self.frame.midY)
         switch recognizer.state {
         case .began:
             self.beginningPoint = touchLocation

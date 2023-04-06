@@ -38,7 +38,7 @@ final class AddImageToCanvasViewController: UIViewController {
     }
     
     private let mainGardenCanvasView = UIImageView().then {
-        $0.contentMode = .scaleAspectFit
+        $0.contentMode = .scaleAspectFill
         $0.layer.masksToBounds = true
         $0.isUserInteractionEnabled = true
         $0.backgroundColor = .clear
@@ -77,8 +77,10 @@ final class AddImageToCanvasViewController: UIViewController {
         stickerView.delegate = self
         
         mainGardenCanvasView.addSubview(stickerView)
-        stickerView.center = CGPoint(x: view.frame.width/2, y: view.frame.height/2 - imageHeightWithScale)
-        
+        print(mainGardenCanvasView.bounds.minX, mainGardenCanvasView.bounds.minY)
+        stickerView.center = CGPoint(x: mainGardenCanvasView.bounds.minX, y: mainGardenCanvasView.bounds.midY)
+//        CGPoint(x: view.frame.width/2, y: view.frame.height/2 - imageHeightWithScale)
+        print(stickerView.center)
         self.selectedStickerView = stickerView
     }
     
@@ -111,7 +113,7 @@ final class AddImageToCanvasViewController: UIViewController {
     private func finishSaving() {
         selectedStickerView?.hideExceptImage()
         
-        guard let newCanvasData = mainGardenCanvasView.saveCanvasViewsIntoPngData() else { return }
+        guard let newCanvasData = mainGardenCanvasView.asImage() else { return }
         guard let newCanvasPngImage = UIImage(data: newCanvasData) else { return }
         gardenCanvasViewModel.saveCurrentCanvas(modifiedCanvasImage: newCanvasPngImage, backgroundColor: .clear, date: selectedDate)
         planTaskViewModel.updatePlanCompleted(id: cellId)

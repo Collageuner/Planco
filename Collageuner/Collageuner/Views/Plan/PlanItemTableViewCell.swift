@@ -8,15 +8,10 @@
 import UIKit
 
 import RealmSwift
-import RxCocoa
-import RxSwift
 import SnapKit
 import Then
 
 final class PlanItemTableViewCell: UITableViewCell {
-    
-    var disposeBag = DisposeBag()
-    
     private var cellTaskId: ObjectId = ObjectId()
     private var isPlanCompleted: Bool = false
     private var isPlanExpired: Bool = false

@@ -15,18 +15,19 @@ extension UIView {
     }
     
     // View 를 저장하나의 이미지로 저장하는 방법
-    func asImage() -> UIImage {
+    /// Way Better Quality than using UIGraphicsImageRenderer to make Png out of UIView
+    /// 차이점은 색영역. 인것 같음. sRGB -> DP3 로 바뀜.
+    /// 근데 화질은 2배임
+    /// 이제 PDF 만 테스트하면됨
+    func asImage() -> Data? {
         let renderer = UIGraphicsImageRenderer(bounds: bounds)
-        return renderer.image { rendererContext in
-            layer.render(in: rendererContext.cgContext)
+        let image = renderer.image { renderContext in
+            layer.render(in: renderContext.cgContext)
         }
+        
+        return image.pngData()
         // 메모리 peak 에 대해서도 한번 살펴봐보자. 분기를 나눴던 코드에 대해서는 괜찮았는데, 바로 이 코드를 사용해보니
         // self.drawHierarchy(in: self.bounds, afterScreenUpdates: true) 를 쓰다가 안됐는데 이걸 쓰니깐 잘 된다. drawHierarchy 를 검색해보자.
-        /// What about like this?
-        // let image = renderer.image { rendererContext in
-        //      layer.render(in: rendererContext.cgContext)
-        // }
-        // return = image.pngData
     }
     
     /*

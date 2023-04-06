@@ -250,17 +250,10 @@ extension HomeViewController {
     private func actions() {
     }
     
-    /// 여기 loadGardenCanvasFromDirectory 없애야함
     private func bindCanvas() {
-        gardenCanvasViewModel.currentGardenCanvas
-            .asDriver()
-            .map { [weak self] canvas in
-                let imageName: String = canvas.monthAndYear + "_Canvas"
-                let canvasFetched: UIImage? = self?.loadGardenCanvasFromDirectory(imageName: imageName)
-                return canvasFetched
-            }
-            .drive(mainGardenCanvasView.rx.image)
-            .disposed(by: disposeBag)
+        let canvasImage: UIImage = gardenCanvasViewModel.fetchCurrentDateCanvas(currentDate: Date())
+        // PDF를 그대로 사용가능한지 테스트함. 가능함
+        mainGardenCanvasView.image = UIImage(named: "DefaultCanvasImagePDF")
     }
     
     private func bindPlanBlock() {

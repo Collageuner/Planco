@@ -39,6 +39,17 @@ enum IdsForCollectionView: String, CaseIterable {
     }
 }
 
+enum IdsForTableView {
+    case ProfleTableView
+    
+    var identifier: String {
+        switch self {
+        case .ProfleTableView:
+            return "profileList"
+        }
+    }
+}
+
 enum DirectoryForWritingData: String, CaseIterable {
     case GarageOriginalImages
     case GarageThumbnailImages
