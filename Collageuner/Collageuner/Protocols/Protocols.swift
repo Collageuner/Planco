@@ -26,7 +26,7 @@ protocol GarageViewDelegate: AnyObject {
     @objc optional func fetchImage(selectedImageData: Data)
 }
 
-protocol StickerViewDelegate {
+protocol StickerViewDelegate: AnyObject {
     func stickerViewDidBeginMoving(_ stickerView: StickerView)
     func stickerViewDidChangeMoving(_ stickerView: StickerView)
     func stickerViewDidEndMoving(_ stickerView: StickerView)
