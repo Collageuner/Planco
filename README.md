@@ -1,5 +1,12 @@
 # Planco
 
+## 1인 개발을 하며 느낀 점
+### 기획, 디자인, 개발까지... 정리! -> 노션!!
+[노션 링크](https://ggshim.notion.site/1-7c2ed0e5198749a6989a169435bbb07e?pvs=4)
+
+## 작업 기간
+[2023.01 ~ 2023.04]
+
 ## Screen Shots
 <img width="1000" alt="background" src="https://github.com/Collageuner/Planco/assets/89404664/512fac81-6c05-454b-8c3b-7e50dc2cd201">
 
